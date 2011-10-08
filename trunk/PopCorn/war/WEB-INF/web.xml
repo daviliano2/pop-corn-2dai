@@ -17,8 +17,17 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
         <servlet-class>popcorn.SignPopCornServlet</servlet-class>
     </servlet>
     <servlet-mapping>
+    
         <servlet-name>sign</servlet-name>
         <url-pattern>/sign</url-pattern>
+    </servlet-mapping>
+    <servlet>
+    	<servlet-name>Rating</servlet-name>
+        <servlet-class>popcorn.RatingPopCornServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Rating</servlet-name>
+        <url-pattern>/rating</url-pattern>
     </servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>popcorn.jsp</welcome-file>
