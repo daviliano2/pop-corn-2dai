@@ -22,7 +22,9 @@ public class SignPopCornServlet extends HttpServlet {
                 throws IOException {
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
-        
+        if(user == null) {
+        	resp.sendRedirect("popcorn.jsp");
+        }
 	    String content = req.getParameter("content");
 	    Date date = new Date();
 	    Comentario comentario = new Comentario(user, content, date);
