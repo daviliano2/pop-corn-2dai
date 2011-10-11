@@ -6,37 +6,27 @@
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
-<%@ page import="popcorn.Comentario" %>
-<%@ page import="popcorn.EMF" %>
+<%@ page import="popcorn.*" %>
 
 <html>
 <head>
     <link type="text/html" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/ui.stars.css" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/ui.stars.min.js"></script>
-    
+    <script type="text/javascript" src="js/star_rating.js"></script>
     <script type="text/javascript">
-    $(function(){
-        $("#ratings").children().not(":radio").hide(); //Escondemos todo el contenido exceptuando los radios.
-        $("#ratings").stars({
-            oneVoteOnly: true, //Este parámetro sirve para que una vez pulsada alguna estrella haga el submit.
-            split: 2, //Dividimos las estrellas en medios 
-        });
-    });
-</script>
-<style type="text/css">
-td
-{
-border-style:solid;
-border-color:black;
-border-bottom-width:15px;
-}
-</style>
-  </head>
-
-  <body>
+    	function mostrar_voto() {
+    		document.getElementById("ratings").value = 3;
+    	}
+	</script>
+	<style type="text/css">
+	td
+	{
+		border-style:solid;
+		border-color:black;
+		border-bottom-width:15px;
+	}
+	</style>
+</head>
+<body>
 
 <%
     UserService userService = UserServiceFactory.getUserService();
@@ -67,20 +57,33 @@ para poder postear.</p>
 					<td width="50%" align="center">
 						<img src="http://1.bp.blogspot.com/-FveumGp8cE8/Tmjzwc4cTlI/AAAAAAAAAPI/ARSTv5OktM4/s640/la-deuda-espana.jpg">
 						<br>
-						<p>Tu valoración:</p> 
+						<p>Tu valoración:</p>
+						<form id="ratings" action="/rating" method="get" style="margin-left: 5px;"> 
+						<!--   <% //EntityManager em2 = EMF.get().createEntityManager();
 						
-						<form id="ratings" action="/rating" method="post" style="margin-left: 5px;">
-    						<input type="radio" name="rate" value="0.5" id="rate1" />
-     						<input type="radio" name="rate" value="1" id="rate2" />
-     						<input type="radio" name="rate" value="1.5" id="rate3" />
-      						<input type="radio" name="rate" value="2" id="rate4" />
-      						<input type="radio" name="rate" value="2.5" id="rate5" />
-      						<input type="radio" name="rate" value="3" id="rate1" />
-      						<input type="radio" name="rate" value="3.5" id="rate2" />
-      						<input type="radio" name="rate" value="4" id="rate3" />
-      						<input type="radio" name="rate" value="4.5" id="rate4" />
-      						<input type="radio" name="rate" value="5" id="rate5" />
-      						<div><input type="submit"/></div>
+						//String query2 = "SELECT FROM popcorn.Valoracion";
+						//Query consulta2 = em2.createQuery(query2);
+						//List<Valoracion> val = (List<Valoracion>) consulta2.getResultList();
+						//Double i = new Double(0);
+						
+						//for(i=0.5;i<=5;i+=0.5){
+							//if(v.getAuthor().compareTo(user) == 0 && v.getRate().equals(i.toString())){
+								//	out.println("<input type='radio' name='rate' checked='checked' value=" + i  + "  />") ;
+								
+							//} else {
+								//out.println("<input type='radio' name='rate' value=" + i  + "  />") ;
+							//}
+						//}
+						%>
+    						-->
+    						<img id="img1" onmouseover="Show1()" onclick="ShowRate1()" onmouseout="Hide1()" alt="" src="Image/Star1.jpg" width="20" />
+    						<img id="img2" onmouseover="Show2()" onclick="ShowRate2()" onmouseout="Hide2()" alt="" src="Image/Star1.jpg" width="20" />
+    						<img id="img3" onmouseover="Show3()" onclick="ShowRate3()" onmouseout="Hide3()" alt="" src="Image/Star1.jpg" width="20" />
+    						<img id="img4" onmouseover="Show4()" onclick="ShowRate4()" onmouseout="Hide4()" alt="" src="Image/Star1.jpg" width="20" />
+    						<img id="img5" onmouseover="Show5()" onclick="ShowRate5()"  alt="" src="Image/Star1.jpg" width="20" />&nbsp;
+    						<br />
+    						<br />
+ 							<div><input type="submit" hidden="" /></div>
     					</form>
     					<br>
     					<br>
@@ -136,10 +139,8 @@ para poder postear.</p>
 						<%
             					} else {
 						%>		
-									<center>
-									<p><b><%= c.getAuthor().getNickname() %></b> wrote:</p>
-									<blockquote><%= c.getContent() %></blockquote>
-									</center>
+									<p align="center"><b><%= c.getAuthor().getNickname() %></b> wrote:</p>
+									<blockquote style="text-align: center;"><%= c.getContent() %></blockquote>
 						<%
            						}
 						%>
@@ -151,6 +152,11 @@ para poder postear.</p>
    						%>
    					</td>
 				</tr>
+				<tr>
+					<td>
+						
+  					</td>
+				</tr>					
 			</table>
 		</td>
 	</tr>
