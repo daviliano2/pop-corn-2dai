@@ -28,7 +28,7 @@ public class RatingPopCornServlet extends HttpServlet {
 	}finally {
 		em.close();
 	}
-	resp.sendRedirect("popcorn.jsp");
+	//resp.sendRedirect("popcorn.jsp");
 	}
     
 }
