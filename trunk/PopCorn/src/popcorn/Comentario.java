@@ -1,6 +1,7 @@
 package popcorn;
 
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,11 +13,11 @@ public class Comentario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
+	@Basic
     private User author;
-
+	@Basic
     private String content;
-
+	@Basic
     private Date date;
 
     public Comentario(User author, String content, Date date) {

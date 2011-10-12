@@ -57,9 +57,10 @@ para poder postear.</p>
 					<td width="50%" align="center">
 						<img src="http://1.bp.blogspot.com/-FveumGp8cE8/Tmjzwc4cTlI/AAAAAAAAAPI/ARSTv5OktM4/s640/la-deuda-espana.jpg">
 						<br>
-						<p>Tu valoración:</p>
-						<form id="ratings" action="/rating" method="get" style="margin-left: 5px;"> 
-						<!--   <% //EntityManager em2 = EMF.get().createEntityManager();
+					  	<p>Tu valoración:</p>
+					  	<a href="rating_popcorn.jsp" >Ir a votar</a>
+					<!--  <form id="ratings" action="/rating" method="get" style="margin-left: 5px;"> 
+						  <% //EntityManager em2 = EMF.get().createEntityManager();
 						
 						//String query2 = "SELECT FROM popcorn.Valoracion";
 						//Query consulta2 = em2.createQuery(query2);
@@ -75,7 +76,7 @@ para poder postear.</p>
 							//}
 						//}
 						%>
-    						-->
+    						
     						<img id="img1" onmouseover="Show1()" onclick="ShowRate1()" onmouseout="Hide1()" alt="" src="Image/Star1.jpg" width="20" />
     						<img id="img2" onmouseover="Show2()" onclick="ShowRate2()" onmouseout="Hide2()" alt="" src="Image/Star1.jpg" width="20" />
     						<img id="img3" onmouseover="Show3()" onclick="ShowRate3()" onmouseout="Hide3()" alt="" src="Image/Star1.jpg" width="20" />
@@ -87,7 +88,7 @@ para poder postear.</p>
     					</form>
     					<br>
     					<br>
-    					<br>
+    					<br> -->
 					</td>
 					<td align="center" width="50%">
 						<form action="/sign" method="post">
@@ -138,12 +139,23 @@ para poder postear.</p>
 									<p align="center"><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Inicia sesion </a>para comentar</p>
 						<%
             					} else {
-						%>		
-									<p align="center"><b><%= c.getAuthor().getNickname() %></b> wrote:</p>
-									<blockquote style="text-align: center;"><%= c.getContent() %></blockquote>
+            						/*for(Comentario c2 : comentarios) {
+            							String s1 = c.getAuthor().getNickname();
+            							String s2 = c2.getAuthor().getNickname();
+            							if(s1.compareTo(s2) == 0) {*/
+            			%>
+            						 <!-- <blockquote style="text-align: center;">Ya has comentado</blockquote> -->
+            			<%
+            							//} else {
+            						
+						%>		    
+											<p align="center"><b><%= c.getAuthor().getNickname() %></b> wrote:</p>
+											<blockquote style="text-align: center;"><%= c.getContent() %></blockquote>
 						<%
-           						}
-						%>
+            							//}
+            						//}
+								}
+               			%>
 								<!--  <blockquote><%= c.getContent() %></blockquote> -->
 						<%
         					}

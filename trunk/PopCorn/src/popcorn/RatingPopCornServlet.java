@@ -19,8 +19,10 @@ public class RatingPopCornServlet extends HttpServlet {
             throws IOException {
     UserService userService = UserServiceFactory.getUserService();
     User user = userService.getCurrentUser();
-    String rating = req.getParameter("rate");
-	Valoracion val = new Valoracion(rating,user);
+    //String rating = req.getParameter("rate");
+    String voto = req.getParameter("voto");
+	//Valoracion val = new Valoracion(rating,user,voto);
+	Valoracion val = new Valoracion(user,voto);
 	
 	EntityManager em = EMF.get().createEntityManager();
 	try {
@@ -28,7 +30,7 @@ public class RatingPopCornServlet extends HttpServlet {
 	}finally {
 		em.close();
 	}
-	//resp.sendRedirect("popcorn.jsp");
+	resp.sendRedirect("popcorn.jsp");
 	}
     
 }
