@@ -1,4 +1,4 @@
-package popcorn;
+package popcorn.persistence;
 
 import java.util.Date;
 import javax.persistence.Basic;

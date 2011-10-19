@@ -1,4 +1,4 @@
-package popcorn;
+package popcorn.clases;
 
 import java.io.IOException;
 import java.util.Date;
@@ -10,8 +10,8 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import javax.persistence.EntityManager;
 
-import popcorn.Comentario;
-import popcorn.EMF;
+import popcorn.persistence.Comentario;
+import popcorn.persistence.EMF;
 
 @SuppressWarnings("serial")
 public class SignPopCornServlet extends HttpServlet {
@@ -25,16 +25,21 @@ public class SignPopCornServlet extends HttpServlet {
         if(user == null) {
         	resp.sendRedirect("popcorn.jsp");
         }
-	    String content = req.getParameter("content");
+        
+        String content = req.getParameter("content");
 	    Date date = new Date();
 	    Comentario comentario = new Comentario(user, content, date);
 	    
-	    EntityManager em = EMF.get().createEntityManager();
+	    public recogerComent() {
+	    	comentario.getClass();
+	    }
+	    
+	    /*EntityManager em = EMF.get().createEntityManager();
 	    try {
 	    	em.persist(comentario);
 	    } finally {	
 	    	em.close();
-	    }
+	    }*/
 	    resp.sendRedirect("popcorn.jsp");
     }
 }
