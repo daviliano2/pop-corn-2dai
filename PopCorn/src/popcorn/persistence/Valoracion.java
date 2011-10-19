@@ -1,10 +1,15 @@
-package popcorn;
+package popcorn.persistence;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
 
 
@@ -13,27 +18,31 @@ import com.google.appengine.api.users.User;
 public class Valoracion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Key id;
 	/*@Basic
 	private String rate;*/
 	@Basic 
 	private User author;
 	@Basic
-	private String voto;
+	private String valoracion;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+    private Pelicula pelicula;
 	
 	/*public Valoracion(String rate,User author,String voto) {
 		this.rate = rate;
 		this.author = author;
 		this.voto = voto;
 	}*/
-	public Valoracion(User author,String voto) {
+	public Valoracion(User author,String valoracion/*,Pelicula pelicula*/) {
 		this.author = author;
-		this.voto = voto;
+		this.valoracion = valoracion;
+		/*this.pelicula = pelicula;*/
 	}
-	public Long getId() {
+	public Key getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Key id) {
 		this.id = id;
 	}
 	/*public String getRate() {
@@ -48,11 +57,17 @@ public class Valoracion {
 	public void setAuthor(User author) {
 		this.author = author;
 	}
-	public String getVoto() {
-		return voto;
+	public String getValoracion() {
+		return valoracion;
 	}
-	public void setVoto(String voto) {
-		this.voto = voto;
+	public void setValoracion(String valoracion) {
+		this.valoracion = valoracion;
+	}
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
 	}
 	
 }

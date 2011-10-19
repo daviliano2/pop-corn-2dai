@@ -51,7 +51,7 @@
   	-->
   	
   	<form action="/rating" method="post">
-    <select id="rating" name="voto">
+    <select id="rating" name="valoracion">
     	<option value="Puntuacion" selected="selected"></option>
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -65,30 +65,30 @@
   	EntityManager em = EMF.get().createEntityManager();
 	String query = "SELECT FROM popcorn.Valoracion";
 	Query consulta = em.createQuery(query);
-	List<Valoracion> valoraciones = (List<Valoracion>) consulta.getResultList();
+	List<Valoracion> valora = (List<Valoracion>) consulta.getResultList();
 	float x = 0;
 	int votos = 0;
 	float i = 0;
 	float media = 0;
-	for(Valoracion v : valoraciones) {		
-		//votos = Integer.parseInt(v.getVoto());
+	for(Valoracion v : valora) {		
+		//votos = Integer.parseInt(v.getValoracion());
 		/*
 			TODO ESTO ES PROVISIONAL PORQUE NO FUNCIONA EL PARSE-INT DE LOS H***=@#~(/&%+ç****)
 			Y DE MOMENTO FUNCIONA, MUY CUTRE, MUY SIMPLE, PERO SACA LA MEDIA DE LAS VOTACIONES xDDDDD
 		*/
-		if(v.getVoto().compareTo("1") == 0) {
+		if(v.getValoracion().compareTo("1") == 0) {
 			votos = 1;
 		} else {
-			if(v.getVoto().compareTo("2") == 0) {
+			if(v.getValoracion().compareTo("2") == 0) {
 				votos = 2;
 			} else {
-				if(v.getVoto().compareTo("3") == 0) {
+				if(v.getValoracion().compareTo("3") == 0) {
 					votos = 3;
 				} else {
-					if(v.getVoto().compareTo("4") == 0) {
+					if(v.getValoracion().compareTo("4") == 0) {
 						votos = 4;
 					} else {
-						if(v.getVoto().compareTo("5") == 0) {
+						if(v.getValoracion().compareTo("5") == 0) {
 							votos = 5;
 						}
 					}
@@ -100,11 +100,13 @@
 	}
 	if(i != 0) {
 		media = x / i;
+	} else {
+		media = x;
+	}
 	%>
 	<blockquote>El numero de votaciones es <%=i %></blockquote>
 	<blockquote>La media de las votaciones es <%=media %></blockquote>
 	<%
-	}
 	em.close();
 	%>
 	<br>
