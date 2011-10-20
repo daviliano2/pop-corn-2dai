@@ -1,3 +1,4 @@
+<%@page import="popcorn.dao.ComentarioDAOImpl"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="javax.persistence.Query"%>
 <%@ page import="java.text.SimpleDateFormat"%>
@@ -6,7 +7,7 @@
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 <%@ page import="popcorn.persistence.*" %>
-
+<%@ page import="popcorn.dao.*" %>
 
 <html>
 <head>
@@ -122,12 +123,9 @@ para poder postear.</p>
     				</td>
     				<td  rowspan="3">
     					<%
-    					
-    					
-    					EntityManager em = EMF.get().createEntityManager();
-    					String query = "SELECT c FROM  Comentario c";
-    					Query consulta = em.createQuery(query);
-    					List<Comentario> comentarios = (List<Comentario>) consulta.getResultList();
+    					ComentarioDAO comentarioDAO = new ComentarioDAOImpl();
+    					String query = "SELECT count (c) FROM Comentario c";
+    					List<Comentario> comentarios = comentarioDAO.getAll(Comentario.class);
    						for(Comentario c : comentarios) {
     					if (c == null) {
 						%>
@@ -163,6 +161,7 @@ para poder postear.</p>
         					
     						}
    						}
+   						comentarioDAO.closeEm();
    						%>
    					</td>
 				</tr>

@@ -30,7 +30,9 @@ public class ComentarioServlet extends HttpServlet {
 	    Date date = new Date();
 	    Comentario comentario = new Comentario(user, content, date);
 	    
-	    new ComentarioDAOImpl().insert(comentario);
+	    ComentarioDAO comentarioDAO = new ComentarioDAOImpl();
+	    comentarioDAO.insert(comentario);
+	    comentarioDAO.closeEm();
 
 	    resp.sendRedirect("popcorn.jsp");
     } 
