@@ -15,6 +15,8 @@ public interface GenericPopDAO <T, PK extends Serializable> extends Serializable
     void remove(T object);
 
     void insert(T object);
+    
+    void closeEm();
 
     List<T> getPaginated(Class<T> typeClass, int startPosition, int maxResult);
 
