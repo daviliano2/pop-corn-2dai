@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="javax.persistence.Query"%>
-<%@ page import="javax.persistence.EntityManager"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.List" %>
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
-<%@ page import="popcorn.*" %>
+<%@ page import="popcorn.persistence.*" %>
+
 
 <html>
 <head>
@@ -122,18 +122,20 @@ para poder postear.</p>
     				</td>
     				<td  rowspan="3">
     					<%
-						EntityManager em = EMF.get().createEntityManager();
-						String query = "SELECT FROM popcorn.Comentario ORDER by date desc";
-						Query consulta = em.createQuery(query);
-						List<Comentario> comentarios = (List<Comentario>) consulta.getResultList();
-   						if (comentarios.isEmpty()) {
+    					
+    					
+    					EntityManager em = EMF.get().createEntityManager();
+    					String query = "SELECT c FROM  Comentario c";
+    					Query consulta = em.createQuery(query);
+    					List<Comentario> comentarios = (List<Comentario>) consulta.getResultList();
+   						for(Comentario c : comentarios) {
+    					if (c == null) {
 						%>
 
 							<p align="center">El analisis no tiene comentarios.</p>
 
 						<%
    						} else {
-        					for (Comentario c : comentarios) {
             					if (c.getAuthor() == null) {
 						%>
 									<p align="center"><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Inicia sesion </a>para comentar</p>
@@ -158,9 +160,9 @@ para poder postear.</p>
                			%>
 								<!--  <blockquote><%= c.getContent() %></blockquote> -->
 						<%
-        					}
-    					}
-   					 	em.close();
+        					
+    						}
+   						}
    						%>
    					</td>
 				</tr>

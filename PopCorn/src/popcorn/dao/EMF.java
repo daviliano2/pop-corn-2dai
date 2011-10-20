@@ -1,4 +1,4 @@
-package popcorn.persistence;
+package popcorn.dao;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
