@@ -1,4 +1,4 @@
-package popcorn.clases;
+package popcorn.controlador;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import popcorn.persistence.EMF;
+import popcorn.dao.EMF;
 import popcorn.persistence.Valoracion;
 
 import com.google.appengine.api.users.User;
@@ -16,9 +16,9 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 @SuppressWarnings("serial")
-public class RatingPopCornServlet extends HttpServlet {
+public class ValoracionServlet extends HttpServlet {
 	@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger(SignPopCornServlet.class.getName());
+	private static final Logger log = Logger.getLogger(ComentarioServlet.class.getName());
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
     UserService userService = UserServiceFactory.getUserService();

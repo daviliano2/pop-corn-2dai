@@ -19,7 +19,9 @@ public class Comentario {
     private String content;
 	@Basic
     private Date date;
-
+	public Comentario(){
+		
+	}
     public Comentario(User author, String content, Date date) {
         this.author = author;
         this.content = content;
