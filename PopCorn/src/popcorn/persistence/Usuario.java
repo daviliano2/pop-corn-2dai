@@ -1,7 +1,6 @@
 package popcorn.persistence;
 
 import javax.persistence.*;
-
 import com.google.appengine.api.datastore.Key;
 
 @Entity

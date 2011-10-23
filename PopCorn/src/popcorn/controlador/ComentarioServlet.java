@@ -2,16 +2,19 @@ package popcorn.controlador;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import popcorn.dao.ComentarioDAO;
+import popcorn.dao.ComentarioDAOImpl;
+import popcorn.persistence.Comentario;
+
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-
-import popcorn.dao.*;
-import popcorn.persistence.Comentario;
 
 @SuppressWarnings("serial")
 public class ComentarioServlet extends HttpServlet {
@@ -23,7 +26,7 @@ public class ComentarioServlet extends HttpServlet {
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         if(user == null) {
-        	resp.sendRedirect("popcorn.jsp");
+        	resp.sendRedirect("generica.jsp");
         }
         
         String content = req.getParameter("content");
@@ -34,7 +37,7 @@ public class ComentarioServlet extends HttpServlet {
 	    comentarioDAO.insert(comentario);
 	    comentarioDAO.closeEm();
 
-	    resp.sendRedirect("popcorn.jsp");
+	    resp.sendRedirect("generica.jsp");
     } 
     
 }

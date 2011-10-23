@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import com.google.appengine.api.users.User;
 
 @Entity
@@ -19,7 +21,9 @@ public class Comentario {
     private String content;
 	@Basic
     private Date date;
-	public Comentario(){
+	@ManyToOne
+	private Pelicula pelicula;
+	public Comentario() {
 		
 	}
     public Comentario(User author, String content, Date date) {
@@ -55,4 +59,11 @@ public class Comentario {
     public void setDate(Date date) {
         this.date = date;
     }
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
+	}
+    
 }

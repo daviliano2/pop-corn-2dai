@@ -2,7 +2,6 @@ package popcorn.persistence;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,19 +24,13 @@ public class Valoracion {
 	private User author;
 	@Basic
 	private String valoracion;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
     private Pelicula pelicula;
 	
-	/*public Valoracion(String rate,User author,String voto) {
-		this.rate = rate;
-		this.author = author;
-		this.voto = voto;
-	}*/
-	public Valoracion(User author,String valoracion/*,Pelicula pelicula*/) {
+	public Valoracion(User author,String valoracion,Pelicula pelicula) {
 		this.author = author;
 		this.valoracion = valoracion;
-		/*this.pelicula = pelicula;*/
+		this.pelicula = pelicula;
 	}
 	public Key getId() {
 		return id;

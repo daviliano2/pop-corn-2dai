@@ -2,10 +2,7 @@ package popcorn.persistence;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.*;
-
-
 import com.google.appengine.api.datastore.Key;
 
 @Entity
@@ -16,15 +13,18 @@ public class Pelicula {
 	
 	@Basic
     private String sinopsis;
+	
 	@Basic
     private String titulo;
 	
-	@OneToMany(mappedBy="pelicula")
+	@Basic
+	private String categoria;
+	
+	@OneToMany
     private List<Valoracion> valoraciones = new ArrayList<Valoracion>();
 	
-	/*public Pelicula() {
-		
-	}*/
+	@OneToMany
+	private List<Comentario> comentarios = new ArrayList<Comentario>();
 	
 	public Pelicula(String sinopsis, String titulo,ArrayList<Valoracion> valoraciones) {
 		this.sinopsis = sinopsis;
@@ -62,5 +62,20 @@ public class Pelicula {
 
 	public void setValoraciones(List<Valoracion> valoraciones) {
 		this.valoraciones = valoraciones;
+	}
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 }

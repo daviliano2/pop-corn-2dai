@@ -1,5 +1,7 @@
 package popcorn.dao;
 
+import popcorn.dao.EMF;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -38,6 +40,13 @@ public class GenericPopDAOJPAImpl<T, PK extends Serializable> implements Generic
         return (List<T>) em.createQuery(sql.toString()).getResultList();
 
     }
+    
+    @Override
+   	public Integer countAll(Class<T> typeClass) {    	
+       	em = EMF.get().createEntityManager();
+           final StringBuilder sql = new StringBuilder("select count(c) from ").append(typeClass.getSimpleName()).append(" c");
+           return (Integer)em.createQuery(sql.toString()).getSingleResult();
+   	}
 
     @Override
     public void remove(T object) {
