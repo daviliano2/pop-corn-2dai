@@ -7,6 +7,8 @@ import java.util.List;
 public interface GenericPopDAO <T, PK extends Serializable> extends Serializable {
 
     List<T> getAll(Class<T> typeClass);
+    
+    Integer countAll(Class<T> typeClass);
 
     T findByPK(Class<T> typeClass, PK id);
 
