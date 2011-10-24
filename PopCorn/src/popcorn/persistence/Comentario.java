@@ -8,31 +8,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
 
 @Entity
 public class Comentario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Key id;
+	
 	@Basic
     private User author;
+	
 	@Basic
     private String content;
+	
 	@Basic
     private Date date;
+	
 	@ManyToOne
 	private Pelicula pelicula;
-	public Comentario() {
 		
-	}
     public Comentario(User author, String content, Date date) {
         this.author = author;
         this.content = content;
         this.date = date;
     }
 
-    public Long getId() {
+    public Key getId() {
         return id;
     }
 
@@ -48,6 +51,10 @@ public class Comentario {
         return date;
     }
 
+    public void setId(Key id) {
+		this.id = id;
+	}
+    
     public void setAuthor(User author) {
         this.author = author;
     }

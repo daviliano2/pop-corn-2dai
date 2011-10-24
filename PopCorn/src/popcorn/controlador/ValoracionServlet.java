@@ -3,12 +3,17 @@ package popcorn.controlador;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import popcorn.dao.PeliculaDAO;
+import popcorn.dao.PeliculaDAOImpl;
+import popcorn.persistence.Pelicula;
 import popcorn.persistence.Valoracion;
 
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -21,22 +26,19 @@ public class ValoracionServlet extends HttpServlet {
             throws IOException {
     UserService userService = UserServiceFactory.getUserService();
     User user = userService.getCurrentUser();
-    //String rating = req.getParameter("rate");
-    String valoracion = req.getParameter("valoracion");
-    //Pelicula pelicula = req.;
-	//Pelicula pelicula = req.getParameterValues(pelicula);
-	//Valoracion val = new Valoracion(rating,user,voto);
-	Valoracion val = new Valoracion(user,valoracion,pelicula*/);
+    
+    Key id = KeyFactory.stringToKey(req.getParameter("id"));
+    PeliculaDAO peliculaDAO = new PeliculaDAOImpl();
 	
-	
-	
-	EntityManager em = EMF.get().createEntityManager();
-	try {
-		em.persist(val);
-	}finally {
-		em.close();
+    Pelicula pelicula = peliculaDAO.findByPK(popcorn.persistence.Pelicula.class, id);
+	if (req.getParameter("valoracion").equals("si")) {
+		
+		String val = req.getParameter("valoracion");
+		Valoracion valoracion = new Valoracion(user,val,pelicula);
+		pelicula.getValoraciones().add(valoracion);
 	}
-	resp.sendRedirect("popcorn.jsp");
+	
+	resp.sendRedirect("generica.jsp");
 	}
     
 }

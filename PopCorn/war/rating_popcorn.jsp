@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="javax.persistence.Query"%>
-<%@ page import="javax.persistence.EntityManager"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.List" %>
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
-<%@ page import="popcorn.*" %>
+<%@ page import="popcorn.dao.*" %>
+<%@ page import="popcorn.persistence.*" %>
 
 <html>
 <head>
@@ -29,27 +29,7 @@
 <body>
 
 	<p>Tu valoración:</p>
-	<!--<form id="ratings" action="/rating" method="get" style="margin-left: 5px;"> 
-	
-	<img id="img1" onmouseover="Show1()" onclick="ShowRate1()" onmouseout="Hide1()" alt="" src="Image/Star1.jpg" width="20" />
-    <img id="img2" onmouseover="Show2()" onclick="ShowRate2()" onmouseout="Hide2()" alt="" src="Image/Star1.jpg" width="20" />
-    <img id="img3" onmouseover="Show3()" onclick="ShowRate3()" onmouseout="Hide3()" alt="" src="Image/Star1.jpg" width="20" />
-    <img id="img4" onmouseover="Show4()" onclick="ShowRate4()" onmouseout="Hide4()" alt="" src="Image/Star1.jpg" width="20" />
-    <img id="img5" onmouseover="Show5()" onclick="ShowRate5()"  alt="" src="Image/Star1.jpg" width="20" />&nbsp;
-    <br />
-    <br />
- 	<div><input type="submit" hidden="" /></div>
- 	
-    </form>
-    <br>
-    
-    
-    	<form action="/rating" method="post">
-      	<div><textarea name="voto" rows="2" cols="2"></textarea></div>
-   		<div><input type="submit" value="Vota" /></div>
-  	</form>
-  	-->
-  	
+	  	
   	<form action="/rating" method="post">
     <select id="rating" name="valoracion">
     	<option value="Puntuacion" selected="selected"></option>
@@ -62,10 +42,11 @@
 	<input type="submit" value="vota" />
 	</form>
   	<% 
-  	EntityManager em = EMF.get().createEntityManager();
-	String query = "SELECT FROM popcorn.Valoracion";
-	Query consulta = em.createQuery(query);
-	List<Valoracion> valora = (List<Valoracion>) consulta.getResultList();
+	//String query = "SELECT count (c) FROM Comentario c";
+  	
+  	ValoracionDAO comentarioDAO = new ValoracionDAOImpl();
+  	List<Valoracion> valoraciones = ValoracionDAO.getAll(Valoracion.class);
+  	
 	float x = 0;
 	int votos = 0;
 	float i = 0;
