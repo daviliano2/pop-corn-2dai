@@ -38,7 +38,7 @@ public class ValoracionServlet extends HttpServlet {
 		pelicula.getValoraciones().add(valoracion);
 	}
 	
-	resp.sendRedirect("generica.jsp");
+	resp.sendRedirect("ver_pelicula.jsp");
 	}
     
 }

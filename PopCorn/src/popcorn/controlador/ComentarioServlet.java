@@ -26,7 +26,7 @@ public class ComentarioServlet extends HttpServlet {
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         if(user == null) {
-        	resp.sendRedirect("generica.jsp");
+        	resp.sendRedirect("ver_pelicula.jsp");
         }
         
         String content = req.getParameter("content");
@@ -37,7 +37,7 @@ public class ComentarioServlet extends HttpServlet {
 	    comentarioDAO.insert(comentario);
 	    comentarioDAO.closeEm();
 
-	    resp.sendRedirect("generica.jsp");
+	    resp.sendRedirect("ver_pelicula.jsp");
     } 
     
 }

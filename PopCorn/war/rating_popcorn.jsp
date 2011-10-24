@@ -88,7 +88,7 @@
 	<blockquote>La media de las votaciones es <%=media %></blockquote>
 	<br>
     <br>
-    <a href="generica.jsp">Volver al hilo de la pelicula</a>
+    <a href="ver_pelicula.jsp">Volver al hilo de la pelicula</a>
 
 </body>
 </html>
