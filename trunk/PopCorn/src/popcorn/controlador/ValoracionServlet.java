@@ -7,8 +7,6 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import popcorn.dao.EMF;
 import popcorn.persistence.Valoracion;
 
 import com.google.appengine.api.users.User;
@@ -28,7 +26,9 @@ public class ValoracionServlet extends HttpServlet {
     //Pelicula pelicula = req.;
 	//Pelicula pelicula = req.getParameterValues(pelicula);
 	//Valoracion val = new Valoracion(rating,user,voto);
-	Valoracion val = new Valoracion(user,valoracion/*,pelicula*/);
+	Valoracion val = new Valoracion(user,valoracion,pelicula*/);
+	
+	
 	
 	EntityManager em = EMF.get().createEntityManager();
 	try {

@@ -10,26 +10,33 @@ public class Pelicula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key id;
-	
 	@Basic
     private String sinopsis;
-	
 	@Basic
     private String titulo;
-	
+	@Basic
+	private int duracion;
 	@Basic
 	private String categoria;
-	
+	@Basic
+	private List<String> actores = new ArrayList<String>();
+	@Basic
+	private String director;
 	@OneToMany
-    private List<Valoracion> valoraciones = new ArrayList<Valoracion>();
-	
+    private List<Valoracion> valoraciones;
 	@OneToMany
-	private List<Comentario> comentarios = new ArrayList<Comentario>();
+	private List<Comentario> comentarios;
 	
-	public Pelicula(String sinopsis, String titulo,ArrayList<Valoracion> valoraciones) {
+	public Pelicula(String titulo,String sinopsis,int duracion,String categoria,ArrayList<String> actores,String director) {
 		this.sinopsis = sinopsis;
 		this.titulo = titulo;
-		this.valoraciones = valoraciones;
+		this.duracion = duracion;
+		this.categoria = categoria;
+		this.director = director;
+		this.actores = actores;
+		this.valoraciones = new ArrayList<Valoracion>();
+		this.comentarios = new ArrayList<Comentario>();
+		
 	}
 	
 	public Key getId() {
@@ -78,4 +85,29 @@ public class Pelicula {
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
 	}
+
+	public int getDuracion() {
+		return duracion;
+	}
+
+	public void setDuracion(int duracion) {
+		this.duracion = duracion;
+	}
+
+	public List<String> getActores() {
+		return actores;
+	}
+
+	public void setActores(List<String> actores) {
+		this.actores = actores;
+	}
+
+	public String getDirector() {
+		return director;
+	}
+
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	
 }

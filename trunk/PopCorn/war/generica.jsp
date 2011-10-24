@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; "%>
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
@@ -6,14 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Project PopCorn</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb.css" />
 </head>
 <body>
 	<div id="apDiv1" style="background: url('Image/popcorn.jpg');">
      	<div id="apDiv2">
 			<script language="JavaScript" type="text/javascript">
-				document.write('Esta página está optimizada para una resolución de 1366 x 768. Tu pantalla tiene una resolución de ' + screen.width + ' x ' + screen.height + '.')
+				document.write('Esta pÃ¡gina estÃ¡ optimizada para una resoluciÃ³n de 1366 x 768. Tu pantalla tiene una resoluciÃ³n de ' + screen.width + ' x ' + screen.height + '.')
 			</script>
         	<p style="text-align:center">logo y menu.</p>
         </div>
@@ -37,9 +37,9 @@
 				<%
     			}
 				%>
-            	<!--  <form action="/rating" method="post">
+            	<!--  <form action="/login" method="post">
     				<p>Nombre de Usuario: <input name="usuario" type="text" maxlength="50" /> 
-            		Contraseña: <input name="password" type="password" maxlength="20" />
+            		ContraseÃ±a: <input name="password" type="password" maxlength="20" />
 					<input type="submit" value="Acceder" /> </p><br>
 				</form> -->
                 <p>Introduce tu comentario sobre la pelicula: </p>
@@ -50,10 +50,20 @@
     			</form>
             </div>
         </div>
-        <div id="contenidos" style="position: absolute;width: 621px;height: 800px;left: 674px;top: 339px;z-index: 2;">
-        	<iframe src="VerComentarios.jsp" style="position: absolute;width: 615px;height: 799px;"></iframe>
+        <div id="apDiv6">
+        	<iframe id="iframe1" src="VerComentarios.jsp"></iframe>
         </div>
         <div id="apDiv7">
+        	<p><b>Sinopsis</b></p>
+			<div id="apDiv8">
+				<p style="text-align: justify;">
+				En el a&ntilde;o 1965, tres j&oacute;venes israelitas, agentes del Mossad, se embarcan en una misi&oacute;n secreta que tiene 
+				como objetivo capturar y matar a un importante criminal de guerra nazi que se ha fugado de la justicia.
+				Treinta a&ntilde;os despu&eacute;s, un anciano proclama en Ucrania que &eacute;l es el nazi que buscaban y que a&uacute;n est&aacute; vivo. 
+				Uno de los ex agentes del Mossad que participaron en la misi&oacute;n viaja hasta el ex pa&iacute;s sovi&eacute;tico para comprobar 
+				la verdad de su afirmaci&oacute;n. Y es que, por mucho tiempo que pase, las deudas siempre deben saldarse. 
+				</p>
+			</div>
         </div>
 	</div>
 </body>
