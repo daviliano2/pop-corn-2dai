@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@page contentType="text/html;charset=UTF-8" language="java"%>
 <%@page import="popcorn.dao.ComentarioDAO"%>
 <%@page import="popcorn.dao.ComentarioDAOImpl"%>
 <%@page import="javax.persistence.Query"%>
@@ -24,7 +24,7 @@
 		final int TAMANO_PAGINA = 10;
 		Integer numeroPaginas = 1 + (numComentarios - 1) / TAMANO_PAGINA;
 		for (Integer i = new Integer(1); i <= numeroPaginas; i++) {
-			out.println(" <a href='VerComentarios.jsp?pagina=" + i + "'>" + i + "</a> ");
+			out.println(" <a href='ver_comentarios.jsp?pagina=" + i + "'>" + i + "</a> ");
 		}
 		out.println("</center>");
 		int numPagina = 0;

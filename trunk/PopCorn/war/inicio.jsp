@@ -13,8 +13,17 @@
 		<form action="crear_pelicula.jsp">
 			<input type="submit" style="text-align: center;" value="CREAR PELICULA"/>
 		</form>
-		<form action="generica.jsp">
-    		<input type="submit" style="text-align:center" value="ENTRAR"  />
+		<form action="ver_pelicula.jsp">
+    		<input type="submit" style="text-align:center" value="VER PELICULA"  />
+    	</form>
+    	<form action="borrar_pelicula.jsp">
+    		<input type="submit" style="text-align:center" value="BORRAR PELICULA"  />
+    	</form>
+    	<form action="crear_usuario.jsp">
+    		<input type="submit" style="text-align:center" value="CREAR USUARIO"  />
+    	</form>
+    	<form action="login_usuario.jsp">
+    		<input type="submit" style="text-align:center" value="LOGIN"  />
     	</form>
     	<br>
     </div>
