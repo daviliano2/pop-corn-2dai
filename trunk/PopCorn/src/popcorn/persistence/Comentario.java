@@ -3,6 +3,7 @@ package popcorn.persistence;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class Comentario {
 	@Basic
     private Date date;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Pelicula pelicula;
 		
     public Comentario(User author, String content, Date date) {
