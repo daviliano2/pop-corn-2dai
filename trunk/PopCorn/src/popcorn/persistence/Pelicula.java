@@ -27,7 +27,7 @@ public class Pelicula {
 	@OneToMany
 	private List<Comentario> comentarios;
 	
-	public Pelicula(String titulo,String sinopsis,int duracion,String categoria,ArrayList<String> actores,String director) {
+	public Pelicula(String titulo,String sinopsis,int duracion,String categoria,List<String> actores,String director) {
 		this.sinopsis = sinopsis;
 		this.titulo = titulo;
 		this.duracion = duracion;

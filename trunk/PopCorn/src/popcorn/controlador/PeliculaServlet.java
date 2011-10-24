@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import popcorn.dao.PeliculaDAO;
+import popcorn.dao.PeliculaDAOImpl;
+import popcorn.persistence.Pelicula;
+
 public class PeliculaServlet extends HttpServlet {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(PeliculaServlet.class.getName());
@@ -21,6 +25,10 @@ public class PeliculaServlet extends HttpServlet {
 		String categoria = req.getParameter("categoria");
 		List<String> actores = new ArrayList<String>();
 		actores.add(req.getParameter(""));
+		Pelicula pelicula = new Pelicula(titulo,sinopsis,duracion,categoria,actores,director);
+		
+		PeliculaDAO peliculaDAO = new PeliculaDAOImpl();
+		PeliculaDAO
 		resp.sendRedirect("generica.jsp");
 	}
 

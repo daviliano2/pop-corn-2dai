@@ -17,10 +17,9 @@
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 		ComentarioDAO comentarioDAO =  new ComentarioDAOImpl();
-
-		String query = "SELECT count (s) FROM Saludo s";
+		
 		Integer numComentarios = comentarioDAO.countAll(Comentario.class);
-		out.println("<center>Hay " + numComentarios + " comentarios.");
+		
 		out.println("<br>Ir a página ");
 		final int TAMANO_PAGINA = 10;
 		Integer numeroPaginas = 1 + (numComentarios - 1) / TAMANO_PAGINA;
