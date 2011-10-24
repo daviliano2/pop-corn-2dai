@@ -15,7 +15,8 @@
             	Duracion: <input type="text" name="duracion"><br>
             	Actores(separados por comas): <textarea name="actores" rows="5" cols="70"></textarea><br>
             	Director: <input type="text" name="director"><br>
-            	Categoria: <input type="text" name="categoria"><br></p>
+            	Categoria: <input type="text" name="categoria"><br>
+            	Imagen: <input type="file" name="imagen"></p>
             	<p align="center">
 					<input type="reset" value="Limpiar" />
 					<input type="submit" value="Crear" /> 

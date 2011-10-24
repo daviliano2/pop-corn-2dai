@@ -27,13 +27,14 @@ public class PeliculaServlet extends HttpServlet {
 		String categoria = req.getParameter("categoria");
 		List<String> actores = new ArrayList<String>();
 		String actor = req.getParameter("actores");
+		String imagen = req.getParameter("imagen");
 		StringTokenizer tokens=new StringTokenizer(actor,",");
 		while(tokens.hasMoreTokens()) {
 			String actrs = tokens.nextToken();
 			actrs.trim();
 			actores.add(actrs);
 		}
-		Pelicula pelicula = new Pelicula(titulo,sinopsis,duracion,categoria,actores,director);
+		Pelicula pelicula = new Pelicula(titulo,sinopsis,duracion,categoria,actores,director,imagen);
 		PeliculaDAO peliculaDAO = new PeliculaDAOImpl();
 		peliculaDAO.insert(pelicula);
 		peliculaDAO.closeEm();

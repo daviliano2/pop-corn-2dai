@@ -29,13 +29,16 @@ public class Pelicula {
 	@Basic
 	private String director;
 	
+	@Basic
+	private String imagen;
+	
 	@OneToMany
     private List<Valoracion> valoraciones;
 	
 	@OneToMany
 	private List<Comentario> comentarios;
 	
-	public Pelicula(String titulo,String sinopsis,int duracion,String categoria,List<String> actores,String director) {
+	public Pelicula(String titulo,String sinopsis,int duracion,String categoria,List<String> actores,String director,String imagen) {
 		this.sinopsis = sinopsis;
 		this.titulo = titulo;
 		this.duracion = duracion;
@@ -44,6 +47,7 @@ public class Pelicula {
 		this.actores = actores;
 		this.valoraciones = new ArrayList<Valoracion>();
 		this.comentarios = new ArrayList<Comentario>();
+		this.imagen = imagen;
 		
 	}
 	
@@ -116,6 +120,14 @@ public class Pelicula {
 
 	public void setDirector(String director) {
 		this.director = director;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 	
 }
