@@ -10,20 +10,28 @@ public class Pelicula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key id;
+	
 	@Basic
     private String sinopsis;
+	
 	@Basic
     private String titulo;
+	
 	@Basic
 	private int duracion;
+	
 	@Basic
 	private String categoria;
+	
 	@Basic
 	private List<String> actores = new ArrayList<String>();
+	
 	@Basic
 	private String director;
+	
 	@OneToMany
     private List<Valoracion> valoraciones;
+	
 	@OneToMany
 	private List<Comentario> comentarios;
 	

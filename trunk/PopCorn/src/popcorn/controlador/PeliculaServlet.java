@@ -28,8 +28,9 @@ public class PeliculaServlet extends HttpServlet {
 		Pelicula pelicula = new Pelicula(titulo,sinopsis,duracion,categoria,actores,director);
 		
 		PeliculaDAO peliculaDAO = new PeliculaDAOImpl();
-		PeliculaDAO
-		resp.sendRedirect("generica.jsp");
+		peliculaDAO.insert(pelicula);
+		peliculaDAO.closeEm();
+		resp.sendRedirect("inicio.jsp");
 	}
 
 }

@@ -8,11 +8,18 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
         <servlet-name>sign</servlet-name>
         <servlet-class>popcorn.controlador.ComentarioServlet</servlet-class>
-        
     </servlet>
     <servlet-mapping>
         <servlet-name>sign</servlet-name>
         <url-pattern>/sign</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>pelicula</servlet-name>
+        <servlet-class>popcorn.controlador.PeliculaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pelicula</servlet-name>
+        <url-pattern>/crear</url-pattern>
     </servlet-mapping>
     <servlet>
     	<servlet-name>Rating</servlet-name>
