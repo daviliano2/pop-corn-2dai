@@ -3,6 +3,7 @@ package popcorn.persistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+
 import com.google.appengine.api.datastore.Key;
 
 @Entity
@@ -32,10 +33,10 @@ public class Pelicula {
 	@Basic
 	private String imagen;
 	
-	@OneToMany
+	@OneToMany(mappedBy="pelicula", cascade=CascadeType.ALL) 
     private List<Valoracion> valoraciones;
 	
-	@OneToMany
+	@OneToMany(mappedBy="pelicula", cascade=CascadeType.ALL) 
 	private List<Comentario> comentarios;
 	
 	public Pelicula(String titulo,String sinopsis,int duracion,String categoria,List<String> actores,String director,String imagen) {

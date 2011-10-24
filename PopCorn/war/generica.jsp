@@ -48,10 +48,11 @@
                     <input type="submit" value="Comentar" />
       				<input type="reset" value="Limpiar" />
     			</form>
+    			<p>Tu valoraci&oacuten: <a href="rating_popcorn.jsp" >Ir a votar</a></p>
             </div>
         </div>
         <div id="apDiv6">
-        	<iframe id="iframe1" src="VerComentarios.jsp"></iframe>
+        	<iframe id="iframe1" src="ver_comentarios.jsp"></iframe>
         </div>
         <div id="apDiv7">
         	<p><b>Sinopsis</b></p>

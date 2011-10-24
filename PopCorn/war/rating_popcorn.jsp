@@ -41,17 +41,16 @@
 	</select>
 	<input type="submit" value="vota" />
 	</form>
-  	<% 
-	//String query = "SELECT count (c) FROM Comentario c";
-  	
-  	ValoracionDAO comentarioDAO = new ValoracionDAOImpl();
-  	List<Valoracion> valoraciones = ValoracionDAO.getAll(Valoracion.class);
+  	<%   	
+  	ValoracionDAO valoracionDAO = new ValoracionDAOImpl();
+  	//String query = "SELECT count (c) FROM Comentario c";
+  	List<Valoracion> valoraciones = valoracionDAO.getAll(Valoracion.class);
   	
 	float x = 0;
 	int votos = 0;
 	float i = 0;
 	float media = 0;
-	for(Valoracion v : valora) {		
+	for(Valoracion v : valoraciones) {		
 		//votos = Integer.parseInt(v.getValoracion());
 		/*
 			TODO ESTO ES PROVISIONAL PORQUE NO FUNCIONA EL PARSE-INT DE LOS H***=@#~(/&%+ç****)
@@ -87,12 +86,9 @@
 	%>
 	<blockquote>El numero de votaciones es <%=i %></blockquote>
 	<blockquote>La media de las votaciones es <%=media %></blockquote>
-	<%
-	em.close();
-	%>
 	<br>
     <br>
-    <a href="popcorn.jsp">Volver al hilo de la pelicula</a>
+    <a href="generica.jsp">Volver al hilo de la pelicula</a>
 
 </body>
 </html>
