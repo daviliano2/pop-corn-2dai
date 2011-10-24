@@ -6,7 +6,7 @@ div {
 #apDiv1 {
 	position:absolute;
 	width:1324px;
-	height:1200px;
+	height:1600px;
 	z-index:1;
 }
 #apDiv2 {
@@ -44,16 +44,27 @@ div {
 #apDiv6 {
 	position: absolute;
 	width: 621px;
-	height: 314px;
+	height: 1200px;
 	left: 674px;
 	top: 339px;
 	z-index: 2;
 }
+#iframe1{
+	position: absolute;
+	width: 615px;
+	height: 1100px;
+	border: hidden;
+}
 #apDiv7 {
 	position: absolute;
 	width: 640px;
-	height: 314px;
 	left: 30px;
 	top: 398px;
+	height: 300px;
 	z-index: 2;
+}
+#apDiv8 {
+	position: absolute;
+	width: 600px;
+	left: 20px;
 }

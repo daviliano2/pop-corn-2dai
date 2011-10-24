@@ -60,36 +60,6 @@ para poder postear.</p>
 						<br>
 					  	<p>Tu valoración:</p>
 					  	<a href="rating_popcorn.jsp" >Ir a votar</a>
-					<!--  <form id="ratings" action="/rating" method="get" style="margin-left: 5px;"> 
-						  <% //EntityManager em2 = EMF.get().createEntityManager();
-						
-						//String query2 = "SELECT FROM popcorn.Valoracion";
-						//Query consulta2 = em2.createQuery(query2);
-						//List<Valoracion> val = (List<Valoracion>) consulta2.getResultList();
-						//Double i = new Double(0);
-						
-						//for(i=0.5;i<=5;i+=0.5){
-							//if(v.getAuthor().compareTo(user) == 0 && v.getRate().equals(i.toString())){
-								//	out.println("<input type='radio' name='rate' checked='checked' value=" + i  + "  />") ;
-								
-							//} else {
-								//out.println("<input type='radio' name='rate' value=" + i  + "  />") ;
-							//}
-						//}
-						%>
-    						
-    						<img id="img1" onmouseover="Show1()" onclick="ShowRate1()" onmouseout="Hide1()" alt="" src="Image/Star1.jpg" width="20" />
-    						<img id="img2" onmouseover="Show2()" onclick="ShowRate2()" onmouseout="Hide2()" alt="" src="Image/Star1.jpg" width="20" />
-    						<img id="img3" onmouseover="Show3()" onclick="ShowRate3()" onmouseout="Hide3()" alt="" src="Image/Star1.jpg" width="20" />
-    						<img id="img4" onmouseover="Show4()" onclick="ShowRate4()" onmouseout="Hide4()" alt="" src="Image/Star1.jpg" width="20" />
-    						<img id="img5" onmouseover="Show5()" onclick="ShowRate5()"  alt="" src="Image/Star1.jpg" width="20" />&nbsp;
-    						<br />
-    						<br />
- 							<div><input type="submit" hidden="" /></div>
-    					</form>
-    					<br>
-    					<br>
-    					<br> -->
 					</td>
 					<td align="center" width="50%">
 						<form action="/sign" method="post">

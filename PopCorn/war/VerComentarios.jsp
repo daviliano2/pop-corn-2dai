@@ -11,7 +11,6 @@
 
 <html>
 	<head>
-		<link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
 	</head>
 	<body>
 	<%
@@ -34,22 +33,21 @@
 		if (strPagina != null && !strPagina.equals("")) {
 			numPagina = Integer.parseInt(strPagina) - 1;
 		}
-		List<Comentario> greetings = comentarioDAO.getOrderedPaginated(Comentario.class, numPagina * TAMANO_PAGINA, TAMANO_PAGINA, "date", 2);
-		if (greetings.isEmpty()) {
+		List<Comentario> comentarios = comentarioDAO.getOrderedPaginated(Comentario.class, numPagina * TAMANO_PAGINA, TAMANO_PAGINA, "date", 2);
+		if (comentarios.isEmpty()) {
 	%>
-			<p>The guestbook has no messages.</p>
+			<p>No hay valoraciones</p>
 	<%
 		} else {
-
-			for (Comentario c : greetings) {
+			for (Comentario c : comentarios) {
 				out.print("<hr>");
 				if (c.getAuthor() == null) {
 	%>
-					<p>An anonymous person wrote:</p>
+					<p>Anónimo escribió:</p>
 	<%
 				} else {
 	%>
-					<p><b><%=c.getAuthor().getNickname()%></b> wrote: </p>
+					<p><b><%=c.getAuthor().getNickname()%></b> escribió: </p>
 	<%
 				}
 	%>
@@ -57,18 +55,8 @@
 				<br>
 				<code><%=new SimpleDateFormat("dd/MM/yy hh:mm:ss").format(c.getDate())%></code>
 				<br>
-				<a href="VerComentarios.jsp?idMensaje=<%=c.getId()%>&numPagina=<%=(numPagina + 1)%>">Votar</a>
-	<%
-				if (user != null && c.getAuthor() != null && user.equals(c.getAuthor())) {
-	%>
-					<form action="/borrar" method="get">
-						<input type="submit" value="borrar" /> 
-						<input type="hidden" name="idMensaje" value="<%=c.getId()%>" /> 
-						<input type="hidden" name="numPagina" value="<%=numPagina + 1%>" />
-					</form>
-	<%
+	<%			
 				}
-			}
 		}
 		//ComentarioDAO.cerrar();
 	%>
