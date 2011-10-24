@@ -3,6 +3,7 @@ package popcorn.controlador;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,7 @@ import popcorn.dao.PeliculaDAO;
 import popcorn.dao.PeliculaDAOImpl;
 import popcorn.persistence.Pelicula;
 
+@SuppressWarnings("serial")
 public class PeliculaServlet extends HttpServlet {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(PeliculaServlet.class.getName());
@@ -24,9 +26,14 @@ public class PeliculaServlet extends HttpServlet {
 		String director = req.getParameter("director");
 		String categoria = req.getParameter("categoria");
 		List<String> actores = new ArrayList<String>();
-		actores.add(req.getParameter(""));
+		String actor = req.getParameter("actores");
+		StringTokenizer tokens=new StringTokenizer(actor,",");
+		while(tokens.hasMoreTokens()) {
+			String actrs = tokens.nextToken();
+			actrs.trim();
+			actores.add(actrs);
+		}
 		Pelicula pelicula = new Pelicula(titulo,sinopsis,duracion,categoria,actores,director);
-		
 		PeliculaDAO peliculaDAO = new PeliculaDAOImpl();
 		peliculaDAO.insert(pelicula);
 		peliculaDAO.closeEm();
