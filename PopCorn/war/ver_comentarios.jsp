@@ -19,9 +19,9 @@
 		ComentarioDAO comentarioDAO =  new ComentarioDAOImpl();
 		
 		Integer numComentarios = comentarioDAO.countAll(Comentario.class);
-		
-		out.println("<br>Ir a página ");
-		final int TAMANO_PAGINA = 10;
+
+		out.println("<center> Ir a página ");
+		final int TAMANO_PAGINA = 6;
 		Integer numeroPaginas = 1 + (numComentarios - 1) / TAMANO_PAGINA;
 		for (Integer i = new Integer(1); i <= numeroPaginas; i++) {
 			out.println(" <a href='ver_comentarios.jsp?pagina=" + i + "'>" + i + "</a> ");

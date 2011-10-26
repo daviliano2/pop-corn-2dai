@@ -22,7 +22,7 @@ div {
 #apDiv3 {
 	position: absolute;
 	width: 640px;
-	height: 314px;
+	height: 318px;
 	left: 30px;
 	top: 80px;
 	z-index: 2;
@@ -44,22 +44,16 @@ div {
 #apDiv6 {
 	position: absolute;
 	width: 621px;
-	height: 1200px;
+	height: 900px;
 	left: 674px;
 	top: 339px;
 	z-index: 2;
-}
-#iframe1{
-	position: absolute;
-	width: 615px;
-	height: 1100px;
-	border: hidden;
 }
 #apDiv7 {
 	position: absolute;
 	width: 640px;
 	left: 30px;
-	top: 398px;
+	top: 402px;
 	height: 300px;
 	z-index: 2;
 }
@@ -67,4 +61,27 @@ div {
 	position: absolute;
 	width: 600px;
 	left: 20px;
+}
+#apDiv9 {
+	position:absolute;
+	width:650px;
+	height:60px;
+	background-color:silver;
+}
+#iframe1{
+	position: absolute;
+	width: 615px;
+	height: 1100px;
+	border: hidden;
+}
+#iframe2{
+	position: absolute;
+	width: 615px;
+	height: 50px;
+	border: hidden;
+}
+#img1 {
+	vertical-align;
+	width: 300px;
+	height: 300px;
 }
