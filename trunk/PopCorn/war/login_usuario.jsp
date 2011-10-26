@@ -13,30 +13,13 @@
 <title>Login de Usuarios</title>
 </head>
 <body>
-	<% 
-	UsuarioDAO usuarioDAO = new UsuarioDAOImpl();
-    List<Usuario> usuarios = usuarioDAO.getAll(Usuario.class);
-    %>
-	<div style="position:absolute;width:650px;height:60px;background-color: silver;">
+	<div id="apDiv9">
 	<form action="/login" method="post">
-    <p>Nombre de Usuario: <input name="usuario" type="text" maxlength="50" /> 
-    Contraseña: <input name="password" type="password" maxlength="20" />
-	<input type="submit" value="Acceder" /> </p><br/>
+    	<p>Usuario: <input name="usuario" type="text" maxlength="50" /> 
+    	Contraseña: <input name="password" type="password" maxlength="20" />
+		<input type="submit" value="Acceder" /> </p><br/>
 	</form> 
 	</div>
-	<%
-	for(Usuario u : usuarios) {
-		if(u.getNombreUsuario().compareTo(request.getParameter("userName")) == 0 && 
-				u.getPassword().compareTo(request.getParameter("pass")) == 0) {
-			%>
-			<div>
-			<p align="center"><strong>Has hecho login correctamente</strong></p>
-			<p align="center"><strong>Bienvenido <%=u.getNombreUsuario() %></strong></p>
-			</div>
-			<%
-			
-		}
-	}
-	%>
+	
 </body>
 </html>
