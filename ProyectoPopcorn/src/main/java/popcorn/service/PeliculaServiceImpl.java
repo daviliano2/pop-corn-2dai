@@ -38,6 +38,11 @@ public class PeliculaServiceImpl implements PeliculaService {
     }
     
     @Override
+    public Pelicula getPelicula(Key idPelicula) {
+        return peliculaDAO.findByPK(Pelicula.class, idPelicula);
+    }
+    
+    @Override
     public Collection<Pelicula> getAllPeliculas() {
         return peliculaDAO.getAll(Pelicula.class);
     }

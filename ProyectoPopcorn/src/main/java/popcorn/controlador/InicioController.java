@@ -21,9 +21,9 @@ public class InicioController {
     }
 
     @RequestMapping(value = "/inicio", method = RequestMethod.GET)
-    public String doIrInicio(/*@RequestParam(value = "pagina", required = false, defaultValue = "1") Integer pagina, Model model*/) {
+    public String doIrInicio() {
 
-        return "/inicio"/* + pagina*/;
+        return "/inicio";
 
     }
 
