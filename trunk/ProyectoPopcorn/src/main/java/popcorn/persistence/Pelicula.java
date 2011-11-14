@@ -35,10 +35,10 @@ public class Pelicula {
     private String imagen;
     
     @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL)
-    private List<Valoracion> valoraciones;
+    private List<Valoracion> valoraciones = new ArrayList<Valoracion>();
     
     @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL)
-    private List<Comentario> comentarios;
+    private List<Comentario> comentarios = new ArrayList<Comentario>();
 
     public Pelicula() {
     }

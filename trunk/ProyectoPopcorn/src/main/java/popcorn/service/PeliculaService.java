@@ -16,6 +16,8 @@ public interface PeliculaService {
     void create(final Pelicula pelicula);
     void borrar(final Key idUsuario);
     
+    Pelicula getPelicula(Key idPelicula);
+    
     Collection<Pelicula> getAllPeliculas();
 
     int countAllPeliculas();
