@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @Entity
 public class Pelicula {
@@ -134,5 +135,9 @@ public class Pelicula {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+    
+    public String getIdString() {
+        return KeyFactory.keyToString(id);
     }
 }

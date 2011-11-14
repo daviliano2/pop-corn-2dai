@@ -41,15 +41,8 @@ public class ComentarioController {
     @Required
     public void setUserService(UserService userService) {
         this.userService = userService;
-    }
-    
-    @Autowired
-    @Required
-    public void getComentarioService(
-            ComentarioService comentarioService) {
-        this.comentarioService = comentarioService;
-    }
-     
+    }    
+       
     @RequestMapping(value = "/ir_ver_comentario", method = RequestMethod.GET)
     public String doVerComentario(Model model) {
         
