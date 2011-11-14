@@ -27,13 +27,13 @@ public class Valoracion {
     @ManyToOne(fetch = FetchType.LAZY)
     private Pelicula pelicula;
 
-    public Valoracion() {
+    /*public Valoracion() {
     }
 
     public Valoracion(int valoracion, Pelicula pelicula) {
         this.valoracion = valoracion;
         this.pelicula = pelicula;
-    }
+    }*/
 
     public Key getId() {
         return id;

@@ -15,7 +15,7 @@
         </link>
     </head>
     <body>
-        
+
         <div id="apDivFondo" style="background: url('Image/popcorn.jpg');"> <!-- Div principal, contiene la imagen del fondo -->
             <div id="apDivMenu"> <!-- Aqui se encuentra el logo y el menu -->
                 <script language="JavaScript" type="text/javascript">
@@ -25,50 +25,66 @@
             </div>
             <div id="apDivContenedorPelicula"> <!-- Aqui se va a introducir los daots de la pelicula -->
                 <div id="apDivImagenPelicula"> <!-- Aqui va la imagen -->
-                    <c:forEach var="peliculas" items="${peliculas}" varStatus="status">
-                        <img src="./Image/<c:out value="${peliculas.imagen}"/>" height="290" width="300" style="text-align: center"></img><br/>
+                    <c:forEach var="pelicula" items="${pelicula}" varStatus="status">
+                        <img src="./Image/<c:out value="${pelicula.imagen}"/>" height="290" width="300" style="text-align: center"></img><br/>
+                    </div>
+                    <div id="apDivInformacionPelicula"> <!-- Aqui va la informacion de la pelicula -->
+                        <center><p><b><h2> <c:out value="${pelicula.titulo}"/></h2></b></p></center>                 
+                        <p><b>Duraci&oacute;n:</b> <c:out value="${pelicula.duracion}"/> min.<br/>
+                            <b>Director:</b> <c:out value="${pelicula.director}"/><br/>
+                            <b>Actores:</b></p> 
+                        <ul>
+                            <c:forEach var="actor" items="${pelicula.actores}" varStatus="status">    
+                                <li>${actor}</li>
+                            </c:forEach>
+                        </ul>
+
+                    </div>  
+                    <div id="apDivValoracion">
+                        <strong>Tu valoracion:</strong><br/>
+                        <form action="/valorar" method="get" >
+                            <select name="valoracion">
+                                <option value="Puntuacion" selected="selected"></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <input type="hidden" value="${pelicula.idString}" name="idPelicula"/>
+                            <input type="submit" value="vota" />
+                        </form>
+                    </div>
                 </div>
-                <div id="apDivInformacionPelicula"> <!-- Aqui va la informacion de la pelicula -->
-                    <center><p><b><h2> <c:out value="${peliculas.titulo}"/></h2></b></p></center>                 
-                    <p><b>Duraci&oacute;n:</b> <c:out value="${peliculas.duracion}"/> min.<br/>
-                    <b>Director:</b> <c:out value="${peliculas.director}"/><br/>
-                    <b>Actores:</b></p> 
-                    <ul>
-                    <c:forEach var="actor" items="${peliculas.actores}" varStatus="status">    
-                            <li>${actor}</li>
-                    </c:forEach>
-                    </ul>
-                    
-                </div>                           
-            </div>
-            <div id="apDivSinopsis">
-                <p><b>Sinopsis</b></p>
-                <div id="apDiv8">
-                    <p style="text-align: justify;">
-                        <c:out value="${peliculas.sinopsis}"/><br/>
-                    </p>
-                </div>
-            </div>                   
-                </c:forEach>
-            
+                <div id="apDivSinopsis">
+                    <jsp:include page="/ir_ver_valoraciones"></jsp:include>               
+                    <br/>
+                   
+                    <p><b>Sinopsis</b></p>
+                    <div id="apDiv8">
+                        <p style="text-align: justify;">
+                            <c:out value="${pelicula.sinopsis}"/><br/>
+                        </p>
+                    </div>
+                </div>                   
+            </c:forEach>
+
             <div id="apDiv4">
                 <div id="apDiv5">
-                    
+
                     <p>Introduce tu comentario sobre la pelicula: </p>
                     <form action="/comentar" method="post">
                         <textarea name="content" rows="5" cols="70"></textarea>
                         <input type="submit" value="Comentar" />
                         <input type="reset" value="Limpiar" />
                     </form>
-                    <p>Tu valoraci&oacute;n : <a href="rating_popcorn.jsp" >Ir a votar</a></p>
                 </div>
             </div>
             <div id="apDiv6">
-                <!-- <jsp:include page="/ir_ver_comentario"></jsp:include> -->
-                
-                <iframe id="iframe1" src="/ir_ver_comentarios"></iframe>
+                <jsp:include page="/ir_ver_comentario"></jsp:include>               
+
             </div>
-            
+
         </div>
     </body>
 </html>

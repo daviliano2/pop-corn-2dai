@@ -1,6 +1,7 @@
 package popcorn.controlador;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import java.util.Collection;
@@ -44,16 +45,17 @@ public class ValoracionController {
         this.peliculaService = peliculaService;
     }
        
-    @RequestMapping(value = "/valorar", method = RequestMethod.POST)
-    public String doCrearValoracion(@RequestParam ("valoracion") int val, @RequestParam Key idPelicula) {
+    @RequestMapping(value = "/valorar", method = RequestMethod.GET)
+    public String doCrearValoracion(@RequestParam ("valoracion") int val, 
+                            @RequestParam ("idPelicula") String idStringPelicula) {
         
-        final Pelicula pelicula = peliculaService.getPelicula(idPelicula);
-        final Valoracion valoracion = new Valoracion(val, pelicula);
-        valoracionService.create(valoracion);
+        //final Pelicula pelicula = peliculaService.getPelicula(idPelicula);
+        //final Valoracion valoracion = new Valoracion(val, idPelicula);
+        valoracionService.create(val,KeyFactory.stringToKey(idStringPelicula));
         return "redirect:ir_ver_pelicula";
     }
     
-    @RequestMapping(value = "/ir_ver_valoracion", method = RequestMethod.GET)   
+    @RequestMapping(value = "/ir_ver_valoraciones", method = RequestMethod.GET)   
     public String doVerValoracion(@RequestParam Key idPelicula, Model model) {        
         
         final Collection<Valoracion> valoraciones = valoracionService.getValoraciones(idPelicula);

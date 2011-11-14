@@ -35,19 +35,12 @@ public class PeliculaController {
         this.userService = userService;
     }
     
-    @Autowired
-    @Required
-    public void getPeliculaService(
-            PeliculaService peliculaService) {
-        this.peliculaService = peliculaService;
-    }
-     
     @RequestMapping(value = "/ir_ver_pelicula", method = RequestMethod.GET)
     public String doVerPelicula(Model model) {
         
-        final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
+        final Collection<Pelicula> pelicula = peliculaService.getAllPeliculas();
         
-        model.addAttribute("peliculas", peliculas);
+        model.addAttribute("pelicula", pelicula);
         
         return "/ver_pelicula";
 
