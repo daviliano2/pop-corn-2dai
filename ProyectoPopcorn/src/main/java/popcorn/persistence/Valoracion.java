@@ -1,5 +1,6 @@
 package popcorn.persistence;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,10 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.users.User;
 
 @Entity
-public class Valoracion {
+public class Valoracion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,5 +67,9 @@ public class Valoracion {
 
     public void setPelicula(Pelicula pelicula) {
         this.pelicula = pelicula;
+    }
+    
+    public String getIdString() {
+        return KeyFactory.keyToString(id);
     }
 }

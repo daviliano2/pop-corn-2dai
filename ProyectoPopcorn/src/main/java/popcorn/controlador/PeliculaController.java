@@ -36,42 +36,31 @@ public class PeliculaController {
     }
     
     @RequestMapping(value = "/ir_ver_pelicula", method = RequestMethod.GET)
-    public String doVerPelicula(Model model) {
-        
-        final Collection<Pelicula> pelicula = peliculaService.getAllPeliculas();
-        
-        model.addAttribute("pelicula", pelicula);
-        
+    public String doVerPelicula(Model model) {        
+        final Collection<Pelicula> pelicula = peliculaService.getAllPeliculas();        
+        model.addAttribute("pelicula", pelicula);        
         return "/ver_pelicula";
-
     }
     
     @RequestMapping(value = "/ir_crear_pelicula", method = RequestMethod.GET)
     public String doShowCrearPelicula() {
-
         return "/crear_pelicula";
-
     }
     
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
     public String doCrearPelicula(@RequestParam("titulo") String titulo,@RequestParam("sinopsis")String sinopsis,
     @RequestParam("duracion") int duracion,@RequestParam("categoria") String categoria,@RequestParam("actores") String actores,
     @RequestParam("director") String director,@RequestParam("imagen") String imagen, Model model) {
-
         final List<String> actor = new ArrayList<String>();
         StringTokenizer tokens = new StringTokenizer(actores,",");
-	while(tokens.hasMoreTokens()) {
-            
+	while(tokens.hasMoreTokens()) {            
             String actrs = tokens.nextToken();
             actrs.trim();
             actor.add(actrs);
-            System.out.println(actor.toString());
-            
-        }
-        
+            System.out.println(actor.toString());            
+        }        
         final Pelicula pelicula = new Pelicula(titulo, sinopsis, duracion, categoria, actor, director,imagen);
         peliculaService.create(pelicula);
         return "redirect:inicio?pagina=1";
-
     }
 }

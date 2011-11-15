@@ -7,16 +7,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html>
-    <head>
-        <link type="text/html" />    
+    <head> 
     </head>
     <body>
+        <strong>holaaaaaaaaaaaaa</strong>
         <c:forEach var="valoraciones" items="${valoraciones}" varStatus="status">
             <table border="1">
                 <tr>
                     <td>
-                        <c:out value="${valoraciones.valoracion}"/><br/>
-                    </td>
+                        <c:out value="${valoracion}"/><br/>
+                   </td>
                 </tr>
             </table> 
         </c:forEach>

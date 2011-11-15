@@ -1,5 +1,6 @@
 package popcorn.persistence;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 @Entity
-public class Pelicula {
+public class Pelicula implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,11 +36,11 @@ public class Pelicula {
     @Basic
     private String imagen;
     
-    @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL)
-    private List<Valoracion> valoraciones = new ArrayList<Valoracion>();
+    @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Valoracion> valoraciones ;
     
-    @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL)
-    private List<Comentario> comentarios = new ArrayList<Comentario>();
+    @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Comentario> comentarios;
 
     public Pelicula() {
     }
@@ -82,6 +83,9 @@ public class Pelicula {
     }
 
     public List<Valoracion> getValoraciones() {
+        if(valoraciones == null) {
+            valoraciones = new ArrayList<Valoracion>();
+        } 
         return valoraciones;
     }
 
@@ -98,6 +102,9 @@ public class Pelicula {
     }
 
     public List<Comentario> getComentarios() {
+        if(comentarios == null) {
+            comentarios = new ArrayList<Comentario>();
+        }
         return comentarios;
     }
 
