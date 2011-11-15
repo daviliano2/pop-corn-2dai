@@ -47,7 +47,9 @@ public class ValoracionServiceImpl implements ValoracionService {
         Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
         Valoracion valoracion = new Valoracion();
         valoracion.setValoracion(valorValoracion);
+        valoracion.setPelicula(pelicula);
         pelicula.getValoraciones().add(valoracion);
+        peliculaDAO.update(pelicula);
     }
 
     @Override
