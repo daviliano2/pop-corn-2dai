@@ -37,13 +37,6 @@ public class ComentarioController {
         this.userService = userService;
     }    
        
-    @RequestMapping(value = "/ir_ver_comentario", method = RequestMethod.GET)
-    public String doVerComentario(Model model) {        
-        final Collection<Comentario> comentarios = comentarioService.getAllComentarios();        
-        model.addAttribute("comentarios", comentarios);               
-        return "/ver_comentarios";
-    }
-    
     @RequestMapping(value = "/comentar", method = RequestMethod.POST)
     public String doCrearComentario(@RequestParam("content")String content,
                                     @RequestParam ("idPelicula") String idStringPelicula) {
@@ -52,4 +45,11 @@ public class ComentarioController {
         comentarioService.create(content,KeyFactory.stringToKey(idStringPelicula), fecha, author);
         return "redirect:ir_ver_pelicula";
     }
+    
+    @RequestMapping(value = "/ir_ver_comentario", method = RequestMethod.GET)
+    public String doVerComentario(@RequestParam ("idPelicula") String idPelicula, Model model) {  
+        final Collection<Comentario> comentarios = comentarioService.getAllComentarios(KeyFactory.stringToKey(idPelicula));        
+        model.addAttribute("comentarios", comentarios);              
+        return "/ver_comentarios";
+    }        
 }

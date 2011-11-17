@@ -8,6 +8,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import popcorn.persistence.Comentario;
 
 /**
@@ -20,7 +21,7 @@ public interface ComentarioService {
     
     void create(String contenido, Key idPelicula, Date fecha, User author);
 
-    Collection<Comentario> getAllComentarios();
+    Collection<Comentario> getAllComentarios(Key idPelicula);
 
     Collection<Comentario> getPaginaComentarios(int startPosition, int maxResult);
 

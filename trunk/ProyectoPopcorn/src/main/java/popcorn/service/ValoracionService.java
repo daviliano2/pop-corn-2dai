@@ -3,6 +3,7 @@ package popcorn.service;
 import com.google.appengine.api.datastore.Key;
 import popcorn.persistence.Valoracion;
 import java.util.Collection;
+import java.util.List;
 
 public interface ValoracionService {
     
@@ -14,5 +15,5 @@ public interface ValoracionService {
     
     int contarValoraciones(Key idPelicula);
     
-    Double avgValoracion(Key idPelicula);
+    Double mediaValoracion(Key idPelicula);
 }

@@ -1,7 +1,6 @@
 package popcorn.service;
 
 import com.google.appengine.api.datastore.Key;
-//import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import popcorn.dao.ValoracionDAO;
 import popcorn.dao.PeliculaDAO;
@@ -48,8 +47,7 @@ public class ValoracionServiceImpl implements ValoracionService {
         Valoracion valoracion = new Valoracion();
         valoracion.setValoracion(valorValoracion);
         valoracion.setPelicula(pelicula);
-        pelicula.getValoraciones().add(valoracion);
-        peliculaDAO.update(pelicula);
+        pelicula.getValoraciones().add(valoracion);        
     }
 
     @Override
@@ -64,7 +62,7 @@ public class ValoracionServiceImpl implements ValoracionService {
     }
 
     @Override
-    public Double avgValoracion(Key idPelicula) {
+    public Double mediaValoracion(Key idPelicula) {
         Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
         Double suma = 0.0;
         for(Valoracion valoracion:pelicula.getValoraciones()) {

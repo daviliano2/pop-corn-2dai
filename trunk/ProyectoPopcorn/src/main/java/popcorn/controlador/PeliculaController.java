@@ -1,6 +1,7 @@
 
 package popcorn.controlador;
 
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.users.UserService;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,22 +36,30 @@ public class PeliculaController {
         this.userService = userService;
     }
     
-    @RequestMapping(value = "/ir_ver_pelicula", method = RequestMethod.GET)
-    public String doVerPelicula(Model model) {        
-        final Collection<Pelicula> pelicula = peliculaService.getAllPeliculas();        
-        model.addAttribute("pelicula", pelicula);        
-        return "/ver_pelicula";
-    }
-    
     @RequestMapping(value = "/ir_crear_pelicula", method = RequestMethod.GET)
     public String doShowCrearPelicula() {
         return "/crear_pelicula";
+    }    
+     
+    @RequestMapping(value = "/ir_seleccionar_peliculas", method = RequestMethod.GET)
+    public String doIrPeliculas(@RequestParam("idPelicula") String idPelicula, Model model) {
+        System.out.println("Entra en ver 1");
+        final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
+        model.addAttribute("peliculas",peliculas);
+        return "/seleccionar_pelicula";
     }
     
+    @RequestMapping(value = "/ir_ver_pelicula", method = RequestMethod.GET)
+    public String doVerPelicula(@RequestParam("idPelicula") String idPelicula, Model model) {        
+        final Pelicula pelicula = peliculaService.getPelicula(KeyFactory.stringToKey(idPelicula));        
+        model.addAttribute("pelicula", pelicula);        
+        return "/ver_pelicula";
+    }
+        
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
     public String doCrearPelicula(@RequestParam("titulo") String titulo,@RequestParam("sinopsis")String sinopsis,
-    @RequestParam("duracion") int duracion,@RequestParam("categoria") String categoria,@RequestParam("actores") String actores,
-    @RequestParam("director") String director,@RequestParam("imagen") String imagen, Model model) {
+            @RequestParam("duracion") int duracion,@RequestParam("categoria") String categoria,@RequestParam("actores") String actores,
+            @RequestParam("director") String director,@RequestParam("imagen") String imagen, Model model) {
         final List<String> actor = new ArrayList<String>();
         StringTokenizer tokens = new StringTokenizer(actores,",");
 	while(tokens.hasMoreTokens()) {            

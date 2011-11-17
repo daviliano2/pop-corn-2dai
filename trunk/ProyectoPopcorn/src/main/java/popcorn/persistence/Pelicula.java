@@ -37,7 +37,7 @@ public class Pelicula implements Serializable {
     private String imagen;
     
     @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Valoracion> valoraciones ;
+    private List<Valoracion> valoraciones;
     
     @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comentario> comentarios;

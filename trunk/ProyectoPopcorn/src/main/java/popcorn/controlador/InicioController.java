@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class InicioController {
-
+    
     @RequestMapping(value = "/inicio", method = RequestMethod.GET)
     public String doIrInicio() {
         return "/inicio";
     }    
+   
 }

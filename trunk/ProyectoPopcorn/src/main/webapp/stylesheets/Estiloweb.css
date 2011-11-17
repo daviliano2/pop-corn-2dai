@@ -52,7 +52,7 @@ div {
     top: 316px;
     z-index: 2;
 }
-#apDiv4 {
+#apDivContenedorComentario {
 	position: absolute;
 	width: 621px;
 	height: 255px;
@@ -60,25 +60,19 @@ div {
 	top: 80px;
 	z-index: 2;
 }
-#apDiv5 {
+#apDivComenta {
 	position:absolute;
 	width:605px;
 	height:40px;
 	left:10px;
 }
-#apDiv6 {
+#apDivVerComentarios {
 	position: absolute;
 	width: 621px;
 	height: 1200px;
 	left: 674px;
 	top: 339px;
 	z-index: 2;
-}
-#iframe1{
-	position: absolute;
-	width: 615px;
-	height: 1100px;
-	border: hidden;
 }
 #apDivSinopsis {
 	position: absolute;
@@ -88,7 +82,7 @@ div {
 	height: 300px;
 	z-index: 2;
 }
-#apDiv8 {
+#apDivTextoSinopsis {
 	position: absolute;
 	width: 600px;
 	left: 20px;

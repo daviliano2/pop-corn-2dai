@@ -1,6 +1,5 @@
 package popcorn.service;
 
-//import com.google.appengine.api.users.User;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
@@ -44,27 +43,27 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
 
     @Override
-    public void create(final Comentario greeting) {
-        comentarioDAO.insert(greeting);
+    public void create(final Comentario comentario) {
+        comentarioDAO.insert(comentario);
     }
 
     @Override
     public void create(String contenido, Key idPelicula, Date fecha, User author) {
         Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-        //Comentario comentario = new Comentario(author, contenido, fecha);
         Comentario comentario = new Comentario();
         comentario.setContent(contenido);
         comentario.setAuthor(author);
         comentario.setFecha(fecha);
         comentario.setPelicula(pelicula);
         pelicula.getComentarios().add(comentario);
-        peliculaDAO.update(pelicula);
     }
 
     @Override
-    public Collection<Comentario> getAllComentarios() {
-        return comentarioDAO.getAll(Comentario.class);
+    public Collection<Comentario> getAllComentarios(Key idPelicula) {
+        Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
+        return pelicula.getComentarios();                
     }
+
 
     @Override
     public Collection<Comentario> getPaginaComentarios(int startPosition, int maxResult) {
