@@ -7,13 +7,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html>
-    <head> 
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></meta>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Menu Peliculas</title>
     </head>
     <body>
-        <c:forEach var="valoraciones" items="${valoraciones}" varStatus="status" begin="${tamaño-1}">
-            <c:out value="${valoraciones.valoracion}"/>
+        <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
+            <c:out value="${pelicula.titulo}"/>
         </c:forEach>
-        <strong>Valoracion de los usuarios: </strong><c:out value="${media}"/>
-    </body> 
+    </body>
 </html>

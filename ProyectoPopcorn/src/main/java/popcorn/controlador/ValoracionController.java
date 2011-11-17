@@ -1,6 +1,5 @@
 package popcorn.controlador;
 
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import java.util.Collection;
 import popcorn.service.ValoracionService;
@@ -32,9 +31,13 @@ public class ValoracionController {
     }
     
     @RequestMapping(value = "/ir_ver_valoraciones", method = RequestMethod.GET)   
-    public String doVerValoracion(@RequestParam ("idPelicula") Key idPelicula, Model model) {           
-        final Collection<Valoracion> valoraciones = valoracionService.getValoraciones(idPelicula);
-        model.addAttribute("valoraciones", valoraciones);               
+    public String doVerValoracion(@RequestParam ("idPelicula") String idPelicula, Model model) {           
+        final Collection<Valoracion> valoraciones = valoracionService.getValoraciones(KeyFactory.stringToKey(idPelicula));
+        final Double media = valoracionService.mediaValoracion(KeyFactory.stringToKey(idPelicula));
+        model.addAttribute("valoraciones", valoraciones);
+        model.addAttribute("media", Math.round(media));
+        model.addAttribute("tamaño",valoraciones.size());
         return "/ver_valoraciones";    
     }
+    
 }

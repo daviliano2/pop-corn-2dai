@@ -25,7 +25,7 @@
                 <form action="/inicio">
                     <input type="submit" value="INICIO"></input>
                 </form>
-                
+
             </div>
 
             <div id="apDivContenedorPelicula"> <!-- Aqui se va a introducir los datos de la pelicula -->
@@ -48,7 +48,7 @@
                     </div>
 
                     <div id="apDivValoracion">
-                        <strong>Tu valoracion:</strong><br/>
+                        <strong>Tu valoracion:</strong>
                         <form action="/valorar" method="get" >
                             <select name="valoracion">
                                 <option value="Puntuacion" selected="selected"></option>
@@ -60,25 +60,25 @@
                             </select>
                             <input type="hidden" value="${pelicula.idString}" name="idPelicula"/>
                             <input type="submit" value="vota" />
-                        </form>
+                        </form> 
                     </div>
                 </div>
 
                 <div id="apDivSinopsis">
-                    <jsp:include page="/ir_ver_valoraciones"></jsp:include> 
-                    
-                    <br/>
+                    <jsp:include page="/ir_ver_valoraciones">
+                        <jsp:param name="idPelicula" value="${pelicula.idString}"/>
+                    </jsp:include>                                       
                     <br/>
                     <p><b>Sinopsis</b></p>
-                    <div id="apDiv8">
+                    <div id="apDivTextoSinopsis">
                         <p style="text-align: justify;">
                             <c:out value="${pelicula.sinopsis}"/><br/>
                         </p>
                     </div>
                 </div>                   
 
-                <div id="apDiv4">
-                    <div id="apDiv5">
+                <div id="apDivContenedorComentario">
+                    <div id="apDivComenta">
                         <p>Introduce tu comentario sobre la pelicula: </p>
                         <form action="/comentar" method="post">
                             <textarea name="content" rows="5" cols="70"></textarea>
@@ -88,11 +88,12 @@
                         </form>
                     </div>
                 </div>
+                <div id="apDivVerComentarios">                    
+                    <jsp:include page="/ir_ver_comentario">
+                        <jsp:param name="idPelicula" value="${pelicula.idString}"></jsp:param> 
+                    </jsp:include>
+                </div>
             </c:forEach>
-            <div id="apDiv6">
-                <jsp:include page="/ir_ver_comentario"></jsp:include>
-            </div>
-
         </div>
     </body>
 </html>

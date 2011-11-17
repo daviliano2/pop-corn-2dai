@@ -22,9 +22,11 @@
                     </input>                    
                 </form>                        
                 <br/>
-                <form action="/ir_ver_pelicula">
-                    <input type="submit" value="VER PELICULA"></input>                    
-                </form>                
+                <form action="/ir_seleccionar_peliculas">
+                    <input type="submit" value="VER PELICULAS">                 
+                    </input>                    
+                </form>
+                  
             </center>
             <br/>
         </div>
