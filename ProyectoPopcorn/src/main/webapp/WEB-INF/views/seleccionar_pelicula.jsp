@@ -12,8 +12,15 @@
         <title>Menu Peliculas</title>
     </head>
     <body>
-        <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-            <c:out value="${pelicula.titulo}"/>
+        <form action="/inicio">
+            <input type="submit" value="INICIO"/>
+        </form>
+        <c:forEach var="pelicula" items="${peliculas}" varStatus="status">           
+            <form action="/ir_ver_pelicula" method="get">               
+                <input type="hidden" value="${pelicula.idString}" name="idPelicula"/>
+                <input type="submit" value="${pelicula.titulo}"/>
+            </form><br/>
         </c:forEach>
+        
     </body>
 </html>
