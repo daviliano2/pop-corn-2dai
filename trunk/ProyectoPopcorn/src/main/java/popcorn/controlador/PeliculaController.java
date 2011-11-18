@@ -42,16 +42,15 @@ public class PeliculaController {
     }    
      
     @RequestMapping(value = "/ir_seleccionar_peliculas", method = RequestMethod.GET)
-    public String doIrPeliculas(@RequestParam("idPelicula") String idPelicula, Model model) {
-        System.out.println("Entra en ver 1");
+    public String doIrPeliculas(Model model) {
         final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
         model.addAttribute("peliculas",peliculas);
         return "/seleccionar_pelicula";
     }
     
     @RequestMapping(value = "/ir_ver_pelicula", method = RequestMethod.GET)
-    public String doVerPelicula(@RequestParam("idPelicula") String idPelicula, Model model) {        
-        final Pelicula pelicula = peliculaService.getPelicula(KeyFactory.stringToKey(idPelicula));        
+    public String doVerPelicula(@RequestParam("idPelicula") String idPelicula, Model model) { 
+        final Pelicula pelicula = peliculaService.getPelicula(KeyFactory.stringToKey(idPelicula));
         model.addAttribute("pelicula", pelicula);        
         return "/ver_pelicula";
     }
