@@ -51,7 +51,7 @@ public class PeliculaController {
     @RequestMapping(value = "/ir_ver_pelicula", method = RequestMethod.GET)
     public String doVerPelicula(@RequestParam("idPelicula") String idPelicula, Model model) { 
         final Pelicula pelicula = peliculaService.getPelicula(KeyFactory.stringToKey(idPelicula));
-        model.addAttribute("pelicula", pelicula);        
+        model.addAttribute("pelicula", pelicula);  
         return "/ver_pelicula";
     }
         
