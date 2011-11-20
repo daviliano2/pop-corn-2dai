@@ -12,8 +12,7 @@
     </head>
     <body>
         <c:forEach var="valoraciones" items="${valoraciones}" varStatus="status" begin="${tamaño-1}">
-            <c:out value="${valoraciones.valoracion}"/>
-            
+            <c:out value="${valoraciones.valoracion}"/>            
         </c:forEach>
         <strong>Valoracion de los usuarios: </strong><c:out value="${media}"/>
     </body> 
