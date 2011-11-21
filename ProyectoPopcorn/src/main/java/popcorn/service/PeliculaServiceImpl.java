@@ -1,8 +1,6 @@
 package popcorn.service;
 
 import com.google.appengine.api.datastore.Key;
-/*import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;*/
 import popcorn.dao.PeliculaDAO;
 import popcorn.persistence.Pelicula;
 import java.util.Collection;

@@ -27,16 +27,21 @@ public class ValoracionController {
     public String doCrearValoracion(@RequestParam ("valoracion") int val, 
                             @RequestParam ("idPelicula") String idStringPelicula) {
         valoracionService.create(val,KeyFactory.stringToKey(idStringPelicula));
-        return "redirect:ir_ver_pelicula";
+        return "redirect:ir_ver_pelicula?idPelicula=" + idStringPelicula;
     }
     
     @RequestMapping(value = "/ir_ver_valoraciones", method = RequestMethod.GET)   
     public String doVerValoracion(@RequestParam ("idPelicula") String idPelicula, Model model) {           
         final Collection<Valoracion> valoraciones = valoracionService.getValoraciones(KeyFactory.stringToKey(idPelicula));
         final Double media = valoracionService.mediaValoracion(KeyFactory.stringToKey(idPelicula));
+        int x = 1;
         model.addAttribute("valoraciones", valoraciones);
         model.addAttribute("media", Math.round(media));
-        model.addAttribute("tamaño",valoraciones.size());
+        if(valoraciones.isEmpty()) {
+            model.addAttribute("tamaño",x);
+        } else {
+            model.addAttribute("tamaño",valoraciones.size());
+        }
         return "/ver_valoraciones";    
     }
     

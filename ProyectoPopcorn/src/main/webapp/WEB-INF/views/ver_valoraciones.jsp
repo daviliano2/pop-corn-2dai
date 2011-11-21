@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></meta>
     </head>
     <body>
+        
         <c:forEach var="valoraciones" items="${valoraciones}" varStatus="status" begin="${tamaño-1}">
             <c:out value="${valoraciones.valoracion}"/>            
         </c:forEach>
