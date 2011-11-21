@@ -65,11 +65,12 @@
             </div>
 
             <div id="apDivSinopsis">
-                <jsp:include page="/ir_ver_valoraciones"></jsp:include>
-                   <!--<//jsp:param name="idPelicula" value="${pelicula.idString}"/>
-                <///jsp:include>    -->         
-                
-               <br/>
+
+                <jsp:include page="/ir_ver_valoraciones"/>
+                 <!--<//jsp:param name="idPelicula" value="pelicula.idString"/>
+                <//jsp:include>   -->
+
+                <br/>
                 <p><b>Sinopsis</b></p>
                 <div id="apDivTextoSinopsis">
                     <p style="text-align: justify;">
@@ -90,9 +91,9 @@
                 </div>
             </div>
             <div id="apDivVerComentarios">                    
-               <jsp:include page="/ir_ver_comentario"/>
-                    <!--<//jsp:param name="idPelicula" value="${pelicula.idString}"/> 
-                <///jsp:include>-->
+                <jsp:include page="/ir_ver_comentario"/>
+                    <!--<//jsp:param name="idPelicula" value="${idString}"/> 
+                    <//jsp:include>-->
             </div>
 
         </div>

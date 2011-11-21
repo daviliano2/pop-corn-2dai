@@ -43,7 +43,7 @@ public class ComentarioController {
         final User author = userService.getCurrentUser();
         final Date fecha = new Date();
         comentarioService.create(content,KeyFactory.stringToKey(idStringPelicula), fecha, author);
-        return "redirect:ir_ver_pelicula";
+        return "redirect:ir_ver_pelicula?idPelicula=" + idStringPelicula;
     }
     
     @RequestMapping(value = "/ir_ver_comentario", method = RequestMethod.GET)
