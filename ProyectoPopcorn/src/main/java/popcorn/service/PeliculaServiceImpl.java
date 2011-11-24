@@ -25,16 +25,8 @@ public class PeliculaServiceImpl implements PeliculaService {
     @Override
     public void create(final Pelicula pelicula) {
         peliculaDAO.insert(pelicula);
-    }
-    
-    @Override
-    public void borrar(Key idPelicula) {
-        Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-        if(pelicula != null) {
-            peliculaDAO.remove(pelicula);
-        }
-    }
-    
+    }    
+      
     @Override
     public Pelicula getPelicula(Key idPelicula) {
         return peliculaDAO.findByPK(Pelicula.class, idPelicula);

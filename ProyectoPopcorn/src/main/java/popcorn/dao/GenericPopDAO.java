@@ -11,17 +11,21 @@ public interface GenericPopDAO <T, PK extends Serializable> extends Serializable
     Integer countAll(Class<T> typeClass);
 
     T findByPK(Class<T> typeClass, PK id);
+    
+    T findByString(Class<T> typeClass, String id);
 
     void update(T object);
 
     void remove(T object);
+    
+    void remove(Class<T> typeClass, PK clave);
+
+    int removeAll(Class<T> typeClass);
 
     void insert(T object);
-    
-    void closeEm();
 
     List<T> getPaginated(Class<T> typeClass, int startPosition, int maxResult);
 
     List<T> getOrderedPaginated(Class<T> typeClass, int startPosition, int maxResult, String order, int dir);
-
+    
 }

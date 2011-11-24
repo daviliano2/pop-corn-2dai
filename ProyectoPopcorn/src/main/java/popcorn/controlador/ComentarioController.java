@@ -5,8 +5,6 @@
 package popcorn.controlador;
 
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
 import popcorn.persistence.Comentario;
 import popcorn.service.ComentarioService;
 import java.util.Collection;
@@ -23,26 +21,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ComentarioController {
     
     private ComentarioService comentarioService;
-    private UserService userService;
 
     @Autowired
     @Required
     public void setComentarioService(ComentarioService comentarioService) {
         this.comentarioService = comentarioService;
-    }
-
-    @Autowired
-    @Required
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }    
+    }      
        
     @RequestMapping(value = "/comentar", method = RequestMethod.POST)
     public String doCrearComentario(@RequestParam("content")String content,
                                     @RequestParam ("idPelicula") String idStringPelicula) {
-        final User author = userService.getCurrentUser();
+        
         final Date fecha = new Date();
-        comentarioService.create(content,KeyFactory.stringToKey(idStringPelicula), fecha, author);
+        comentarioService.create(content,KeyFactory.stringToKey(idStringPelicula), fecha);
         return "redirect:ir_ver_pelicula?idPelicula=" + idStringPelicula;
     }
     

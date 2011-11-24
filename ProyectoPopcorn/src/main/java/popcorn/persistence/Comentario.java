@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.users.User;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,11 +19,8 @@ public class Comentario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key id;
-    
-    @Basic
-    private User author;
-    
+    private Key id;    
+       
     @Basic
     private String content;
     
@@ -37,19 +33,14 @@ public class Comentario implements Serializable {
     public Comentario() {
     }
 
-    public Comentario(User author, String content, Date fecha) {
-        this.author = author;
+    public Comentario(String content, Date fecha) {        
         this.content = content;
         this.fecha = fecha;
     }
 
     public Key getId() {
         return id;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
+    }  
 
     public String getContent() {
         return content;
@@ -61,10 +52,6 @@ public class Comentario implements Serializable {
 
     public void setId(Key id) {
         this.id = id;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
     }
 
     public void setContent(String content) {

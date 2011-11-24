@@ -2,50 +2,69 @@ package popcorn.persistence;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import com.google.appengine.api.datastore.Key;
 
 @Entity
 public class Usuario implements Serializable {
-    
+        
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key id;
-	
-    @Basic
-    private String nombreUsuario;
-	
-    @Basic
+    private String username;
+
+    @Column(nullable = false)
     private String password;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Rol rol;   
+    
+    
     public Usuario() {
+        
     }
-	
-    public Usuario(String nombreUsuario, String password) {
-	this.nombreUsuario = nombreUsuario;
-	this.password = password;
+    
+    public Usuario(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
-	
-    public Key getId() {
-	return id;
-    }
-
-    public void setId(Key id) {
-	this.id = id;
-    }
-
-    public String getNombreUsuario() {
-	return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-	this.nombreUsuario = nombreUsuario;
-    }
-
+    
     public String getPassword() {
-	return password;
+        return password;
     }
 
     public void setPassword(String password) {
-	this.password = password;
+        this.password = password;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Rol getRoles() {
+        return rol;
+    }
+
+    public void setRoles(Rol rol) {
+        this.rol = rol;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Usuario usuario = (Usuario)o;
+        return super.equals(username.equals(usuario.getUsername()));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + (this.username != null ? this.username.hashCode() : 0);
+        return hash;
+    }    
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "username=" + username + '}';
+    }
+
 }

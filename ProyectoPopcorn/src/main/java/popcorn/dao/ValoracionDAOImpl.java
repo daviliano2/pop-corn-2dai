@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import popcorn.persistence.Valoracion;
 
 @Repository
-public class ValoracionDAOImpl extends GenericPopDAOJPAImpl<Valoracion, Key> implements ValoracionDAO {
+public class ValoracionDAOImpl extends GenericPopDAOImpl<Valoracion, Key> implements ValoracionDAO {
 	
 }

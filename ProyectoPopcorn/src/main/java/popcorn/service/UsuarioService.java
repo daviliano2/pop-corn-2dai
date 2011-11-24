@@ -5,17 +5,19 @@
 package popcorn.service;
 
 import com.google.appengine.api.datastore.Key;
-import popcorn.persistence.Usuario;
-import java.util.Collection;
+import popcorn.persistence.*;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-/**
- *
- * @author david
- */
-public interface UsuarioService {
+
+public interface UsuarioService extends UserDetailsService {
+    //void preload_usuarios();    
+    void create(Usuario usuario);
+    Rol getRol(Usuario usuario);
+    void crearRol();
+    void setRol(Usuario usuario, String rol);
+    void addRol(Usuario usuario, Rol rol);
+    Usuario getUsuario(String idUsuario);    
+    Usuario getCurrentUser();
+    boolean isAdmin();
     
-    void create(final Usuario usuario);
-    void borrar(final Key idUsuario);
-    
-    Collection<Usuario> getAllUsuarios();
 }

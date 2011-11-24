@@ -14,7 +14,6 @@ import popcorn.persistence.Pelicula;
 public interface PeliculaService {
     
     void create(final Pelicula pelicula);
-    void borrar(final Key idUsuario);
     
     Pelicula getPelicula(Key idPelicula);
     

@@ -2,7 +2,6 @@
 package popcorn.controlador;
 
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.users.UserService;
 import java.util.ArrayList;
 import java.util.Collection;
 import popcorn.persistence.Pelicula;
@@ -21,19 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PeliculaController {
     
     private PeliculaService peliculaService;
-    private UserService userService;
 
     @Autowired
     @Required
     public void setPeliculaService(
             PeliculaService peliculaService) {
         this.peliculaService = peliculaService;
-    }
-
-    @Autowired
-    @Required
-    public void setUserService(UserService userService) {
-        this.userService = userService;
     }
     
     @RequestMapping(value = "/ir_crear_pelicula", method = RequestMethod.GET)
@@ -58,7 +50,7 @@ public class PeliculaController {
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
     public String doCrearPelicula(@RequestParam("titulo") String titulo,@RequestParam("sinopsis")String sinopsis,
             @RequestParam("duracion") int duracion,@RequestParam("categoria") String categoria,@RequestParam("actores") String actores,
-            @RequestParam("director") String director,@RequestParam("imagen") String imagen, Model model) {
+            @RequestParam("director") String director,@RequestParam("imagen") String imagen/*, Model model*/) {
         final List<String> actor = new ArrayList<String>();
         StringTokenizer tokens = new StringTokenizer(actores,",");
 	while(tokens.hasMoreTokens()) {            
@@ -69,6 +61,6 @@ public class PeliculaController {
         }        
         final Pelicula pelicula = new Pelicula(titulo, sinopsis, duracion, categoria, actor, director,imagen);
         peliculaService.create(pelicula);
-        return "redirect:inicio?pagina=1";
+        return "redirect:inicio";
     }
 }

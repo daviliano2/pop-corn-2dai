@@ -5,7 +5,6 @@
 package popcorn.service;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.users.User;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +18,7 @@ public interface ComentarioService {
     
     void create(final Comentario comentario);
     
-    void create(String contenido, Key idPelicula, Date fecha, User author);
+    void create(String contenido, Key idPelicula, Date fecha);
 
     Collection<Comentario> getAllComentarios(Key idPelicula);
 
