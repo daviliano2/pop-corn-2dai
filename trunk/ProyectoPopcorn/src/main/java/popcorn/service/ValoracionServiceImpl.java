@@ -1,7 +1,7 @@
 package popcorn.service;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.users.UserService;
+
 import popcorn.dao.ValoracionDAO;
 import popcorn.dao.PeliculaDAO;
 import popcorn.persistence.Valoracion;
@@ -16,7 +16,7 @@ public class ValoracionServiceImpl implements ValoracionService {
     
     private PeliculaDAO peliculaDAO;
     private ValoracionDAO valoracionDAO;
-    private UserService userService;
+    
     
     @Autowired
     @Required
@@ -28,14 +28,8 @@ public class ValoracionServiceImpl implements ValoracionService {
     @Required
     public void setValoracionDAO(final ValoracionDAO valoracionDAO) {
         this.valoracionDAO = valoracionDAO;
-    }
-    
-    @Autowired
-    @Required
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-    
+    }    
+     
     @Override
     public void create(Valoracion valoracion) {
         valoracionDAO.insert(valoracion);

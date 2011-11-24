@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import popcorn.persistence.Pelicula;
 
 @Repository
-public class PeliculaDAOImpl extends GenericPopDAOJPAImpl<Pelicula, Key> implements PeliculaDAO {
+public class PeliculaDAOImpl extends GenericPopDAOImpl<Pelicula, Key> implements PeliculaDAO {
 	
 }

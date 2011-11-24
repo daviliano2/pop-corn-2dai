@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import popcorn.persistence.Comentario;
 
 @Repository
-public class ComentarioDAOImpl extends GenericPopDAOJPAImpl<Comentario, Key> implements ComentarioDAO {
+public class ComentarioDAOImpl extends GenericPopDAOImpl<Comentario, Key> implements ComentarioDAO {
 	
 }

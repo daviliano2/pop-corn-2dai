@@ -26,7 +26,12 @@
                     <input type="submit" value="VER PELICULAS">                 
                     </input>                    
                 </form>
-                  
+                <br/>
+                <form action="/ir_registrar_usuario">
+                    <input type="submit" value="REGISTRO USUARIO">                 
+                    </input>                    
+                </form>                        
+                <br/>
             </center>
             <br/>
         </div>

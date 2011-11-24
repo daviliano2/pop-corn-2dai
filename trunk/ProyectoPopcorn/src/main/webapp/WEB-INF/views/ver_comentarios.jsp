@@ -15,8 +15,7 @@
             <c:forEach var="coment" items="${comentarios}" varStatus="status">
                 <table border="1">
                     <tr>
-                        <td>
-                            <c:out value="${coment.author}"/><br/>
+                        <td>                            
                             <strong><c:out value="${coment.content}"/><br/></strong>
                             <c:out value="${coment.fecha}"/><br/>
                         </td>
