@@ -5,6 +5,7 @@
 package popcorn.persistence;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,4 +80,8 @@ public class Rol implements Serializable {
         return hash;
     }
 
+    public String getIdString() {
+        return KeyFactory.keyToString(id);
+    }
+    
 }

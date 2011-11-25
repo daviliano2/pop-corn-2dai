@@ -30,8 +30,7 @@ public class ComentarioController {
        
     @RequestMapping(value = "/comentar", method = RequestMethod.POST)
     public String doCrearComentario(@RequestParam("content")String content,
-                                    @RequestParam ("idPelicula") String idStringPelicula) {
-        
+                                    @RequestParam ("idPelicula") String idStringPelicula) {        
         final Date fecha = new Date();
         comentarioService.create(content,KeyFactory.stringToKey(idStringPelicula), fecha);
         return "redirect:ir_ver_pelicula?idPelicula=" + idStringPelicula;

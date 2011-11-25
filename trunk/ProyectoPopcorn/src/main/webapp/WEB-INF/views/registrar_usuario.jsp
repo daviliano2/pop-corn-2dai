@@ -12,13 +12,15 @@
         <title>Registro</title>
     </head>
     <body>
+        <c:forEach var="roles" items="${roles}" varStatus="status">
         <form action="/crear_usuario" method="get">
             <p>
                 Nombre de Usuario: <input name="username" type="text" maxlength="50" /> 
                 Contraseña: <input name="password" type="password" maxlength="20" />
-                <input type="hidden" value="ROLE_USER" name="rol"/>
-                <input type="submit" value="Crear Usuario" /> 
+                <input type="hidden" value="${roles.idString}" name="idRol"/>
+                <input type="submit" value="${roles.nombre}" /> 
             </p>
         </form>
+        </c:forEach>
     </body>
 </html>

@@ -4,6 +4,8 @@
  */
 package popcorn.controlador;
 
+import com.google.appengine.api.datastore.KeyFactory;
+import java.util.Collection;
 import popcorn.persistence.Usuario;
 import popcorn.service.UsuarioService;
 import javax.servlet.http.HttpSession;
@@ -67,19 +69,19 @@ public class UsuarioController {
     }
     
     @RequestMapping(value = "/ir_registrar_usuario", method = RequestMethod.GET)
-    public String verRegistrarUsuario() {
+    public String verRegistrarUsuario(Model model) {
+        final Collection<Rol> roles = rolService.getAllRoles();
+        model.addAttribute("roles", roles);
         return "/registrar_usuario";
     }
     
     @RequestMapping(value = "/crear_usuario", method = RequestMethod.GET)
     public String crearUsuario(@RequestParam("username") String nombreUsuario,
-                               @RequestParam("password") String password, @RequestParam("rol") String rol) {
-        final Usuario usuario = new Usuario(nombreUsuario, password);
-        usuarioService.create(nombreUsuario, password, rol);
-        //usuarioService.setRol(usuario, rol);
+                               @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
+        usuarioService.create(nombreUsuario, password, KeyFactory.stringToKey(idRol));
         return "/inicio";
     }
-    
+     
     @RequestMapping(method = RequestMethod.GET, value = "/login", headers = "Accept=application/json")
     public @ResponseBody
     String login(@RequestParam String username, @RequestParam String password, Model model) {

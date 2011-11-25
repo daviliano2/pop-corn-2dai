@@ -4,6 +4,7 @@
  */
 package popcorn.service;
 
+import java.util.Collection;
 import popcorn.persistence.*;
 /**
  *
@@ -12,5 +13,5 @@ import popcorn.persistence.*;
 public interface RolService {
    
     void createRol();
-    //void setRol(Usuario usuario, String rol);
+    Collection<Rol> getAllRoles();
 }

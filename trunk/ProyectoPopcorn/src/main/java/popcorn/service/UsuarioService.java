@@ -11,7 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UsuarioService extends UserDetailsService {
     //void preload_usuarios();    
-    void create(String username, String password, String rolUser);
+    void create(final Usuario Usuario);
+    void create(String username, String password, Key idRol);
     /*Rol getRol(Usuario usuario);
     void crearRol();
     void setRol(Usuario usuario, String rol);
