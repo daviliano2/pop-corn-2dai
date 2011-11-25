@@ -80,16 +80,7 @@ public class Pelicula implements Serializable {
         this.titulo = titulo;
     }
 
-    public List<Valoracion> getValoraciones() {
-        if(valoraciones == null) {
-            valoraciones = new ArrayList<Valoracion>();
-        } 
-        return valoraciones;
-    }
-
-    public void setValoraciones(List<Valoracion> valoraciones) {
-        this.valoraciones = valoraciones;
-    }
+    
 
     public String getCategoria() {
         return categoria;
@@ -97,17 +88,6 @@ public class Pelicula implements Serializable {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
-    }
-
-    public List<Comentario> getComentarios() {
-        if(comentarios == null) {
-            comentarios = new ArrayList<Comentario>();
-        }
-        return comentarios;
-    }
-
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
     }
 
     public int getDuracion() {
@@ -140,6 +120,28 @@ public class Pelicula implements Serializable {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+    
+    public List<Valoracion> getValoraciones() {
+        if(valoraciones == null) {
+            valoraciones = new ArrayList<Valoracion>();
+        } 
+        return valoraciones;
+    }
+
+    public void setValoraciones(List<Valoracion> valoraciones) {
+        this.valoraciones = valoraciones;
+    }    
+
+    public List<Comentario> getComentarios() {
+        if(comentarios == null) {
+            comentarios = new ArrayList<Comentario>();
+        }
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
     
     public String getIdString() {

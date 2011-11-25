@@ -41,39 +41,53 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Required
     public void setRolDAO(final RolDAO rolDAO) {
         this.rolDAO = rolDAO;
-    }        
-    
+    }
+
     @Override
     public void create(final Usuario usuario) {
         usuarioDAO.insert(usuario);
     }
-    
+
     @Override
     public void create(String username, String password, Key idRol) {
-        Rol rol = rolDAO.findByPK(Rol.class,idRol);
+        Rol rol = rolDAO.findByPK(Rol.class, idRol);
         System.out.println("rol:  " + rol);
         Usuario usuario = new Usuario();
         usuario.setUsername(username);
         usuario.setPassword(password);
-        System.out.println("usuario:  " + usuario);
+        //usuarioDAO.insert(usuario);
+        System.out.println("usuario:  " + usuario);               
         rol.getUsuarios().add(usuario);
+        System.out.println("usuario-rol: " + usuario.getRoles().getNombre());
+        //System.out.println("rol-usuario: " + rol.getUsuarios() + "\n");
     }
-    
-     /*@Override
+
+    /*@Override
     public void create(String contenido, Key idPelicula, Date fecha) {
-        Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-        Comentario comentario = new Comentario();
-        comentario.setContent(contenido);        
-        comentario.setFecha(fecha);
-        comentario.setPelicula(pelicula);
-        pelicula.getComentarios().add(comentario);
+    Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
+    Comentario comentario = new Comentario();
+    comentario.setContent(contenido);        
+    comentario.setFecha(fecha);
+    comentario.setPelicula(pelicula);
+    pelicula.getComentarios().add(comentario);
     }*/
-      
     @Override
     public Usuario getUsuario(String idUsuario) {
         return usuarioDAO.findByPK(Usuario.class, idUsuario);
-    }   
-    
+    }
+
+    @Override
+    public Collection<Usuario> getAllUsuarios(Key idRol) {
+        Rol rol = rolDAO.findByPK(Rol.class, idRol);
+        return rol.getUsuarios();
+    }    
+       
+    /*@Override
+    public Collection<Comentario> getAllComentarios(Key idPelicula) {
+    Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
+    return pelicula.getComentarios();                
+    }*/
+
     @Override
     public void setRol(Usuario usuario, String rol) {
         usuario.setRoles(rolDAO.findByString(Rol.class, rol));
@@ -110,7 +124,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Collection<GrantedAuthority> result = new ArrayList<GrantedAuthority>();
         //int i = 0;
         //for (Rol rol : getRol(usuario)) {
-            result.add(new GrantedAuthorityImpl(usuario.getRoles().getNombre()));
+        result.add(new GrantedAuthorityImpl(usuario.getRoles().getNombre()));
         //}
         return result;
     }
@@ -136,78 +150,77 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return isAdmin;
     }
-    
     /*@PostConstruct
     @Override
     public void preload_usuarios() {
-        System.out.println("AQUI UsuarioServiceImpl preload_usuarios");
-        usuarioDao.removeAll(Usuario.class);
-        rolDao.removeAll(Rol.class);
-
-        Usuario u1 = new Usuario();
-        u1.setUsername("pepe");
-        u1.setPassword("pepe");
-
-        Usuario u2 = new Usuario();
-        u2.setUsername("juan");
-        u2.setPassword("juan");
-
-        Usuario u3 = new Usuario();
-        u3.setUsername("luis");
-        u3.setPassword("luis");
-
-        Rol r1 = new Rol();
-        r1.setNombre("ROLE_ADMIN");
-
-        Rol r2 = new Rol();
-        r2.setNombre("ROLE_USER");
-
-        rolDao.insert(r1);
-        rolDao.insert(r2);
-
-        addRol(u1, r1);
-        addRol(u1, r2);
-        addRol(u2, r2);
-        addRol(u3, r2);
-
-        create(u1);
-        create(u2);
-        create(u3);
-
-        System.out.println("AQUI UsuarioServiceImpl preload_usuarios usuarios=" + usuarioDao.countAll(Usuario.class));
+    System.out.println("AQUI UsuarioServiceImpl preload_usuarios");
+    usuarioDao.removeAll(Usuario.class);
+    rolDao.removeAll(Rol.class);
+    
+    Usuario u1 = new Usuario();
+    u1.setUsername("pepe");
+    u1.setPassword("pepe");
+    
+    Usuario u2 = new Usuario();
+    u2.setUsername("juan");
+    u2.setPassword("juan");
+    
+    Usuario u3 = new Usuario();
+    u3.setUsername("luis");
+    u3.setPassword("luis");
+    
+    Rol r1 = new Rol();
+    r1.setNombre("ROLE_ADMIN");
+    
+    Rol r2 = new Rol();
+    r2.setNombre("ROLE_USER");
+    
+    rolDao.insert(r1);
+    rolDao.insert(r2);
+    
+    addRol(u1, r1);
+    addRol(u1, r2);
+    addRol(u2, r2);
+    addRol(u3, r2);
+    
+    create(u1);
+    create(u2);
+    create(u3);
+    
+    System.out.println("AQUI UsuarioServiceImpl preload_usuarios usuarios=" + usuarioDao.countAll(Usuario.class));
     }
     
     @PostConstruct
     @Override
     public void crearRol() {
-        Rol r1 = new Rol();
-        Rol r2 = new Rol();
-        r1.setNombre("ROLE_ADMIN");        
-        r2.setNombre("ROLE_USER");
-        rolDao.insert(r1);
-        rolDao.insert(r2);        
+    Rol r1 = new Rol();
+    Rol r2 = new Rol();
+    r1.setNombre("ROLE_ADMIN");        
+    r2.setNombre("ROLE_USER");
+    rolDao.insert(r1);
+    rolDao.insert(r2);        
     }
-       
+    
     @Override
     public Rol getRol(Usuario usuario) {
-        return rolDao.findByString(Rol.class, "ROLE_USER");
+    return rolDao.findByString(Rol.class, "ROLE_USER");
     }
     
     @Override
     public void setRol(Usuario usuario, String nombreRol) {
-        Rol rol = rolDao.findByString(Rol.class, nombreRol);
-        usuario.setRoles(rol);
+    Rol rol = rolDao.findByString(Rol.class, nombreRol);
+    usuario.setRoles(rol);
     }
     
     public Rol getRoles(Usuario usuario) {
-        Collection<Rol> roles = new ArrayList<Rol>();
-        Rol rol = rolDao.findByPK(Rol.class, usuario.getRoles().getId());
-        roles.add(rol);        
-        return (Rol) roles;
+    Collection<Rol> roles = new ArrayList<Rol>();
+    Rol rol = rolDao.findByPK(Rol.class, usuario.getRoles().getId());
+    roles.add(rol);        
+    return (Rol) roles;
     }
     
     @Override
     public void addRol(Usuario usuario, Rol rol) {
-        usuario.getRoles().add(rol.getId());
+    usuario.getRoles().add(rol.getId());
     }*/
 }

@@ -10,6 +10,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RolDAOImpl extends GenericPopDAOImpl<Rol, Key> implements RolDAO {
-    
-    
+   
 }

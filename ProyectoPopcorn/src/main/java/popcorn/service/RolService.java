@@ -13,5 +13,6 @@ import popcorn.persistence.*;
 public interface RolService {
    
     void createRol();
+    Rol getRol(String rol);
     Collection<Rol> getAllRoles();
 }

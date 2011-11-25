@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package popcorn.persistence;
 
 import com.google.appengine.api.datastore.Key;
@@ -16,7 +12,7 @@ public class Rol implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Key id;
+    private Key id;
 
     //@Column(nullable = false, length = 50)
     @Basic
@@ -31,18 +27,7 @@ public class Rol implements Serializable {
     public Rol() {
         
     }
-    
-    public List<Usuario> getUsuarios() {
-        if(usuarios == null) {
-            usuarios = new ArrayList<Usuario>();
-        } 
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-    
+        
     public String getDescripcion() {
         return descripcion;
     }
@@ -65,6 +50,17 @@ public class Rol implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }    
+    
+    public List<Usuario> getUsuarios() {
+        if(usuarios == null) {
+            usuarios = new ArrayList<Usuario>();
+        } 
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     @Override
