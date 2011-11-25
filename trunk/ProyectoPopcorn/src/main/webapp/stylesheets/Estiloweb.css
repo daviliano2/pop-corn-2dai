@@ -22,7 +22,7 @@ div {
 #apDivContenedorPelicula {
 	position: absolute;
 	width: 640px;
-	height: 374px;
+	height: 424px;
 	left: 30px;
 	top: 80px;
 	z-index: 2;
@@ -32,7 +32,7 @@ div {
 	width: 318px;
 	height: 300px;
 	left: 10px;
-	top: 12px;
+	top: 60px;
 	z-index: 2;
 }
 #apDivInformacionPelicula {
@@ -40,7 +40,7 @@ div {
 	width: 250px;
 	height: 300px;
 	left: 365px;
-	top: 12px;
+	top: 55px;
 	z-index: 2;
         
 }
@@ -49,7 +49,7 @@ div {
     width: 250px;
     heigth: 55px;
     left: 10px;
-    top: 316px;
+    top: 366px;
     z-index: 2;
 }
 #apDivContenedorComentario {
@@ -78,7 +78,7 @@ div {
 	position: absolute;
 	width: 640px;
 	left: 30px;
-	top: 458px;
+	top: 508px;
 	height: 300px;
 	z-index: 2;
 }

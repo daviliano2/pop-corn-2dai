@@ -23,7 +23,13 @@
         <property name="viewClass"
                   value="org.springframework.web.servlet.view.JstlView"/>
     </bean>
-
+    
+    <bean class="com.google.appengine.api.blobstore.BlobstoreServiceFactory"
+      factory-method="getBlobstoreService" id=" blobstoreService"/>
+    
+    <bean class="com.google.appengine.api.users.UserServiceFactory"
+      factory-method="getUserService" id="userService"/>
+      
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" lazy-init="true">
         <property name="persistenceUnitName" value="transactions-optional"/>
     </bean>

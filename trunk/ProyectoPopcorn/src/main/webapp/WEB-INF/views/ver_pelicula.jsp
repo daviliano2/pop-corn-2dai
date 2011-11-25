@@ -30,21 +30,20 @@
 
             <div id="apDivContenedorPelicula"> <!-- Aqui se va a introducir los datos de la pelicula -->
                 <div id="apDivImagenPelicula"> <!-- Aqui va la imagen -->
-
-                    <img src="./Image/<c:out value="${pelicula.imagen}"/>" height="290" width="300" style="text-align: center"></img><br/>
+                    <img height="290" width="300" src='http://localhost:8888/serve?blob-key=${pelicula.imagen}'></img><br/>
                 </div>
-                <div id="apDivInformacionPelicula"> <!-- Aqui va la informacion de la pelicula -->
-                    <center><p><b><h2> <c:out value="${pelicula.titulo}"/></h2></b></p></center>                 
+                <div id="apDivTituloPelicula">
+                    <center><p><b><h2> <c:out value="${pelicula.titulo}"/></h2></b></p></center>
+                </div>
+                <div id="apDivInformacionPelicula"> <!-- Aqui va la informacion de la pelicula -->               
                     <p>
                         <b>Duraci&oacute;n:</b> <c:out value="${pelicula.duracion}"/> min.<br/>
                         <b>Director:</b> <c:out value="${pelicula.director}"/><br/>
-                        <b>Actores:</b>
-                    </p> 
-                    <ul>
+                        <b>Actores:</b><br/>
                         <c:forEach var="actor" items="${pelicula.actores}" varStatus="status">    
-                            <li>${actor}</li>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&bull; <c:out value="${actor}" /><br/>
                         </c:forEach>
-                    </ul>
+                    </p>
                 </div>
 
                 <div id="apDivValoracion">
@@ -67,11 +66,8 @@
             <div id="apDivSinopsis">
 
                 <jsp:include page="/ir_ver_valoraciones"/>
-                 <!--<//jsp:param name="idPelicula" value="pelicula.idString"/>
-                <//jsp:include>   -->
-
                 <br/>
-                <p><b>Sinopsis</b></p>
+                <p><b>&nbsp;&nbsp;&nbsp;Sinopsis</b></p>
                 <div id="apDivTextoSinopsis">
                     <p style="text-align: justify;">
                         <c:out value="${pelicula.sinopsis}"/><br/>
@@ -92,8 +88,6 @@
             </div>
             <div id="apDivVerComentarios">                    
                 <jsp:include page="/ir_ver_comentario"/>
-                    <!--<//jsp:param name="idPelicula" value="${idString}"/> 
-                    <//jsp:include>-->
             </div>
 
         </div>
