@@ -78,10 +78,26 @@ public class UsuarioController {
     @RequestMapping(value = "/crear_usuario", method = RequestMethod.GET)
     public String crearUsuario(@RequestParam("username") String nombreUsuario,
                                @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
-        usuarioService.create(nombreUsuario, password, KeyFactory.stringToKey(idRol));
+        usuarioService.create(nombreUsuario, password, KeyFactory.stringToKey(idRol));        
         return "/inicio";
     }
      
+    @RequestMapping(value= "/ir_ver_usuarios", method = RequestMethod.GET)
+    public String verUsuarios(Model model) {
+        final Collection<Rol> roles = rolService.getAllRoles();
+        
+        final Collection<Usuario> usuarios = usuarioService.getAllUsuarios(KeyFactory.stringToKey(idRol));        
+        model.addAttribute("usuarios", usuarios);
+        return "/ver_usuarios";
+    }
+    
+    /*@RequestMapping(value = "/ir_seleccionar_peliculas", method = RequestMethod.GET)
+    public String doIrPeliculas(Model model) {
+        final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
+        model.addAttribute("peliculas",peliculas);
+        return "/seleccionar_pelicula";
+    }*/
+    
     @RequestMapping(method = RequestMethod.GET, value = "/login", headers = "Accept=application/json")
     public @ResponseBody
     String login(@RequestParam String username, @RequestParam String password, Model model) {

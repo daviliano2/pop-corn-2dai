@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package popcorn.service;
 
 import java.util.Collection;
@@ -10,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import popcorn.dao.RolDAO;
-import popcorn.dao.UsuarioDAO;
 import popcorn.persistence.Rol;
 
 /**
@@ -21,19 +16,12 @@ import popcorn.persistence.Rol;
 public class RolServiceImpl implements RolService {
 
     private RolDAO rolDAO;
-    private UsuarioDAO usuarioDAO;
     
     @Autowired
     @Required
     public void setRolDAO(final RolDAO rolDAO) {
         this.rolDAO = rolDAO;
-    }
-    
-    @Autowired
-    @Required
-    public void setUsuarioDAO(final UsuarioDAO usuarioDAO) {
-        this.usuarioDAO = usuarioDAO;
-    }
+    }    
     
     @PostConstruct
     @Override
@@ -41,15 +29,22 @@ public class RolServiceImpl implements RolService {
         rolDAO.removeAll(Rol.class);
         Rol r1 = new Rol();
         Rol r2 = new Rol();
-        r1.setNombre("ROLE_ADMIN");        
+        r1.setNombre("ROLE_ADMIN");
+        r1.setDescripcion("Administrador");
         r2.setNombre("ROLE_USER");
+        r2.setDescripcion("Usuario");
         rolDAO.insert(r1);
         rolDAO.insert(r2);        
     }   
-
+    
+    @Override
+    public Rol getRol(String rol) {
+        return rolDAO.findByString(Rol.class, rol);
+    }
+    
     @Override
     public Collection<Rol> getAllRoles() {
         return rolDAO.getAll(Rol.class);
-    }
+    }   
       
 }

@@ -1,11 +1,14 @@
 package popcorn.persistence;
 
+import com.google.appengine.api.datastore.Key;
 import java.io.Serializable;
 import javax.persistence.Basic;
-import javax.persistence.Column;
+//import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -13,6 +16,10 @@ import javax.persistence.ManyToOne;
 public class Usuario implements Serializable {
         
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Key id; 
+    
+    @Basic
     private String username;
 
     //@Column(nullable = false)
@@ -23,8 +30,7 @@ public class Usuario implements Serializable {
     private Rol rol;   
     
     
-    public Usuario() {
-        
+    public Usuario() {        
     }
     
     public Usuario(String username, String password) {
