@@ -4,6 +4,7 @@
  */
 package popcorn.service;
 
+import com.google.appengine.api.datastore.Key;
 import popcorn.dao.*;
 import popcorn.persistence.*;
 import java.util.ArrayList;
@@ -43,11 +44,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     }        
     
     @Override
-    public void create(String username, String password, String rolUser) {
-        Rol rol = rolDAO.findByString(Rol.class, rolUser);
+    public void create(final Usuario usuario) {
+        usuarioDAO.insert(usuario);
+    }
+    
+    @Override
+    public void create(String username, String password, Key idRol) {
+        Rol rol = rolDAO.findByPK(Rol.class,idRol);
+        System.out.println("rol:  " + rol);
         Usuario usuario = new Usuario();
         usuario.setUsername(username);
         usuario.setPassword(password);
+        System.out.println("usuario:  " + usuario);
         rol.getUsuarios().add(usuario);
     }
     

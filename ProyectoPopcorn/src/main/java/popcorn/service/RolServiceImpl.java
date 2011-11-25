@@ -4,6 +4,7 @@
  */
 package popcorn.service;
 
+import java.util.Collection;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Required;
 import popcorn.dao.RolDAO;
 import popcorn.dao.UsuarioDAO;
 import popcorn.persistence.Rol;
-//import popcorn.persistence.Usuario;
+
 /**
  *
  * @author david
@@ -46,9 +47,9 @@ public class RolServiceImpl implements RolService {
         rolDAO.insert(r2);        
     }   
 
-    /*@Override
-    public void setRol(Usuario usuario, String rol) {
-        usuario.setRoles(rolDAO.findByString(Rol.class, rol));
-    }*/
-        
+    @Override
+    public Collection<Rol> getAllRoles() {
+        return rolDAO.getAll(Rol.class);
+    }
+      
 }

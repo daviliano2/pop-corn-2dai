@@ -1,6 +1,7 @@
 package popcorn.persistence;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +15,8 @@ public class Usuario implements Serializable {
     @Id
     private String username;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
+    @Basic
     private String password;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -7,7 +7,6 @@ package popcorn.service;
 import com.google.appengine.api.datastore.Key;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import popcorn.persistence.Comentario;
 
 /**
