@@ -5,7 +5,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
 
+
+<%
+    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></meta>
@@ -14,14 +20,14 @@
     <body>
         <div>
             <div style="position:absolute;width:650px;height:500px;background-color: silver;">
-                <form action="/crear" method="post">
+                <form action="<%=blobstoreService.createUploadUrl("/crear")%>" method="post" enctype="multipart/form-data">
                     <p>Nombre de la pelicula: <input name="titulo" type="text"></input><br/> 
                         Sinopsis: <br/><textarea name="sinopsis" rows="5" cols="70"></textarea><br/>
                         Duracion: <input type="text" name="duracion"></input><br/>
                         Actores(separados por comas): <textarea name="actores" rows="5" cols="70"></textarea><br/>
                         Director: <input type="text" name="director"></input><br/>
                         Categoria: <input type="text" name="categoria"></input><br/>
-                        Imagen: <input type="file" name="imagen"></input>
+                        Imagen: <input type="file" name="imagen" id="imagen"></input>
                     </p>
                     <p align="center">
                         <input type="reset" value="Limpiar" />

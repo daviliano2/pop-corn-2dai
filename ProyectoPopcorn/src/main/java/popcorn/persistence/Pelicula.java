@@ -45,16 +45,14 @@ public class Pelicula implements Serializable {
     public Pelicula() {
     }
 
-    public Pelicula(String titulo, String sinopsis, int duracion, String categoria, List<String> actores, String director, String imagen) {
+    public Pelicula(String titulo, String sinopsis, int duracion, String categoria, String director) {
         this.sinopsis = sinopsis;
         this.titulo = titulo;
         this.duracion = duracion;
         this.categoria = categoria;
         this.director = director;
-        this.actores = actores;
         this.valoraciones = new ArrayList<Valoracion>();
-        this.comentarios = new ArrayList<Comentario>();
-        this.imagen = imagen;
+        this.comentarios = new ArrayList<Comentario>();    
 
     }
 
