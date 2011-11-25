@@ -11,13 +11,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UsuarioService extends UserDetailsService {
     //void preload_usuarios();    
-    void create(Usuario usuario);
-    Rol getRol(Usuario usuario);
+    void create(String username, String password, String rolUser);
+    /*Rol getRol(Usuario usuario);
     void crearRol();
     void setRol(Usuario usuario, String rol);
-    void addRol(Usuario usuario, Rol rol);
+    void addRol(Usuario usuario, Rol rol);*/
     Usuario getUsuario(String idUsuario);    
     Usuario getCurrentUser();
+    void setRol(Usuario usuario, String rol);
     boolean isAdmin();
     
 }
