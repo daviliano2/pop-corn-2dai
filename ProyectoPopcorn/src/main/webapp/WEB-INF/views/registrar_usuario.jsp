@@ -8,19 +8,35 @@
 
 <html>
     <head>
+        <script type="text/javascript">            
+            $("#alerta")(
+            function() {                 
+                alert("Introduce otro nombre de usuario");                
+            });
+        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registro</title>
     </head>
     <body>
+        <form action="/inicio">
+            <input type="submit" value="INICIO"/>
+        </form>
+        <c:out value="${valido}"/>
+        <c:if test="${valido}">
+            <input type="hidden" id="alertar"/>
+        </c:if>
+
         <c:forEach var="roles" items="${roles}" varStatus="status">
-            <form action="/crear_usuario" method="get">
+            <form action="/comprobar_usuario" method="get">
                 <p>
                     Nombre de Usuario: <input name="username" type="text" maxlength="50" /> 
-                    Contraseña: <input name="password" type="password" maxlength="20" />
+                    Contraseña: <input name="password" type="password" maxlength="20" />                                       
                     <input type="hidden" value="${roles.idString}" name="idRol"/>
-                    <input type="submit" value="${roles.nombre}" /> 
+                    <input type="submit" value="${roles.nombre}" />                   
                 </p>
             </form>  
-        </c:forEach>
+        </c:forEach> 
+
     </body>
 </html>
+

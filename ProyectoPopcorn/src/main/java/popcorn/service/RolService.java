@@ -4,6 +4,7 @@
  */
 package popcorn.service;
 
+import com.google.appengine.api.datastore.Key;
 import java.util.Collection;
 import popcorn.persistence.*;
 /**
@@ -13,6 +14,6 @@ import popcorn.persistence.*;
 public interface RolService {
    
     void createRol();
-    Rol getRol(String rol);
+    Rol getRol(Key idRol);
     Collection<Rol> getAllRoles();
 }

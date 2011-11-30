@@ -37,8 +37,8 @@ public class RolController {
         return "/ver_usuarios";
     }
     
-    @RequestMapping(value = "/ir_ver_rol", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/ir_ver_rol", method = RequestMethod.GET)
     public String verRol(@RequestParam("idRol") String idRol) {
         final Rol rol = rolService.getRol(idRol);
-    }
+    }*/
 }

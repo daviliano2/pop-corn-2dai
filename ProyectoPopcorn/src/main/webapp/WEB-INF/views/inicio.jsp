@@ -20,13 +20,11 @@
                 <form action="/ir_crear_pelicula">
                     <input type="submit" value="CREAR PELICULA">                 
                     </input>                    
-                </form>                        
-                <br/>
+                </form>                       
                 <form action="/ir_seleccionar_peliculas">
                     <input type="submit" value="VER PELICULAS">                 
                     </input>                    
-                </form>
-                <br/>
+                </form>               
                 <form action="/ir_registrar_usuario">
                     <input type="submit" value="REGISTRO USUARIO">                 
                     </input>                    
