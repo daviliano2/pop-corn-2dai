@@ -17,18 +17,32 @@
             </img>
             <br/><br/>
             <center>
-                <form action="/ir_crear_pelicula">
-                    <input type="submit" value="CREAR PELICULA">                 
-                    </input>                    
-                </form>                       
-                <form action="/ir_seleccionar_peliculas">
-                    <input type="submit" value="VER PELICULAS">                 
-                    </input>                    
-                </form>               
-                <form action="/ir_registrar_usuario">
-                    <input type="submit" value="REGISTRO USUARIO">                 
-                    </input>                    
-                </form>                        
+                <table>
+                    <tr>
+                        <td>
+                            <form action="/ir_crear_pelicula">
+                            <input type="submit" value="CREAR PELICULA"></input>                    
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/ir_seleccionar_peliculas">
+                                <input type="submit" value="VER PELICULAS"></input>                    
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form action="/ir_registrar_usuario">
+                                <input type="submit" value="REGISTRO USUARIO"></input>                    
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/ir_nueva_vista">
+                                <input type="submit" value="Nueva vista"></input>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
                 <br/>
             </center>
             <br/>

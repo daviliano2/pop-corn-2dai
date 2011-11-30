@@ -38,7 +38,8 @@ public class RolController {
     }
     
     /*@RequestMapping(value = "/ir_ver_rol", method = RequestMethod.GET)
-    public String verRol(@RequestParam("idRol") String idRol) {
+    public void verRol(@RequestParam("idRol") String idRol) {
         final Rol rol = rolService.getRol(idRol);
     }*/
+
 }

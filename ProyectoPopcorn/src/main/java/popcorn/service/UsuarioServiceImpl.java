@@ -46,6 +46,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void create(final Usuario usuario) {
         usuarioDAO.insert(usuario);
+        usuarioDAO.update(usuario);
     }
 
     @Override
@@ -71,11 +72,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     comentario.setPelicula(pelicula);
     pelicula.getComentarios().add(comentario);
     }*/
+    
     @Override
     public Usuario getUsuario(String idUsuario) {
         return usuarioDAO.findByPK(Usuario.class, idUsuario);
     }
-
+    
     @Override
     public Collection<Usuario> getAllUsuarios(Key idRol) {
         Rol rol = rolDAO.findByPK(Rol.class, idRol);
