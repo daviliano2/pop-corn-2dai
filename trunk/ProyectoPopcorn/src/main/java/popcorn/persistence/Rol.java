@@ -14,8 +14,8 @@ public class Rol implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key id;
 
-    //@Column(nullable = false, length = 50)
-    @Basic
+    @Column(nullable = false, length = 50)
+    //@Basic
     private String nombre;
 
     @Column()
@@ -27,7 +27,18 @@ public class Rol implements Serializable {
     public Rol() {
         
     }
-        
+    
+    /*public List<Usuario> getUsuarios() {
+        if(usuarios == null) {
+            usuarios = new ArrayList<Usuario>();
+        } 
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }*/
+
     public String getDescripcion() {
         return descripcion;
     }

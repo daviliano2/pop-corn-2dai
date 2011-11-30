@@ -12,13 +12,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,7 +25,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import popcorn.persistence.Pelicula;
 import popcorn.persistence.Rol;
+import popcorn.service.PeliculaService;
 import popcorn.service.RolService;
 
 @Controller
@@ -38,6 +37,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
     private RolService rolService;
     private AuthenticationManager authenticationManager;
+    private PeliculaService peliculaService;
 
     @Autowired
     @Required
@@ -105,7 +105,8 @@ public class UsuarioController {
     
     @RequestMapping(value = "/crear_usuario", method = RequestMethod.GET)
     public String crearUsuario(@RequestParam("username") String nombreUsuario,
-                               @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
+    @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
+
         usuarioService.create(nombreUsuario, password, KeyFactory.stringToKey(idRol));        
         return "/inicio";
     }
@@ -113,7 +114,6 @@ public class UsuarioController {
     /*@RequestMapping(value= "/ir_ver_usuarios", method = RequestMethod.GET)
     public String verUsuarios(Model model) {
         final Collection<Rol> roles = rolService.getAllRoles();
-        
         final Collection<Usuario> usuarios = usuarioService.getAllUsuarios(KeyFactory.stringToKey(idRol));        
         model.addAttribute("usuarios", usuarios);
         return "/ver_usuarios";

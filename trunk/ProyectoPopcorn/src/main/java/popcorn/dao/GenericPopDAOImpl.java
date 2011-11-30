@@ -15,6 +15,7 @@ public class GenericPopDAOImpl<T, PK extends Serializable> implements GenericPop
     @Override
     public void insert(T t) {
         em.persist(t);
+        System.out.println("Persistido");
     }
 
     @Override
