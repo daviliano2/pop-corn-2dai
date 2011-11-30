@@ -71,8 +71,12 @@ public class UsuarioController {
     @RequestMapping(value = "/ir_registrar_usuario", method = RequestMethod.GET)
     public String verRegistrarUsuario(Model model,Boolean valido) {
         final Collection<Rol> roles = rolService.getAllRoles();
-        model.addAttribute("roles", roles);
-        model.addAttribute("valido", valido);
+        for(Rol rol : roles) {
+            if(rol.getNombre().compareTo("ROLE_USER") == 0) {
+                model.addAttribute("roles", rol);
+                model.addAttribute("valido", valido);
+            }
+        }        
         return "/registrar_usuario";
     }
     
