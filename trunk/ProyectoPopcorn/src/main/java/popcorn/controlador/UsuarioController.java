@@ -69,10 +69,34 @@ public class UsuarioController {
     }
     
     @RequestMapping(value = "/ir_registrar_usuario", method = RequestMethod.GET)
-    public String verRegistrarUsuario(Model model) {
+    public String verRegistrarUsuario(Model model,Boolean valido) {
         final Collection<Rol> roles = rolService.getAllRoles();
         model.addAttribute("roles", roles);
+        model.addAttribute("valido", valido);
         return "/registrar_usuario";
+    }
+    
+    @RequestMapping(value = "/comprobar_usuario", method = RequestMethod.GET)
+    public String comprobarUsuario(@RequestParam("username") String nombreUsuario,
+                               @RequestParam("password") String password,@RequestParam("idRol") String idRol) {
+        Boolean valido = true;
+        final Rol rol = rolService.getRol(KeyFactory.stringToKey(idRol));
+        if(rol.getUsuarios() != null) {
+            for(Usuario usuario : rol.getUsuarios()) {
+                if(usuario.getUsername().compareTo(nombreUsuario) == 0) {
+                    valido = false;
+                }
+            }
+            if(valido == true) {                
+                System.out.println("id 1: " + idRol);
+                return "redirect:/crear_usuario?username=" + nombreUsuario + "&password=" + password + "&idRol=" + idRol;
+            } else {
+                return "redirect:/ir_registrar_usuario?valido=" + valido;
+            }
+        } else {
+            System.out.println("id 2: " + idRol);
+            return "redirect:/crear_usuario?username=" + nombreUsuario + "&password=" + password + "&idRol=" + idRol;
+        }
     }
     
     @RequestMapping(value = "/crear_usuario", method = RequestMethod.GET)
@@ -82,14 +106,14 @@ public class UsuarioController {
         return "/inicio";
     }
      
-    @RequestMapping(value= "/ir_ver_usuarios", method = RequestMethod.GET)
+    /*@RequestMapping(value= "/ir_ver_usuarios", method = RequestMethod.GET)
     public String verUsuarios(Model model) {
         final Collection<Rol> roles = rolService.getAllRoles();
         
         final Collection<Usuario> usuarios = usuarioService.getAllUsuarios(KeyFactory.stringToKey(idRol));        
         model.addAttribute("usuarios", usuarios);
         return "/ver_usuarios";
-    }
+    }*/
     
     /*@RequestMapping(value = "/ir_seleccionar_peliculas", method = RequestMethod.GET)
     public String doIrPeliculas(Model model) {

@@ -2,6 +2,7 @@ package popcorn.persistence;
 
 import com.google.appengine.api.datastore.Key;
 import java.io.Serializable;
+import javax.jdo.annotations.Unique;
 import javax.persistence.Basic;
 //import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key id; 
     
-    @Basic
+    @Unique
     private String username;
 
     //@Column(nullable = false)
