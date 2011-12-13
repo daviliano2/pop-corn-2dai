@@ -1,0 +1,185 @@
+@CHARSET "ISO-8859-1";
+
+#apDivFondo {
+    position:absolute;
+    width:1336px;
+    height:630px;
+    background-color: #CCCCCC;
+    border-radius: 5px;
+     -moz-box-shadow: 1px 1px #000000, 2px 2px #000000, 3px 3px #000000, 4px 4px #000000, 5px 5px #000000;
+    -webkit-box-shadow: 1px;
+}
+
+#apDivMenu {
+    position: absolute;
+    width: 1328px;
+    height: 60px;
+    left: 4px;
+    top: 2px;
+    background-color: #BBB;
+    border-radius: 5px;
+}
+#apDivLogo {
+    position: absolute;
+    width: 240px;
+    height: 50px;
+    left: 20px;
+    top: 5px;
+    background-color: #262626;
+}
+#apDivBotones {
+    position: absolute;
+    width: 840px;
+    height: 50px;
+    left: 400px;
+    top: 5px;
+    background-color: #262626;
+}
+#apDivSocial {
+    position: absolute;
+    width: 1328px;
+    height: 39px;
+    left: 4px;
+    top: 64px;
+    background-color: #cbcbcb;
+    border-radius: 5px;
+}
+#apDivBotonGoogle {
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    top: 8px;
+    left: 200px;
+}
+#apDivBotonFace {
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    top: 8px;
+    left: 227px;
+}
+#apDivBotonTwitt {
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    top: 8px;
+    left: 254px;
+}
+#apDivGog1 {
+    position: absolute;
+    height: 24px;
+    top: 8px;
+    left: 282px;
+}
+#cse-search-form {
+    position: absolute;
+    width: 400px;
+    height: 23px;
+    left: 850px;
+    z-index: 1;
+}
+#input.gsc-input {
+    border-color: #777777;
+}
+#input.gsc-search-button {
+    border-color: #333333;
+    background-color: #333333;
+}
+#apDivLogin {
+    position: absolute;
+    width: 1328px;
+    height: 39px;
+    left: 4px;
+    top: 105px;
+    background-color: #cbcbcb;
+    border-radius: 5px;
+}
+#apDivInicioSesion {
+    position: absolute;
+    width: 400px;
+    height: 23px;
+    top: 8px;
+    left: 40px;
+    background-color: #333;
+}
+#apDivFecha {
+    position: absolute;
+    width: 400px;
+    height: 23px;
+    top: 10px;
+    left: 950px;
+}
+#apDivPanel {
+    position: absolute;
+    width: 220px;
+    height: 481px;
+    left: 4px;
+    top: 146px;
+    background-color: #cbcbcb;
+    border-radius: 5px;
+}
+#apDivPanUsuario {
+    position: absolute;
+    width: 216px;
+    height: 200px;
+    left: 2px;
+    top: 2px;
+    background-color: #000000;
+    border-radius: 5px;
+}
+#apDivNombrePanUsuario {
+    position: absolute;
+    width: 98%;
+    height: 20px;
+    border-radius: 5px;
+    top: 2px;
+    left: 2px;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+#apDivNovedades {
+    position: absolute;
+    width: 216px;
+    height: 200px;
+    left: 2px;
+    top: 204px;
+    background-color: #000000;
+    border-radius: 5px;
+}
+#apDivNombreNovedades {
+    position: absolute;
+    width: 98%;
+    height: 20px;
+    border-radius: 5px;
+    top: 2px;
+    left: 2px;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+#apDivLogoAppEngine {
+    position: absolute;
+    width: 216px;
+    height: 30px;
+    left: 2px;
+    top: 430px;
+    border-radius: 5px;
+}
+#apDivGeneral {
+    position: absolute;
+    width: 1106px;
+    height: 481px;
+    left: 226px;
+    top: 146px;
+    background-color: darkslategray;
+    border-radius: 5px;
+}
+#apDivGaleria {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+}
+#apDivTGal {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
