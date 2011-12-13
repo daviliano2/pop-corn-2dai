@@ -13,7 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UsuarioService extends UserDetailsService {
     //void preload_usuarios();    
     void create(final Usuario Usuario);
-    void create(String username, String password, Key idRol);
+    void create(String nombre, String apellido, 
+                String username, String password, Key idRol);
     Collection<Usuario> getAllUsuarios(Key idRol);    
     /*Rol getRol(Usuario usuario);
     void crearRol();

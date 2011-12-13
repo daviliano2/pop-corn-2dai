@@ -19,10 +19,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import popcorn.persistence.Categoria;
 import popcorn.service.CategoriaService;
 
 @Controller
+@SessionAttributes({"usuario"})
 public class PeliculaController {
     
     private PeliculaService peliculaService;
@@ -58,7 +60,7 @@ public class PeliculaController {
     public String doIrPeliculas(Model model) {
         final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
         model.addAttribute("peliculas",peliculas);
-        return "/nueva_vista";
+        return "/inicio";
     }
     
     @RequestMapping(value = "/ir_ver_pelicula", method = RequestMethod.GET)
@@ -94,6 +96,6 @@ public class PeliculaController {
             System.out.println("Imagen nula");
         }
         
-        return "redirect:inicio";
+        return "redirect:/inicio";
     }
 }

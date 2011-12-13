@@ -22,11 +22,6 @@ public class GenericPopDAOImpl<T, PK extends Serializable> implements GenericPop
     public T findByPK(Class<T> typeClass, PK id) {
         return em.find(typeClass, id);
     }
-    
-    @Override
-    public T findByString(Class<T> typeClass, String id) {
-        return em.find(typeClass, id);
-    }
 
     @SuppressWarnings("unchecked")
     @Override

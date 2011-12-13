@@ -29,15 +29,34 @@ public class Comentario implements Serializable {
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Pelicula pelicula;
+    
+    @Basic
+    private String autor;
 
     public Comentario() {
     }
 
-    public Comentario(String content, Date fecha) {        
+    public Comentario(Usuario autor, String content, Date fecha) {        
+        if (autor != null) {
+            this.autor = autor.getUsername();
+        }
+        this.content = content;
+        this.fecha = fecha;
+    }
+    
+    public Comentario(String content, Date fecha) {
         this.content = content;
         this.fecha = fecha;
     }
 
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+    
     public Key getId() {
         return id;
     }  
