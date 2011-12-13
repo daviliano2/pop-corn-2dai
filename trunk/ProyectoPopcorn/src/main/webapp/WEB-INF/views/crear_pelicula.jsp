@@ -26,7 +26,13 @@
                         Duracion: <input type="text" name="duracion"></input><br/>
                         Actores(separados por comas): <textarea name="actores" rows="5" cols="70"></textarea><br/>
                         Director: <input type="text" name="director"></input><br/>
-                        Categoria: <input type="text" name="categoria"></input><br/>
+                        Categoria: 
+                        <select name="categoria">
+                            <option value="default" selected="selected">Elige una categoria</option>
+                            <c:forEach var="categoriab" items="${categorias}" varStatus="status">
+                                <option value="${categoriab.nombre}"><c:out value="${categoriab.nombre}" /></option>
+                            </c:forEach>
+                        </select><br/>
                         Imagen: <input type="file" name="imagen" id="imagen"></input>
                     </p>
                     <p align="center">

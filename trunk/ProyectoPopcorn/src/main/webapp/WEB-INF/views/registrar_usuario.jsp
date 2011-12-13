@@ -24,12 +24,51 @@
             </script>
         </c:if>        
         <form action="/comprobar_usuario" method="get">
-            <p>
-                Nombre de Usuario: <input name="username" type="text" maxlength="50" /> 
-                Contraseña: <input name="password" type="password" maxlength="20" />                                       
+            <table>
+                <tr>
+                    <td>Nombre de Usuario: </td>
+                    <td><input name="username" type="text" maxlength="50" /></td>
+                </tr>
+                <tr>
+                    <td>Contraseña:</td>
+                    <td><input name="password" type="password" maxlength="20" /></td>
+                </tr>
+                <tr>
+                    <td>Nombre:</td>
+                    <td><input name="nombre" type="text" maxlength="50" /></td>
+                </tr>
+                <tr>
+                    <td>Apellido: </td>
+                    <td><input name="apellido" type="text" maxlength="50" /></td>
+                </tr>
+                <tr>
+                    <td>Categorias favoritas:</td>
+                </tr>
+                <tr>
+                    <td><input name="Accion" type="checkbox" value="Accion"/> Acci&oacute;n</td>
+                    <td><input name="Animacion" type="checkbox" value="Animacion"/> Animaci&oacute;n</td>
+                    <td><input name="Belico" type="checkbox" value="Belico"/> B&eacute;lico</td>
+                </tr>
+                <tr>
+                    <td><input name="Ciencia Ficcion" type="checkbox" value="Ciencia Ficcion"/> Ciencia Ficci&oacute;n </td>
+                    <td><input name="Comedia" type="checkbox" value="Comedia"/> Comedia</td>
+                    <td><input name="Documental" type="checkbox" value="Documental"/> Documental</td>
+                </tr>
+                <tr>
+                    <td><input name="Fantanstica" type="checkbox" value="Fantastica"/> Fant&aacute;stica</td>
+                    <td><input name="Musical" type="checkbox" value="Musical"/> Musical</td>
+                    <td><input name="Romantica" type="checkbox" value="Romantica"/> Rom&aacute;ntica</td>
+                </tr>
+                <tr>
+                    <td><input name="Suspense" type="checkbox" value="Suspense"/> Suspense</td>
+                    <td><input name="Terror" type="checkbox" value="Terror"/> Terror</td>
+                    <td><input name="Western" type="checkbox" value="Western"/> Western</td>
+                </tr>
+            </table>
+                
+                
                 <input type="hidden" value="${roles.idString}" name="idRol"/>
-                <input type="submit" value="${roles.nombre}" />                   
-            </p>
+                <input type="submit" value="Registro" />                   
         </form> 
     </body>
 </html>

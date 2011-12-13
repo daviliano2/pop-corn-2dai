@@ -41,6 +41,7 @@
                 string: navigator.userAgent,
 		subString: "Chrome",
 		identity: "Chrome"
+                
             },
             {
 		string: navigator.vendor,
@@ -83,7 +84,7 @@
             },
             {
 		string: navigator.platform,
-		subString: "Linux",
+		subString: "/Image/icono-ubuntu-3d4.png",
 		identity: "Linux"
             }
             ]

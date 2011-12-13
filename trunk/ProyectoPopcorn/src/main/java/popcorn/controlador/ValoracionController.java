@@ -24,8 +24,7 @@ public class ValoracionController {
     }
        
     @RequestMapping(value = "/valorar", method = RequestMethod.GET)
-    public String doCrearValoracion(@RequestParam ("valoracion") int val, 
-                            @RequestParam ("idPelicula") String idStringPelicula) {
+    public String doCrearValoracion(@RequestParam ("valoracion") int val, @RequestParam ("idPelicula") String idStringPelicula) {
         valoracionService.create(val,KeyFactory.stringToKey(idStringPelicula));
         return "redirect:ir_ver_pelicula?idPelicula=" + idStringPelicula;
     }

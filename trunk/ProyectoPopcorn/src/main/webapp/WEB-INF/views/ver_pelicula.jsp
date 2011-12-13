@@ -39,6 +39,7 @@
                     <p>
                         <b>Duraci&oacute;n:</b> <c:out value="${pelicula.duracion}"/> min.<br/>
                         <b>Director:</b> <c:out value="${pelicula.director}"/><br/>
+                        <b>Categoria:</b> <c:out value="${pelicula.categoria}"/><br/>
                         <b>Actores:</b><br/>
                         <c:forEach var="actor" items="${pelicula.actores}" varStatus="status">    
                             &nbsp;&nbsp;&nbsp;&nbsp;&bull; <c:out value="${actor}" /><br/>
