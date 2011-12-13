@@ -13,6 +13,41 @@
         <title>Project PopCorn - Peliculas</title>
         <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb.css">
         </link>
+        <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(
+            function() {
+                $("#botonValorar").click(
+            
+                function() {   
+                    <c:choose>
+                        <c:when test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                    $.getJSON(
+                    "/valorar",
+                    {
+                        "idPelicula":$("#idPelicula").val(),
+                        "valoracion":$("#valoracion").val()
+                    },
+                    function(str) {
+                        if(str) {
+                            //alert($("#idPelicula").val());
+                            window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();
+                                        
+                        } else {
+                            alert("else");
+                        }
+                    }
+                );
+                                    </c:when>
+                        <c:otherwise>
+                            alert("Conectate para votar");
+                        </c:otherwise>
+                    </c:choose>
+                }                
+            );
+            }
+        );
+        </script>
     </head>
 
     <body>
@@ -47,27 +82,25 @@
                     </p>
                 </div>
 
-                <div id="apDivValoracion">
-                    <strong>Tu valoracion:</strong>
-                    <form action="/valorar" method="get" >
-                        <select name="valoracion">
-                            <option value="Puntuacion" selected="selected"></option>
+                <div id="apDivValoracion">                   
+                    <strong>Tu valoracion:</strong>                    
+                    <form id="formValorar">
+                        <select name="valoracion" id="valoracion">
+                            <option value="Puntuacion" selected="selected">Puntua</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
-                        </select>
-                        <input type="hidden" value="${pelicula.idString}" name="idPelicula"/>
-                        <input type="submit" value="vota" />
-                    </form> 
+                        </select>                          
+                        <input type="hidden" value="${pelicula.idString}" id="idPelicula"/>
+                        <input type="button" value="vota" id="botonValorar" />                         
+                    </form>                        
                 </div>
             </div>
 
             <div id="apDivSinopsis">
-
-                <jsp:include page="/ir_ver_valoraciones"/>
-                <br/>
+                <jsp:include page="/ir_ver_valoraciones"/><br/>
                 <p><b>&nbsp;&nbsp;&nbsp;Sinopsis</b></p>
                 <div id="apDivTextoSinopsis">
                     <p style="text-align: justify;">
@@ -78,7 +111,15 @@
 
             <div id="apDivContenedorComentario">
                 <div id="apDivComenta">
-                    <p>Introduce tu comentario sobre la pelicula: </p>
+                    <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                        <p>Introduce tu comentario sobre la pelicula, 
+                            ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}
+                            <a  href="/logout" > Desconectar</a>
+                        </p>
+                    </c:if>
+                    <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                        <p>Introduce tu comentario sobre la pelicula:</p>
+                    </c:if>
                     <form action="/comentar" method="post">
                         <textarea name="content" rows="5" cols="70"></textarea>
                         <input type="hidden" value="${pelicula.idString}" name="idPelicula"/>

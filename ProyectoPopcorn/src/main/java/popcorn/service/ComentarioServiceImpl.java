@@ -2,7 +2,6 @@ package popcorn.service;
 
 import com.google.appengine.api.datastore.Key;
 import java.util.Collection;
-import java.util.Date;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -20,7 +19,8 @@ public class ComentarioServiceImpl implements ComentarioService {
 
     private ComentarioDAO comentarioDAO;
     private PeliculaDAO peliculaDAO;
-   
+    
+    
     @Autowired
     @Required
     public void setComentarioDAO(final ComentarioDAO comentarioDao) {
@@ -39,12 +39,8 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
 
     @Override
-    public void create(String contenido, Key idPelicula, Date fecha) {
+    public void create(final Comentario comentario, Key idPelicula) {
         Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-        Comentario comentario = new Comentario();
-        comentario.setContent(contenido);        
-        comentario.setFecha(fecha);
-        comentario.setPelicula(pelicula);
         pelicula.getComentarios().add(comentario);
     }
 

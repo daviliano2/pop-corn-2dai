@@ -4,22 +4,19 @@
  */
 package popcorn.controlador;
 
-import com.google.appengine.api.datastore.KeyFactory;
-import java.util.ArrayList;
 import java.util.Collection;
 import popcorn.persistence.Rol;
 import popcorn.service.RolService;
-import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes({"usuario"})
 public class RolController {
     
     private RolService rolService;

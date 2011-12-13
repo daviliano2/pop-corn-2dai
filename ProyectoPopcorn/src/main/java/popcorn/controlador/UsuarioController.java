@@ -21,11 +21,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
-//import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import popcorn.persistence.Pelicula;
 import popcorn.persistence.Rol;
 import popcorn.service.PeliculaService;
 import popcorn.service.RolService;
@@ -50,7 +48,7 @@ public class UsuarioController {
     public void setUsuarioService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-    
+
     @Autowired
     @Required
     public void setRolService(RolService rolService) {
@@ -58,98 +56,104 @@ public class UsuarioController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getUsuarioConectado", headers = "Accept=application/json")
-    public @ResponseBody
-    Usuario getUser() {
+    public @ResponseBody Usuario getUser() {
         return usuarioService.getCurrentUser();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/getLoginURL")
-    public String getLoginURL() {
+    @RequestMapping(value = "/ir_ver_login", method = RequestMethod.GET)
+    public String irLogin(Model model, Boolean valido) {
+        final Collection<Rol> roles = rolService.getAllRoles();
+        for (Rol rol : roles) {
+            if (rol.getNombre().compareTo("ROLE_USER") == 0) {
+                model.addAttribute("roles", rol);
+            }
+            if (rol.getNombre().compareTo("ROLE_ADMIN") == 0) {
+                model.addAttribute("roles1", rol);
+            }
+        }
+        model.addAttribute("valido", valido);
         return "/login";
     }
-    
+
     @RequestMapping(value = "/ir_registrar_usuario", method = RequestMethod.GET)
-    public String verRegistrarUsuario(Model model,Boolean valido) {
+    public String verRegistrarUsuario(Model model, Boolean valido) {
         final Collection<Rol> roles = rolService.getAllRoles();
-        for(Rol rol : roles) {
-            if(rol.getNombre().compareTo("ROLE_USER") == 0) {
+        for (Rol rol : roles) {
+            if (rol.getNombre().compareTo("ROLE_USER") == 0) {
                 model.addAttribute("roles", rol);
                 model.addAttribute("valido", valido);
             }
-        }        
+        }
         return "/registrar_usuario";
     }
-    
-    @RequestMapping(value = "/comprobar_usuario", method = RequestMethod.GET)
-    public String comprobarUsuario(@RequestParam("username") String nombreUsuario,
-                               @RequestParam("password") String password,@RequestParam("idRol") String idRol) {
+
+    @RequestMapping(value = "/ir_comprobar_usuario", method = RequestMethod.GET)
+    public String comprobarUsuario(@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
+            @RequestParam("username") String nombreUsuario,
+            @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
         Boolean valido = true;
         final Rol rol = rolService.getRol(KeyFactory.stringToKey(idRol));
-        if(rol.getUsuarios() != null) {
-            for(Usuario usuario : rol.getUsuarios()) {
-                if(usuario.getUsername().compareTo(nombreUsuario) == 0) {
+        if (rol.getUsuarios() != null) {
+            for (Usuario usuario : rol.getUsuarios()) {
+                if (usuario.getUsername().compareTo(nombreUsuario) == 0) {
                     valido = false;
                 }
             }
-            if(valido == true) {                
-                System.out.println("id 1: " + idRol);
-                return "redirect:/crear_usuario?username=" + nombreUsuario + "&password=" + password + "&idRol=" + idRol;
+            if (valido == true) {
+                //return "/crear_usuario?nombre=" + nombre + "&apellido=" + apellido
+                       // + "&username=" + nombreUsuario + "&password=" + password + "&idRol=" + idRol;
+                return crearUsuario(nombre,apellido,nombreUsuario,password,idRol);
             } else {
                 return "redirect:/ir_registrar_usuario?valido=" + valido;
             }
         } else {
-            System.out.println("id 2: " + idRol);
-            return "redirect:/crear_usuario?username=" + nombreUsuario + "&password=" + password + "&idRol=" + idRol;
+            //return "redirect:/crear_usuario?nombre=" + nombre + "&apellido=" + apellido
+                 //   + "&username=" + nombreUsuario + "&password=" + password + "&idRol=" + idRol;
+            return crearUsuario(nombre,apellido,nombreUsuario,password,idRol);
         }
     }
-    
-    @RequestMapping(value = "/crear_usuario", method = RequestMethod.GET)
-    public String crearUsuario(@RequestParam("username") String nombreUsuario,
-    @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
 
-        usuarioService.create(nombreUsuario, password, KeyFactory.stringToKey(idRol));        
-        return "/inicio";
+    @RequestMapping(value = "/crear_usuario", method = RequestMethod.GET)
+    public String crearUsuario(@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
+            @RequestParam("username") String nombreUsuario,
+            @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
+        usuarioService.create(nombre, apellido, nombreUsuario, password, KeyFactory.stringToKey(idRol));
+        return "redirect:/inicio";
     }
-     
-    /*@RequestMapping(value= "/ir_ver_usuarios", method = RequestMethod.GET)
-    public String verUsuarios(Model model) {
-        final Collection<Rol> roles = rolService.getAllRoles();
-        final Collection<Usuario> usuarios = usuarioService.getAllUsuarios(KeyFactory.stringToKey(idRol));        
-        model.addAttribute("usuarios", usuarios);
-        return "/ver_usuarios";
-    }*/
-    
-    /*@RequestMapping(value = "/ir_seleccionar_peliculas", method = RequestMethod.GET)
-    public String doIrPeliculas(Model model) {
-        final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
-        model.addAttribute("peliculas",peliculas);
-        return "/seleccionar_pelicula";
-    }*/
-    
-    @RequestMapping(method = RequestMethod.GET, value = "/login", headers = "Accept=application/json")
-    public @ResponseBody
-    String login(@RequestParam String username, @RequestParam String password, Model model) {
+
+    @RequestMapping(value = "/ir_conectar_usuario", method = RequestMethod.GET, headers = "Accept=application/json")
+    public @ResponseBody String conectar(@RequestParam String username,
+                                        @RequestParam String password, Model model) {
         String rdo = null;
         try {
+            //System.out.println("AQUI 1 UserController login ");
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            //System.out.println("AQUI 2 UserController login ");
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
+            //System.out.println("AQUI 3 UserController login ");
             authToken.setDetails(authentication.getDetails());
+            //System.out.println("AQUI 4 UserController login authenticationManager="+authenticationManager);
             Authentication newAuth = authenticationManager.authenticate(authToken);
+            //System.out.println("AQUI 5 UserController login ");
             SecurityContextHolder.getContext().setAuthentication(newAuth);
+            //System.out.println("AQUI 6 UserController login newAuth.getName(): " + newAuth.getName());
             if (newAuth.isAuthenticated()) {
+                //System.out.println("AQUI conectar usuario: " + usuarioService.getCurrentUser());
                 model.addAttribute("usuario", usuarioService.getCurrentUser());
+                //System.out.println("UsuarioController conectar se esta conectando " + username);
+                //rdo = "Estas conectado como " + username;
             } else {
                 rdo = "Error al conectar. Comprueba usuario y contraseña";
             }
-
+            //System.out.println("AQUI 7 UserController login ");
         } catch (Exception unfe) {
             rdo = " ERROR " + unfe.getMessage();
-            unfe.printStackTrace();
+            //unfe.printStackTrace();
         }
-        return rdo;
+        return rdo/*"redirect:/inicio"*/;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/logout")
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession sesion, SessionStatus sessionStatus, @ModelAttribute("usuario") Usuario usuario) throws java.io.IOException {
         System.out.println("UsuarioController logout se está desconectando " + usuario.getUsername());
         SecurityContextHolder.getContext().setAuthentication(null);

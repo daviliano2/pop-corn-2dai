@@ -17,7 +17,7 @@ public interface ComentarioService {
     
     void create(final Comentario comentario);
     
-    void create(String contenido, Key idPelicula, Date fecha);
+    void create(final Comentario comentario, Key idPelicula);
 
     Collection<Comentario> getAllComentarios(Key idPelicula);
 

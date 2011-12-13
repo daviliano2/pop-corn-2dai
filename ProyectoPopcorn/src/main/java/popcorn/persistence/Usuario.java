@@ -26,6 +26,12 @@ public class Usuario implements Serializable {
     //@Column(nullable = false)
     @Basic
     private String password;
+    
+    @Basic
+    private String nombre;
+    
+    @Basic
+    private String apellido;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Rol rol;   
@@ -37,6 +43,14 @@ public class Usuario implements Serializable {
     public Usuario(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+    
+    public Key getId() {
+        return id;
+    }
+    
+    public void setId(Key id) {
+        this.id = id;
     }
     
     public String getPassword() {
@@ -54,7 +68,23 @@ public class Usuario implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+    
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    
     public Rol getRoles() {
         return rol;
     }

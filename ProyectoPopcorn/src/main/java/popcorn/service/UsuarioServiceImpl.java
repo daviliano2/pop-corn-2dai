@@ -5,12 +5,14 @@
 package popcorn.service;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import popcorn.dao.*;
 import popcorn.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
@@ -50,58 +52,43 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void create(String username, String password, Key idRol) {
+    public void create(String nombre, String apellido,
+                        String username, String password, Key idRol) {
         Rol rol = rolDAO.findByPK(Rol.class, idRol);
-        System.out.println("rol:  " + rol);
         Usuario usuario = new Usuario();
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
         usuario.setUsername(username);
         usuario.setPassword(password);
-        //usuarioDAO.insert(usuario);
-        System.out.println("usuario:  " + usuario);               
         rol.getUsuarios().add(usuario);
-        System.out.println("usuario-rol: " + usuario.getRoles().getNombre());
-        //System.out.println("rol-usuario: " + rol.getUsuarios() + "\n");
     }
 
-    /*@Override
-    public void create(String contenido, Key idPelicula, Date fecha) {
-    Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-    Comentario comentario = new Comentario();
-    comentario.setContent(contenido);        
-    comentario.setFecha(fecha);
-    comentario.setPelicula(pelicula);
-    pelicula.getComentarios().add(comentario);
-    }*/
     
     @Override
     public Usuario getUsuario(String idUsuario) {
-        return usuarioDAO.findByPK(Usuario.class, idUsuario);
+        return usuarioDAO.findByString(idUsuario);
     }
     
     @Override
     public Collection<Usuario> getAllUsuarios(Key idRol) {
         Rol rol = rolDAO.findByPK(Rol.class, idRol);
         return rol.getUsuarios();
-    }    
-       
-    /*@Override
-    public Collection<Comentario> getAllComentarios(Key idPelicula) {
-    Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-    return pelicula.getComentarios();                
-    }*/
-
-    @Override
-    public void setRol(Usuario usuario, String rol) {
-        usuario.setRoles(rolDAO.findByString(Rol.class, rol));
     }
 
     @Override
-    public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException, DataAccessException {
-        System.out.println("AQUI UsuarioServiceImpl loadUserByUsername usuarioDao=" + usuarioDAO);
-        Usuario usuario = usuarioDAO.findByPK(Usuario.class, nombreUsuario);
+    public void setRol(Usuario usuario, String rol) {
+        //usuario.setRoles(rolDAO.findByString(Rol.class, rol));
+        //NO FUNCIONA
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {        
+        Usuario usuario = new Usuario();
+        usuario = usuarioDAO.findByString(username);        
         if (usuario == null) {
-            throw new UsernameNotFoundException("User not found: " + nombreUsuario);
+            throw new UsernameNotFoundException("User not found: " + usuario.getUsername());
         } else {
+           // System.out.println("AQUI UsuarioServiceImpl3 loadUserByUsername3 antes de makeUser usuario=" + usuario);
             return makeUser(usuario);
         }
     }
@@ -109,10 +96,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            return getUsuario(username);
+        //System.out.println("AQUI getCurrentUser1 authentication: " + authentication);
+        if (authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            System.out.println("AQUI getCurrentUser2 authentication.getName(): " + authentication.getName()); 
+            
+            return usuarioDAO.findByString(authentication.getName());
         } else {
+            //System.out.println("AQUI getCurrentUser3, si ves esto retorna null y da error");
             return null;
         }
     }
@@ -131,6 +121,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         return result;
     }
 
+    @Override
     @PreAuthorize("isAuthenticated()")
     public boolean isAdmin() {
         final String ROLE_ADMIN = "ROLE_ADMIN";
@@ -152,77 +143,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return isAdmin;
     }
-    /*@PostConstruct
-    @Override
-    public void preload_usuarios() {
-    System.out.println("AQUI UsuarioServiceImpl preload_usuarios");
-    usuarioDao.removeAll(Usuario.class);
-    rolDao.removeAll(Rol.class);
     
-    Usuario u1 = new Usuario();
-    u1.setUsername("pepe");
-    u1.setPassword("pepe");
     
-    Usuario u2 = new Usuario();
-    u2.setUsername("juan");
-    u2.setPassword("juan");
-    
-    Usuario u3 = new Usuario();
-    u3.setUsername("luis");
-    u3.setPassword("luis");
-    
-    Rol r1 = new Rol();
-    r1.setNombre("ROLE_ADMIN");
-    
-    Rol r2 = new Rol();
-    r2.setNombre("ROLE_USER");
-    
-    rolDao.insert(r1);
-    rolDao.insert(r2);
-    
-    addRol(u1, r1);
-    addRol(u1, r2);
-    addRol(u2, r2);
-    addRol(u3, r2);
-    
-    create(u1);
-    create(u2);
-    create(u3);
-    
-    System.out.println("AQUI UsuarioServiceImpl preload_usuarios usuarios=" + usuarioDao.countAll(Usuario.class));
-    }
-    
-    @PostConstruct
-    @Override
-    public void crearRol() {
-    Rol r1 = new Rol();
-    Rol r2 = new Rol();
-    r1.setNombre("ROLE_ADMIN");        
-    r2.setNombre("ROLE_USER");
-    rolDao.insert(r1);
-    rolDao.insert(r2);        
-    }
-    
-    @Override
-    public Rol getRol(Usuario usuario) {
-    return rolDao.findByString(Rol.class, "ROLE_USER");
-    }
-    
-    @Override
-    public void setRol(Usuario usuario, String nombreRol) {
-    Rol rol = rolDao.findByString(Rol.class, nombreRol);
-    usuario.setRoles(rol);
-    }
-    
-    public Rol getRoles(Usuario usuario) {
-    Collection<Rol> roles = new ArrayList<Rol>();
-    Rol rol = rolDao.findByPK(Rol.class, usuario.getRoles().getId());
-    roles.add(rol);        
-    return (Rol) roles;
-    }
-    
-    @Override
-    public void addRol(Usuario usuario, Rol rol) {
-    usuario.getRoles().add(rol.getId());
-    }*/
 }

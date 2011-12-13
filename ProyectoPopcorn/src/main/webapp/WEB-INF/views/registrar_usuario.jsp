@@ -15,15 +15,16 @@
         <title>Registro</title>
     </head>
     <body>
+        
         <form action="/inicio">
             <input type="submit" value="INICIO"/>
         </form>
         <c:if test="${valido == false}">
             <script>
-                alert("Usuario ya registrado, inserta otro nombre");
+                alert("Usuario ya registrado, inserta otro nombre");                
             </script>
         </c:if>        
-        <form action="/comprobar_usuario" method="get">
+        <form action="/ir_comprobar_usuario" method="get">
             <table>
                 <tr>
                     <td>Nombre de Usuario: </td>
@@ -65,7 +66,6 @@
                     <td><input name="Western" type="checkbox" value="Western"/> Western</td>
                 </tr>
             </table>
-                
                 
                 <input type="hidden" value="${roles.idString}" name="idRol"/>
                 <input type="submit" value="Registro" />                   

@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.users.User;
 
 @Entity
 public class Valoracion implements Serializable {
@@ -21,13 +20,27 @@ public class Valoracion implements Serializable {
     private Key id;
     
     @Basic
-    private User author;
+    private String autor;
     
     @Basic
     private int valoracion;
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Pelicula pelicula;
+    
+    public Valoracion() {
+    }
+
+    public Valoracion(Usuario autor, int valoracion) {        
+        if (autor != null) {
+            this.autor = autor.getUsername();
+        }
+        this.valoracion = valoracion;
+    }
+    
+    public Valoracion(int valoracion) {
+        this.valoracion = valoracion;
+    }
 
     public Key getId() {
         return id;
@@ -37,12 +50,12 @@ public class Valoracion implements Serializable {
         this.id = id;
     }
 
-    public User getAuthor() {
-        return author;
+    public String getAutor() {
+        return autor;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     public int getValoracion() {

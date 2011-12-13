@@ -16,12 +16,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import popcorn.persistence.Usuario;
 
 @Controller
+@SessionAttributes({"usuario"})
 public class ComentarioController {
     
     private ComentarioService comentarioService;
-
+    private UsuarioController userController;
+   
+    @Autowired
+    @Required
+    public void setUsuarioController(UsuarioController userController) {
+        this.userController = userController;
+    }
+    
     @Autowired
     @Required
     public void setComentarioService(ComentarioService comentarioService) {
@@ -31,8 +41,15 @@ public class ComentarioController {
     @RequestMapping(value = "/comentar", method = RequestMethod.POST)
     public String doCrearComentario(@RequestParam("content")String content,
                                     @RequestParam ("idPelicula") String idStringPelicula) {        
+        final Usuario usuario = userController.getUser();
         final Date fecha = new Date();
-        comentarioService.create(content,KeyFactory.stringToKey(idStringPelicula), fecha);
+        final Comentario comentario;
+        if(usuario == null) {
+            comentario = new Comentario(content, fecha);
+        } else {
+            comentario = new Comentario(usuario, content, fecha);
+        }
+        comentarioService.create(comentario, KeyFactory.stringToKey(idStringPelicula));
         return "redirect:ir_ver_pelicula?idPelicula=" + idStringPelicula;
     }
     

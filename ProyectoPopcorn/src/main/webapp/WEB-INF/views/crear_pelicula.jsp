@@ -18,6 +18,14 @@
         <title>Project PopCorn</title>
     </head>
     <body>
+        <form action="/inicio">
+            <input type="submit" value="INICIO"></input>
+        </form>
+        <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+            <strong>Estas conectado como : ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}
+            </strong>
+            <a  href="/logout" > Desconectar</a>
+        </c:if>
         <div>
             <div style="position:absolute;width:650px;height:500px;background-color: silver;">
                 <form action="<%=blobstoreService.createUploadUrl("/crear")%>" method="post" enctype="multipart/form-data">

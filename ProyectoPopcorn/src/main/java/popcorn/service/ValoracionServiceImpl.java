@@ -9,13 +9,23 @@ import popcorn.persistence.Pelicula;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import popcorn.controlador.UsuarioController;
 
 @Service //IMPORTANTE ESTA ANOTACION, PERTENECE A STEREOTYPE.SERVICE
 public class ValoracionServiceImpl implements ValoracionService {
     
     private PeliculaDAO peliculaDAO;
     private ValoracionDAO valoracionDAO;
+    private UsuarioController userController;
+   
+    @Autowired
+    @Required
+    public void setUsuarioController(UsuarioController userController) {
+        this.userController = userController;
+    }
     
     
     @Autowired
@@ -31,17 +41,31 @@ public class ValoracionServiceImpl implements ValoracionService {
     }    
      
     @Override
+    @PreAuthorize("isAuthenticated()")
     public void create(Valoracion valoracion) {
         valoracionDAO.insert(valoracion);
     }
 
     @Override
-    public void create(int valorValoracion, Key idPelicula) {
-        Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-        Valoracion valoracion = new Valoracion();
-        valoracion.setValoracion(valorValoracion);
-        valoracion.setPelicula(pelicula);
-        pelicula.getValoraciones().add(valoracion);        
+    @PreAuthorize("isAuthenticated()")
+    @Transactional
+    public void create(final Valoracion valoracion, Key idPelicula) {
+        Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);        
+        boolean sw = false;
+        if(!pelicula.getValoraciones().isEmpty()) {
+            for(Valoracion val_nueva : pelicula.getValoraciones()) {
+                if(val_nueva.getAutor().compareTo(valoracion.getAutor()) == 0) {
+                    int val = valoracion.getValoracion();
+                    val_nueva.setValoracion(val);
+                    sw = true;
+                }
+            }
+        } else {
+            pelicula.getValoraciones().add(valoracion);  
+        }
+        if(sw == false) {
+            pelicula.getValoraciones().add(valoracion);  
+        }
     }
 
     @Override

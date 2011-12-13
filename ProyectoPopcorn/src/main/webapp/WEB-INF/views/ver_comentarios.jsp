@@ -98,9 +98,24 @@
             <c:forEach var="coment" items="${comentarios}" varStatus="status">
                 <table border="1">
                     <tr>
-                        <td>                            
-                            <strong><c:out value="${coment.content}"/><br/></strong>
-                            <c:out value="${coment.fecha}"/><br/>
+                        <td>     
+                            <c:choose>
+                                <c:when test="${!empty coment}">
+                                    <c:choose>
+                                        <c:when test="${empty coment.autor}">
+                                            <b>anonymous</b>,
+                                        </c:when>
+                                        <c:otherwise>
+                                            <b><c:out   value="${coment.autor}"/></b>,
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:out value="${coment.content}"/><br/>
+                                    <fmt:formatDate value="${coment.fecha}" pattern="dd/MM/yy hh:mm:ss"/><br/>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>La pelicula no tiene comentarios.</p>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                     </tr>
                     <tr>

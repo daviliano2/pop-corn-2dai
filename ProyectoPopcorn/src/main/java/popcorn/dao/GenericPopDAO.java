@@ -11,8 +11,6 @@ public interface GenericPopDAO <T, PK extends Serializable> extends Serializable
     Integer countAll(Class<T> typeClass);
 
     T findByPK(Class<T> typeClass, PK id);
-    
-    T findByString(Class<T> typeClass, String id);
 
     void update(T object);
 
