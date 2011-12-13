@@ -14,7 +14,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-        <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb2.css"></link>
+        <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb2.css" ></link>
+        <link rel="stylesheet" type="text/css" href="stylesheets/EstiloCarrusel.css" />
         <script language="JavaScript" type="text/javascript" >
             function irface() {
                 window.open("http://www.facebook.com/ProyectoPopcorn", "", "")
@@ -23,7 +24,7 @@
                 window.open("https://plus.google.com/111800963186367573914","","")
             }
             function irtweet() {
-                window.open("http://www.","","")
+                window.open("http://twitter.com/PopcornProyecto","","")
             }
         </script>
         <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
@@ -37,7 +38,30 @@
                     
                 </div>
                 <div id="apDivBotones">
-                    
+                    <table>
+                        <tr>
+                            <td>
+                                <form action="/inicio">
+                                    <input type="submit" value="INICIO"/>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/ir_seleccionar_peliculas">
+                                    <input type="submit" value="PELICULAS"></input>                    
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/ir_crear_pelicula">
+                                    <input type="submit" value="CREAR PELICULA"></input>                    
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/ir_registrar_usuario">
+                                    <input type="submit" value="REGISTRO USUARIO"></input>                    
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <div id="apDivSocial">
@@ -51,7 +75,7 @@
                     <img src="Image/twitter.png" onclick="irtweet()" style="cursor:pointer"></img>                  
                 </div>
                 <div id="apDivGog1">
-                    <g:plusone></g:plusone>
+                    <g:plusone href="http://popcorn2dai.appspot.com/"></g:plusone>
                 </div>
                 <div id="cse-search-form" style="width: 400px;">Loading</div>
                 <script src="//www.google.es/jsapi" type="text/javascript"></script>
@@ -89,9 +113,20 @@
                 <div id="apDivNovedades">
                     <div id="apDivNombreNovedades">Novedades de la semana</div>
                 </div>
+                <div id="apDivLogoAppEngine">
+                    <center><img src="Image/appengine-noborder-120x30.gif" style="top: 10px;"></img></center>
+                </div>
             </div>
             <div id="apDivGeneral">
                 
+                <div id="apDivGaleria">
+                    <div id="apDivTGal">Novedades</div>
+                    <ul id="galeria">
+                        <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
+                            <li><a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}"><img src='http://localhost:8888/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}" /></a></li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </div>
         </div>
     </body>

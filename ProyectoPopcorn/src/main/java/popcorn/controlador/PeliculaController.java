@@ -19,12 +19,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import popcorn.persistence.Categoria;
+import popcorn.service.CategoriaService;
 
 @Controller
 public class PeliculaController {
     
     private PeliculaService peliculaService;
-    
+    private CategoriaService categoriaService;
+            
     @Autowired
     BlobstoreService blobstoreService;
     
@@ -37,8 +40,17 @@ public class PeliculaController {
         this.peliculaService = peliculaService;
     }
     
+    @Autowired
+    @Required
+    public void setCategoriaService(CategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
+    }
+    
     @RequestMapping(value = "/ir_crear_pelicula", method = RequestMethod.GET)
-    public String doShowCrearPelicula() {
+    public String doShowCrearPelicula(Model model) {
+        final Collection<Categoria> categorias = categoriaService.getAllCategorias();
+        System.out.println(categorias.toString());
+        model.addAttribute("categorias",categorias);
         return "/crear_pelicula";
     }    
      
@@ -46,7 +58,7 @@ public class PeliculaController {
     public String doIrPeliculas(Model model) {
         final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
         model.addAttribute("peliculas",peliculas);
-        return "/seleccionar_pelicula";
+        return "/nueva_vista";
     }
     
     @RequestMapping(value = "/ir_ver_pelicula", method = RequestMethod.GET)

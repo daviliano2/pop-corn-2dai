@@ -26,7 +26,7 @@
                         </td>
                         <td>
                             <form action="/ir_seleccionar_peliculas">
-                                <input type="submit" value="VER PELICULAS"></input>                    
+                                <input type="submit" value="PELICULAS"></input>                    
                             </form>
                         </td>
                     </tr>
@@ -34,11 +34,6 @@
                         <td>
                             <form action="/ir_registrar_usuario">
                                 <input type="submit" value="REGISTRO USUARIO"></input>                    
-                            </form>
-                        </td>
-                        <td>
-                            <form action="/ir_nueva_vista">
-                                <input type="submit" value="Nueva vista"></input>
                             </form>
                         </td>
                     </tr>
