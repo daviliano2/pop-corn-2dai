@@ -38,7 +38,7 @@
                         }
                     }
                 );
-                                    </c:when>
+                            </c:when>
                         <c:otherwise>
                             alert("Conectate para votar");
                         </c:otherwise>

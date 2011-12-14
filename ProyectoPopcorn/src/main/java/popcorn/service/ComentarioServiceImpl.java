@@ -50,6 +50,10 @@ public class ComentarioServiceImpl implements ComentarioService {
         return pelicula.getComentarios();                
     }
 
+    @Override
+    public Collection<Comentario> getAll() {
+        return comentarioDAO.getAll(Comentario.class);
+    }
 
     @Override
     public Collection<Comentario> getPaginaComentarios(int startPosition, int maxResult) {

@@ -20,6 +20,8 @@ public interface ComentarioService {
     void create(final Comentario comentario, Key idPelicula);
 
     Collection<Comentario> getAllComentarios(Key idPelicula);
+    
+    Collection<Comentario> getAll() ;
 
     Collection<Comentario> getPaginaComentarios(int startPosition, int maxResult);
 
