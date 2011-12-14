@@ -31,6 +31,32 @@
         <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
             {lang: 'es'}
         </script>
+        <script>
+            $(document).ready(
+            function() {
+                $("#botonValorar").click(
+            
+                function() {                       
+                        <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                    $.getJSON(
+                    "/",
+                    {
+                        
+                    },
+                    function(str) {
+                        if(str) {
+                            alert(str);                                       
+                        } else {
+                            alert("else");
+                        }
+                    }
+                );
+                         </c:if>          
+                }                
+            );
+            }
+        );
+        </script>
     </head>
     <body>
         <div id="apDivFondo">
@@ -113,10 +139,9 @@
                 <div id="apDivPanUsuario">
                     <div id="apDivNombrePanUsuario">Panel de usuario</div>
                     <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                        <form action="/getUsuarioConectado" method="get">
-                        <input type="submit"/>
-                        </form>
+                        <br/>
                         Usuario: <c:out value="${usuario.nombre}"></c:out><br/>
+                        Comentarios: <c:out value="${numComentarios}"></c:out><br/>
                     </c:if>
                     
                 </div>
