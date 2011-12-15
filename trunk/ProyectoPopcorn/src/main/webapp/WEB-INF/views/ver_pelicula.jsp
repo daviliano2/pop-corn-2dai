@@ -65,7 +65,7 @@
 
             <div id="apDivContenedorPelicula"> <!-- Aqui se va a introducir los datos de la pelicula -->
                 <div id="apDivImagenPelicula"> <!-- Aqui va la imagen -->
-                    <img height="290" width="300" src='http://localhost:8888/serve?blob-key=${pelicula.imagen}'></img><br/>
+                    <img height="290" width="300" src='/serve?blob-key=${pelicula.imagen}'></img><br/>
                 </div>
                 <div id="apDivTituloPelicula">
                     <center><p><b><h2> <c:out value="${pelicula.titulo}"/></h2></b></p></center>
