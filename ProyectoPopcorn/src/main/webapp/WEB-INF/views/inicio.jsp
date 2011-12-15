@@ -67,28 +67,19 @@
                 <div id="apDivBotones">
                     <table>
                         <tr>
-                            <td>
+                           <div class="invertedshiftdown">
+                            <ul>
                                 <form action="/inicio">
-                                    <input type="submit" value="INICIO"/>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="/ir_seleccionar_peliculas">
-                                    <input type="submit" value="PELICULAS"></input>                    
-                                </form>
-                            </td>
-                            <td>
-                                <form action="/ir_crear_pelicula">
-                                    <input type="submit" value="CREAR PELICULA"></input>                    
-                                </form>
-                            </td>
-                            <td>
-                                <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                                <form action="/ir_registrar_usuario">
-                                    <input type="submit" value="REGISTRO USUARIO"></input>                    
-                                </form> 
-                            </c:if> 
-                            </td>
+                            <li class="current" ><a href="/inicio" title="Pagina de inicio">Inicio</a></li>
+                            <li><a href="/ir_seleccionar_peliculas" title="Ir a ver peliculas">Ver Peliculas</a></li>
+                            <li><a href="/ir_crear_pelicula" title="Ir a crear peliculas">Crear Peliculas</a></li>
+                            <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                            <li><a href="/ir_registrar_usuario" title="Registro de usuarios">Registrar Usuario</a></li>
+                            </c:if>                            
+                            </ul>
+                               
+
+                            </div>
                         </tr>
                     </table>
                 </div>
