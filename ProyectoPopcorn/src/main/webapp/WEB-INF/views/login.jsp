@@ -25,7 +25,7 @@
                                 },
                                 function(str) {
                                     if(str) {
-                                        alert("Nombre de usuario, o contraseña incorrectos.");
+                                        alert("Nombre de usuario o contraseña incorrectos.");
                                     } else {
                                         window.location = "/inicio";
                                     }

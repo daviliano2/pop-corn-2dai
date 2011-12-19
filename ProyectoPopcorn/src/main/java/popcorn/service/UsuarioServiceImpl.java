@@ -5,14 +5,12 @@
 package popcorn.service;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import popcorn.dao.*;
 import popcorn.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
@@ -50,7 +48,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioDAO.insert(usuario);
         usuarioDAO.update(usuario);
     }
-
+    
     @Override
     public void create(String nombre, String apellido,
                         String username, String password, Key idRol) {
@@ -62,7 +60,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setPassword(password);
         rol.getUsuarios().add(usuario);
     }
-
     
     @Override
     public Usuario getUsuario(String idUsuario) {
@@ -116,7 +113,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Collection<GrantedAuthority> result = new ArrayList<GrantedAuthority>();
         //int i = 0;
         //for (Rol rol : getRol(usuario)) {
-        result.add(new GrantedAuthorityImpl(usuario.getRoles().getNombre()));
+        result.add(new GrantedAuthorityImpl(usuario.getRol().getNombre()));
         //}
         return result;
     }
