@@ -93,16 +93,14 @@
     height: 39px;
     left: 4px;
     top: 105px;
-    background-color: #cbcbcb;
     border-radius: 5px;
 }
 #apDivInicioSesion {
     position: absolute;
-    width: 600px;
+    width: 800px;
     height: 23px;
     top: 8px;
     left: 40px;
-    background-color: grey;
 }
 #apDivFecha {
     position: absolute;
