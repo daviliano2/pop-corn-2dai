@@ -45,7 +45,6 @@ public class ValoracionController {
         final Valoracion valoracion = new Valoracion(usuario, val);
         valoracionService.create(valoracion,KeyFactory.stringToKey(idStringPelicula));
         return datosValoracion(KeyFactory.stringToKey(idStringPelicula)).toString();
-        //return "redirect:ir_ver_pelicula?idPelicula=" + idStringPelicula;
     }
         
     private JSONObject datosValoracion(Key idPelicula) {
@@ -70,13 +69,13 @@ public class ValoracionController {
         final Collection<Valoracion> valoraciones = valoracionService.getValoraciones(KeyFactory.stringToKey(idPelicula));
         final Double media = valoracionService.mediaValoracion(KeyFactory.stringToKey(idPelicula));
         final Usuario usuario = userController.getUser();    
-        if(usuario != null) {
+        /*if(usuario != null) {
             for(Valoracion val : valoraciones) {
                 if(val.getAutor().compareTo(usuario.getNombre()) == 0) {
                     model.addAttribute("valoracion", val.getValoracion());
                 }
             }
-        }      
+        }      */
         model.addAttribute("media", media);
         return "/ver_valoraciones";    
     }

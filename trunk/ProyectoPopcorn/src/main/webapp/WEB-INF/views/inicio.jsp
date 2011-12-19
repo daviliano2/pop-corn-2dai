@@ -17,6 +17,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
         <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb2.css" ></link>
         <link rel="stylesheet" type="text/css" href="stylesheets/EstiloCarrusel.css" />
+        <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>
         <script language="JavaScript" type="text/javascript" >
             function irface() {
                 window.open("http://www.facebook.com/ProyectoPopcorn", "", "")
@@ -28,34 +29,34 @@
                 window.open("http://twitter.com/PopcornProyecto","","")
             }
         </script>
-        <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+        <script type="text/javascript" src="jQuery/js/plusone.js">
             {lang: 'es'}
         </script>
-        <script>
+        <script type="text/javascript">
             $(document).ready(
-            function() {
-                $("#botonValorar").click(
-            
-                function() {                       
-                        <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                function() {                                         
                     $.getJSON(
-                    "/",
-                    {
-                        
-                    },
-                    function(str) {
-                        if(str) {
-                            alert(str);                                       
-                        } else {
-                            alert("else");
+                        "/ir_num_comentarios",
+                        {          
+                        },
+                        function(str) {
+                            if(str) {
+                                //alert(str);
+                                var com = $.parseJSON(str);
+                               // alert(com.numComen);
+                               if(com.numComen == 0) {
+                                       $("#comen").html(com.comentarios);
+                               }
+                                $("#comen").html(com.numComen);
+                            } else {
+                                alert("vamos mal");
+                            }
                         }
-                    }
-                );
-                         </c:if>          
+                    );
+                 </c:if>          
                 }                
-            );
-            }
-        );
+            );     
         </script>
     </head>
     <body>
@@ -68,16 +69,14 @@
                     <table>
                         <tr>
                            <div class="invertedshiftdown">
-                            <ul>
-                                <form action="/inicio">
+                            <ul>                             
                             <li class="current" ><a href="/inicio" title="Pagina de inicio">Inicio</a></li>
                             <li><a href="/ir_seleccionar_peliculas" title="Ir a ver peliculas">Ver Peliculas</a></li>
                             <li><a href="/ir_crear_pelicula" title="Ir a crear peliculas">Crear Peliculas</a></li>
                             <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
                             <li><a href="/ir_registrar_usuario" title="Registro de usuarios">Registrar Usuario</a></li>
                             </c:if>                            
-                            </ul>
-                               
+                            </ul>                              
 
                             </div>
                         </tr>
@@ -98,7 +97,7 @@
                     <g:plusone href="http://popcorn2dai.appspot.com/"></g:plusone>
                 </div>
                 <div id="cse-search-form" style="width: 400px;">Loading</div>
-                <script src="//www.google.es/jsapi" type="text/javascript"></script>
+                <script src="jQuery/js/jsapi.js" type="text/javascript"></script>
                 <script type="text/javascript"> 
                     google.load('search', '1', {language : 'es', style : google.loader.themes.MINIMALIST});
                     google.setOnLoadCallback(function() {
@@ -132,12 +131,13 @@
                     <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
                         <br/>
                         Usuario: <c:out value="${usuario.nombre}"></c:out><br/>
-                        Comentarios: <c:out value="${numComentarios}"></c:out><br/>
+                        Comentarios: <span id="comen"/><br/>
                     </c:if>
                     
                 </div>
                 <div id="apDivNovedades">
                     <div id="apDivNombreNovedades">Novedades de la semana</div>
+                    
                 </div>
                 <div id="apDivLogoAppEngine">
                     <center><img src="Image/appengine-noborder-120x30.gif" style="top: 10px;"></img></center>
@@ -146,7 +146,9 @@
             <div id="apDivGeneral">
                 
                 <div id="apDivGaleria">
+                    
                     <div id="apDivTGal">Novedades</div>
+                    
                     <ul id="galeria">
                         <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
                             <li><a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}"><img src='http://localhost:8888/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}" /></a></li>

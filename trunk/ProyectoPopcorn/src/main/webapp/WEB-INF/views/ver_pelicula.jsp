@@ -16,37 +16,35 @@
         <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>
         <script type="text/javascript">
             $(document).ready(
-            function() {
-                $("#botonValorar").click(
-            
-                function() {   
-                    <c:choose>
-                        <c:when test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                    $.getJSON(
-                    "/valorar",
-                    {
-                        "idPelicula":$("#idPelicula").val(),
-                        "valoracion":$("#valoracion").val()
-                    },
-                    function(str) {
-                        if(str) {
-                            //alert($("#idPelicula").val());
-                            window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();
-                                        
-                        } else {
-                            alert("else");
-                        }
-                    }
-                );
-                            </c:when>
-                        <c:otherwise>
-                            alert("Conectate para votar");
-                        </c:otherwise>
-                    </c:choose>
-                }                
+                function() {
+                    $("#botonValorar").click(            
+                        function() {   
+                            <c:choose>
+                                <c:when test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                            $.getJSON(
+                                "/valorar",
+                                {
+                                    "idPelicula":$("#idPelicula").val(),
+                                    "valoracion":$("#valoracion").val()
+                                },
+                                function(str) {
+                                    if(str) {
+                                        window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();
+
+                                    } else {
+                                        alert("else");
+                                    }
+                                }
+                            );
+                                </c:when>
+                                <c:otherwise>
+                                    alert("Conectate para votar");
+                                </c:otherwise>
+                            </c:choose>
+                        }                
+                    );
+                }
             );
-            }
-        );
         </script>
     </head>
 

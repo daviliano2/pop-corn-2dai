@@ -53,7 +53,6 @@ public class Pelicula implements Serializable {
         this.director = director;
         this.valoraciones = new ArrayList<Valoracion>();
         this.comentarios = new ArrayList<Comentario>();    
-
     }
 
     public Key getId() {
@@ -78,9 +77,7 @@ public class Pelicula implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-    }
-
-    
+    }    
 
     public String getCategoria() {
         return categoria;
