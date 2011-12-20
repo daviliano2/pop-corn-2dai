@@ -84,7 +84,7 @@
             },
             {
 		string: navigator.platform,
-		subString: "/Image/icono-ubuntu-3d4.png",
+		subString: "Linux",
 		identity: "Linux"
             }
             ]

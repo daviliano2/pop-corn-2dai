@@ -151,7 +151,7 @@
                     
                     <ul id="galeria">
                         <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                            <li><a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}"><img src='http://localhost:8888/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}" /></a></li>
+                            <li><a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}"><img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}" /></a></li>
                         </c:forEach>
                     </ul>
                 </div>
