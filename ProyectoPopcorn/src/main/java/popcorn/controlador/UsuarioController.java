@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import popcorn.dao.UsuarioDAO;
 import popcorn.persistence.Rol;
 import popcorn.service.PeliculaService;
 import popcorn.service.RolService;
@@ -36,6 +37,13 @@ public class UsuarioController {
     private RolService rolService;
     private AuthenticationManager authenticationManager;
     private PeliculaService peliculaService;
+    private UsuarioDAO usuarioDAO;
+
+    @Autowired
+    @Required
+    public void setUsuarioDAO(final UsuarioDAO usuarioDAO) {
+        this.usuarioDAO = usuarioDAO;
+    }
 
     @Autowired
     @Required
@@ -56,7 +64,8 @@ public class UsuarioController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getUsuarioConectado", headers = "Accept=application/json")
-    public @ResponseBody Usuario getUser() {
+    public @ResponseBody
+    Usuario getUser() {
         return usuarioService.getCurrentUser();
     }
 
@@ -76,54 +85,44 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/ir_registrar_usuario", method = RequestMethod.GET)
-    public String verRegistrarUsuario(Model model, Boolean valido) {
+    public String verRegistrarUsuario(Model model) {
         final Collection<Rol> roles = rolService.getAllRoles();
         for (Rol rol : roles) {
             if (rol.getNombre().compareTo("ROLE_USER") == 0) {
                 model.addAttribute("roles", rol);
-                model.addAttribute("valido", valido);
+                //model.addAttribute("valido", valido);
             }
         }
         return "/registrar_usuario";
     }
-
+    
     @RequestMapping(value = "/ir_comprobar_usuario", method = RequestMethod.GET)
-    public String comprobarUsuario(@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
-            @RequestParam("username") String nombreUsuario,
-            @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
-        Boolean valido = true;
-        final Rol rol = rolService.getRol(KeyFactory.stringToKey(idRol));
-        if (rol.getUsuarios() != null) {
-            for (Usuario usuario : rol.getUsuarios()) {
-                if (usuario.getUsername().compareTo(nombreUsuario) == 0) {
-                    valido = false;
-                }
-            }
-            if (valido == true) {
-                //return "/crear_usuario?nombre=" + nombre + "&apellido=" + apellido
-                       // + "&username=" + nombreUsuario + "&password=" + password + "&idRol=" + idRol;
-                return crearUsuario(nombre,apellido,nombreUsuario,password,idRol);
-            } else {
-                return "redirect:/ir_registrar_usuario?valido=" + valido;
-            }
+    public @ResponseBody String comprobarUsuario(@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
+                                                 @RequestParam("username") String nombreUsuario,
+                                                 @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
+        String valido = "ok";
+        if (usuarioDAO.findByString(nombreUsuario) != null) {
+            valido = null;
+        }
+        //System.out.println("Aqui ComprobarUsuario 1 valido: " + valido );
+        if (valido != null) {
+            return crearUsuario(nombre, apellido, nombreUsuario, password, idRol);
         } else {
-            //return "redirect:/crear_usuario?nombre=" + nombre + "&apellido=" + apellido
-                 //   + "&username=" + nombreUsuario + "&password=" + password + "&idRol=" + idRol;
-            return crearUsuario(nombre,apellido,nombreUsuario,password,idRol);
+            return valido;
         }
     }
 
     @RequestMapping(value = "/crear_usuario", method = RequestMethod.GET)
     public String crearUsuario(@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
-            @RequestParam("username") String nombreUsuario,
-            @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
+                               @RequestParam("username") String nombreUsuario,
+                               @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
         usuarioService.create(nombre, apellido, nombreUsuario, password, KeyFactory.stringToKey(idRol));
         return "redirect:/inicio";
     }
 
     @RequestMapping(value = "/ir_conectar_usuario", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody String conectar(@RequestParam String username,
-                                        @RequestParam String password, Model model) {
+                                         @RequestParam String password, Model model) {
         String rdo = null;
         try {
             //System.out.println("AQUI 1 UserController login ");
@@ -158,7 +157,7 @@ public class UsuarioController {
         System.out.println("UsuarioController logout se está desconectando " + usuario.getUsername());
         SecurityContextHolder.getContext().setAuthentication(null);
         Usuario u = (Usuario) sesion.getAttribute("usuario");
-        System.out.println("UsuarioController logout se está desconectando2 " + usuario.getUsername());
+        //System.out.println("UsuarioController logout se está desconectando2 " + usuario.getUsername());
         sessionStatus.setComplete();
         //Otra forma: sesion.invalidate();
 

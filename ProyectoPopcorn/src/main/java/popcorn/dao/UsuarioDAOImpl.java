@@ -10,8 +10,12 @@ public class UsuarioDAOImpl extends GenericPopDAOImpl<Usuario, Key> implements U
     
     @Override
     public Usuario findByString(String username) {
-        String sql = "SELECT u FROM Usuario u WHERE u.username='" + username + "'";
-        Query query = em.createQuery(sql);
-        return (Usuario) query.getSingleResult();
+        try {
+            String sql = "SELECT u FROM Usuario u WHERE u.username='" + username + "'";
+            Query query = em.createQuery(sql);
+            return (Usuario) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
