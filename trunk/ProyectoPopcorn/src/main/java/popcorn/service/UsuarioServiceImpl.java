@@ -95,7 +95,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //System.out.println("AQUI getCurrentUser1 authentication: " + authentication);
         if (authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
-            System.out.println("AQUI getCurrentUser2 authentication.getName(): " + authentication.getName()); 
+            //System.out.println("AQUI getCurrentUser2 authentication.getName(): " + authentication.getName()); 
             
             return usuarioDAO.findByString(authentication.getName());
         } else {

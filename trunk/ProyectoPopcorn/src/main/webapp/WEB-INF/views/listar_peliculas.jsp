@@ -16,9 +16,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
         <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb2.css" ></link>
-        <link rel="stylesheet" type="text/css" href="stylesheets/EstiloCarrusel.css" ></link>
-        <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>       
-        
+        <link rel="stylesheet" type="text/css" href="stylesheets/EstiloCarrusel.css" />
+        <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>
         <script language="JavaScript" type="text/javascript" >
             function irface() {
                 window.open("http://www.facebook.com/ProyectoPopcorn", "", "")
@@ -30,11 +29,9 @@
                 window.open("http://twitter.com/PopcornProyecto","","")
             }
         </script>
-        
         <script type="text/javascript" src="jQuery/js/plusone.js">
             {lang: 'es'}
         </script>
-        
         <script type="text/javascript">
             $(document).ready(
                 <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
@@ -85,10 +82,10 @@
                             <li class="current" ><a href="/inicio" title="Pagina de inicio">Inicio</a></li>
                             <li><a href="/ir_listar_peliculas" title="Ir a ver peliculas">Ver Peliculas</a></li>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <li><a href="/ir_crear_pelicula" title="Ir a crear peliculas">Crear Peliculas</a></li>
+                            <li><a href="/ir_crear_pelicula" title="Ir a crear peliculas">Crear Peliculas</a></li>
                             </sec:authorize>
                             <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                                <li><a href="/ir_registrar_usuario" title="Registro de usuarios">Registrar Usuario</a></li>
+                            <li><a href="/ir_registrar_usuario" title="Registro de usuarios">Registrar Usuario</a></li>
                             </c:if>                            
                             </ul>                              
 
@@ -163,40 +160,7 @@
                 </div>
                 <div id="apDivNovedades">
                     <div id="apDivNombreNovedades">Novedades de la semana</div>
-                    <ul id="galeria">
-                    <!--<ul id="galeria">
-                        <//c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                            <li><a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}"><img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}" /></a></li>
-                        <///c:forEach>
-                    </ul>-->
                     
-                    <style>
-                            #slider {width: 216px; height: 165px; padding:0; border:0; border-radius: 5px;}
-                            #slider img {width: 216px; height: 165px; padding: 0; margin:0; border:0; border-radius: 5px;}
-                            #slider .clicker a {width: 11px; height: 11px; background: #fff; margin-right: 2px; border-radius: 5px; -moz-border-radius: 5px;}
-                            #slider .clicker a.active {background: #ff0;}
-                    </style>
-                    <script src="jQuery/js/jquery.hslide.min.js"></script> 
-                    <script>
-                            $(function(){
-                                    $('#slider').hslide();
-                            });
-                    </script>
-
-                    <div id="slider">
-                        <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                            <div>
-                                <a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}">
-                                    <img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}"></img> </a>
-                                    <!-- TAMBIEN SE PUEDEN COLOCAR VIDEO DE YOUTUBE
-                                    <div style="background-color: #000;">
-                                    <iframe width="294" height="220" src="http://www.youtube.com/embed/rdNdmc83xe4" frameborder="0" allowfullscreen style="margin: 10px 25px;">
-                                    </iframe></div>
-                                    -->
-                            </div>
-                        </c:forEach>
-                    </div>
-                    </ul>
                 </div>
                 <div id="apDivLogoAppEngine">
                     <center><img src="Image/appengine-noborder-120x30.gif" style="top: 10px;"></img></center>
@@ -206,40 +170,23 @@
                 
                 <div id="apDivGaleria">
                     
-                    <div id="apDivTGal">Noticias y Pelicula de la semana</div>
-                    <ul id="galeria">
-                    <!--<ul id="galeria">
-                        <//c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                            <li><a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}"><img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}" /></a></li>
-                        <///c:forEach>
-                    </ul>
+                    <div id="apDivTGal">Novedades</div>
                     
-                    <style>
-                            #slider {width: 320px; height: 420px; padding:0; border:0;}
-                            #slider img {width: 320px; height: 420px; padding: 0; margin:0; border:0;}
-                            #slider .clicker a {width: 11px; height: 11px; background: #fff; margin-right: 2px; border-radius: 5px; -moz-border-radius: 5px;}
-                            #slider .clicker a.active {background: #ff0;}
-                    </style>
-                    <script src="jQuery/js/jquery.hslide.min.js"></script> 
-                    <script>
-                            $(function(){
-                                    $('#slider').hslide();
-                            });
-                    </script>
-
-                    <div id="slider">
-                        <//c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                            <div>
-                                <a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}">
-                                    <img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}"></img> </a>
-                                    <!-- TAMBIEN SE PUEDEN COLOCAR VIDEO DE YOUTUBE
-                                    <div style="background-color: #000;">
-                                    <iframe width="294" height="220" src="http://www.youtube.com/embed/rdNdmc83xe4" frameborder="0" allowfullscreen style="margin: 10px 25px;">
-                                    </iframe></div>
-                                    
-                            </div>
-                        <///c:forEach>
-                    </div>-->
+                    <ul id="galeria">
+                        
+                        <c:forEach var="categoria" items="${categorias}" varStatus="status">
+                            <strong><c:out value="${categoria.nombre}"></c:out>:</strong><br/>
+                            <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
+                            <c:choose>
+                                <c:when test="${categoria.nombre eq pelicula.categoria}">                                                                        
+                                    <a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}">
+                                        <c:out value="${pelicula.titulo}"></c:out>
+                                    </a>,                                 
+                                </c:when>                                
+                            </c:choose>  
+                            </c:forEach>
+                            <br/>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>

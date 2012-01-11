@@ -51,16 +51,19 @@ public class PeliculaController {
     @RequestMapping(value = "/ir_crear_pelicula", method = RequestMethod.GET)
     public String doShowCrearPelicula(Model model) {
         final Collection<Categoria> categorias = categoriaService.getAllCategorias();
-        System.out.println(categorias.toString());
+        //System.out.println(categorias.toString());
         model.addAttribute("categorias",categorias);
         return "/crear_pelicula";
     }    
      
-    @RequestMapping(value = "/ir_seleccionar_peliculas", method = RequestMethod.GET)
+    @RequestMapping(value = "/ir_listar_peliculas", method = RequestMethod.GET)
     public String doIrPeliculas(Model model) {
+        final Collection<Categoria> categorias = categoriaService.getAllCategorias();
+        //System.out.println(categorias.toString());
         final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
+        model.addAttribute("categorias",categorias);
         model.addAttribute("peliculas",peliculas);
-        return "/inicio";
+        return "/listar_peliculas";
     }
     
     @RequestMapping(value = "/ir_ver_pelicula", method = RequestMethod.GET)

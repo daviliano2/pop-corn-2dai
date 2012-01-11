@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import popcorn.dao.ComentarioDAO;
+import popcorn.dao.ValoracionDAO;
 import popcorn.persistence.Usuario;
+import popcorn.persistence.Valoracion;
 
 @Controller
 @SessionAttributes({"usuario"})
@@ -32,7 +34,14 @@ public class ComentarioController {
     private ComentarioService comentarioService;
     private UsuarioController userController;
     private ComentarioDAO comentarioDAO;
+    private ValoracionDAO valoracionDAO;
 
+    @Autowired
+    @Required
+    public void setValoracionDAO(final ValoracionDAO valoracionDAO) {
+        this.valoracionDAO = valoracionDAO;
+    }
+   
     @Autowired
     @Required
     public void setComentarioDAO(final ComentarioDAO comentarioDao) {
@@ -76,22 +85,34 @@ public class ComentarioController {
     @RequestMapping(value = "/ir_num_comentarios", method = RequestMethod.GET)
     public @ResponseBody String verNumComentarios(Model model) {
         final Usuario usuario = userController.getUser();
+        List<Valoracion> valoraciones = valoracionDAO.getValoraciones(usuario.getUsername());
         List<Comentario> comentarios = comentarioDAO.getComentarios(usuario.getUsername());       
         //model.addAttribute("numComentarios", comentarios.size()); 
-        return numComentJson(comentarios, usuario).toString();
+        return numComentJson(comentarios, valoraciones, usuario).toString();
     }
 
-    private JSONObject numComentJson(List<Comentario> comentarios, Usuario usuario) {
+    private JSONObject numComentJson(List<Comentario> comentarios, List<Valoracion> valoraciones, Usuario usuario) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("numComen", comentarios.size());
+            jsonObject.put("nomUser", usuario.getUsername());           
+            
             if(comentarios.isEmpty()) {
                 jsonObject.put("comentarios", "No has comentado");
+            } else {
+                jsonObject.put("numComen", comentarios.size());
+                jsonObject.put("lastComen", comentarios.get(comentarios.size()-1).getContent());
+                jsonObject.put("lastMovie", comentarios.get(comentarios.size()-1).getPelicula().getTitulo());
             }
+            if(valoraciones.isEmpty()) {
+                jsonObject.put("valoraciones", "No has votado ninguna pelicula");
+            } else {
+                jsonObject.put("numVal", valoraciones.size());
+            }
+            
         } catch (JSONException ex) {
             Logger.getLogger(ComentarioController.class.getName());
         }
-        System.out.println("AQUI verNumComentarios.numComentJson comentarios: " + comentarios.size());
+        //System.out.println("AQUI verNumComentarios.numComentJson comentarios: " + comentarios.size());
         return jsonObject;
     }
 }

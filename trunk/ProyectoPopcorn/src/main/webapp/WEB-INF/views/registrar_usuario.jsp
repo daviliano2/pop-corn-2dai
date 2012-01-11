@@ -24,6 +24,8 @@
                                 {
                                     "username":$("#username").val(),
                                     "password":$("#password").val(),
+                                    "nombre":$("#nombre").val(),
+                                    "apellido":$("#apellido").val(),
                                     "categorias":$("#Accion","#Animacion","#Belico",
                                     "#Ciencia_Ficcion","#Comedia","#Documental",
                                     "#Fantastica","#Musical","#Romantica","#Suspense",
@@ -43,9 +45,11 @@
                                     "idRol":$("#idRol").val()
                                 },
                                 function(str) {
-                                    if(str) {
-                                        alert(str);
+                                    if(str == null) {
+                                        alert("Nombre de usuario ya registrado");  
+                                        
                                     } else {
+                                        alert("Registro completado");
                                         window.location = "/inicio";
                                     }
                                 }
@@ -61,29 +65,24 @@
         <form action="/inicio">
             <input type="submit" value="INICIO"/>
         </form>
-        <c:if test="${valido == false}">
-            <script>
-                alert("Usuario ya registrado, inserta otro nombre");                
-            </script>
-        </c:if>        
-        <form action="/ir_comprobar_usuario" method="get">
-        <!--<form id="formRegistro">-->
+                
+        <form id="formRegistro">
             <table>
                 <tr>
                     <td>Nombre de Usuario: </td>
-                    <td><input name="username" type="text" maxlength="50" /></td>
+                    <td><input id="username" type="text" maxlength="50" /></td>
                 </tr>
                 <tr>
                     <td>Contraseña:</td>
-                    <td><input name="password" type="password" maxlength="20" /></td>
+                    <td><input id="password" type="password" maxlength="20" /></td>
                 </tr>
                 <tr>
                     <td>Nombre:</td>
-                    <td><input name="nombre" type="text" maxlength="50" /></td>
+                    <td><input id="nombre" type="text" maxlength="50" /></td>
                 </tr>
                 <tr>
                     <td>Apellido: </td>
-                    <td><input name="apellido" type="text" maxlength="50" /></td>
+                    <td><input id="apellido" type="text" maxlength="50" /></td>
                 </tr>
                 <tr>
                     <td>Categorias favoritas:</td>
@@ -110,8 +109,8 @@
                 </tr>
             </table>
                 
-                <input type="hidden" value="${roles.idString}" name="idRol"/>
-                <input type="submit" value="Registro" />                   
+                <input type="hidden" value="${roles.idString}" id="idRol"/>
+                <input type="button" value="Registro" id="botonRegistro"/> 
         </form> 
     </body>
 </html>

@@ -13,7 +13,7 @@ public class ComentarioDAOImpl extends GenericPopDAOImpl<Comentario, Key> implem
 
     @Override
     public List<Comentario> getComentarios(String username) {
-        String sql = "SELECT c FROM Comentario c WHERE c.autor='" + username + "' ";
+        String sql = "SELECT c FROM Comentario c WHERE c.autor='" + username + "' ORDER by fecha";
         Query query = em.createQuery(sql);
         return query.getResultList();
     }
