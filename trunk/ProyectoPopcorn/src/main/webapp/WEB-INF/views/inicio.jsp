@@ -96,8 +96,10 @@
                         </tr>
                     </table>
                 </div>
+                 <div id="apDivMarcoFin"></div>
             </div>
             <div id="apDivSocial">
+                
                 <div id="apDivBotonGoogle">
                     <img src="Image/gplus.png" onclick="irgoog()" style="cursor:pointer"></img>                  
                 </div>
@@ -109,6 +111,9 @@
                 </div>
                 <div id="apDivGog1">
                     <g:plusone href="http://popcorn2dai.appspot.com/"></g:plusone>
+                </div>
+                                <div id="apDivLogoAppEngine">
+                    <img src="Image/appengine-noborder-120x30.gif" style="top: 10px;"></img>
                 </div>
                 <div id="cse-search-form" style="width: 400px;">Loading</div>
                 <script src="jQuery/js/jsapi.js" type="text/javascript"></script>
@@ -171,8 +176,8 @@
                     </ul>-->
                     
                     <style>
-                            #slider {width: 216px; height: 165px; padding:0; border:0; border-radius: 5px;}
-                            #slider img {width: 216px; height: 165px; padding: 0; margin:0; border:0; border-radius: 5px;}
+                            #slider {width: 216px; height: 255px; padding:0; border:0; border-radius: 5px;}
+                            #slider img {width: 216px; height: 255px; padding: 0; margin:0; border:0; border-radius: 5px;}
                             #slider .clicker a {width: 11px; height: 11px; background: #fff; margin-right: 2px; border-radius: 5px; -moz-border-radius: 5px;}
                             #slider .clicker a.active {background: #ff0;}
                     </style>
@@ -198,9 +203,7 @@
                     </div>
                     </ul>
                 </div>
-                <div id="apDivLogoAppEngine">
-                    <center><img src="Image/appengine-noborder-120x30.gif" style="top: 10px;"></img></center>
-                </div>
+
             </div>
             <div id="apDivGeneral">
                 
