@@ -13,16 +13,17 @@
         <title>Login Usuarios</title>
      
         <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>
+        <script>var $l = jQuery.noConflict();</script>
         <script type="text/javascript">
-            $(document).ready(
+            $l(document).ready(
                 function() {
-                    $("#botonLogin").click(
+                    $l("#botonLogin").click(
                         function() {                         
-                            $.getJSON(
+                            $l.getJSON(
                                 "/ir_conectar_usuario",
                                 {
-                                    "username":$("#username").val(),
-                                    "password":$("#password").val()
+                                    "username":$l("#username").val(),
+                                    "password":$l("#password").val()
                                 },
                                 function(str) {
                                     if(str) {
@@ -39,14 +40,13 @@
         </script>
     </head>
     <body>
-        <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-            
+        <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">            
             <strong>Estas conectado como : ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}
             </strong>
             <a  href="/logout" > Desconectar</a>
         </c:if>
+            
         <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-
             <form id="formLogin">
                     Usuario: <input id="username" type="text" maxlength="20" /> 
                     Contraseña: <input id="password" type="password" maxlength="20" />                     

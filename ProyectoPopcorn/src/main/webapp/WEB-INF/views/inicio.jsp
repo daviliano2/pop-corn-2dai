@@ -14,11 +14,11 @@
 
 <html>
     <head>
+        <title>Pop Corn 2DAI</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
         <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb2.css" ></link>
         <link rel="stylesheet" type="text/css" href="stylesheets/EstiloCarrusel.css" ></link>
-        <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>       
-        
+
         <script language="JavaScript" type="text/javascript" >
             function irface() {
                 window.open("http://www.facebook.com/ProyectoPopcorn", "", "")
@@ -30,76 +30,119 @@
                 window.open("http://twitter.com/PopcornProyecto","","")
             }
         </script>
-        
+
         <script type="text/javascript" src="jQuery/js/plusone.js">
             {lang: 'es'}
         </script>
-        
-        <script type="text/javascript">
-            $(document).ready(
-                <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                function() {                                         
-                    $.getJSON(
-                        "/ir_num_comentarios",
-                        {          
-                        },
-                        function(str) {
-                            if(str) {
-                                //alert(str);
-                                var com = $.parseJSON(str);
-                                // alert(com.numComen);
-                                if(com.numComen == 0) {
-                                   $("#comen").html(com.comentarios);
-                                } else {
-                                   $("#comen").html(com.numComen);  
-                                   $("#comentario").html(com.lastComen);
-                                   $("#peli").html(com.lastMovie);                                   
-                                }
-                                if(com.numVal == 0) {
-                                   $("#val").html(com.valoraciones);
-                                } else {
-                                   $("#val").html(com.numVal);
-                                }
-                                $("#user").html(com.nomUser);
+
+        <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>     
+        <script>var $j = jQuery.noConflict();</script>       
+
+        <script type="text/javascript"> 
+            
+            $j(document).ready(
+            function() {    
+                
+                $j("#inicio").show();
+                $j("#listar").hide();
+                $j("#registro").hide();
+                $j("#crear").hide();
+                    
+                $j("#verInicio").click(
+                function() {
+                    $j("#inicio").show();
+                    $j("#listar").hide();
+                    $j("#registro").hide();
+                    $j("#crear").hide();
+                }
+            );
+                $j("#verTodasPelis").click(
+                function() {
+                    $j("#inicio").hide();
+                    $j("#listar").show();
+                    $j("#registro").hide();
+                    $j("#crear").hide();
+                }
+            );
+                $j("#crearPelis").click(
+                function() {
+                    $j("#inicio").hide();
+                    $j("#listar").hide();
+                    $j("#registro").hide();
+                    $j("#crear").show();
+                }
+            );
+                $j("#registrarUsuario").click(
+                function() {
+                    $j("#inicio").hide();
+                    $j("#listar").hide();
+                    $j("#registro").show();
+                    $j("#crear").hide();
+                }
+            );
+            
+            <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                    $j.getJSON(
+                    "/ir_num_comentarios",
+                    {          
+                    },
+                    function(str) {
+                        if(str) {
+                            //alert(str);                            
+                            var com = $j.parseJSON(str);
+                            //alert(com.numComen);
+                            if(com.comentarios) {
+                                $j("#comen").html(com.comentarios);
                             } else {
-                                alert("vamos mal");
+                                $j("#comen").html(com.numComen);  
+                                $j("#comentario").html(com.lastComen);
+                                $j("#peli").html(com.lastMovie);                                   
                             }
+                            if(com.valoraciones) {
+                                $j("#val").html(com.valoraciones);
+                            } else {
+                                $j("#val").html(com.numVal);
+                            }
+                            $j("#user").html(com.nomUser);
+                        } else {
+                            alert("vamos mal");
                         }
-                    );
-                 </c:if>          
-                }                
-            );     
+                    }
+                );
+            </c:if>
+                }
+            );  
         </script>
+
     </head>
     <body>
         <div id="apDivFondo">
             <div id="apDivMenu">
                 <div id="apDivLogo">
-                    
+
                 </div>
                 <div id="apDivBotones">
                     <table>
                         <tr>
-                           <div class="invertedshiftdown">
-                            <ul>                             
-                            <li class="current" ><a href="/inicio" title="Pagina de inicio">Inicio</a></li>
-                            <li><a href="/ir_listar_peliculas" title="Ir a ver peliculas">Ver Peliculas</a></li>
-                            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <li><a href="/ir_crear_pelicula" title="Ir a crear peliculas">Crear Peliculas</a></li>
-                            </sec:authorize>
-                            <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                                <li><a href="/ir_registrar_usuario" title="Registro de usuarios">Registrar Usuario</a></li>
-                            </c:if>                            
-                            </ul>                              
-
+                            <div class="invertedshiftdown">
+                                <ul>                             
+                                    <li class="current"><a title="Pagina de inicio" id="verInicio" >Inicio</a></li>
+                                    <li ><a title="Ir a ver peliculas" id="verTodasPelis">Listar Peliculas</a></li>                                    
+                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                        <li><a title="Ir a crear peliculas" id="crearPelis">Crear Peliculas</a></li>
+                                    </sec:authorize>
+                                    <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                                        <li><a title="Registro de usuarios" id="registrarUsuario">Registrar Usuario</a></li>
+                                    </c:if>                            
+                                </ul>       
                             </div>
                         </tr>
                     </table>
                 </div>
-                 <div id="apDivMarcoFin"></div>
+                <div id="apDivMarcoFin"></div>
             </div>
             <div id="apDivSocial">
-                
+
                 <div id="apDivBotonGoogle">
                     <img src="Image/gplus.png" onclick="irgoog()" style="cursor:pointer"></img>                  
                 </div>
@@ -112,7 +155,7 @@
                 <div id="apDivGog1">
                     <g:plusone href="http://popcorn2dai.appspot.com/"></g:plusone>
                 </div>
-                                <div id="apDivLogoAppEngine">
+                <div id="apDivLogoAppEngine">
                     <img src="Image/appengine-noborder-120x30.gif" style="top: 10px;"></img>
                 </div>
                 <div id="cse-search-form" style="width: 400px;">Loading</div>
@@ -127,9 +170,7 @@
                         customSearchControl.draw('cse-search-form', options);
                     }, true);
                 </script>
-                <style type="text/css">
-                    
-                </style>  
+
             </div>
             <div id="apDivLogin">
                 <div id="apDivInicioSesion">
@@ -148,102 +189,74 @@
                 <div id="apDivPanUsuario">
                     <div id="apDivNombrePanUsuario">Panel de usuario</div>
                     <c:choose>
-                    <c:when test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                        <br/>
-                        <sec:authorize access="hasRole('ROLE_ADMIN')">
-                            <strong>
-                                Usuario Administrador.
-                            </strong>
-                        </sec:authorize>
-                        <strong>Usuario:</strong> <span id="user"></span><br/>
-                        <strong>Comentarios:</strong> <span id="comen"></span><br/>
-                        <strong>Valoraciones:</strong> <span id="val"></span><br/>
-                        <strong>Ultimo comentario:</strong> <span id="comentario"></span><br/>
-                        <strong>Ultima pelicula comentada:</strong> <span id="peli"></span><br/>
-                    </c:when>
-                    <c:otherwise>
-                        <br/><strong>Registrate o logueate para ver tus estadisticas.</strong>
-                    </c:otherwise>
+                        <c:when test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                            <br/>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <strong>
+                                    Usuario Administrador.
+                                </strong>
+                            </sec:authorize>
+                            <strong>Usuario:</strong> <span id="user"></span><br/>
+                            <strong>Comentarios:</strong> <span id="comen"></span><br/>
+                            <strong>Valoraciones:</strong> <span id="val"></span><br/>
+                            <strong>Ultimo comentario:</strong> <span id="comentario"></span><br/>
+                            <strong>Ultima pelicula comentada:</strong> <span id="peli"></span><br/>
+                        </c:when>
+                        <c:otherwise>
+                            <br/><strong>Registrate o logueate para ver tus estadisticas.</strong>
+                        </c:otherwise>
                     </c:choose>
                 </div>
                 <div id="apDivNovedades">
                     <div id="apDivNombreNovedades">Novedades de la semana</div>
                     <ul id="galeria">
-                    <!--<ul id="galeria">
-                        <//c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                            <li><a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}"><img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}" /></a></li>
-                        <///c:forEach>
-                    </ul>-->
-                    
-                    <style>
+                        <style>
                             #slider {width: 216px; height: 255px; padding:0; border:0; border-radius: 5px;}
                             #slider img {width: 216px; height: 255px; padding: 0; margin:0; border:0; border-radius: 5px;}
                             #slider .clicker a {width: 11px; height: 11px; background: #fff; margin-right: 2px; border-radius: 5px; -moz-border-radius: 5px;}
                             #slider .clicker a.active {background: #ff0;}
-                    </style>
-                    <script src="jQuery/js/jquery.hslide.min.js"></script> 
-                    <script>
-                            $(function(){
-                                    $('#slider').hslide();
+                        </style>
+                        <script src="jQuery/js/jquery.hslide.min.js"></script> 
+                        <script>var $s = jQuery.noConflict();</script>
+                        <script>
+                            $s(function(){
+                                $s('#slider').hslide();
                             });
-                    </script>
-
-                    <div id="slider">
-                        <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                            <div>
-                                <a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}">
-                                    <img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}"></img> </a>
+                        </script>
+                        <div id="slider">
+                            <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
+                                <div>
+                                    <a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}">
+                                        <img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}"></img> </a>
                                     <!-- TAMBIEN SE PUEDEN COLOCAR VIDEO DE YOUTUBE
                                     <div style="background-color: #000;">
                                     <iframe width="294" height="220" src="http://www.youtube.com/embed/rdNdmc83xe4" frameborder="0" allowfullscreen style="margin: 10px 25px;">
                                     </iframe></div>
                                     -->
-                            </div>
-                        </c:forEach>
-                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
                     </ul>
                 </div>
 
             </div>
             <div id="apDivGeneral">
-                
-                <div id="apDivGaleria">
-                    
-                    <div id="apDivTGal">Noticias y Pelicula de la semana</div>
-                    <ul id="galeria">
-                    <!--<ul id="galeria">
-                        <//c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                            <li><a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}"><img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}" /></a></li>
-                        <///c:forEach>
-                    </ul>
-                    
-                    <style>
-                            #slider {width: 320px; height: 420px; padding:0; border:0;}
-                            #slider img {width: 320px; height: 420px; padding: 0; margin:0; border:0;}
-                            #slider .clicker a {width: 11px; height: 11px; background: #fff; margin-right: 2px; border-radius: 5px; -moz-border-radius: 5px;}
-                            #slider .clicker a.active {background: #ff0;}
-                    </style>
-                    <script src="jQuery/js/jquery.hslide.min.js"></script> 
-                    <script>
-                            $(function(){
-                                    $('#slider').hslide();
-                            });
-                    </script>
+                <div id="inicio">
+                    <div id="apDivGaleria">
 
-                    <div id="slider">
-                        <//c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                            <div>
-                                <a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}">
-                                    <img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}"></img> </a>
-                                    <!-- TAMBIEN SE PUEDEN COLOCAR VIDEO DE YOUTUBE
-                                    <div style="background-color: #000;">
-                                    <iframe width="294" height="220" src="http://www.youtube.com/embed/rdNdmc83xe4" frameborder="0" allowfullscreen style="margin: 10px 25px;">
-                                    </iframe></div>
-                                    
-                            </div>
-                        <///c:forEach>
-                    </div>-->
-                    </ul>
+                        <div id="apDivTGal">Noticias y Pelicula de la semana</div>
+                        <ul id="galeria">
+                        </ul>
+                    </div>
+                </div>
+                <div id="registro">
+                    <jsp:include page="/ir_registrar_usuario"></jsp:include>-->
+                </div>
+                <div id="crear">
+                    <jsp:include page="/ir_crear_pelicula"></jsp:include>
+                </div>
+                <div id="listar">
+                    <jsp:include page="/ir_listar_peliculas"></jsp:include>
                 </div>
             </div>
         </div>

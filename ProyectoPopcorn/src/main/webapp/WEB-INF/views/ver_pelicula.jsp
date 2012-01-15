@@ -11,25 +11,27 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         </meta>
         <title>Project PopCorn - Peliculas</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb.css">
-        </link>
+        <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb.css"></link>
         <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>
+        <script>var $v = jQuery.noConflict();</script>
         <script type="text/javascript">
-            $(document).ready(
+            $v(document).ready(
                 function() {
-                    $("#botonValorar").click(            
+                    $v("#botonValorar").click(            
                         function() {   
                             <c:choose>
                                 <c:when test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                            $.getJSON(
+                            $v.getJSON(
                                 "/valorar",
                                 {
-                                    "idPelicula":$("#idPelicula").val(),
-                                    "valoracion":$("#valoracion").val()
+                                    "idPelicula":$v("#idPelicula").val(),
+                                    "valoracion":$v("#valoracion").val()
                                 },
                                 function(str) {
                                     if(str) {
-                                        window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();
+                                        //var valora = $v.parseJSON(str); ESTO SERIA TOTALMENTE ASINCRONO PERO NO GUARDA EL ULTIMO VOTO
+                                        //$v("#media").html(valora.media); SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
+                                        window.location = "/ir_ver_pelicula?idPelicula="+$v("#idPelicula").val();
 
                                     } else {
                                         alert("else");

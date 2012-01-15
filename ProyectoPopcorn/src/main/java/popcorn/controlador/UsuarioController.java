@@ -70,7 +70,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/ir_ver_login", method = RequestMethod.GET)
-    public String irLogin(Model model, Boolean valido) {
+    public String irLogin(Model model) {
         final Collection<Rol> roles = rolService.getAllRoles();
         for (Rol rol : roles) {
             if (rol.getNombre().compareTo("ROLE_USER") == 0) {
@@ -80,7 +80,6 @@ public class UsuarioController {
                 model.addAttribute("roles1", rol);
             }
         }
-        model.addAttribute("valido", valido);
         return "/login";
     }
 
@@ -97,26 +96,29 @@ public class UsuarioController {
     }
     
     @RequestMapping(value = "/ir_comprobar_usuario", method = RequestMethod.GET)
-    public @ResponseBody String comprobarUsuario(@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
-                                                 @RequestParam("username") String nombreUsuario,
-                                                 @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
+    public @ResponseBody String comprobarUsuario(@RequestParam("user") String nombreUsuario, @RequestParam("pass") String password,
+                                                 @RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
+                                                 @RequestParam("idRol") String idRol) {
         String valido = "ok";
         if (usuarioDAO.findByString(nombreUsuario) != null) {
             valido = null;
         }
-        //System.out.println("Aqui ComprobarUsuario 1 valido: " + valido );
+        /*System.out.println("Aqui comprobarUsuario 1 username, password, nombre, apellido, idRol: " + 
+                nombreUsuario + password + nombre + apellido + idRol );*/
         if (valido != null) {
-            return crearUsuario(nombre, apellido, nombreUsuario, password, idRol);
+            return crearUsuario(nombreUsuario, password, nombre, apellido, idRol);
         } else {
             return valido;
         }
     }
 
     @RequestMapping(value = "/crear_usuario", method = RequestMethod.GET)
-    public String crearUsuario(@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
-                               @RequestParam("username") String nombreUsuario,
-                               @RequestParam("password") String password, @RequestParam("idRol") String idRol) {
-        usuarioService.create(nombre, apellido, nombreUsuario, password, KeyFactory.stringToKey(idRol));
+    public String crearUsuario(@RequestParam("user") String nombreUsuario, @RequestParam("pass") String password,
+                               @RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
+                               @RequestParam("idRol") String idRol) {
+        usuarioService.create(nombreUsuario, password, nombre, apellido, KeyFactory.stringToKey(idRol));
+        /*System.out.println("Aqui crearUsuario 1 username, password, nombre, apellido, idRol: " + 
+               nombreUsuario + password + nombre + apellido + idRol);*/
         return "redirect:/inicio";
     }
 
