@@ -82,7 +82,7 @@ public class ComentarioController {
         return "/ver_comentarios";
     }
 
-    @RequestMapping(value = "/ir_num_comentarios", method = RequestMethod.GET)
+    @RequestMapping(value = "/ir_num_comentarios", method = RequestMethod.GET, headers="Accept=application/json")
     public @ResponseBody String verNumComentarios(Model model) {
         final Usuario usuario = userController.getUser();
         List<Valoracion> valoraciones = valoracionDAO.getValoraciones(usuario.getUsername());
@@ -94,7 +94,7 @@ public class ComentarioController {
     private JSONObject numComentJson(List<Comentario> comentarios, List<Valoracion> valoraciones, Usuario usuario) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("nomUser", usuario.getUsername());           
+            jsonObject.put("nomUser", usuario.getNombre());           
             
             if(comentarios.isEmpty()) {
                 jsonObject.put("comentarios", "No has comentado");

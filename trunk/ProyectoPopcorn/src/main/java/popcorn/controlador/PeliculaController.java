@@ -4,6 +4,8 @@ package popcorn.controlador;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.repackaged.org.json.JSONException;
+import com.google.appengine.repackaged.org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collection;
 import popcorn.persistence.Pelicula;
@@ -11,6 +13,7 @@ import popcorn.service.PeliculaService;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -58,14 +61,18 @@ public class PeliculaController {
      
     @RequestMapping(value = "/ir_listar_peliculas", method = RequestMethod.GET)
     public String doIrPeliculas(Model model) {
+        /*String html ="<div id=\"apDivGaleria\">";
+        html += */
         final Collection<Categoria> categorias = categoriaService.getAllCategorias();
         //System.out.println(categorias.toString());
         final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
         model.addAttribute("categorias",categorias);
         model.addAttribute("peliculas",peliculas);
+        //System.out.println("AQUI IrPeliculas 1: " + peliculas);
+        //return verPelisJson(categorias, peliculas).toString();
         return "/listar_peliculas";
     }
-    
+        
     @RequestMapping(value = "/ir_ver_pelicula", method = RequestMethod.GET)
     public String doVerPelicula(@RequestParam("idPelicula") String idPelicula, Model model) { 
         final Pelicula pelicula = peliculaService.getPelicula(KeyFactory.stringToKey(idPelicula));

@@ -50,8 +50,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
     
     @Override
-    public void create(String nombre, String apellido,
-                        String username, String password, Key idRol) {
+    public void create(String username, String password,
+                        String nombre, String apellido, Key idRol) {
         Rol rol = rolDAO.findByPK(Rol.class, idRol);
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);

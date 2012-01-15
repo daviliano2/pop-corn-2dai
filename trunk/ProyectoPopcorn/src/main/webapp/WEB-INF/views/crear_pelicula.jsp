@@ -27,7 +27,7 @@
             <a  href="/logout" > Desconectar</a>
         </c:if>
         <div>
-            <div style="position:absolute;width:650px;height:500px;background-color: silver;">
+            <div style="position:absolute;width:650px;height:500px;"><!--background-color: silver;-->
                 <form action="<%=blobstoreService.createUploadUrl("/crear")%>" method="post" enctype="multipart/form-data">
                     <p>Nombre de la pelicula: <input name="titulo" type="text"></input><br/> 
                         Sinopsis: <br/><textarea name="sinopsis" rows="5" cols="70"></textarea><br/>
