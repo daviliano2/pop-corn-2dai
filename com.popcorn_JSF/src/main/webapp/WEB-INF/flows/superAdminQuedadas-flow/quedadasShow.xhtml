@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+        <title>#{msg['bienvenida']}</title>
+        
+    </h:head>
+    <h:body>
+        <p:growl showDetail="true" />        
+        <h:outputText value="#{msg.no_permiso}" rendered="#{rol != 'root'}"/>
+        <h:form prependId="false" id="quedadasForm" rendered="#{rol == 'root'}">
+            <p:dataTable id="quedadas" value="#{quedadaController.quedadas}"
+                         var="quedada" emptyMessage="#{msg['no_quedadas']}" >
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID" />
+                    </f:facet>
+                    <h:outputText value="#{quedada.id}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.clave_administrador_quedada}"/>
+                    </f:facet>
+                    <h:outputText value="#{quedada.claveAdmin}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.clave_invitado_quedada}"/>
+                    </f:facet>
+                    <h:outputText value="#{quedada.claveInvitado}" />
+                </p:column>
+
+                <p:column sortBy="#{quedada.root.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.nombre_quedada}"/>
+                    </f:facet>
+                    <h:outputText value="#{quedada.root.nombre}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.desc_quedada}"/>
+                    </f:facet>
+                    <h:form>
+                        <h:inputTextarea readonly="true" rows="3"  cols="20" value="#{quedada.root.descripcion}" />
+                    </h:form>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.accion}"/>
+                    </f:facet>
+
+                    <ui:remove>
+                        Ver http://www.developer.am/j2eetutorial/jsf/?page=4-ways-to-pass-parameter-from-jsf-page-to-backing-bean
+                    </ui:remove>
+                    
+                    <p:commandLink value="#{msg.btn_admin_quedada}" action="adminQuedada" ajax="false">
+                        <f:setPropertyActionListener target="#{quedadaController.quedada}" value="#{quedada}" />
+                    </p:commandLink>
+                    <br/>
+                    <p:commandLink value="#{msg.btn_votar_quedada}" action="votarQuedada" ajax="false">
+                        
+                        <f:setPropertyActionListener target="#{quedadaController.quedada}" value="#{quedada}" />
+                    </p:commandLink>
+
+
+                </p:column>
+
+
+            </p:dataTable>
+
+        </h:form>
+
+
+
+        <br/>
+        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+
+
+    </h:body>
+</html>

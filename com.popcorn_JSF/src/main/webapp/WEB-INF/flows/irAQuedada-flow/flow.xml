@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow">
+
+
+
+    <view-state id="introClave" view="introClave.xhtml">
+        <transition on="irAComprobarClave" to="comprobarClave" />
+    </view-state>
+
+
+    <action-state id="comprobarClave">
+        <evaluate expression="claveQuedadaController.comprobarClave(flowRequestContext)" result="flowScope.rol"/>
+        <transition on="root" to="superAdminQuedadas" />
+        <transition on="admin" to="adminQuedada" />
+        <transition on="invitado" to="votarQuedada" />
+        <transition on="no" to="introClave" />
+    </action-state>
+
+<!--
+    <decision-state id="comprobarClave">
+        <if test="claveQuedadaController.comprobarClave(flowRequestContext)"
+        then="adminQuedada"
+        else="introClave"/>
+
+    </decision-state>
+-->
+
+
+    <subflow-state id="adminQuedada" subflow="adminQuedada-flow" >
+        <input name="quedada"/>
+        <!--<transition on="end" to="end" />-->
+    </subflow-state>
+
+    <subflow-state id="superAdminQuedadas" subflow="superAdminQuedadas-flow" >
+        <input name="rol"/>
+        <transition on="end" to="end" />
+    </subflow-state>
+
+    <subflow-state id="votarQuedada" subflow="votarQuedada-flow" >
+        <input name="quedada"/>
+        <transition on="end" to="end" />
+    </subflow-state>
+
+
+</flow>

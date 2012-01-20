@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:faces="http://www.springframework.org/schema/faces"
+       	xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:oxm="http://www.springframework.org/schema/oxm"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/faces
+           http://www.springframework.org/schema/faces/spring-faces-2.2.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+
+
+
+
+    
+
+    <import resource="webflow.xml" />
+    
+    <!--
+		Enable serving of classpath with Spring 3 resource serving mechanism. For example:
+		/webflow-primefaces-showcase/app/resources/styles/blueprint/print.css
+	-->
+    <mvc:resources location="/" mapping="/resources/**" />
+    <!--
+		URL mappings for views without controller logic.
+		Example:
+			Incoming path '/home' is mapped maps to the view name 'home'
+			UrlBasedViewResolver in servlet-context resolves 'home' to /WEB-INF/views/home.xhtml
+	-->
+    <mvc:view-controller path="/index" />
+    
+
+	<!--
+		Enable processing of JSF 2 resource requests. For example:
+		/webflow-primefaces-showcase/app/javax.faces.resource/jsf.js?ln=javax.faces
+	-->
+    <faces:resources />
+
+   
+
+<!-- Enables FlowHandler URL mapping -->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <property name="flowExecutor" ref="flowExecutor" />
+    </bean>
+
+<!-- Maps request paths to flows in the flowRegistry;
+     e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
+     
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="flowRegistry" ref="flowRegistry"/>
+        <property name="order" value="0"/>
+        
+    </bean>
+
+
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="mediaTypes">
+            <map>
+                <entry key="xml" value="application/xml"/>
+                <entry key="html" value="text/html"/>
+            </map>
+        </property>
+        
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"  />
+                <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+                    <property name="viewClass" value="org.springframework.faces.mvc.JsfView" />
+                    <property name="prefix" value="/WEB-INF/views/" />
+                    <property name="suffix" value=".xhtml" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+
+    
+
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" >
+        <property name="defaultLocale" value="en" />
+        <aop:scoped-proxy/>
+    </bean>
+
+    <bean id="localeController" class="com.popcorn.view.LocaleController"  >
+        <property name="localeResolver" ref="localeResolver"/>
+    </bean>
+
+
+<!--
+    <bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound" >
+            <list>
+                <value>com.popcorn.android.xmlObjects.QuedadaXML</value>
+                <value>com.popcorn.android.xmlObjects.AccionXML</value>
+                <value>com.popcorn.android.xmlObjects.FechaXML</value>
+                <value>com.popcorn.android.xmlObjects.PreferenciaXML</value>
+                <value>com.popcorn.android.xmlObjects.VotoXML</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="quedadas" class="org.springframework.web.servlet.view.xml.MarshallingView">
+        <constructor-arg ref="jaxbMarshaller" />
+    </bean>
+-->
+
+
+    <mvc:annotation-driven />
+
+
+    
+
+</beans>
