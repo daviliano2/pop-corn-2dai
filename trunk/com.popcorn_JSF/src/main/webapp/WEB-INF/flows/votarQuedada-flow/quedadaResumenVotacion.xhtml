@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+        <title>
+
+        </title>
+
+        <p:resources/>
+    </h:head>
+    <h:body>
+        <p:growl showDetail="true" id="mensajes"/>
+
+        <p:panel  rendered="#{quedada != null and quedada.id != null}">
+
+            #{msg.quedada}: #{quedada.root.nombre}<br/>
+            <h:outputText value="#{msg.clave_administrador_quedada}: #{quedada.claveAdmin}" rendered="#{rol == 'root' or rol == 'admin'}" /><br/>
+            #{msg.clave_invitado_quedada}: #{quedada.claveInvitado}<br/><br/>
+
+
+            <table border="1">
+
+
+
+                <tr align="center">
+                    <td>
+                        #{msg.fecha}
+                    </td>
+                <ui:repeat value="#{fechas.ingredientes}" var="ifecha" id="fechas">
+                    <td><h:outputText value="#{ifecha}" converter="com.jquedada.view.FechaConverter"/></td>
+                </ui:repeat>
+                </tr>
+
+
+                <ui:repeat value="#{listasResumenVotos}" var="listaResumen">
+                    <tr>
+                    <ui:repeat value="#{listaResumen}" var="resumen">
+                        <td>
+                            #{resumen}
+                        </td>
+                    </ui:repeat>
+                    </tr>
+
+                </ui:repeat>
+
+
+
+            </table>
+            <h:form prependId="false">
+                <p:commandButton value="#{msg.btn_terminar}"  ajax="false" action="exit" />
+            </h:form>
+
+
+        </p:panel>
+
+
+
+        <br/>
+        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+
+    </h:body>
+</html>

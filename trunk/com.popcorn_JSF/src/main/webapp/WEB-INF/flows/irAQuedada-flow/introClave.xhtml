@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+    </h:head>
+    <h:body>
+
+        <p:growl id="mensajes"/>
+
+            <h:form>
+                <h:panelGrid columns="2" cellpadding="5" >
+                    <h:column>
+                        <h:outputLabel for="clave" value="#{msg.clave}:" />
+                        <h:inputText id="clave" value="#{claveQuedadaController.clave}"/>
+                    </h:column>
+                    <h:column>
+                        <p:commandButton value="#{msg.btn_ir_quedada}" update="mensajes" ajax="false" action="irAComprobarClave"
+                                         />
+
+                    </h:column>
+                    <f:facet name="footer">
+
+                    </f:facet>
+                </h:panelGrid>
+                
+            </h:form>
+
+
+<br/>
+<center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+
+      
+
+    </h:body>
+</html>

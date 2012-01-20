@@ -1,0 +1,114 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+        <title>
+
+        </title>
+
+        <p:resources/>
+    </h:head>
+    <h:body>
+        <p:growl showDetail="true" id="mensajes"/>
+
+        <p:panel  rendered="#{quedada != null and quedada.id != null}">
+
+            #{msg.quedada}: #{quedada.root.nombre}<br/>
+            <h:outputText value="#{msg.clave_administrador_quedada}: #{quedada.claveAdmin}" rendered="#{rol == 'root' or rol == 'admin'}" /><br/>
+            #{msg.clave_invitado_quedada}: #{quedada.claveInvitado}<br/>
+
+            <h:form>
+                <h:commandLink value="#{msg.ir_a_resumen_votos}" action="resumenVotacion"/> <br/>
+            </h:form>
+            <br/><br/>
+
+
+            <table border="1">
+
+
+
+                <tr align="center"><td>${msg.invitado}</td>
+                <ui:repeat value="#{fechas.ingredientes}" var="ifecha" id="fechas">
+                    <td><h:outputText value="#{ifecha}" converter="com.jquedada.view.FechaConverter"/>
+                    <br/>#{ifecha}</td>
+                </ui:repeat>
+                <td>${msg.comentarios}</td>
+                <td>${msg.accion}</td>
+                </tr>
+
+                <ui:repeat value="#{quedada.preferencias}" var="preferencia">
+                    <tr>
+                        <td>
+                            #{preferencia.usuario}
+                        </td>
+                    <ui:repeat value="#{preferencia.votos}" var="voto">
+                        <td>
+                        <h:outputText value="#{voto.voto}" converter="com.jquedada.view.VotoConverter" />
+                        <br/>
+                        #{voto.ingrediente}
+                        </td>
+                        
+                    </ui:repeat>
+                    <td>
+                    <h:form>
+                        <p:inputTextarea maxHeight="100" readonly="true" rows="3" cols="25" value="#{preferencia.comentario}"/>
+                    </h:form>
+                    </td>
+
+                    <td>
+                    <h:form>
+                        <p:commandButton value="#{msg.btn_borrar_votacion}" ajax="false" action="borrarVoto" rendered="#{rol == 'root' or rol == 'admin'}"/>
+                        <input type="hidden" name="preferencia" value="#{preferencia}"/>
+                    </h:form>
+                    </td>
+
+
+                    </tr>
+                </ui:repeat>
+
+
+
+                <tr align="center">
+                <h:form rendered="#{fechas !=null}" prependId="false">
+                    <td>
+                    <p:inputText required="true" value="#{votoController.nombreInvitado}" id="invitado"/>
+                    </td>
+
+                    <ui:repeat value="#{fechas.ingredientes}" var="ifecha" id="preferencias">
+                        <td>
+                        <p:selectOneMenu value="#{votoController.votos[ifecha]}" id="votoFecha">
+                            <f:selectItems  value="#{votoController.opcionesVoto}"/>
+                        </p:selectOneMenu>
+                        </td>
+                    </ui:repeat>
+                    <td>
+                    <p:inputTextarea maxHeight="100" rows="3" cols="25" value="#{votoController.comentario}"/>
+                    </td>
+
+
+                    <td>
+
+
+                    <p:commandButton value="#{msg.btn_votar}" ajax="false" action="votarQuedada"/>
+
+                    </td>
+
+                </h:form>
+                </tr>
+
+            </table>
+
+
+
+        </p:panel>
+
+
+
+        <br/>
+        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+
+    </h:body>
+</html>

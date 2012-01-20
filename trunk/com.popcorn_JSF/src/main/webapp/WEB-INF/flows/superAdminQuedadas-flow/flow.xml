@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow">
+
+    <input name="rol"/>
+    
+
+
+    <view-state id="showQuedadas" view="quedadasShow.xhtml">
+        
+            
+        <transition on="adminQuedada" to="adminQuedada">
+            <evaluate expression="quedadaController.getQuedada()" result="flowScope.quedada"/>
+        </transition>
+
+        <transition on="votarQuedada" to="votarQuedada">
+            <evaluate expression="quedadaController.getQuedada()" result="flowScope.quedada"/>
+        </transition>
+               
+
+    </view-state>
+
+
+    <subflow-state id="adminQuedada" subflow="adminQuedada-flow" >
+        <input name="quedada"/>        
+        
+        <transition on="end" to="end" />
+    </subflow-state>
+
+    <subflow-state id="votarQuedada" subflow="votarQuedada-flow" >
+        <input name="quedada"/>
+        <input name="rol" />
+        <transition on="end" to="end" />
+    </subflow-state>
+        
+    
+
+
+</flow>

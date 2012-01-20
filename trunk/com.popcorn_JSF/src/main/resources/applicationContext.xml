@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:tx="http://www.springframework.org/schema/tx"       
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+       >
+
+
+    
+    <context:component-scan base-package="com.popcorn.dao" />
+    <context:component-scan base-package="com.popcorn.service" />
+    <context:component-scan base-package="com.popcorn.view" />
+    <context:component-scan base-package="com.popcorn.android.controller" />
+    <context:component-scan base-package="pruebas" />
+
+
+   <!-- post-processors for all standard config annotations -->
+    <context:annotation-config/>
+
+
+
+    <tx:annotation-driven  proxy-target-class="true"/>
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>       
+
+
+
+ <!--
+		Enable processing of JSF 2 resource requests. For example:
+		/webflow-primefaces-showcase/app/javax.faces.resource/jsf.js?ln=javax.faces
+	-->
+    
+
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" lazy-init="true">
+        <property name="persistenceUnitName" value="transactions-optional"/>
+    </bean>
+
+    <bean name="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="openEntityManagerInViewInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="openEntityManagerInViewInterceptor"
+          class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+   
+
+
+</beans>
