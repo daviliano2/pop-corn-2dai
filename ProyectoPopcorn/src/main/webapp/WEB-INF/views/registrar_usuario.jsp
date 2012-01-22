@@ -5,27 +5,36 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Registro</title>
-
-        <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>
-        <script>var $r = jQuery.noConflict();</script>
         <script type="text/javascript">
-            $r(document).ready(
-            function() {
-                $r("#botonRegistro").click(
-                function() {                                    
-                    $r.getJSON(                    
+            $(document).ready(
+            function () {
+                $("#botonRegistro").click(
+                function() {
+                    
+                    var categorias = "";
+                    $("input[name='cat']").each(
+                    function(i, e) {
+                        if (e.checked) {
+                            if (categorias != "") {
+                                categorias += ",";
+                            }
+                            categorias+=e.id;
+                                                        
+                        }
+                    }
+                   
+                    );
+                    $.getJSON(                    
                     "/ir_comprobar_usuario",
                     {                      
-                        "user":$r("#user").val(), //AL ESTAR EN LA JSP:INCLUDE DENTRO DE INICIO NO FUNCIONABA
-                        "pass":$r("#pass").val(), //PORQUE EL LOGIN YA TIENE UN SCRIPT CON USERNAME Y PASSWORD, O 
-                        "nombre":$r("#nombre").val(), //POR LO MENOS CREO QUE ERA ESO, PORQUE AHORA SI FUNCIONA.
-                        "apellido":$r("#apellido").val(),
-                        "idRol":$r("#idRol").val()
+                        "user":$("#user").val(), //AL ESTAR EN LA JSP:INCLUDE DENTRO DE INICIO NO FUNCIONABA
+                        "pass":$("#pass").val(), //PORQUE EL LOGIN YA TIENE UN SCRIPT CON USERNAME Y PASSWORD, O 
+                        "nombre":$("#nombre").val(), //POR LO MENOS CREO QUE ERA ESO, PORQUE AHORA SI FUNCIONA.
+                        "apellido":$("#apellido").val(),
+                        "idRol":$("#idRol").val(),
+                        "categ":categorias
                     },
+                    
                     function(str) {
                         if(str == null) {
                             alert("Nombre de usuario ya registrado");  
@@ -41,15 +50,10 @@
             }
         );
         </script>
-    </head>
-    <body>
 
-        <form action="/inicio">
-            <input type="submit" value="INICIO"/>
-        </form>
         <div>        
             <form id="formRegistro">
-                <table>
+                <table style="border:5px">
                     <tr>
                         <td>Nombre de Usuario: </td>
                         <td><input id="user" type="text" maxlength="50" /></td>
@@ -69,31 +73,31 @@
                     <tr>
                         <td>Categorias favoritas:</td>
                     </tr>
+                </table>
+                <table>
                     <tr>
-                        <td><input name="Accion" type="checkbox" value="Accion"/> Acci&oacute;n</td>
-                        <td><input name="Animacion" type="checkbox" value="Animacion"/> Animaci&oacute;n</td>
-                        <td><input name="Belico" type="checkbox" value="Belico"/> B&eacute;lico</td>
-                    </tr>
-                    <tr>
-                        <td><input name="Ciencia_Ficcion" type="checkbox" value="Ciencia Ficcion"/> Ciencia Ficci&oacute;n </td>
-                        <td><input name="Comedia" type="checkbox" value="Comedia"/> Comedia</td>
-                        <td><input name="Documental" type="checkbox" value="Documental"/> Documental</td>
-                    </tr>
-                    <tr>
-                        <td><input name="Fantanstica" type="checkbox" value="Fantastica"/> Fant&aacute;stica</td>
-                        <td><input name="Musical" type="checkbox" value="Musical"/> Musical</td>
-                        <td><input name="Romantica" type="checkbox" value="Romantica"/> Rom&aacute;ntica</td>
-                    </tr>
-                    <tr>
-                        <td><input name="Suspense" type="checkbox" value="Suspense"/> Suspense</td>
-                        <td><input name="Terror" type="checkbox" value="Terror"/> Terror</td>
-                        <td><input name="Western" type="checkbox" value="Western"/> Western</td>
+                        
+                        <td>
+                            <c:set var="nombresCategoria" value="${categorias}"/>
+                            <c:set var="numCat" value="${numero}"/>
+                            <table>
+                                <c:forEach var="i" begin="0" end="${numCat}" step="4">
+                                    <tr>
+                                        <c:forEach items="${nombresCategoria}" var="currentName" varStatus="status" begin="${i}" end="${i+3}">
+                                            <td>
+                                                <input type="checkbox"  id="${currentName.strId}" name="cat" value="${currentName.nombre}"/><c:out value="${currentName.nombre}"/><br />
+                                            </td>
+                                        </c:forEach>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </td>
                     </tr>
                 </table>
+                
 
                 <input type="hidden" value="${roles.idString}" id="idRol"/>
                 <input type="button" value="Registro" id="botonRegistro"/> 
+                <input type="reset" value="Limpiar"/>
             </form> 
         </div>
-    </body>
-</html>

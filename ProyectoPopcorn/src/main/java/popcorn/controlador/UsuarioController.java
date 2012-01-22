@@ -1,11 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package popcorn.controlador;
 
 import com.google.appengine.api.datastore.KeyFactory;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.StringTokenizer;
 import popcorn.persistence.Usuario;
 import popcorn.service.UsuarioService;
 import javax.servlet.http.HttpSession;
@@ -25,19 +24,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import popcorn.dao.UsuarioDAO;
+import popcorn.persistence.Categoria;
 import popcorn.persistence.Rol;
+import popcorn.service.CategoriaService;
 import popcorn.service.PeliculaService;
 import popcorn.service.RolService;
 
 @Controller
 @SessionAttributes({"usuario"})
 public class UsuarioController {
-
     private UsuarioService usuarioService;
     private RolService rolService;
     private AuthenticationManager authenticationManager;
     private PeliculaService peliculaService;
     private UsuarioDAO usuarioDAO;
+    private CategoriaService categoriaService;
 
     @Autowired
     @Required
@@ -61,6 +62,12 @@ public class UsuarioController {
     @Required
     public void setRolService(RolService rolService) {
         this.rolService = rolService;
+    }
+    
+    @Autowired
+    @Required
+    public void setCategoriaService (CategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getUsuarioConectado", headers = "Accept=application/json")
@@ -86,10 +93,13 @@ public class UsuarioController {
     @RequestMapping(value = "/ir_registrar_usuario", method = RequestMethod.GET)
     public String verRegistrarUsuario(Model model) {
         final Collection<Rol> roles = rolService.getAllRoles();
+        final Collection<Categoria> categorias = categoriaService.getAllCategorias();
+        final int numCat = categoriaService.getNumCategorias();
+        model.addAttribute("categorias",categorias);
+        model.addAttribute("numero",numCat);
         for (Rol rol : roles) {
             if (rol.getNombre().compareTo("ROLE_USER") == 0) {
                 model.addAttribute("roles", rol);
-                //model.addAttribute("valido", valido);
             }
         }
         return "/registrar_usuario";
@@ -98,15 +108,13 @@ public class UsuarioController {
     @RequestMapping(value = "/ir_comprobar_usuario", method = RequestMethod.GET)
     public @ResponseBody String comprobarUsuario(@RequestParam("user") String nombreUsuario, @RequestParam("pass") String password,
                                                  @RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
-                                                 @RequestParam("idRol") String idRol) {
+                                                 @RequestParam("idRol") String idRol, @RequestParam("categ") String favoritas) {
         String valido = "ok";
         if (usuarioDAO.findByString(nombreUsuario) != null) {
             valido = null;
         }
-        /*System.out.println("Aqui comprobarUsuario 1 username, password, nombre, apellido, idRol: " + 
-                nombreUsuario + password + nombre + apellido + idRol );*/
         if (valido != null) {
-            return crearUsuario(nombreUsuario, password, nombre, apellido, idRol);
+            return crearUsuario(nombreUsuario, password, nombre, apellido, idRol, favoritas);
         } else {
             return valido;
         }
@@ -115,10 +123,17 @@ public class UsuarioController {
     @RequestMapping(value = "/crear_usuario", method = RequestMethod.GET)
     public String crearUsuario(@RequestParam("user") String nombreUsuario, @RequestParam("pass") String password,
                                @RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
-                               @RequestParam("idRol") String idRol) {
-        usuarioService.create(nombreUsuario, password, nombre, apellido, KeyFactory.stringToKey(idRol));
-        /*System.out.println("Aqui crearUsuario 1 username, password, nombre, apellido, idRol: " + 
-               nombreUsuario + password + nombre + apellido + idRol);*/
+                               @RequestParam("idRol") String idRol, @RequestParam("categ") String favoritas) {
+        final List<String> fav = new ArrayList<String>();
+        StringTokenizer tokens = new StringTokenizer(favoritas,",");
+	while(tokens.hasMoreTokens()) {            
+            String cat = tokens.nextToken();
+            cat.trim();
+            fav.add(cat);
+        }
+        System.out.println("AKI CREAR USER CATEGORIAS, nombre,user:"+fav+ nombre+nombreUsuario);
+        
+        usuarioService.create(nombreUsuario, password, nombre, apellido, KeyFactory.stringToKey(idRol),fav);
         return "redirect:/inicio";
     }
 
@@ -127,31 +142,20 @@ public class UsuarioController {
                                          @RequestParam String password, Model model) {
         String rdo = null;
         try {
-            //System.out.println("AQUI 1 UserController login ");
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            //System.out.println("AQUI 2 UserController login ");
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
-            //System.out.println("AQUI 3 UserController login ");
             authToken.setDetails(authentication.getDetails());
-            //System.out.println("AQUI 4 UserController login authenticationManager="+authenticationManager);
             Authentication newAuth = authenticationManager.authenticate(authToken);
-            //System.out.println("AQUI 5 UserController login ");
             SecurityContextHolder.getContext().setAuthentication(newAuth);
-            //System.out.println("AQUI 6 UserController login newAuth.getName(): " + newAuth.getName());
             if (newAuth.isAuthenticated()) {
-                //System.out.println("AQUI conectar usuario: " + usuarioService.getCurrentUser());
                 model.addAttribute("usuario", usuarioService.getCurrentUser());
-                //System.out.println("UsuarioController conectar se esta conectando " + username);
-                //rdo = "Estas conectado como " + username;
             } else {
                 rdo = "Error al conectar. Comprueba usuario y contraseña";
             }
-            //System.out.println("AQUI 7 UserController login ");
         } catch (Exception unfe) {
             rdo = " ERROR " + unfe.getMessage();
-            //unfe.printStackTrace();
         }
-        return rdo/*"redirect:/inicio"*/;
+        return rdo;
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -159,9 +163,7 @@ public class UsuarioController {
         System.out.println("UsuarioController logout se está desconectando " + usuario.getUsername());
         SecurityContextHolder.getContext().setAuthentication(null);
         Usuario u = (Usuario) sesion.getAttribute("usuario");
-        //System.out.println("UsuarioController logout se está desconectando2 " + usuario.getUsername());
         sessionStatus.setComplete();
-        //Otra forma: sesion.invalidate();
 
         return "redirect:index.html";
     }

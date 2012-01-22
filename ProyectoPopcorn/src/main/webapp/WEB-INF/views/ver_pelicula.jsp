@@ -6,33 +6,24 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        </meta>
-        <title>Project PopCorn - Peliculas</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb.css"></link>
-        <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>
-        <script>var $v = jQuery.noConflict();</script>
         <script type="text/javascript">
-            $v(document).ready(
+            $(document).ready(
                 function() {
-                    $v("#botonValorar").click(            
+                    $("#botonValorar").click(            
                         function() {   
                             <c:choose>
                                 <c:when test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                            $v.getJSON(
+                            $.getJSON(
                                 "/valorar",
                                 {
-                                    "idPelicula":$v("#idPelicula").val(),
-                                    "valoracion":$v("#valoracion").val()
+                                    "idPelicula":$("#idPelicula").val(),
+                                    "valoracion":$("#valoracion").val()
                                 },
                                 function(str) {
                                     if(str) {
                                         //var valora = $v.parseJSON(str); ESTO SERIA TOTALMENTE ASINCRONO PERO NO GUARDA EL ULTIMO VOTO
                                         //$v("#media").html(valora.media); SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
-                                        window.location = "/ir_ver_pelicula?idPelicula="+$v("#idPelicula").val();
-
+                                        window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();
                                     } else {
                                         alert("else");
                                     }
@@ -48,90 +39,62 @@
                 }
             );
         </script>
-    </head>
 
-    <body>
-
-        <div id="apDivFondo" style="background: url('Image/popcorn.jpg');"> <!-- Div principal, contiene la imagen del fondo -->
-            <div id="apDivMenu" > <!-- Aqui se encuentra el logo y el menu -->
-                <script language="JavaScript" type="text/javascript" >
-                    document.write('Esta p&aacute;gina est&aacute; optimizada para una resoluci&oacute;n de 1366 x 768. Tu pantalla tiene una resoluci&oacute;n de ' + screen.width + ' x ' + screen.height + '.')
-                </script>
-                <form action="/inicio">
-                    <input type="submit" value="INICIO"></input>
-                </form>
-
+        <div id="apDivContenedorPelicula"> <!-- Aqui se va a introducir los datos de la pelicula -->
+            <div id="apDivImagenPelicula"> <!-- Aqui va la imagen -->
+                <img height="300" width="290" src='/serve?blob-key=${pelicula.imagen}'></img><br/>
             </div>
-
-            <div id="apDivContenedorPelicula"> <!-- Aqui se va a introducir los datos de la pelicula -->
-                <div id="apDivImagenPelicula"> <!-- Aqui va la imagen -->
-                    <img height="290" width="300" src='/serve?blob-key=${pelicula.imagen}'></img><br/>
-                </div>
-                <div id="apDivTituloPelicula">
-                    <center><p><b><h2> <c:out value="${pelicula.titulo}"/></h2></b></p></center>
-                </div>
-                <div id="apDivInformacionPelicula"> <!-- Aqui va la informacion de la pelicula -->               
-                    <p>
-                        <b>Duraci&oacute;n:</b> <c:out value="${pelicula.duracion}"/> min.<br/>
-                        <b>Director:</b> <c:out value="${pelicula.director}"/><br/>
-                        <b>Categoria:</b> <c:out value="${pelicula.categoria}"/><br/>
-                        <b>Actores:</b><br/>
-                        <c:forEach var="actor" items="${pelicula.actores}" varStatus="status">    
-                            &nbsp;&nbsp;&nbsp;&nbsp;&bull; <c:out value="${actor}" /><br/>
-                        </c:forEach>
-                    </p>
-                </div>
-
-                <div id="apDivValoracion">                   
-                    <strong>Tu valoracion:</strong>                    
-                    <form id="formValorar">
-                        <select name="valoracion" id="valoracion">
-                            <option value="Puntuacion" selected="selected">Puntua</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>                          
-                        <input type="hidden" value="${pelicula.idString}" id="idPelicula"/>
-                        <input type="button" value="vota" id="botonValorar" />                         
-                    </form>                        
-                </div>
+            <div id="apDivTituloPelicula">
+                <center><p><b><h2> <c:out value="${pelicula.titulo}"/></h2></b></p></center>
             </div>
-
-            <div id="apDivSinopsis">
+            <div id="apDivInformacionPelicula"> <!-- Aqui va la informacion de la pelicula -->               
+                <p>
+                    <b>Duraci&oacute;n:</b> <c:out value="${pelicula.duracion}"/> min.<br/><br/>
+                    <b>Director:</b> <c:out value="${pelicula.director}"/><br/><br/>
+                    <b>Categoria:</b> <c:out value="${pelicula.categoria}"/><br/><br/>
+                    <b>Actores: </b>
+                    <c:forEach var="actor" items="${pelicula.actores}" varStatus="status">                        
+                        <c:out value="${actor}" />, 
+                    </c:forEach>
+                    <br/><br/><br/>
+                    <b>Sinopsis:</b><br/> <c:out value="- ${pelicula.sinopsis}"/><br/>
+                </p>
+            </div>
+             <div id="apDivValoracion">                   
+                <strong>Tu valoracion:</strong>                    
+                <form id="formValorar">
+                    <select name="valoracion" id="valoracion">
+                        <option value="Puntuacion" selected="selected">Puntua</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>                          
+                    <input type="hidden" value="${pelicula.idString}" id="idPelicula"/>
+                    <input type="button" value="vota" id="botonValorar" />                         
+                </form>   
+            </div>
+            <div id="apDivMediaValoracion">
                 <jsp:include page="/ir_ver_valoraciones"/><br/>
-                <p><b>&nbsp;&nbsp;&nbsp;Sinopsis</b></p>
-                <div id="apDivTextoSinopsis">
-                    <p style="text-align: justify;">
-                        <c:out value="${pelicula.sinopsis}"/><br/>
-                    </p>
-                </div>
-            </div>                   
-
-            <div id="apDivContenedorComentario">
-                <div id="apDivComenta">
-                    <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                        <p>Introduce tu comentario sobre la pelicula, 
-                            ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}
-                            <a  href="/logout" > Desconectar</a>
-                        </p>
-                    </c:if>
-                    <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                        <p>Introduce tu comentario sobre la pelicula:</p>
-                    </c:if>
-                    <form action="/comentar" method="post">
-                        <textarea name="content" rows="5" cols="70"></textarea>
-                        <input type="hidden" value="${pelicula.idString}" name="idPelicula"/>
-                        <input type="submit" value="Comentar" />
-                        <input type="reset" value="Limpiar" />
-                    </form>
-                </div>
             </div>
-            <div id="apDivVerComentarios">                    
+        </div>
+       <!-- <div id="apDivSinopsis">
+            
+        </div> -->         
+        <div id="apDivContenedorComentario">
+            <div id="apDivComenta">
+                <p>Introduce tu comentario sobre la pelicula:</p>
+                <form action="/comentar" method="post" onclick="ver_pelicula(${pelicula.idString})">
+                    <textarea name="content" rows="5" cols="70"></textarea>
+                    <input type="hidden" value="${pelicula.idString}" name="idPelicula"/><br/>
+                    <input type="submit" value="Comentar" />
+                    <input type="reset" value="Limpiar" />
+                </form>
+            </div>        
+        </div>
+        <div id="apDivVerComentarios">
+            <div id="apDivComenColocacion">
                 <jsp:include page="/ir_ver_comentario"/>
             </div>
-
         </div>
-    </body>
-</html>

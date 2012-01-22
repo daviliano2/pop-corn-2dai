@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package popcorn.controlador;
 
 import com.google.appengine.api.datastore.KeyFactory;
@@ -72,7 +68,7 @@ public class ComentarioController {
             comentario = new Comentario(usuario, content, fecha);
         }
         comentarioService.create(comentario, KeyFactory.stringToKey(idStringPelicula));
-        return "redirect:ir_ver_pelicula?idPelicula=" + idStringPelicula;
+        return "redirect:inicio";
     }
 
     @RequestMapping(value = "/ir_ver_comentario", method = RequestMethod.GET)
@@ -86,8 +82,7 @@ public class ComentarioController {
     public @ResponseBody String verNumComentarios(Model model) {
         final Usuario usuario = userController.getUser();
         List<Valoracion> valoraciones = valoracionDAO.getValoraciones(usuario.getUsername());
-        List<Comentario> comentarios = comentarioDAO.getComentarios(usuario.getUsername());       
-        //model.addAttribute("numComentarios", comentarios.size()); 
+        List<Comentario> comentarios = comentarioDAO.getComentarios(usuario.getUsername());        
         return numComentJson(comentarios, valoraciones, usuario).toString();
     }
 
@@ -112,7 +107,6 @@ public class ComentarioController {
         } catch (JSONException ex) {
             Logger.getLogger(ComentarioController.class.getName());
         }
-        //System.out.println("AQUI verNumComentarios.numComentJson comentarios: " + comentarios.size());
         return jsonObject;
     }
 }
