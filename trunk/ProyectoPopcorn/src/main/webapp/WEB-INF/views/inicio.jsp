@@ -1,8 +1,3 @@
-<%-- 
-    Document   : nueva_vista
-    Created on : 26-nov-2011, 20:48:43
-    Author     : miguel
---%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
@@ -17,8 +12,10 @@
         <title>Pop Corn 2DAI</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
         <link rel="stylesheet" type="text/css" href="stylesheets/Estiloweb2.css" ></link>
-        <link rel="stylesheet" type="text/css" href="stylesheets/EstiloCarrusel.css" ></link>
-
+        <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>     
+        <script type="text/javascript" src="jQuery/js/plusone.js">
+            {lang: 'es'}
+        </script>
         <script language="JavaScript" type="text/javascript" >
             function irface() {
                 window.open("http://www.facebook.com/ProyectoPopcorn", "", "")
@@ -28,92 +25,97 @@
             }
             function irtweet() {
                 window.open("http://twitter.com/PopcornProyecto","","")
-            }
-        </script>
-
-        <script type="text/javascript" src="jQuery/js/plusone.js">
-            {lang: 'es'}
-        </script>
-
-        <script type="text/javascript" src="jQuery/js/jquery-1.4.3.min.js"></script>     
-        <script>var $j = jQuery.noConflict();</script>       
-
-        <script type="text/javascript"> 
-            
-            $j(document).ready(
-            function() {    
+            } 
+            function ver_pelicula(id_pelicula) {
                 
-                $j("#inicio").show();
-                $j("#listar").hide();
-                $j("#registro").hide();
-                $j("#crear").hide();
-                    
-                $j("#verInicio").click(
-                function() {
-                    $j("#inicio").show();
-                    $j("#listar").hide();
-                    $j("#registro").hide();
-                    $j("#crear").hide();
-                }
-            );
-                $j("#verTodasPelis").click(
-                function() {
-                    $j("#inicio").hide();
-                    $j("#listar").show();
-                    $j("#registro").hide();
-                    $j("#crear").hide();
-                }
-            );
-                $j("#crearPelis").click(
-                function() {
-                    $j("#inicio").hide();
-                    $j("#listar").hide();
-                    $j("#registro").hide();
-                    $j("#crear").show();
-                }
-            );
-                $j("#registrarUsuario").click(
-                function() {
-                    $j("#inicio").hide();
-                    $j("#listar").hide();
-                    $j("#registro").show();
-                    $j("#crear").hide();
-                }
-            );
-            
-            <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                    $j.getJSON(
+                $.get(
+                    "/ir_ver_pelicula",
+                    {
+                        idPelicula: id_pelicula
+                    },
+                    function(html) {
+                        
+                        $("#apDivGeneral").html(html);
+                    },
+                    "ajax"    
+                );
+            }
+            function verInicio() {
+                $.get(
+                    "/inicio",
+                    {
+                    },
+                    function(){
+                        $("#apDivGeneral").html("");
+                    },
+                    "ajax"
+                );
+            }
+            function verTodasPelis() {
+                $.get(
+                    "/ir_listar_peliculas",
+                    {
+                    },
+                    function(html) {
+                        $("#apDivGeneral").html(html);
+                    },
+                    "ajax"
+                );
+            }
+            function crearPelis() {
+                $.get(
+                    "/ir_crear_pelicula",
+                    {                        
+                    },
+                    function(html) {
+                        $("#apDivGeneral").html(html);
+                    },
+                    "ajax"
+                );
+            }
+            function registrarUsuario() {
+                $.get(
+                    "/ir_registrar_usuario",
+                    {
+                    },
+                    function(html) {
+                        $("#apDivGeneral").html(html);
+                    },
+                    "ajax"
+                );
+            }
+            $(document).ready(
+            function() {    
+                <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                    $.getJSON(
                     "/ir_num_comentarios",
                     {          
                     },
                     function(str) {
-                        if(str) {
-                            //alert(str);                            
-                            var com = $j.parseJSON(str);
-                            //alert(com.numComen);
+                        if(str) {                           
+                            var com = $.parseJSON(str);
                             if(com.comentarios) {
-                                $j("#comen").html(com.comentarios);
+                                $("#comen").html(com.comentarios);
                             } else {
-                                $j("#comen").html(com.numComen);  
-                                $j("#comentario").html(com.lastComen);
-                                $j("#peli").html(com.lastMovie);                                   
+                                $("#comen").html(com.numComen);  
+                                $("#comentario").html(com.lastComen);
+                                $("#peli").html(com.lastMovie);                                   
                             }
                             if(com.valoraciones) {
-                                $j("#val").html(com.valoraciones);
+                                $("#val").html(com.valoraciones);
                             } else {
-                                $j("#val").html(com.numVal);
+                                $("#val").html(com.numVal);
                             }
-                            $j("#user").html(com.nomUser);
+                            $("#user").html(com.nomUser);
                         } else {
                             alert("vamos mal");
                         }
                     }
-                );
-            </c:if>
+                    );
+                </c:if>
                 }
             );  
         </script>
-
     </head>
     <body>
         <div id="apDivFondo">
@@ -126,13 +128,13 @@
                         <tr>
                             <div class="invertedshiftdown">
                                 <ul>                             
-                                    <li class="current"><a title="Pagina de inicio" id="verInicio" >Inicio</a></li>
-                                    <li ><a title="Ir a ver peliculas" id="verTodasPelis">Listar Peliculas</a></li>                                    
+                                    <li class="current"><a title="Pagina de inicio" onclick="verInicio()" style="cursor:pointer">Inicio</a></li>
+                                    <li ><a title="Ir a ver peliculas" onclick="verTodasPelis()" style="cursor:pointer">Listar Peliculas</a></li>                                    
                                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                        <li><a title="Ir a crear peliculas" id="crearPelis">Crear Peliculas</a></li>
+                                        <li><a title="Ir a crear peliculas" onclick="crearPelis()" style="cursor:pointer">Crear Peliculas</a></li>
                                     </sec:authorize>
                                     <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                                        <li><a title="Registro de usuarios" id="registrarUsuario">Registrar Usuario</a></li>
+                                        <li><a title="Registro de usuarios" onclick="registrarUsuario()" style="cursor:pointer">Registrar Usuario</a></li>
                                     </c:if>                            
                                 </ul>       
                             </div>
@@ -153,15 +155,15 @@
                     <img src="Image/twitter.png" onclick="irtweet()" style="cursor:pointer"></img>                  
                 </div>
                 <div id="apDivGog1">
-                    <g:plusone href="http://popcorn2dai.appspot.com/"></g:plusone>
+                    <!-- <g:plusone href="http://popcorn2dai.appspot.com/"></g:plusone> -->
                 </div>
                 <div id="apDivLogoAppEngine">
                     <img src="Image/appengine-noborder-120x30.gif" style="top: 10px;"></img>
                 </div>
-                <div id="cse-search-form" style="width: 400px;">Loading</div>
+                <div id="cse-search-form" style="width: 400px;">Cargando</div>
                 <script src="jQuery/js/jsapi.js" type="text/javascript"></script>
                 <script type="text/javascript"> 
-                    google.load('search', '1', {language : 'es', style : google.loader.themes.MINIMALIST});
+                    google.load('search', '1', {language : 'es', style : "stylesheets/minimalist.css"  });
                     google.setOnLoadCallback(function() {
                         var customSearchControl = new google.search.CustomSearchControl('000154107945480710813:ylhizvrhsyc');
                         customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
@@ -211,7 +213,7 @@
                     <div id="apDivNombreNovedades">Novedades de la semana</div>
                     <ul id="galeria">
                         <style>
-                            #slider {width: 216px; height: 255px; padding:0; border:0; border-radius: 5px;}
+                            #slider {width: 216px; height: 255px; padding:0; top: 4.5px; left: -40px; border-radius: 5px; z-index: 1}
                             #slider img {width: 216px; height: 255px; padding: 0; margin:0; border:0; border-radius: 5px;}
                             #slider .clicker a {width: 11px; height: 11px; background: #fff; margin-right: 2px; border-radius: 5px; -moz-border-radius: 5px;}
                             #slider .clicker a.active {background: #ff0;}
@@ -226,7 +228,7 @@
                         <div id="slider">
                             <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
                                 <div>
-                                    <a href="/ir_ver_pelicula?idPelicula=${pelicula.idString}">
+                                    <a onclick="ver_pelicula('${pelicula.idString}')">
                                         <img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}"></img> </a>
                                     <!-- TAMBIEN SE PUEDEN COLOCAR VIDEO DE YOUTUBE
                                     <div style="background-color: #000;">
@@ -241,23 +243,7 @@
 
             </div>
             <div id="apDivGeneral">
-                <div id="inicio">
-                    <div id="apDivGaleria">
 
-                        <div id="apDivTGal">Noticias y Pelicula de la semana</div>
-                        <ul id="galeria">
-                        </ul>
-                    </div>
-                </div>
-                <div id="registro">
-                    <jsp:include page="/ir_registrar_usuario"></jsp:include>-->
-                </div>
-                <div id="crear">
-                    <jsp:include page="/ir_crear_pelicula"></jsp:include>
-                </div>
-                <div id="listar">
-                    <jsp:include page="/ir_listar_peliculas"></jsp:include>
-                </div>
             </div>
         </div>
     </body>

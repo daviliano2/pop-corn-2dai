@@ -61,15 +61,10 @@ public class PeliculaController {
      
     @RequestMapping(value = "/ir_listar_peliculas", method = RequestMethod.GET)
     public String doIrPeliculas(Model model) {
-        /*String html ="<div id=\"apDivGaleria\">";
-        html += */
         final Collection<Categoria> categorias = categoriaService.getAllCategorias();
-        //System.out.println(categorias.toString());
         final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
         model.addAttribute("categorias",categorias);
         model.addAttribute("peliculas",peliculas);
-        //System.out.println("AQUI IrPeliculas 1: " + peliculas);
-        //return verPelisJson(categorias, peliculas).toString();
         return "/listar_peliculas";
     }
         

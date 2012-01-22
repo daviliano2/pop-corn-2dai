@@ -1,9 +1,33 @@
 @CHARSET "ISO-8859-1";
 
+a {
+font-size: 13px;
+color: #000000;
+}
+
+a:link {
+text-decoration: underline;
+}
+
+a:visited {
+text-decoration: underline;
+color: #FF0000;
+}
+
+a:hover {
+text-decoration: none;
+color: blueviolet;
+}
+
+a:active {
+text-decoration: underline;
+color: darkgoldenrod;
+}
+
 #apDivFondo {
     position:absolute;
     width:1336px;
-    height:630px;
+    height:200%;
     background-color: #CCCCCC;
     border-radius: 5px;
      -moz-box-shadow: 1px 1px #000000, 2px 2px #000000, 3px 3px #000000, 4px 4px #000000, 5px 5px #000000;
@@ -27,7 +51,6 @@
     top: 5px;
     background: url('logo.jpg');
     background-image: url('logo.jpg');
-    /*background-color: #262626;*/
 }
 #apDivBotones {
     position: absolute;
@@ -91,13 +114,7 @@
     top: -5px;
     z-index: 1;
 }
-#input.gsc-input {
-    border-color: #777777;
-}
-#input.gsc-search-button {
-    border-color: #333333;
-    background-color: #333333;
-}
+
 #apDivLogin {
     position: absolute;
     width: 1328px;
@@ -119,7 +136,7 @@
     width: 400px;
     height: 23px;
     top: 10px;
-    left: 950px;
+    left: 1000px;
 }
 #apDivPanel {
     position: absolute;
@@ -135,7 +152,6 @@
     width: 215px;
     height: 199px;
     left: 2px;
-    /* top: 2px; */
     background-color: #FFF;
     border-radius: 5px;
     border-style:solid;
@@ -147,14 +163,8 @@
     width: 100%;
     height: 20px;
     border-radius: 5px;
-    /* border-radius: 5px; */
-    /* top: 2px; 
-    left: 2px; */
     background: url('fondopanel.jpg');
     text-align: center;
-    /*       border-style:solid;
-    border-width:1px;
-    border-color: #6495ED;*/
 }
 #apDivNovedades {
     position: absolute;
@@ -162,9 +172,9 @@
     height: 276px;
     left: 2px;
     top: 204px;
-  background-color: #FFF;
+    background-color: #FFF;
     border-radius: 5px;
-        border-style:solid;
+    border-style:solid;
     border-width:1px;
     border-color: #6495ED;
 }
@@ -184,7 +194,7 @@
 }
 #apDivLogoAppEngine {
     position: absolute;
-    width: 216px;
+    width: 150px;
     height: 30px;
     left: 20px;
      top: 5px; 
@@ -193,7 +203,7 @@
 #apDivGeneral {
     position: absolute;
     width: 1106px;
-    height: 481px;
+    height: 1000px;
     left: 226px;
     top: 146px;
     background-color: #687597;
@@ -211,6 +221,95 @@
     position: absolute;
     top: 5px;
     left: 5px;
+}
+#apDivContenedorPelicula {
+    position: absolute;
+    width: 99.5%;
+    height: 75%;
+    left: 0.5%;
+    z-index: 2;
+}
+#apDivImagenPelicula {
+    position: absolute;
+    width: 40%;
+    height: 70%;
+    left: 10%;
+    top: 15%;
+    z-index: 2;
+}
+#apDivInformacionPelicula {
+    position: absolute;
+    width: 49%;
+    height: 70%;
+    left: 45%;
+    top: 13%;
+    z-index: 2;   
+}
+#apDivValoracion {
+    position: absolute;
+    width: 30%;
+    height: 13%;
+    left: 3%;
+    top: 60%;
+    z-index: 2;
+}
+#apDivMediaValoracion {
+    position: absolute;
+    width: 50%;
+    height: 5%;
+    left: 3%;
+    top: 67%;
+    z-index: 2;
+}
+#apDivTrailer {
+    position: absolute;
+    width: 30%;
+    height: 10%;
+    left: 65%;
+    top: 85%;
+    z-index: 2;
+}
+#apDivContenedorComentario {
+    position: absolute;
+    width: 48.8%;
+    height: 30%;
+    left: 45%;
+    top: 40%;
+    z-index: 2;
+}
+#apDivComenta {
+    position:absolute;
+    width:96%;
+    height:20%;
+    left:2%;
+}
+#apDivVerComentarios {
+    position: absolute;
+    width: 48.8%;
+    /*height: 70%;*/
+    left: 45%;
+    top: 60%;
+    z-index: 2;
+}
+#apDivComenColocacion {
+    position: absolute;
+    width: 96%;
+    /*height: 80%;*/
+    left: 2%;
+    top: 2%;
+}
+#apDivSinopsis {
+    position: absolute;
+    width: 49%;
+    left: 50%;
+    top: 50%;
+    height: 24.8%;
+    z-index: 2;
+}
+#apDivTextoSinopsis {
+    position: absolute;
+    width: 90%;
+    left: 10%;
 }
 
         /* MENU */

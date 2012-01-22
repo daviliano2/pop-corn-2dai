@@ -2,6 +2,8 @@ package popcorn.persistence;
 
 import com.google.appengine.api.datastore.Key;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.jdo.annotations.Unique;
 import javax.persistence.Basic;
@@ -12,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario implements Serializable {
@@ -33,7 +36,7 @@ public class Usuario implements Serializable {
     private String apellido;
     
     @Basic
-    private List<String> categoria;
+    private List<Key> categoria = new ArrayList<Key>();
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Rol rol;   
@@ -87,11 +90,11 @@ public class Usuario implements Serializable {
         this.apellido = apellido;
     }
     
-    public List<String> getCategoria() {
+    public List<Key> getCategoria() {
         return categoria;
     }
     
-    public void setCategoria(List<String> categoria) {
+    public void setCategoria(List<Key> categoria) {
         this.categoria = categoria;
     }
     public Rol getRol() {

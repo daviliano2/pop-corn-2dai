@@ -5,12 +5,14 @@
 package popcorn.service;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import popcorn.dao.*;
 import popcorn.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
@@ -30,13 +32,20 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioDAO usuarioDAO;
     private RolDAO rolDAO;
+    private CategoriaDAO categoriaDAO;
 
     @Autowired
     @Required
     public void setUsuarioDAO(final UsuarioDAO usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
     }
-
+    
+    @Autowired
+    @Required
+    public void setCategoriaDAO(final CategoriaDAO categoriaDAO) {
+        this.categoriaDAO = categoriaDAO;
+    }
+    
     @Autowired
     @Required
     public void setRolDAO(final RolDAO rolDAO) {
@@ -51,13 +60,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     
     @Override
     public void create(String username, String password,
-                        String nombre, String apellido, Key idRol) {
+                        String nombre, String apellido, Key idRol, List<String> categorias) {
         Rol rol = rolDAO.findByPK(Rol.class, idRol);
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setUsername(username);
         usuario.setPassword(password);
+        List<Key> catFavoritas = new ArrayList<Key>();
+        for ( String cat : categorias ){
+                catFavoritas.add(KeyFactory.stringToKey(cat));
+        }
+        usuario.setCategoria(catFavoritas);
         rol.getUsuarios().add(usuario);
     }
     

@@ -5,6 +5,7 @@
 package popcorn.persistence;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -34,5 +35,13 @@ public class Categoria implements Serializable{
     
     public void setNombre(String nombre){
         this.nombre = nombre;
+    }
+    
+    public Key getId(){
+        return id;
+    }
+    
+    public String getStrId() {
+        return KeyFactory.keyToString(id);
     }
 }

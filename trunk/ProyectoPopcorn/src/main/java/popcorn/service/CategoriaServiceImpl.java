@@ -35,6 +35,11 @@ public class CategoriaServiceImpl implements CategoriaService {
         
     }
     
+    @Override
+    public int getNumCategorias() {
+        return categoriaDAO.countAll(Categoria.class);
+    }
+    
     @PostConstruct
     @Override
     public void createCategoria() {

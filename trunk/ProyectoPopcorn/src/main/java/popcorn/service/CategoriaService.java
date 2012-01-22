@@ -4,7 +4,6 @@
  */
 package popcorn.service;
 
-import com.google.appengine.api.datastore.Key;
 import java.util.Collection;
 import popcorn.persistence.Categoria;
 
@@ -17,6 +16,8 @@ public interface CategoriaService {
     void create(final Categoria categoria);
 
     Collection<Categoria> getAllCategorias();
+    
+    int getNumCategorias();
     
     void createCategoria();
 }
