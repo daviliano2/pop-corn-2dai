@@ -5,9 +5,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	parent="parent-flow">
-
-    <view-state id="verComentarios" view="verComentar.xhtml">
-        
+            
+    <view-state id="registrarUsuario" view="registrarUsuario.xhtml">
+        <transition on="irARegistrarUsuario" to="registraUsuario"/>
     </view-state>
-    
+            
+    <action-state id="registraUsuario">
+        <evaluate expression="usuarioController.crearUsuario()"/>
+        <transition on="si" to="end"/>
+    </action-state>    
+        
 </flow>

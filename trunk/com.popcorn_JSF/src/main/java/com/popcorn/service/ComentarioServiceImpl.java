@@ -6,9 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import com.popcorn.dao.ComentarioDAO;
-import com.popcorn.dao.PeliculaDAO;
+import com.popcorn.dao.TemaDAO;
 import com.popcorn.persistence.Comentario;
-import com.popcorn.persistence.Pelicula;
+import com.popcorn.persistence.Tema;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -18,7 +19,7 @@ import com.popcorn.persistence.Pelicula;
 public class ComentarioServiceImpl implements ComentarioService {
 
     private ComentarioDAO comentarioDAO;
-    private PeliculaDAO peliculaDAO;
+    private TemaDAO temaDAO;
     
     
     @Autowired
@@ -29,8 +30,8 @@ public class ComentarioServiceImpl implements ComentarioService {
 
     @Autowired
     @Required
-    public void setPeliculaDAO(final PeliculaDAO peliculaDAO) {
-        this.peliculaDAO = peliculaDAO;
+    public void setPeliculaDAO(final TemaDAO temaDAO) {
+        this.temaDAO = temaDAO;
     }    
 
     @Override
@@ -39,17 +40,18 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
 
     @Override
-    public void create(final Comentario comentario, Key idPelicula) {
-        Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-        pelicula.getComentarios().add(comentario);
+    public void create(final Comentario comentario, Key idTema) {
+        Tema tema = temaDAO.findByPK(Tema.class, idTema);
+        tema.getComentarios().add(comentario);
     }
 
     @Override
-    public Collection<Comentario> getAllComentarios(Key idPelicula) {
-        Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-        return pelicula.getComentarios();                
+    public Collection<Comentario> getAllComentarios(Key idTema) {
+        Tema tema = temaDAO.findByPK(Tema.class, idTema);
+        return tema.getComentarios();                
     }
-
+    
+    @Transactional
     @Override
     public Collection<Comentario> getAll() {
         return comentarioDAO.getAll(Comentario.class);

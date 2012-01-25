@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
 
-        <title>Comentarios</title>
+        <title>Temas</title>
 
     </h:head>
 
@@ -14,11 +14,11 @@
         <h:form>
             <h:panelGrid columns="2" cellpadding="5" >
                 <h:column>
-                    <h:outputLabel for="coment" value="Comenta:" />
+                    <h:outputLabel for="titulo" value="Titulo:" />
                     
-                    <p:editor id="coment" value="#{comentarioController.comentario.content}"/>
-                
-                    <p:commandButton iconPos="right" value="Coment" ajax="false" action="irACrearComentario"/>
+                    <h:outputLabel for="tema" value="Tema:" />                    
+                    <p:editor id="tema" value="#{temaController.tema.content}"/>                
+                    <p:commandButton iconPos="right" value="Crear Tema" ajax="false" action="irACrearTema"/>
                 </h:column>
                 <f:facet name="footer"></f:facet>
             </h:panelGrid>
