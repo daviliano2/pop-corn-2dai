@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author miguel
  */
+@Transactional
 @Service
 public class ComentarioServiceImpl implements ComentarioService {
 
@@ -51,7 +52,6 @@ public class ComentarioServiceImpl implements ComentarioService {
         return tema.getComentarios();                
     }
     
-    @Transactional
     @Override
     public Collection<Comentario> getAll() {
         return comentarioDAO.getAll(Comentario.class);

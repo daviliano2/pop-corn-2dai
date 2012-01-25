@@ -14,6 +14,14 @@
         <h:form prependId="false" id="temasForm">
             <p:dataTable id="temas" value="#{temaController.temas}"
                          var="tema" emptyMessage="No hay temas" >
+                
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText  value="TITULO"/>
+                    </f:facet> 
+                    <h:outputFormat value="#{tema.titulo}" escape="false"/>
+                </p:column>             
+                
                 <p:column >
                     <f:facet name="header">
                         <h:outputText  value="TEMA"/>
@@ -41,6 +49,7 @@
                         <f:setPropertyActionListener target="#{temaController.tema}" value="#{tema}" />
                     </p:commandLink>                    
                 </p:column>
+                
             </p:dataTable>
         </h:form>
         

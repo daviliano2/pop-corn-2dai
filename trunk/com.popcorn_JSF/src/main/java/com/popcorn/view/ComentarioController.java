@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import com.popcorn.persistence.Comentario;
+import com.popcorn.persistence.Tema;
 import com.popcorn.service.ComentarioService;
 
 import org.springframework.context.annotation.Scope;
@@ -51,14 +52,14 @@ public class ComentarioController implements Serializable {
         this.comentarioService = comentarioService;
     }
     
-    public String crearComenta() {
+    public String crearComenta(Tema tema) {
         //System.out.println("Aki crearComenta");
         String comentaCorrecto = "no";      
-        //System.out.println("Aki crearComenta2: " + comentario);
         if(comentario != null) {
             comentaCorrecto = "si";
             comentario.setFecha(new Date());
-            comentarioService.create(comentario);
+            comentarioService.create(comentario, tema.getId());
+            //System.out.println("Aki crearComenta2: " + comentario);
         }
         return comentaCorrecto;
     }
