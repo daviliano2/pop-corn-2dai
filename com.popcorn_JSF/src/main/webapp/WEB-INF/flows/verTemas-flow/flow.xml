@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow">
+
+    <view-state id="verTemas" view="verTema.xhtml">
+        <transition on="irATema" to="irTema">    
+            <evaluate expression="temaController.getTema()" result="flowScope.tema"/>
+        </transition>
+    </view-state>
+    
+    <view-state id="irTema" view="comentarTema.xhtml">
+        <transition on="irACrearComentario" to="crearComen"/>
+    </view-state>
+    
+    
+    <action-state id="crearComen">
+        <evaluate expression="comentarioController.crearComenta()" />
+        <transition on="si" to="irTema" />
+    </action-state>
+    
+</flow>

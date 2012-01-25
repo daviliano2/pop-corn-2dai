@@ -2,20 +2,16 @@ package com.popcorn.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import com.google.appengine.api.datastore.Key;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Comentario implements Serializable {
+public class Tema implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,23 +26,29 @@ public class Comentario implements Serializable {
     @Basic
     private String autor;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Tema tema;
+    @Basic
+    private String titulo;
+    
+    @OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Comentario> comentarios;
 
-    public Comentario() {
+    public Tema() {
     }
 
-    public Comentario(Usuario autor, String content, Date fecha) {        
+    public Tema(Usuario autor, String content, Date fecha, String titulo) {        
         if (autor != null) {
             this.autor = autor.getUsername();
         }
         this.content = content;
         this.fecha = fecha;
+        this.titulo = titulo;
+        this.comentarios = new ArrayList<Comentario>();  
     }
     
-    public Comentario(String content, Date fecha) {
+    public Tema(String content, Date fecha) {
         this.content = content;
         this.fecha = fecha;
+        this.comentarios = new ArrayList<Comentario>();  
     }
 
     public String getAutor() {
@@ -68,6 +70,14 @@ public class Comentario implements Serializable {
     public Date getFecha() {
         return fecha;
     }
+    
+    public String getTitulo() {
+        return titulo;
+    }
+    
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
     public void setId(Key id) {
         this.id = id;
@@ -80,12 +90,15 @@ public class Comentario implements Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
-    public Tema getTema() {
-        return tema;
+    
+     public List<Comentario> getComentarios() {
+        if(comentarios == null) {
+            comentarios = new ArrayList<Comentario>();
+        }
+        return comentarios;
     }
 
-    public void setTema(Tema tema) {
-        this.tema = tema;
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 }

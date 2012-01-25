@@ -11,21 +11,12 @@
         <p:growl showDetail="true" id="mensajes"/>
 
         <h:outputLink value="crearComentario-flow">Nuevo comentario</h:outputLink>
-        
-        <h:outputLink value="verComentarios-flow">Ver comentarios</h:outputLink>
+        <br/>
+        <h:outputLink value="verTemas-flow">Temas</h:outputLink>
+        <br/>
+        <h:outputLink value="registrarUsuario-flow">Registrar usuario</h:outputLink>
         <br/><br/><br/>
         
-        <h:outputLink value="createQuedada-flow">#{msg.nueva_quedada}</h:outputLink> <br/>
-
-        <ui:remove>
-            <h:outputLink  value="superAdminQuedadas-flow">#{msg.administrar_quedadas}</h:outputLink><br/>
-        </ui:remove>
-        <h:outputLink value="irAQuedada-flow">
-            #{msg.ir_a_quedada}
-        </h:outputLink>
-
-        <br/>
-        <br/>
         <center>
             <h:outputLink  value="cambiarIdioma-flow">
                 <f:param name="idioma" value="es" />

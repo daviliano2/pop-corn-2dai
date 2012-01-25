@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+        <title>Temas</title>
+
+    </h:head>
+    <h:body>
+        <p:growl showDetail="true"/>
+
+        <h:form prependId="false" id="temasForm">
+            <p:dataTable id="temas" value="#{temaController.tema}"
+                         var="tema" emptyMessage="No hay temas" >
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText  value="TEMA"/>
+                    </f:facet> 
+                    <h:outputFormat  value="#{tema.content}" escape="false"/>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="FECHA"/>
+                    </f:facet>                                    
+                    <h:outputLabel value="#{tema.fecha}" escape="false"/>
+                </p:column>
+                
+            </p:dataTable>
+            
+            <h:outputLabel for="comentarioTema" value="Comenta:" />                    
+            <p:editor id="comentarioTema" value="#{comentarioController.comentario.content}"/>                
+            <p:commandButton iconPos="right" value="Crear Comentario" ajax="false" action="irACrearComentario"/>
+                    
+        </h:form>
+        
+       
+        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+    </h:body>
+</html>

@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+        <title>Temas</title>
+
+    </h:head>
+    <h:body>
+        <p:growl showDetail="true"/>
+
+        <h:form prependId="false" id="temasForm">
+            <p:dataTable id="temas" value="#{temaController.temas}"
+                         var="tema" emptyMessage="No hay temas" >
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText  value="TEMA"/>
+                    </f:facet> 
+                    <h:outputFormat  value="#{tema.content}" escape="false"/>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="FECHA"/>
+                    </f:facet>                                    
+                    <h:outputLabel value="#{tema.fecha}" escape="false"/>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="IR A TEMA"/>
+                    </f:facet>
+
+                    <ui:remove>
+                        Ver http://www.developer.am/j2eetutorial/jsf/?page=4-ways-to-pass-parameter-from-jsf-page-to-backing-bean
+                    </ui:remove>
+                    
+                    <p:commandLink value="Ir a tema" action="irATema" ajax="false">
+                        <f:setPropertyActionListener target="#{temaController.tema}" value="#{tema}" />
+                    </p:commandLink>                    
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        
+        <p:button value="Nuevo Tema" href="crearTema-flow"></p:button>
+        
+        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+    </h:body>
+</html>

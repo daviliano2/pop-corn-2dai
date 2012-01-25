@@ -6,13 +6,13 @@ package com.popcorn.view;
 
 import java.io.Serializable;
 import java.util.Collection;
-import org.springframework.context.annotation.Scope;
+import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import com.popcorn.persistence.Comentario;
-
 import com.popcorn.service.ComentarioService;
-import java.util.Date;
+
+import org.springframework.context.annotation.Scope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,12 @@ import org.springframework.webflow.execution.RequestContext;
 public class ComentarioController implements Serializable {
     
     private Comentario comentario = new Comentario();
+    private Collection<Comentario> comentarios;
     private ComentarioService comentarioService;
+    
+    public ComentarioController() {
+        
+    }
         
     public Comentario getComentario() {
         return comentario;
@@ -31,6 +36,13 @@ public class ComentarioController implements Serializable {
     
     public void setComentario(Comentario comentario) {
         this.comentario = comentario;
+    }
+    
+    public Collection<Comentario> getComentarios() {
+       // System.out.println("Aki getComentarios....");
+        comentarios = comentarioService.getAll();
+        //System.out.println("Aki getComentarios 2...." + comentarios);
+        return comentarios;
     }
     
     @Required
@@ -51,9 +63,4 @@ public class ComentarioController implements Serializable {
         return comentaCorrecto;
     }
     
-    public String verComenta() {
-        String verCorrecto = "no";
-        
-        return verCorrecto;
-    }
 }
