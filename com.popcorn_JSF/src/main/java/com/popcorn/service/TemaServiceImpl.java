@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author miguel
  */
+@Transactional
 @Service
 public class TemaServiceImpl implements TemaService {
 
@@ -42,7 +43,6 @@ public class TemaServiceImpl implements TemaService {
         return pelicula.getTemas();                
     }*/
     
-    @Transactional
     @Override
     public Collection<Tema> getAll() {
         return temaDAO.getAll(Tema.class);

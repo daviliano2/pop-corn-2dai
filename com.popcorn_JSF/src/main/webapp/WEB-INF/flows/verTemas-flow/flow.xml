@@ -18,7 +18,7 @@
     
     
     <action-state id="crearComen">
-        <evaluate expression="comentarioController.crearComenta()" />
+        <evaluate expression="comentarioController.crearComenta(tema)" />
         <transition on="si" to="irTema" />
     </action-state>
     

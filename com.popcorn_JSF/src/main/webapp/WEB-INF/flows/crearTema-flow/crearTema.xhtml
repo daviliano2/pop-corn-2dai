@@ -15,7 +15,8 @@
             <h:panelGrid columns="2" cellpadding="5" >
                 <h:column>
                     <h:outputLabel for="titulo" value="Titulo:" />
-                    
+                    <p:inputText id="titulo" value="#{temaController.tema.titulo}"/>
+                    <br/>
                     <h:outputLabel for="tema" value="Tema:" />                    
                     <p:editor id="tema" value="#{temaController.tema.content}"/>                
                     <p:commandButton iconPos="right" value="Crear Tema" ajax="false" action="irACrearTema"/>

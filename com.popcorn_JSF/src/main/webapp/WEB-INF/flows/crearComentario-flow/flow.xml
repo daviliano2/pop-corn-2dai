@@ -11,7 +11,7 @@
     </view-state>
 
     <action-state id="crearComen">
-        <evaluate expression="comentarioController.crearComenta()" />
+        <evaluate expression="comentarioController.crearComenta(tema)" result="flowScope.tema"/>
         <transition on="si" to="end" />
     </action-state>
     
