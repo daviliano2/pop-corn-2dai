@@ -22,40 +22,48 @@ import org.springframework.webflow.execution.RequestContext;
 @Controller("comentarioController")
 @Scope("request")
 public class ComentarioController implements Serializable {
-    
+
     private Comentario comentario = new Comentario();
     private Collection<Comentario> comentarios;
     private ComentarioService comentarioService;
-    
-    public ComentarioController() {
-        
-    }
-        
-    public Comentario getComentario() {
-        return comentario;
-    }
-    
-    public void setComentario(Comentario comentario) {
-        this.comentario = comentario;
+    private int numComentarios;
+
+    public int getNumComentarios() {
+        return numComentarios;
     }
     
     public Collection<Comentario> getComentarios() {
-       // System.out.println("Aki getComentarios....");
-        comentarios = comentarioService.getAll();
-        //System.out.println("Aki getComentarios 2...." + comentarios);
         return comentarios;
     }
-    
+
+    public ComentarioController() {
+    }
+
+    public Comentario getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(Comentario comentario) {
+        this.comentario = comentario;
+    }
+
     @Required
     @Autowired
     public void setComentarioService(ComentarioService comentarioService) {
         this.comentarioService = comentarioService;
     }
-    
+
+    public void fijarComentarios(Tema tema) {
+        //System.out.println("Aki getComentarios1 tema...."+tema.getTitulo());
+        comentarios = comentarioService.getAllComentarios(tema.getId());
+        numComentarios = comentarios.size();
+        //System.out.println("Aki getComentarios 2...." + comentarios.toString());
+    }
+
     public String crearComenta(Tema tema) {
         //System.out.println("Aki crearComenta");
-        String comentaCorrecto = "no";      
-        if(comentario != null) {
+        String comentaCorrecto = "no";
+        if (comentario != null) {
             comentaCorrecto = "si";
             comentario.setFecha(new Date());
             comentarioService.create(comentario, tema.getId());
@@ -63,5 +71,4 @@ public class ComentarioController implements Serializable {
         }
         return comentaCorrecto;
     }
-    
 }

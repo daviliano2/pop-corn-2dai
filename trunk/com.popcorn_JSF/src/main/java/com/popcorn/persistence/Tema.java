@@ -92,6 +92,7 @@ public class Tema implements Serializable {
     }
     
      public List<Comentario> getComentarios() {
+         System.out.println("AKI TEMACLASS getComentarios=" + comentarios.size());
         if(comentarios == null) {
             comentarios = new ArrayList<Comentario>();
         }
