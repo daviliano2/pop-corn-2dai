@@ -30,6 +30,24 @@
                 
             </p:dataTable>
             
+            <p:dataTable id="posts" value="#{comentarioController.comentarios}"
+                         var="post" emptyMessage="No se ha hecho ningun post" >
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText  value="POST"/>
+                    </f:facet> 
+                    <h:outputFormat  value="#{post.content}" escape="false"/>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="FECHA"/>
+                    </f:facet>                                    
+                    <h:outputLabel value="#{post.fecha}" escape="false"/>
+                </p:column>
+                
+            </p:dataTable>
+            
             <h:outputLabel for="comentarioTema" value="Comenta:" />                    
             <p:editor id="comentarioTema" value="#{comentarioController.comentario.content}"/>                
             <p:commandButton iconPos="right" value="Crear Comentario" ajax="false" action="irACrearComentario"/>

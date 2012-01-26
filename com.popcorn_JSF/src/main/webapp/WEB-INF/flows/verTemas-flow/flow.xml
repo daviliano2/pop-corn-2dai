@@ -13,13 +13,13 @@
     </view-state>
     
     <view-state id="irTema" view="comentarTema.xhtml">
-        <transition on="irACrearComentario" to="crearComen"/>
-    </view-state>
+        <on-render>
+            <evaluate expression="comentarioController.fijarComentarios(tema)" />
+        </on-render>        
+        <transition on="irACrearComentario" >
+            <evaluate expression="comentarioController.crearComenta(tema)" />
+        </transition>            
+    </view-state>   
     
-    
-    <action-state id="crearComen">
-        <evaluate expression="comentarioController.crearComenta(tema)" />
-        <transition on="si" to="irTema" />
-    </action-state>
     
 </flow>
