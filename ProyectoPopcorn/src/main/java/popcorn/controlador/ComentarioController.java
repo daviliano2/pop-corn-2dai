@@ -1,5 +1,6 @@
 package popcorn.controlador;
 
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
@@ -56,9 +57,10 @@ public class ComentarioController {
         this.comentarioService = comentarioService;
     }
 
-    @RequestMapping(value = "/comentar", method = RequestMethod.POST)
-    public String doCrearComentario(@RequestParam("content") String content,
+    @RequestMapping(value = "/comentar", method = RequestMethod.GET)
+    public @ResponseBody String doCrearComentario(@RequestParam("comenta") String content,
             @RequestParam("idPelicula") String idStringPelicula) {
+        //System.out.println("AKI comentarioController, doCrearComentario 1");
         final Usuario usuario = userController.getUser();
         final Date fecha = new Date();
         final Comentario comentario;
@@ -68,9 +70,22 @@ public class ComentarioController {
             comentario = new Comentario(usuario, content, fecha);
         }
         comentarioService.create(comentario, KeyFactory.stringToKey(idStringPelicula));
-        return "redirect:inicio";
+        return datosComentario(KeyFactory.stringToKey(idStringPelicula)).toString();
     }
 
+    private JSONObject datosComentario(Key idPelicula){
+        //System.out.println("AKI comentarioController, datosComentario 0 ");
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idPeli", idPelicula);
+            jsonObject.put("comentarios",comentarioService.getAllComentarios(idPelicula));
+            //System.out.println("AKI comentarioController, datosComentario jsonObject = " + jsonObject.get("comentarios"));
+        } catch (JSONException ex) {
+            Logger.getLogger(ComentarioController.class.getName());
+        }
+        return jsonObject;
+    }
+    
     @RequestMapping(value = "/ir_ver_comentario", method = RequestMethod.GET)
     public String doVerComentario(@RequestParam("idPelicula") String idPelicula, Model model) {
         final Collection<Comentario> comentarios = comentarioService.getAllComentarios(KeyFactory.stringToKey(idPelicula));

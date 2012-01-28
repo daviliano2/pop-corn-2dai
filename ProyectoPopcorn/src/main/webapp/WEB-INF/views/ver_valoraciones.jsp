@@ -6,16 +6,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<html>
-    <head> 
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></meta>
-    </head>
-    <body>
+
         <!-- HAY QUE CAMBIAR LO DEL FOREACH POR OTRA CONSULTA QUE MUESTRE EL VOTO QUE HA EMITIDO EL USUARIO 
         <//c:forEach var="valoraciones" items="${valoraciones}" varStatus="status" begin="${tamaño-1}">
             <//c:out value="${valoraciones.valoracion}"/>            
         <///c:forEach> -->
         <!--<strong>Tu valoracion: </strong><span id="voto"></span><br/> NO ESTA COMPLETO -->
         <strong>Valoracion de los usuarios: </strong><c:out value="${media}"/>
-    </body> 
-</html>

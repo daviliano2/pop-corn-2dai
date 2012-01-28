@@ -21,9 +21,10 @@
                                 },
                                 function(str) {
                                     if(str) {
-                                        //var valora = $v.parseJSON(str); ESTO SERIA TOTALMENTE ASINCRONO PERO NO GUARDA EL ULTIMO VOTO
-                                        //$v("#media").html(valora.media); SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
-                                        window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();
+                                        var valora = $.parseJSON(str); //ESTO SERIA TOTALMENTE ASINCRONO PERO NO GUARDA EL ULTIMO VOTO
+                                        $("#media").html(valora.media); //SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
+                                        //window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();
+                                        ver_pelicula('${pelicula.idString}');
                                     } else {
                                         alert("else");
                                     }
@@ -36,7 +37,31 @@
                             </c:choose>
                         }                
                     );
+                    $("#botonComentar").click(
+                        function() {                               
+                            $.getJSON(
+                                "/comentar",
+                                {
+                                    "idPelicula":$("#idPeli").val(),
+                                    "comenta":$("#comenta").val()
+                                },
+                                function(str) {
+                                    if(str) {
+                                        //alert(str);
+                                        var comentar = $.parseJSON(str); //ESTO SERIA TOTALMENTE ASINCRONO PERO NO GUARDA EL ULTIMO VOTO
+                                        $("#comentarios").html(comentar.comentarios); //SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
+                                        //window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();                                        
+                                        //window.location = "/inicio";
+                                        ver_pelicula('${pelicula.idString}'); //CON ESTO LLAMA A LA FUNCION QUE HAY EN INICIO JSP Y SE RECARGA SOLO
+                                    } else {
+                                        alert("else");
+                                    }
+                                }
+                            );                                
+                        }        
+                    );
                 }
+                
             );
         </script>
 
@@ -72,7 +97,7 @@
                         <option value="5">5</option>
                     </select>                          
                     <input type="hidden" value="${pelicula.idString}" id="idPelicula"/>
-                    <input type="button" value="vota" id="botonValorar" />                         
+                    <input type="button" value="vota" id="botonValorar" style="cursor:pointer" />                         
                 </form>   
             </div>
             <div id="apDivMediaValoracion">
@@ -85,11 +110,11 @@
         <div id="apDivContenedorComentario">
             <div id="apDivComenta">
                 <p>Introduce tu comentario sobre la pelicula:</p>
-                <form action="/comentar" method="post" onclick="ver_pelicula(${pelicula.idString})">
-                    <textarea name="content" rows="5" cols="70"></textarea>
-                    <input type="hidden" value="${pelicula.idString}" name="idPelicula"/><br/>
-                    <input type="submit" value="Comentar" />
-                    <input type="reset" value="Limpiar" />
+                <form id="comentaForm">
+                    <textarea name="comenta" id="comenta" rows="5" cols="70"></textarea>
+                    <input type="hidden" value="${pelicula.idString}" id="idPeli"/><br/>
+                    <input type="button" value="Comentar" id="botonComentar" style="cursor:pointer"/>
+                    <input type="reset" value="Limpiar" style="cursor:pointer"/>
                 </form>
             </div>        
         </div>
