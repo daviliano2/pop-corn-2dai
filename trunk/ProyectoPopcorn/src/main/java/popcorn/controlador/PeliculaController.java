@@ -1,11 +1,8 @@
-
 package popcorn.controlador;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.repackaged.org.json.JSONException;
-import com.google.appengine.repackaged.org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collection;
 import popcorn.persistence.Pelicula;
@@ -13,7 +10,6 @@ import popcorn.service.PeliculaService;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -73,6 +69,13 @@ public class PeliculaController {
         final Pelicula pelicula = peliculaService.getPelicula(KeyFactory.stringToKey(idPelicula));
         model.addAttribute("pelicula", pelicula);  
         return "/ver_pelicula";
+    }
+    
+    @RequestMapping(value = "/ir_ver_inicio", method = RequestMethod.GET)
+    public String doVerInicioPelicula(Model model) { 
+        final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
+        model.addAttribute("peliculas",peliculas); 
+        return "/novedades_inicio";
     }
         
     @RequestMapping(value = "/crear", method = RequestMethod.POST)

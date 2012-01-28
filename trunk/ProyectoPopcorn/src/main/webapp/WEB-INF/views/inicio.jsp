@@ -42,11 +42,11 @@
             }
             function verInicio() {
                 $.get(
-                    "/inicio",
+                    "/ir_ver_inicio",
                     {
                     },
-                    function(){
-                        $("#apDivGeneral").html("");
+                    function(html){
+                        $("#apDivGeneral").html(html);
                     },
                     "ajax"
                 );
@@ -85,7 +85,9 @@
                 );
             }
             $(document).ready(
+            
             function() {    
+                verInicio();
                 <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
                     $.getJSON(
                     "/ir_num_comentarios",
@@ -213,7 +215,7 @@
                     <div id="apDivNombreNovedades">Novedades de la semana</div>
                     <ul id="galeria">
                         <style>
-                            #slider {width: 216px; height: 255px; padding:0; top: 4.5px; left: -40px; border-radius: 5px; z-index: 1}
+                            #slider {width: 216px; height: 255px; padding:0; top: 4.5px; left: -40px; border-radius: 5px; }
                             #slider img {width: 216px; height: 255px; padding: 0; margin:0; border:0; border-radius: 5px;}
                             #slider .clicker a {width: 11px; height: 11px; background: #fff; margin-right: 2px; border-radius: 5px; -moz-border-radius: 5px;}
                             #slider .clicker a.active {background: #ff0;}
@@ -228,7 +230,7 @@
                         <div id="slider">
                             <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
                                 <div>
-                                    <a onclick="ver_pelicula('${pelicula.idString}')">
+                                    <a onclick="ver_pelicula('${pelicula.idString}')" style="cursor:pointer">
                                         <img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}"></img> </a>
                                     <!-- TAMBIEN SE PUEDEN COLOCAR VIDEO DE YOUTUBE
                                     <div style="background-color: #000;">
