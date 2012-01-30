@@ -26,15 +26,13 @@
             function irtweet() {
                 window.open("http://twitter.com/PopcornProyecto","","")
             } 
-            function ver_pelicula(id_pelicula) {
-                
+            function ver_pelicula(id_pelicula) {               
                 $.get(
                     "/ir_ver_pelicula",
                     {
                         idPelicula: id_pelicula
                     },
-                    function(html) {
-                        
+                    function(html) {                        
                         $("#apDivGeneral").html(html);
                     },
                     "ajax"    
@@ -84,10 +82,7 @@
                     "ajax"
                 );
             }
-            $(document).ready(
-            
-            function() {    
-                verInicio();
+            function pan_usuario() {
                 <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
                     $.getJSON(
                     "/ir_num_comentarios",
@@ -115,6 +110,13 @@
                     }
                     );
                 </c:if>
+                    }
+            $(document).ready(
+            
+            function() {    
+                verInicio();
+                pan_usuario();
+                
                 }
             );  
         </script>

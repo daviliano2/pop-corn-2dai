@@ -25,6 +25,7 @@
                                         $("#media").html(valora.media); //SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
                                         //window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();
                                         ver_pelicula('${pelicula.idString}');
+                                        pan_usuario();
                                     } else {
                                         alert("else");
                                     }
@@ -53,6 +54,7 @@
                                         //window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();                                        
                                         //window.location = "/inicio";
                                         ver_pelicula('${pelicula.idString}'); //CON ESTO LLAMA A LA FUNCION QUE HAY EN INICIO JSP Y SE RECARGA SOLO
+                                        pan_usuario();
                                     } else {
                                         alert("else");
                                     }
