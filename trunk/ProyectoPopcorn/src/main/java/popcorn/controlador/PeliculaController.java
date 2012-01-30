@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import popcorn.persistence.Categoria;
+import popcorn.persistence.Noticia;
 import popcorn.service.CategoriaService;
+import popcorn.service.NoticiaService;
 
 @Controller
 @SessionAttributes({"usuario"})
@@ -28,6 +30,7 @@ public class PeliculaController {
     
     private PeliculaService peliculaService;
     private CategoriaService categoriaService;
+    private NoticiaService noticiaService;
             
     @Autowired
     BlobstoreService blobstoreService;
@@ -45,6 +48,12 @@ public class PeliculaController {
     @Required
     public void setCategoriaService(CategoriaService categoriaService) {
         this.categoriaService = categoriaService;
+    }
+    
+    @Autowired
+    @Required
+    public void setNoticiaService(NoticiaService noticiaService) {
+        this.noticiaService = noticiaService;
     }
     
     @RequestMapping(value = "/ir_crear_pelicula", method = RequestMethod.GET)
@@ -74,11 +83,13 @@ public class PeliculaController {
     @RequestMapping(value = "/ir_ver_inicio", method = RequestMethod.GET)
     public String doVerInicioPelicula(Model model) { 
         final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
+        final Collection<Noticia> noticias = noticiaService.getAllNoticias();
         model.addAttribute("peliculas",peliculas); 
+        model.addAttribute("noticias", noticias);
         return "/novedades_inicio";
     }
         
-    @RequestMapping(value = "/crear", method = RequestMethod.POST)
+    @RequestMapping(value = "/crear_peli_nueva", method = RequestMethod.POST)
     public String doCrearPelicula(@RequestParam("titulo") String titulo,@RequestParam("sinopsis")String sinopsis,
     @RequestParam("duracion") int duracion,@RequestParam("categoria") String categoria,@RequestParam("actores") String actores,
     @RequestParam("director") String director) {

@@ -18,6 +18,8 @@ public interface ComentarioService {
     void create(final Comentario comentario);
     
     void create(final Comentario comentario, Key idPelicula);
+    
+    void create2(final Comentario comentario, Key idNoticia);
 
     Collection<Comentario> getAllComentarios(Key idPelicula);
     

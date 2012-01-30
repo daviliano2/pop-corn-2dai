@@ -28,7 +28,7 @@
                                             <hr/>
                                 </c:when>
                                 <c:otherwise>
-                                    <p>La pelicula no tiene comentarios.</p>
+                                    <p>La noticia no tiene comentarios.</p>
                                 </c:otherwise>
                             </c:choose>
                         </td>

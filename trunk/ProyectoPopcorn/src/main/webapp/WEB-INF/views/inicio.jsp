@@ -37,6 +37,18 @@
                     },
                     "ajax"    
                 );
+            }            
+            function ver_noticia(id_noticia) {               
+                $.get(
+                    "/ir_ver_noticia",
+                    {
+                        idNoticia: id_noticia
+                    },
+                    function(html) {                        
+                        $("#apDivGeneral").html(html);
+                    },
+                    "ajax"    
+                );
             }
             function verInicio() {
                 $.get(
@@ -63,6 +75,17 @@
             function crearPelis() {
                 $.get(
                     "/ir_crear_pelicula",
+                    {                        
+                    },
+                    function(html) {
+                        $("#apDivGeneral").html(html);
+                    },
+                    "ajax"
+                );
+            }
+            function crearNoticias() {
+                $.get(
+                    "/ir_crear_noticia",
                     {                        
                     },
                     function(html) {
@@ -136,6 +159,7 @@
                                     <li ><a title="Ir a ver peliculas" onclick="verTodasPelis()" style="cursor:pointer">Listar Peliculas</a></li>                                    
                                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                                         <li><a title="Ir a crear peliculas" onclick="crearPelis()" style="cursor:pointer">Crear Peliculas</a></li>
+                                        <li><a title="Ir a crear noticias" onclick="crearNoticias()" style="cursor:pointer">Crear Noticias</a></li>
                                     </sec:authorize>
                                     <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
                                         <li><a title="Registro de usuarios" onclick="registrarUsuario()" style="cursor:pointer">Registrar Usuario</a></li>
