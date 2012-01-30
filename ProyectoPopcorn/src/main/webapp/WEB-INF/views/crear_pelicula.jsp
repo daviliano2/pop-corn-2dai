@@ -14,7 +14,7 @@
 %>
 
 <div style="position:absolute;width:650px;height:500px;left: 30px;">
-    <form action="<%=blobstoreService.createUploadUrl("/crear")%>" method="post" enctype="multipart/form-data">
+    <form action="<%=blobstoreService.createUploadUrl("/crear_peli_nueva")%>" method="post" enctype="multipart/form-data">
         <p> Nombre de la pel&iacute;cula: <input name="titulo" type="text" placeholder="Titulo pelicula"></input><br/> 
             Sinopsis: <br/><textarea name="sinopsis" rows="5" cols="70" placeholder="Introdude la sinopsis"></textarea><br/>
             Duraci&oacute;n: <input type="text" name="duracion" placeholder="Duracion en minutos"></input><br/>

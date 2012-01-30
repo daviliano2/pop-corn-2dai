@@ -29,7 +29,7 @@ public class Comentario implements Serializable {
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Pelicula pelicula;
-    
+        
     @Basic
     private String autor;
 
@@ -88,4 +88,5 @@ public class Comentario implements Serializable {
     public void setPelicula(Pelicula pelicula) {
         this.pelicula = pelicula;
     }
+    
 }
