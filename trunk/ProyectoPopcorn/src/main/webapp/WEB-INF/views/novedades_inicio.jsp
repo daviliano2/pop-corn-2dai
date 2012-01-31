@@ -15,14 +15,14 @@
     $n(function() {
         // example 1
         $n("ul.example1").simplecarousel({
-            width:100,
-            height:100,
-            visible: 4,
-            auto: 5000,
-            vertical: true,
+            width:300,
+            height:300,
+            visible: 1,
+            auto: 6000,
+            vertical: true/*,
             pagination: true,
             next: $('.next'),
-            prev: $('.prev')
+            prev: $('.prev')*/
         });
             
         // example 2
@@ -100,11 +100,13 @@ Noticias
 <ul class="example1">
     <c:forEach var="noticia" items="${noticias}" varStatus="status">
         <li>
-            <a onclick="ver_noticia('${noticia.idString}')" style="cursor:pointer"><c:out value="${noticia.titulo}"></c:out></a>
+            <img height="95" width="80" src='/serve?blob-key=${noticia.imagen}' alt="#"></img>
+            <c:out value="${noticia.titulo}"></c:out><br/>
+            <c:out value="${noticia.contenido}"></c:out>
         </li>
     <!--<li><span>1</span></li>-->
     </c:forEach>
 </ul>
 
-<span class="prev">prev</span>
-<span class="next">next</span>
+<!--<span class="prev">prev</span>
+<span class="next">next</span>-->
