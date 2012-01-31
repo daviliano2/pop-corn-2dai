@@ -66,4 +66,10 @@ public class ComentarioServiceImpl implements ComentarioService {
     public int countAllComentarios() {
         return comentarioDAO.countAll(Comentario.class);
     }
+    
+    @Override
+    public void borrarComentario(Key idComentario) {
+        Comentario com = comentarioDAO.findByPK(Comentario.class, idComentario);
+        com.setContent("El contenido de este comentario ha sido eliminado por los administradores.");
+    }
 }

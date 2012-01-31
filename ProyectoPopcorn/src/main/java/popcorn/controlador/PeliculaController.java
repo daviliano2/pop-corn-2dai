@@ -117,4 +117,38 @@ public class PeliculaController {
         
         return "redirect:/inicio";
     }
+    
+    @RequestMapping(value = "/editar_pelicula", method = RequestMethod.GET)
+    public String doShowEditarPelicula(@RequestParam("idPelicula") String idPelicula, Model model) {
+        final Pelicula pelicula = peliculaService.getPelicula(KeyFactory.stringToKey(idPelicula));
+        final Collection<Categoria> categorias = categoriaService.getAllCategorias();
+        model.addAttribute("categorias",categorias);
+        model.addAttribute("pelicula", pelicula);
+        return "/edicion_pelicula";
+    }
+    
+    @RequestMapping(value = "/editar_peli", method = RequestMethod.GET)
+    public String doEditarPelicula(@RequestParam("idPelicula") String idPelicula,
+        @RequestParam("titulo") String titulo,@RequestParam("sinopsis")String sinopsis,
+        @RequestParam("duracion") int duracion,@RequestParam("categoria") String categoria,@RequestParam("actores") String actores,
+        @RequestParam("director") String director) {
+        System.out.println("AKI peliControler editarPeli 1");
+        final Pelicula pelicula = new Pelicula(titulo, sinopsis, duracion, categoria, director);
+        final List<String> actor = new ArrayList<String>();
+        StringTokenizer tokens = new StringTokenizer(actores,",");
+	while(tokens.hasMoreTokens()) {            
+            String actrs = tokens.nextToken();
+            actrs.trim();
+            actor.add(actrs);
+        }
+        pelicula.setActores(actor);
+        peliculaService.editarPeli(KeyFactory.stringToKey(idPelicula), pelicula);
+        return "redirect:/inicio";
+    }
+    
+    @RequestMapping(value = "/borrar_pelicula", method = RequestMethod.POST)
+    public String doBorrarPelicula(@RequestParam("idPelicula") String idPelicula) {
+        peliculaService.borrarPeli(KeyFactory.stringToKey(idPelicula));
+        return "redirect:/inicio";
+    }
 }

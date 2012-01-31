@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -89,4 +90,7 @@ public class Comentario implements Serializable {
         this.pelicula = pelicula;
     }
     
+     public String getIdString() {
+        return KeyFactory.keyToString(id);
+    }
 }

@@ -20,4 +20,8 @@ public interface PeliculaService {
     Collection<Pelicula> getAllPeliculas();
 
     int countAllPeliculas();
+    
+    void borrarPeli(Key idPelicula) ;
+    
+    void editarPeli(Key idPelicula, final Pelicula pelicula);
 }
