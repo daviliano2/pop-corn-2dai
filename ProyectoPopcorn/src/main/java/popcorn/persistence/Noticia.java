@@ -28,17 +28,13 @@ public class Noticia implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     
-    @Basic
-    private List<Key> comentarios = new ArrayList<Key>();
-
     public Noticia() {
     }
 
     public Noticia(String titulo, String contenido, Date fecha) {
         this.titulo = titulo;
         this.contenido = contenido;
-        this.fecha = fecha;
-        //this.comentarios = new ArrayList<Key>();    
+        this.fecha = fecha; 
     }
 
     public Key getId() {
@@ -79,15 +75,6 @@ public class Noticia implements Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public List<Key> getComentarios() {
-        System.out.println("AKI noticia pakage persistence comentarios 1 = " + comentarios);
-        return comentarios;
-    }
-
-    public void setComentarios(List<Key> comentarios) {
-        this.comentarios = comentarios;
     }
 
     public String getIdString() {

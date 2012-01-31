@@ -86,34 +86,6 @@ public class ComentarioController {
         return jsonObject;
     }
     
-    @RequestMapping(value = "/comentar_noticia", method = RequestMethod.GET)
-    public @ResponseBody String doCrearComentarioNoticia(@RequestParam("comenta2") String content,
-            @RequestParam("idNoticia") String idStringNoticia) {
-        System.out.println("AKI comentarioController, doCrearComentarioNoticia 1");
-        final Usuario usuario = userController.getUser();
-        final Date fecha = new Date();
-        final Comentario comentario;
-        if (usuario == null) {
-            comentario = new Comentario(content, fecha);
-        } else {
-            comentario = new Comentario(usuario, content, fecha);
-        }
-        comentarioService.create2(comentario, KeyFactory.stringToKey(idStringNoticia));
-        return datosComentarioNoticia(KeyFactory.stringToKey(idStringNoticia)).toString();
-    }
-
-    private JSONObject datosComentarioNoticia(Key idNoticia){
-        System.out.println("AKI comentarioController, datosComentarioNoticia 0 ");
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("idNoticia", idNoticia);
-            jsonObject.put("comentarios",comentarioService.getAllComentarios(idNoticia));
-            System.out.println("AKI comentarioController, datosComentarioNoticia jsonObject = " + jsonObject.get("comentarios"));
-        } catch (JSONException ex) {
-            Logger.getLogger(ComentarioController.class.getName());
-        }
-        return jsonObject;
-    }
     @RequestMapping(value = "/ir_ver_comentario", method = RequestMethod.GET)
     public String doVerComentario(@RequestParam("idPelicula") String idPelicula, Model model) {
         final Collection<Comentario> comentarios = comentarioService.getAllComentarios(KeyFactory.stringToKey(idPelicula));

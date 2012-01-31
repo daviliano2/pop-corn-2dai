@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 import popcorn.dao.ComentarioDAO;
-import popcorn.dao.NoticiaDAO;
 import popcorn.dao.PeliculaDAO;
 import popcorn.persistence.Comentario;
-import popcorn.persistence.Noticia;
 import popcorn.persistence.Pelicula;
 
 /**
@@ -23,7 +21,6 @@ public class ComentarioServiceImpl implements ComentarioService {
 
     private ComentarioDAO comentarioDAO;
     private PeliculaDAO peliculaDAO;
-    private NoticiaDAO noticiaDAO;
     
     
     @Autowired
@@ -38,12 +35,6 @@ public class ComentarioServiceImpl implements ComentarioService {
         this.peliculaDAO = peliculaDAO;
     }    
     
-    @Autowired
-    @Required
-    public void setNoticiaDAO(final NoticiaDAO noticiaDAO) {
-        this.noticiaDAO = noticiaDAO;
-    }
-
     @Override
     public void create(final Comentario comentario) {
         comentarioDAO.insert(comentario);
@@ -53,28 +44,6 @@ public class ComentarioServiceImpl implements ComentarioService {
     public void create(final Comentario comentario, Key idPelicula) {
         Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
         pelicula.getComentarios().add(comentario);
-    }
-    
-    @Override
-    public void create2(final Comentario comentario, Key idNoticia) {
-        System.out.println("Aki comentarioServiceImpl create2 0 noticia ID: " + idNoticia);
-        Noticia noticia = noticiaDAO.findByPK(Noticia.class, idNoticia);
-        System.out.println("Aki comentarioServiceImpl create2 1 noticia: "+ noticia);
-        System.out.println("Aki comentarioServiceImpl create2 2 comentarioID, comentario: "+ comentario + comentario.getContent());
-        noticia.getComentarios().add(comentario.getId());
-        
-        /*
-        Usuario u1 = new Usuario();
-        u1.setUsername("pepe");
-        u1.setPassword("pepe");        
-
-        Rol r1 = new Rol();
-        r1.setNombre("ROLE_ADMIN");
-
-        rolDao.insert(r1);
-        rolDao.insert(r2);
-
-        addRol(u1, r1);*/
     }
 
     @Override
