@@ -7,18 +7,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-         
 
-            <c:forEach var="categoria" items="${categorias}" varStatus="status">
-                <strong><c:out value="${categoria.nombre}"></c:out>:</strong><br/>
-                <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                    <c:choose>
-                        <c:when test="${categoria.nombre eq pelicula.categoria}">                                                                        
-                            <a onclick="ver_pelicula('${pelicula.idString}')" style="cursor: pointer; text-decoration: underline;">
-                                <c:out value="${pelicula.titulo}"></c:out>
-                            </a>,                                 
-                        </c:when>                                
-                    </c:choose>  
-                </c:forEach>
-                <br/>
-            </c:forEach>
+
+<c:forEach var="categoria" items="${categorias}" varStatus="status">
+    <strong><c:out value="${categoria.nombre}"></c:out>:</strong><br/>
+    <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
+        <c:choose>
+            <c:when test="${categoria.nombre eq pelicula.categoria}">                                                                        
+                <a onclick="ver_pelicula('${pelicula.idString}')" style="cursor: pointer; text-decoration: underline;">
+                    <c:out value="${pelicula.titulo}"></c:out>
+                    </a>,                                 
+            </c:when>                                
+        </c:choose>  
+    </c:forEach>
+    <br/>
+</c:forEach>

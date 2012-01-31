@@ -38,7 +38,7 @@ public class ComentarioController {
     public void setValoracionDAO(final ValoracionDAO valoracionDAO) {
         this.valoracionDAO = valoracionDAO;
     }
-   
+
     @Autowired
     @Required
     public void setComentarioDAO(final ComentarioDAO comentarioDao) {
@@ -73,19 +73,19 @@ public class ComentarioController {
         return datosComentario(KeyFactory.stringToKey(idStringPelicula)).toString();
     }
 
-    private JSONObject datosComentario(Key idPelicula){
+    private JSONObject datosComentario(Key idPelicula) {
         //System.out.println("AKI comentarioController, datosComentario 0 ");
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("idPeli", idPelicula);
-            jsonObject.put("comentarios",comentarioService.getAllComentarios(idPelicula));
+            jsonObject.put("comentarios", comentarioService.getAllComentarios(idPelicula));
             //System.out.println("AKI comentarioController, datosComentario jsonObject = " + jsonObject.get("comentarios"));
         } catch (JSONException ex) {
             Logger.getLogger(ComentarioController.class.getName());
         }
         return jsonObject;
     }
-    
+
     @RequestMapping(value = "/ir_ver_comentario", method = RequestMethod.GET)
     public String doVerComentario(@RequestParam("idPelicula") String idPelicula, Model model) {
         final Collection<Comentario> comentarios = comentarioService.getAllComentarios(KeyFactory.stringToKey(idPelicula));
@@ -93,35 +93,53 @@ public class ComentarioController {
         return "/ver_comentarios";
     }
 
-    @RequestMapping(value = "/ir_num_comentarios", method = RequestMethod.GET, headers="Accept=application/json")
+    @RequestMapping(value = "/ir_num_comentarios", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody String verNumComentarios(Model model) {
         final Usuario usuario = userController.getUser();
         List<Valoracion> valoraciones = valoracionDAO.getValoraciones(usuario.getUsername());
-        List<Comentario> comentarios = comentarioDAO.getComentarios(usuario.getUsername());        
+        List<Comentario> comentarios = comentarioDAO.getComentarios(usuario.getUsername());
         return numComentJson(comentarios, valoraciones, usuario).toString();
     }
 
     private JSONObject numComentJson(List<Comentario> comentarios, List<Valoracion> valoraciones, Usuario usuario) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("nomUser", usuario.getNombre());           
-            
-            if(comentarios.isEmpty()) {
+            jsonObject.put("nomUser", usuario.getNombre());
+
+            if (comentarios.isEmpty()) {
                 jsonObject.put("comentarios", "No has comentado");
             } else {
                 jsonObject.put("numComen", comentarios.size());
-                jsonObject.put("lastComen", comentarios.get(comentarios.size()-1).getContent());
-                jsonObject.put("lastMovie", comentarios.get(comentarios.size()-1).getPelicula().getTitulo());
+                jsonObject.put("lastComen", comentarios.get(comentarios.size() - 1).getContent());
+                jsonObject.put("lastMovie", comentarios.get(comentarios.size() - 1).getPelicula().getTitulo());
             }
-            if(valoraciones.isEmpty()) {
+            if (valoraciones.isEmpty()) {
                 jsonObject.put("valoraciones", "No has votado ninguna pelicula");
             } else {
                 jsonObject.put("numVal", valoraciones.size());
             }
-            
+
         } catch (JSONException ex) {
             Logger.getLogger(ComentarioController.class.getName());
         }
         return jsonObject;
+    }
+
+    @RequestMapping(value = "/comprobar_autor_comentario", method = RequestMethod.GET)
+    public @ResponseBody
+    String doComprobarAutorComentario(@RequestParam("idComentario") String idComentario,
+            @RequestParam("autor") String autor) {
+        final Usuario usuario = userController.getUser();
+        if (usuario.getUsername().compareTo(autor) == 0) {
+            return "ok";
+        } else {
+            return "notOk";
+        }
+    }
+
+    @RequestMapping(value = "/borrar_comentario", method = RequestMethod.POST)
+    public String doBorrarComentario(@RequestParam("idComentario") String idComentario) {
+        comentarioService.borrarComentario(KeyFactory.stringToKey(idComentario));
+        return "redirect:/inicio";
     }
 }

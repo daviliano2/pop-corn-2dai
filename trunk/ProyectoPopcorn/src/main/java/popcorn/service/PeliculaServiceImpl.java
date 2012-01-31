@@ -41,4 +41,20 @@ public class PeliculaServiceImpl implements PeliculaService {
     public int countAllPeliculas() {
         return peliculaDAO.countAll(Pelicula.class);
     }
+    
+    @Override
+    public void borrarPeli(Key idPelicula) {
+        peliculaDAO.remove(Pelicula.class, idPelicula);
+    }
+    
+    @Override
+    public void editarPeli(Key idPelicula, final Pelicula pelicula) {
+        Pelicula peli = peliculaDAO.findByPK(Pelicula.class, idPelicula);
+        peli.setActores(pelicula.getActores());
+        peli.setDirector(pelicula.getDirector());
+        peli.setDuracion(pelicula.getDuracion());
+        peli.setTitulo(pelicula.getTitulo());
+        peli.setSinopsis(pelicula.getSinopsis());
+        peli.setCategoria(pelicula.getCategoria());
+    } 
 }

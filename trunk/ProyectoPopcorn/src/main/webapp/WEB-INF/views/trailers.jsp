@@ -9,7 +9,7 @@
 
 <ul>
     <li>
-        <iframe width="294" height="220" src=${direccion}
+        <iframe width="294" height="220" src='${direccion}'
                 frameborder="0" allowfullscreen style="margin: 10px 25px;">
         </iframe>
     </li>

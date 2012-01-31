@@ -83,6 +83,18 @@
                     "ajax"
                 );
             }
+            function editarPelis(id_pelicula) {
+                $.get(
+                    "/editar_pelicula",
+                    {           
+                        idPelicula: id_pelicula
+                    },
+                    function(html) {
+                        $("#apDivGeneral").html(html);
+                    },
+                    "ajax"
+                );
+            }
             function crearNoticias() {
                 $.get(
                     "/ir_crear_noticia",
