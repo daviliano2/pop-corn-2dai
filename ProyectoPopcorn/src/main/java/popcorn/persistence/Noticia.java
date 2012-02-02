@@ -9,6 +9,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import java.util.Date;
 
+
 @Entity
 public class Noticia implements Serializable {
 
@@ -24,6 +25,11 @@ public class Noticia implements Serializable {
     
     @Basic
     private String imagen;
+     
+    //@Temporal(javax.persistence.TemporalType.DATE)
+    //private Date fechEstreno;
+    @Basic
+    private String fechEstreno;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
@@ -32,6 +38,7 @@ public class Noticia implements Serializable {
     }
 
     public Noticia(String titulo, String contenido, Date fecha) {
+
         this.titulo = titulo;
         this.contenido = contenido;
         this.fecha = fecha; 

@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,81 +8,83 @@
 
 <script type="text/javascript">
     $(document).ready(
-    function() {
-        $("#botonValorar").click(            
-        function() {   
-    <c:choose>
-        <c:when test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                                    $.getJSON(
-                                    "/valorar",
-                                    {
-                                        "idPelicula":$("#idPelicula").val(),
-                                        "valoracion":$("#valoracion").val()
-                                    },
-                                    function(str) {
-                                        if(str) {
-                                            var valora = $.parseJSON(str); //ESTO SERIA TOTALMENTE ASINCRONO PERO NO GUARDA EL ULTIMO VOTO
-                                            $("#media").html(valora.media); //SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
-                                                    //window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();
-                                            ver_pelicula('${pelicula.idString}');
-                                            pan_usuario();
-                                        } else {
-                                            alert("else");
-                                        }
-                                    }
-                                );
-        </c:when>
-        <c:otherwise>
-                                    alert("Conectate para votar");
-        </c:otherwise>
-    </c:choose>
-                            }                
-                        );
-                            $("#botonComentar").click(
-                            function() {                               
-                                $.getJSON(
-                                "/comentar",
+        function() {
+            $("#botonValorar").click(            
+                function() {   
+                    <c:choose>
+                        <c:when test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                            $.getJSON(
+                                "/valorar",
                                 {
-                                    "idPelicula":$("#idPeli").val(),
-                                    "comenta":$("#comenta").val()
+                                    "idPelicula":$("#idPelicula").val(),
+                                    "valoracion":$("#valoracion").val()
                                 },
                                 function(str) {
                                     if(str) {
-                                        //alert(str);
-                                        var comentar = $.parseJSON(str); //ESTO SERIA TOTALMENTE ASINCRONO PERO NO GUARDA EL ULTIMO VOTO
-                                        $("#comentarios").html(comentar.comentarios); //SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
-                                                //window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();                                
-                                        //window.location = "/inicio";
-                                        ver_pelicula('${pelicula.idString}'); //CON ESTO LLAMA A LA FUNCION QUE HAY EN INICIO JSP Y SE RECARGA SOLO
+                                        var valora = $.parseJSON(str); //ESTO SERIA TOTALMENTE ASINCRONO PERO NO GUARDA EL ULTIMO VOTO
+                                        $("#media").html(valora.media); //SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
+                                        ver_pelicula('${pelicula.idString}');
                                         pan_usuario();
                                     } else {
                                         alert("else");
                                     }
                                 }
-                            );                                
-                            }        
-                        );
+                            );
+                        </c:when>
+                        <c:otherwise>
+                            alert("Conectate para votar");
+                        </c:otherwise>
+                    </c:choose>
+                }                
+            );
+            $("#botonComentar").click(
+                function() {                               
+                    $.getJSON(
+                        "/comentar",
+                        {
+                            "idPelicula":$("#idPeli").val(),
+                            "comenta":$("#comenta").val()
+                        },
+                        function(str) {
+                            if(str) {
+                                //alert(str);
+                                var comentar = $.parseJSON(str); //ESTO SERIA TOTALMENTE ASINCRONO PERO NO GUARDA EL ULTIMO VOTO
+                                $("#comentarios").html(comentar.comentarios); //SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
+                                //window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();                                
+                                //window.location = "/inicio";
+                                ver_pelicula('${pelicula.idString}'); //CON ESTO LLAMA A LA FUNCION QUE HAY EN INICIO JSP Y SE RECARGA SOLO
+                                pan_usuario();
+                            } else {
+                                alert("else");
+                            }
                         }
-                
-                    );
+                    );                                
+                }        
+            );
+        }      
+    );
 </script>
-
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-    <form action="/borrar_pelicula" method="post">
-        <input type="submit" value="Borrar"/>
-        <input type="hidden" name="idPelicula" value="${pelicula.idString}" />
-    </form>
-</sec:authorize>   
-    
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-    <form>
-        <input type="button" value="Editar" onclick="editarPelis('${pelicula.idString}')"/>
-    </form>
-</sec:authorize>
-
+    <table>
+    <tr>
+        <td>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <form action="/borrar_pelicula" method="post">
+                    <input type="submit" value="Borrar" style="cursor: pointer"/>
+                    <input type="hidden" name="idPelicula" value="${pelicula.idString}" />
+                </form>
+        </td>
+        <td>
+            <form>
+                <input type="button" value="Editar" onclick="editarPelis('${pelicula.idString}')" style="cursor: pointer"/>
+            </form>
+            </sec:authorize>
+        </td>
+    </tr>    
+    </table>                                      
 <div id="apDivContenedorPelicula"> <!-- Aqui se va a introducir los datos de la pelicula -->
+
     <div id="apDivImagenPelicula"> <!-- Aqui va la imagen -->
-        <img height="300" width="290" src='/serve?blob-key=${pelicula.imagen}'></img><br/>
+        <img height="300" width="290" src='/serve?blob-key=${pelicula.imagen}'/><br/>
     </div>
     <div id="apDivTituloPelicula">
         <center><p><b><h2> <c:out value="${pelicula.titulo}"/></h2></b></p></center>
@@ -95,11 +96,12 @@
             <b>Categoria:</b> <c:out value="${pelicula.categoria}"/><br/><br/>
             <b>Actores: </b>
             <c:forEach var="actor" items="${pelicula.actores}" varStatus="status">                        
-                <c:out value="${actor}" />, 
+               <a href="http://es.wikipedia.org/wiki/${actor}" TARGET="_blank"><c:out value="${actor}" /></a>,
             </c:forEach>
-            <br/><br/><br/>
+            <b>Fecha estreno: </b><c:out value="${pelicula.fechEstreno}"/><br/>
             <b>Sinopsis:</b><br/> <c:out value="- ${pelicula.sinopsis}"/><br/>
         </p>
+        <iframe width="560" height="315" src="http://www.youtube.com/embed/${pelicula.trailer}" frameborder="0" allowfullscreen></iframe>
     </div>
     <div id="apDivValoracion">                   
         <strong>Tu valoracion:</strong>                    

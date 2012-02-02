@@ -106,7 +106,8 @@ $.fn.simplecarousel = function( params ) {
     }
     
     // include pagination
-    if(config.pagination != false) {
+    //Comentado para quitar los puntitos de la paginacion
+    /*if(config.pagination != false) {
         container.after('<ul class="carousel-pagination"></ul>');
         var pagination = container.next('.carousel-pagination');
         for(var i=0;i<config.items;i++) {
@@ -121,7 +122,7 @@ $.fn.simplecarousel = function( params ) {
                 slide(index,true);
             });
         });
-    }
+    }*/
         
     // set event handler for next and prev
     if(config.next!=false)
