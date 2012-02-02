@@ -156,7 +156,7 @@
             );  
         </script>
     </head>
-    <body>
+    <body style="background-image: url('Image/popcorn.jpg')">
         <div id="apDivFondo">
             <div id="apDivMenu">
                 <div id="apDivLogo">
@@ -195,13 +195,13 @@
                     <img src="Image/twitter.png" onclick="irtweet()" style="cursor:pointer"></img>                  
                 </div>
                 <div id="apDivGog1">
-                    <!-- <g:plusone href="http://popcorn2dai.appspot.com/"></g:plusone> -->
+                    <g:plusone href="http://popcorn2dai.appspot.com/"></g:plusone>
                 </div>
                 <div id="apDivLogoAppEngine">
                     <img src="Image/appengine-noborder-120x30.gif" style="top: 10px;"></img>
                 </div>
                 <div id="cse-search-form" style="width: 400px;">Cargando</div>
-               <!-- <script src="jQuery/js/jsapi.js" type="text/javascript"></script>
+               <script src="jQuery/js/jsapi.js" type="text/javascript"></script>
                 <script type="text/javascript"> 
                     google.load('search', '1', {language : 'es', style : "stylesheets/minimalist.css"  });
                     google.setOnLoadCallback(function() {
@@ -211,7 +211,7 @@
                         options.enableSearchboxOnly("http://www.google.es/cse?cx=000154107945480710813:ylhizvrhsyc", null, true);
                         customSearchControl.draw('cse-search-form', options);
                     }, true);
-                </script>-->
+                </script>
 
             </div>
             <div id="apDivLogin">

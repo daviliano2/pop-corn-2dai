@@ -91,16 +91,17 @@
     </div>
     <div id="apDivInformacionPelicula"> <!-- Aqui va la informacion de la pelicula -->               
         <p>
-            <b>Duraci&oacute;n:</b> <c:out value="${pelicula.duracion}"/> min.<br/><br/>
-            <b>Director:</b> <c:out value="${pelicula.director}"/><br/><br/>
-            <b>Categoria:</b> <c:out value="${pelicula.categoria}"/><br/><br/>
+            <b>Duraci&oacute;n:</b> <c:out value="${pelicula.duracion}"/> min.<br/>
+            <b>Director:</b> <c:out value="${pelicula.director}"/><br/>
+            <b>Categoria:</b> <c:out value="${pelicula.categoria}"/><br/>
             <b>Actores: </b>
             <c:forEach var="actor" items="${pelicula.actores}" varStatus="status">                        
                <a href="http://es.wikipedia.org/wiki/${actor}" TARGET="_blank"><c:out value="${actor}" /></a>,
-            </c:forEach>
+            </c:forEach><br/>
             <b>Fecha estreno: </b><c:out value="${pelicula.fechEstreno}"/><br/>
             <b>Sinopsis:</b><br/> <c:out value="- ${pelicula.sinopsis}"/><br/>
         </p>
+        <a href="http://www.youtube.com/embed/${pelicula.trailer}" target="_blank">Ver trailer</a><br/>
         <iframe width="560" height="315" src="http://www.youtube.com/embed/${pelicula.trailer}" frameborder="0" allowfullscreen></iframe>
     </div>
     <div id="apDivValoracion">                   
