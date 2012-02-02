@@ -7,21 +7,26 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
-<div style="position:absolute;width:650px;height:500px;left: 30px;">
+
+<script type="text/javascript" src="jQuery/js/calendar.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/calendar.css" ></link>
+
+<div style="width:650px;height: auto;left: 30px;">
     <form action="/editar_peli" method="get">
         <p> Nombre de la pel&iacute;cula: <input name="titulo" type="text" value="${pelicula.titulo}"></input><br/> 
             Sinopsis: <br/><textarea name="sinopsis" rows="5" cols="70" placeholder="Sinopsis"></textarea><br/>
             Duraci&oacute;n: <input type="text" name="duracion" value="${pelicula.duracion}"></input><br/>
             Actores: <br/><textarea name="actores" rows="5" cols="70" placeholder="Actores separados por comas"></textarea><br/>
             Director: <input type="text" name="director" value="${pelicula.director}"></input><br/>
-            Fecha de estreno: <input type="date" name="fecha"/><br/>
+            Fecha de estreno: <input size="10" id="fc_1328006263" type="text" name="fecha" title="MM/DD/YYYY" onClick="displayCalendar(this);" value="${pelicula.fechEstreno}"></input><br/>
             Categor&iacute;a: 
             <select name="categoria">
                 <option value="default" selected="selected">Elige una categoria</option>
                 <c:forEach var="categoriab" items="${categorias}" varStatus="status">
                     <option value="${categoriab.nombre}"><c:out value="${categoriab.nombre}" /></option>
                 </c:forEach>
-            </select><br/>            
+            </select><br/>
+            Trailer:<input type="text" name="trailer" value="${pelicula.trailer}"></input><br/>
         </p>
         <p align="center">
             <input type="reset" value="Limpiar" />

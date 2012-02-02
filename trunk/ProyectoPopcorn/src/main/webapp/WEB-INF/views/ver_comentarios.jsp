@@ -100,14 +100,14 @@
                                             <b><c:out value="${coment.autor}"/></b> escribi&oacute;:<br/>
                                         </c:otherwise>
                                     </c:choose>
-                                    &nbsp;&nbsp;&nbsp;&minus;&nbsp;<c:out value="${coment.content}"/>
+                                    &nbsp;&nbsp;&nbsp;&minus;&nbsp;<c:out value="${coment.content}"/><br/>
                                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                                         <form action="/borrar_comentario" method="post">
                                             <input type="submit" value="borrar"/>
                                             <input type="hidden" name="idComentario" value="${coment.idString}" />
                                         </form>
                                     </sec:authorize>
-                                    <br/>
+                                    <hr/>
                                 </c:when>                            
                                 <c:otherwise>
                                     <p>La noticia no tiene comentarios.</p>

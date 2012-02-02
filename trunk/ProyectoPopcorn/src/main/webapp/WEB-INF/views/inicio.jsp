@@ -167,8 +167,8 @@
                         <tr>
                             <div class="invertedshiftdown">
                                 <ul>                             
-                                    <li class="current"><a title="Pagina de inicio" onclick="verInicio()" style="cursor:pointer">Inicio</a></li>
-                                    <li ><a title="Ir a ver peliculas" onclick="verTodasPelis()" style="cursor:pointer">Listar Peliculas</a></li>                                    
+                                    <li><a title="Pagina de inicio" onclick="verInicio()" style="cursor:pointer">Inicio</a></li>
+                                    <li><a title="Ir a ver peliculas" onclick="verTodasPelis()" style="cursor:pointer">Listar Peliculas</a></li>                                    
                                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                                         <li><a title="Ir a crear peliculas" onclick="crearPelis()" style="cursor:pointer">Crear Peliculas</a></li>
                                         <li><a title="Ir a crear noticias" onclick="crearNoticias()" style="cursor:pointer">Crear Noticias</a></li>
@@ -201,7 +201,7 @@
                     <img src="Image/appengine-noborder-120x30.gif" style="top: 10px;"></img>
                 </div>
                 <div id="cse-search-form" style="width: 400px;">Cargando</div>
-                <script src="jQuery/js/jsapi.js" type="text/javascript"></script>
+               <!-- <script src="jQuery/js/jsapi.js" type="text/javascript"></script>
                 <script type="text/javascript"> 
                     google.load('search', '1', {language : 'es', style : "stylesheets/minimalist.css"  });
                     google.setOnLoadCallback(function() {
@@ -211,7 +211,7 @@
                         options.enableSearchboxOnly("http://www.google.es/cse?cx=000154107945480710813:ylhizvrhsyc", null, true);
                         customSearchControl.draw('cse-search-form', options);
                     }, true);
-                </script>
+                </script>-->
 
             </div>
             <div id="apDivLogin">
@@ -227,12 +227,13 @@
                     </script>
                 </div>
             </div>
+                <div id="apDivGeneral">
+                </div>
             <div id="apDivPanel">
                 <div id="apDivPanUsuario">
                     <div id="apDivNombrePanUsuario">Panel de usuario</div>
                     <c:choose>
                         <c:when test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                            <br/>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <strong>
                                     Usuario Administrador.
@@ -245,7 +246,7 @@
                             <strong>Ultima pelicula comentada:</strong> <span id="peli"></span><br/>
                         </c:when>
                         <c:otherwise>
-                            <br/><strong>Registrate o logueate para ver tus estadisticas.</strong>
+                            <br/><strong>Registrate o logueate para ver tus estadisticas.<br/>&nbsp;</strong>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -253,8 +254,8 @@
                     <div id="apDivNombreNovedades">Novedades de la semana</div>
                     <ul id="galeria">
                         <style>
-                            #slider {width: 216px; height: 255px; padding:0; top: 4.5px; left: -40px; border-radius: 5px; }
-                            #slider img {width: 216px; height: 255px; padding: 0; margin:0; border:0; border-radius: 5px;}
+                            #slider {width: 216px; height: 256px;left: -40px; padding:0; top: -16px; border-radius: 5px;}
+                            #slider img {width: 216px; height: 256px; padding: 0; margin:0; border:0; border-radius: 5px;}
                             #slider .clicker a {width: 11px; height: 11px; background: #fff; margin-right: 2px; border-radius: 5px; -moz-border-radius: 5px;}
                             #slider .clicker a.active {background: #ff0;}
                         </style>
@@ -280,9 +281,6 @@
                         </div>
                     </ul>
                 </div>
-
-            </div>
-            <div id="apDivGeneral">
 
             </div>
         </div>

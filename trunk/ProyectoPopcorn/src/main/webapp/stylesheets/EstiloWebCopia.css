@@ -1,3 +1,13 @@
+#apDivFondo {
+    width:1331px;
+    height:auto;
+    top: 0px;
+    left: -1px;
+    background-color: #CCCCCC;
+    border-radius: 5px;
+     -moz-box-shadow: 1px 1px #000000, 2px 2px #000000, 3px 3px #000000, 4px 4px #000000, 5px 5px #000000;
+    -webkit-box-shadow: 1px 1px #000000, 2px 2px #000000, 3px 3px #000000, 4px 4px #000000, 5px 5px #000000;
+}
 
 #apDivMenu {
     position: fixed;
@@ -173,8 +183,8 @@
     position: relative;
     width: 1106px;
     height: auto;
-    left: 216px;
-    top: 131px;
+    left: 219px;
+    top: 132px;
     background-color: #687597;
     border-radius: 5px;
     border-style:solid;
@@ -190,41 +200,33 @@
     left: 5px;
 }
 #apDivContenedorPelicula {
-    width: 100%;
-    height: auto;
-}
-#apDivTituloPelicula {
-    height: auto;
-    text-align: center;
-    top: -40px;
+    width: 99.5%;
+    height: 75%;
+    left: 0.5%;
 }
 #apDivImagenPelicula {
-    position: relative;
-    width: 387px;
-    height: auto;
-    left: 100px;
-    top: 50px;
+    width: 40%;
+    height: 70%;
+    left: 10%;
+    top: 15%;
 }
 #apDivInformacionPelicula {
-    position: relative;
-    width: 387.1px;
-    height: auto;
-    left: 500.3px;
-    top: -255px; 
+    width: 49%;
+    height: 70%;
+    left: 45%;
+    top: 13%; 
 }
 #apDivValoracion {
-    position: relative;
     width: 30%;
     height: 13%;
-    left: 150px;
-    top: -150px;
+    left: 3%;
+    top: 60%;
 }
 #apDivMediaValoracion {
-    position: relative;
     width: 50%;
     height: 5%;
-    left: 310px;
-    top: -195px;
+    left: 3%;
+    top: 67%;
 }
 #apDivTrailer {
     width: 30%;

@@ -12,8 +12,9 @@
 <%
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 %>
-
-<div style="position:absolute;width:650px;height:500px;left: 30px;">
+<script type="text/javascript" src="jQuery/js/calendar.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/calendar.css" ></link>
+<div style="width:650px;height: auto;margin-left: 50px;">
     <form action="<%=blobstoreService.createUploadUrl("/crear_noticia_nueva")%>" method="post" enctype="multipart/form-data">
         <p> Titulo noticia: <input name="titulo" type="text" placeholder="Titulo noticia"></input><br/> 
             Contenido: <br/><textarea name="contenido" rows="5" cols="70" placeholder="Introdude la noticia"></textarea><br/>

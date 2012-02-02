@@ -5,6 +5,7 @@ import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.datastore.KeyFactory;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import popcorn.persistence.Pelicula;
 import popcorn.service.PeliculaService;
 import java.util.List;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import popcorn.dao.PeliculaDAO;
 import popcorn.persistence.Categoria;
 import popcorn.persistence.Noticia;
 import popcorn.service.CategoriaService;
@@ -31,6 +33,7 @@ public class PeliculaController {
     private PeliculaService peliculaService;
     private CategoriaService categoriaService;
     private NoticiaService noticiaService;
+    private PeliculaDAO peliculaDAO;
             
     @Autowired
     BlobstoreService blobstoreService;
@@ -54,6 +57,12 @@ public class PeliculaController {
     @Required
     public void setNoticiaService(NoticiaService noticiaService) {
         this.noticiaService = noticiaService;
+    }
+    
+    @Autowired
+    @Required
+    public void setPeliculaDAO(PeliculaDAO peliculaDAO) {
+        this.peliculaDAO = peliculaDAO;
     }
     
     @RequestMapping(value = "/ir_crear_pelicula", method = RequestMethod.GET)
@@ -81,7 +90,9 @@ public class PeliculaController {
     }
     
     @RequestMapping(value = "/ir_ver_inicio", method = RequestMethod.GET)
-    public String doVerInicioPelicula(Model model) { 
+    public String doVerInicioPelicula(Model model) {
+        List<Pelicula> pelis = peliculaDAO.getPeliculas();
+        model.addAttribute("pelis", pelis);
         final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
         final Collection<Noticia> noticias = noticiaService.getAllNoticias();
         model.addAttribute("peliculas",peliculas); 
@@ -92,9 +103,9 @@ public class PeliculaController {
     @RequestMapping(value = "/crear_peli_nueva", method = RequestMethod.POST)
     public String doCrearPelicula(@RequestParam("titulo") String titulo,@RequestParam("sinopsis")String sinopsis,
     @RequestParam("duracion") int duracion,@RequestParam("categoria") String categoria,@RequestParam("actores") String actores,
-    @RequestParam("director") String director) {
+    @RequestParam("director") String director, @RequestParam("fecha") String fecha, @RequestParam("trailer") String trailer ) {
         
-        final Pelicula pelicula = new Pelicula(titulo, sinopsis, duracion, categoria, director);
+        final Pelicula pelicula = new Pelicula(titulo, sinopsis, duracion, categoria, director,fecha,trailer);
         
         Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
         BlobKey blobKeyOutside = blobs.get("imagen");
@@ -110,7 +121,7 @@ public class PeliculaController {
         if (blobKeyOutside != null) {
             pelicula.setImagen(blobKeyOutside.getKeyString());
             peliculaService.create(pelicula);
-        System.out.println("Pelicula creada");
+            System.out.println("Pelicula creada");
         } else {
             System.out.println("Imagen nula");
         }
@@ -131,9 +142,9 @@ public class PeliculaController {
     public String doEditarPelicula(@RequestParam("idPelicula") String idPelicula,
         @RequestParam("titulo") String titulo,@RequestParam("sinopsis")String sinopsis,
         @RequestParam("duracion") int duracion,@RequestParam("categoria") String categoria,@RequestParam("actores") String actores,
-        @RequestParam("director") String director) {
+        @RequestParam("director") String director, @RequestParam("fecha") String fecha, @RequestParam("trailer") String trailer) {
         System.out.println("AKI peliControler editarPeli 1");
-        final Pelicula pelicula = new Pelicula(titulo, sinopsis, duracion, categoria, director);
+        final Pelicula pelicula = new Pelicula(titulo, sinopsis, duracion, categoria, director,fecha,trailer);
         final List<String> actor = new ArrayList<String>();
         StringTokenizer tokens = new StringTokenizer(actores,",");
 	while(tokens.hasMoreTokens()) {            

@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+//import java.util.Date;
 
 @Entity
 public class Pelicula implements Serializable {
@@ -35,6 +36,14 @@ public class Pelicula implements Serializable {
     
     @Basic
     private String imagen;
+     
+    //@Temporal(javax.persistence.TemporalType.DATE)
+    //private Date fechEstreno;
+    @Basic
+    private String fechEstreno;
+    
+    @Basic
+    private String trailer;
     
     @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Valoracion> valoraciones;
@@ -45,12 +54,14 @@ public class Pelicula implements Serializable {
     public Pelicula() {
     }
 
-    public Pelicula(String titulo, String sinopsis, int duracion, String categoria, String director) {
+    public Pelicula(String titulo, String sinopsis, int duracion, String categoria, String director,String fecha,String trailer) {
         this.sinopsis = sinopsis;
         this.titulo = titulo;
         this.duracion = duracion;
         this.categoria = categoria;
         this.director = director;
+        this.fechEstreno = fecha;
+        this.trailer = trailer;
         this.valoraciones = new ArrayList<Valoracion>();
         this.comentarios = new ArrayList<Comentario>();    
     }
@@ -118,6 +129,22 @@ public class Pelicula implements Serializable {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+    
+    public String getFechEstreno() {
+        return fechEstreno;
+    }
+    
+    public void setFechEstreno(String fechEstreno) {
+        this.fechEstreno = fechEstreno;
+    }
+    
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
+    } 
     
     public List<Valoracion> getValoraciones() {
         if(valoraciones == null) {

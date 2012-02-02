@@ -59,7 +59,6 @@ public class NoticiaController {
     public String doCrearNoticia(@RequestParam("titulo") String titulo,@RequestParam("contenido")String contenido) {
         final Date fecha = new Date();
         final Noticia noticia = new Noticia(titulo, contenido, fecha);
-        
         Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
         BlobKey blobKeyOutside = blobs.get("imagen1");        
         if (blobKeyOutside != null) {
