@@ -60,13 +60,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     
     @Override
     public void create(String username, String password,
-                        String nombre, String apellido, Key idRol, List<String> categorias) {
+                        String nombre, String apellido, Key idRol, 
+                        List<String> categorias, String tipoRol) {
         Rol rol = rolDAO.findByPK(Rol.class, idRol);
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setUsername(username);
         usuario.setPassword(password);
+        usuario.setTipoRol(tipoRol);
         List<Key> catFavoritas = new ArrayList<Key>();
         for ( String cat : categorias ){
                 catFavoritas.add(KeyFactory.stringToKey(cat));

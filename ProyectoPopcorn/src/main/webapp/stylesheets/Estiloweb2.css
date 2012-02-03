@@ -235,10 +235,10 @@
 }
 #apDivContenedorComentario {
     position: relative;
-    margin-left: 25%;
+    margin-left: 45%;
     width: 48.8%;
     height: 30%;
-    top: -200px;
+    top: -270px;
 }
 #apDivComenta {
     position: relative;
@@ -247,13 +247,13 @@
 }
 #apDivVerComentarios {
     position: relative;
-    width: 96%;
-    top: -160px;
-    left: 2%;
-    right: 2%;
+    width: 70%;
+    top: -240px;
+    left: 25%;
+    right: 10%;
 }
 #apDivComenColocacion {
-    width: 96%;
+    width: 66%;
     /*height: 80%;*/
     left: 2%;
     top: 2%;

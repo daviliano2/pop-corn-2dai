@@ -4,6 +4,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
+import java.util.ArrayList;
 import popcorn.persistence.Comentario;
 import popcorn.service.ComentarioService;
 import java.util.Collection;
@@ -20,18 +21,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import popcorn.dao.ComentarioDAO;
+import popcorn.dao.PeliculaDAO;
 import popcorn.dao.ValoracionDAO;
+import popcorn.persistence.Pelicula;
 import popcorn.persistence.Usuario;
 import popcorn.persistence.Valoracion;
+import popcorn.service.PeliculaService;
 
 @Controller
 @SessionAttributes({"usuario"})
 public class ComentarioController {
 
     private ComentarioService comentarioService;
+    private PeliculaService peliculaService;
     private UsuarioController userController;
     private ComentarioDAO comentarioDAO;
     private ValoracionDAO valoracionDAO;
+    private PeliculaDAO peliculaDAO;
+    
+    @Autowired
+    @Required
+    public void setPeliculaDAO(final PeliculaDAO peliculaDAO) {
+        this.peliculaDAO = peliculaDAO;
+    }
 
     @Autowired
     @Required
@@ -55,6 +67,12 @@ public class ComentarioController {
     @Required
     public void setComentarioService(ComentarioService comentarioService) {
         this.comentarioService = comentarioService;
+    }
+    
+    @Autowired
+    @Required
+    public void setPeliculaService(PeliculaService peliculaService) {
+        this.peliculaService = peliculaService;
     }
 
     @RequestMapping(value = "/comentar", method = RequestMethod.GET)
@@ -88,11 +106,13 @@ public class ComentarioController {
 
     @RequestMapping(value = "/ir_ver_comentario", method = RequestMethod.GET)
     public String doVerComentario(@RequestParam("idPelicula") String idPelicula, Model model) {
-        final Collection<Comentario> comentarios = comentarioService.getAllComentarios(KeyFactory.stringToKey(idPelicula));
+        Pelicula peli = peliculaService.getPelicula(KeyFactory.stringToKey(idPelicula));
+        final Collection<Comentario> comentarios = comentarioDAO.getComentariosPeli(peli.getTitulo());
+        model.addAttribute("numTotal", comentarios.size());
         model.addAttribute("comentarios", comentarios);
         return "/ver_comentarios";
-    }
-
+    }    
+    
     @RequestMapping(value = "/ir_num_comentarios", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody String verNumComentarios(Model model) {
         final Usuario usuario = userController.getUser();
@@ -140,6 +160,12 @@ public class ComentarioController {
     @RequestMapping(value = "/borrar_comentario", method = RequestMethod.POST)
     public String doBorrarComentario(@RequestParam("idComentario") String idComentario) {
         comentarioService.borrarComentario(KeyFactory.stringToKey(idComentario));
+        return "redirect:/inicio";
+    }
+    
+    @RequestMapping(value = "/borrar_comentario2", method = RequestMethod.POST)
+    public String doBorrarComentario2(@RequestParam("idComentario") String idComentario) {
+        comentarioService.borrarComentario2(KeyFactory.stringToKey(idComentario));
         return "redirect:/inicio";
     }
 }

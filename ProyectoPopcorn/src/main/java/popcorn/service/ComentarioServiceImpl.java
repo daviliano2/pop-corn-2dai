@@ -43,6 +43,7 @@ public class ComentarioServiceImpl implements ComentarioService {
     @Override
     public void create(final Comentario comentario, Key idPelicula) {
         Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
+        comentario.setNomPeli(pelicula.getTitulo());
         pelicula.getComentarios().add(comentario);
     }
 
@@ -71,5 +72,11 @@ public class ComentarioServiceImpl implements ComentarioService {
     public void borrarComentario(Key idComentario) {
         Comentario com = comentarioDAO.findByPK(Comentario.class, idComentario);
         com.setContent("El contenido de este comentario ha sido eliminado por los administradores.");
+    }
+    
+    @Override
+    public void borrarComentario2(Key idComentario) {
+        Comentario com = comentarioDAO.findByPK(Comentario.class, idComentario);
+        com.setContent("El comentario ha sido eliminado por su autor.");
     }
 }

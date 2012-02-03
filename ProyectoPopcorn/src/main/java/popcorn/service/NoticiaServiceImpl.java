@@ -36,6 +36,11 @@ public class NoticiaServiceImpl implements NoticiaService {
     public Collection<Noticia> getAllNoticias() {
         return noticiaDAO.getAll(Noticia.class);
     }
+    
+    @Override
+    public Collection<Noticia> getOrderNoticias() {
+        return noticiaDAO.getNoticias();
+    }
 
     @Override
     public int countAllNoticias() {

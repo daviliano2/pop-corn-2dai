@@ -28,4 +28,6 @@ public interface ComentarioService {
     int countAllComentarios();
     
     void borrarComentario(Key idComentario);
+    
+    void borrarComentario2(Key idComentario);
 }

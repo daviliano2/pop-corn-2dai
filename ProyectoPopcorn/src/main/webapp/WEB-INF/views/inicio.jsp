@@ -28,97 +28,108 @@
             } 
             function ver_pelicula(id_pelicula) {               
                 $.get(
-                    "/ir_ver_pelicula",
-                    {
-                        idPelicula: id_pelicula
-                    },
-                    function(html) {                        
-                        $("#apDivGeneral").html(html);
-                    },
-                    "ajax"    
-                );
+                "/ir_ver_pelicula",
+                {
+                    idPelicula: id_pelicula
+                },
+                function(html) {                        
+                    $("#apDivGeneral").html(html);
+                },
+                "ajax"    
+            );
             }            
             function ver_noticia(id_noticia) {               
                 $.get(
-                    "/ir_ver_noticia",
-                    {
-                        idNoticia: id_noticia
-                    },
-                    function(html) {                        
-                        $("#apDivGeneral").html(html);
-                    },
-                    "ajax"    
-                );
+                "/ir_ver_noticia",
+                {
+                    idNoticia: id_noticia
+                },
+                function(html) {                        
+                    $("#apDivGeneral").html(html);
+                },
+                "ajax"    
+            );
             }
             function verInicio() {
                 $.get(
-                    "/ir_ver_inicio",
-                    {
-                    },
-                    function(html){
-                        $("#apDivGeneral").html(html);
-                    },
-                    "ajax"
-                );
+                "/ir_ver_inicio",
+                {
+                },
+                function(html){
+                    $("#apDivGeneral").html(html);
+                },
+                "ajax"
+            );
             }
             function verTodasPelis() {
                 $.get(
-                    "/ir_listar_peliculas",
-                    {
-                    },
-                    function(html) {
-                        $("#apDivGeneral").html(html);
-                    },
-                    "ajax"
-                );
+                "/ir_listar_peliculas",
+                {
+                },
+                function(html) {
+                    $("#apDivGeneral").html(html);
+                },
+                "ajax"
+            );
+            }
+            function verTodasNoticias() {
+                $.get(
+                "/ir_listar_noticias",
+                {
+                },
+                function(html) {
+                    $("#apDivGeneral").html(html);
+                },
+                "ajax"
+            );
             }
             function crearPelis() {
                 $.get(
-                    "/ir_crear_pelicula",
-                    {                        
-                    },
-                    function(html) {
-                        $("#apDivGeneral").html(html);
-                    },
-                    "ajax"
-                );
+                "/ir_crear_pelicula",
+                {                        
+                },
+                function(html) {
+                    $("#apDivGeneral").html(html);
+                },
+                "ajax"
+            );
             }
             function editarPelis(id_pelicula) {
                 $.get(
-                    "/editar_pelicula",
-                    {           
-                        idPelicula: id_pelicula
-                    },
-                    function(html) {
-                        $("#apDivGeneral").html(html);
-                    },
-                    "ajax"
-                );
+                "/editar_pelicula",
+                {           
+                    idPelicula: id_pelicula
+                },
+                function(html) {
+                    $("#apDivGeneral").html(html);
+                },
+                "ajax"
+            );
             }
             function crearNoticias() {
                 $.get(
-                    "/ir_crear_noticia",
-                    {                        
-                    },
-                    function(html) {
-                        $("#apDivGeneral").html(html);
-                    },
-                    "ajax"
-                );
+                "/ir_crear_noticia",
+                {                        
+                },
+                function(html) {
+                    $("#apDivGeneral").html(html);
+                },
+                "ajax"
+            );
             }
             function registrarUsuario() {
                 $.get(
-                    "/ir_registrar_usuario",
-                    {
-                    },
-                    function(html) {
-                        $("#apDivGeneral").html(html);
-                    },
-                    "ajax"
-                );
+                "/ir_registrar_usuario",
+                {
+                },
+                function(html) {
+                    $("#apDivGeneral").html(html);
+                },
+                "ajax"
+            );
             }
             function pan_usuario() {
-                <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+            <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
                     $.getJSON(
                     "/ir_num_comentarios",
                     {          
@@ -143,14 +154,14 @@
                             alert("vamos mal");
                         }
                     }
-                    );
-                </c:if>
-                    }
-            $(document).ready(
+                );
+            </c:if>
+                }
+                $(document).ready(
             
-            function() {    
-                verInicio();
-                pan_usuario();
+                function() {    
+                    verInicio();
+                    pan_usuario();
                 
                 }
             );  
@@ -169,6 +180,7 @@
                                 <ul>                             
                                     <li><a title="Pagina de inicio" onclick="verInicio()" style="cursor:pointer">Inicio</a></li>
                                     <li><a title="Ir a ver peliculas" onclick="verTodasPelis()" style="cursor:pointer">Listar Peliculas</a></li>                                    
+                                    <li><a title="Ir a ver noticias" onclick="verTodasNoticias()" style="cursor:pointer">Listar Noticias</a></li>                                    
                                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                                         <li><a title="Ir a crear peliculas" onclick="crearPelis()" style="cursor:pointer">Crear Peliculas</a></li>
                                         <li><a title="Ir a crear noticias" onclick="crearNoticias()" style="cursor:pointer">Crear Noticias</a></li>
@@ -201,6 +213,7 @@
                     <img src="Image/appengine-noborder-120x30.gif" style="top: 10px;"></img>
                 </div>
                 <div id="cse-search-form" style="width: 400px;">Cargando</div>
+
                <script src="jQuery/js/jsapi.js" type="text/javascript"></script>
                 <script type="text/javascript"> 
                     google.load('search', '1', {language : 'es', style : "stylesheets/minimalist.css"  });
@@ -227,8 +240,8 @@
                     </script>
                 </div>
             </div>
-                <div id="apDivGeneral">
-                </div>
+            <div id="apDivGeneral">
+            </div>
             <div id="apDivPanel">
                 <div id="apDivPanUsuario">
                     <div id="apDivNombrePanUsuario">Panel de usuario</div>
@@ -243,45 +256,47 @@
                             <strong>Comentarios:</strong> <span id="comen"></span><br/>
                             <strong>Valoraciones:</strong> <span id="val"></span><br/>
                             <strong>Ultimo comentario:</strong> <span id="comentario"></span><br/>
-                            <strong>Ultima pelicula comentada:</strong> <span id="peli"></span><br/>
+                            <strong>Ultima pelicula comentada:</strong><br/> <span id="peli"></span><br/>
                         </c:when>
                         <c:otherwise>
                             <br/><strong>Registrate o logueate para ver tus estadisticas.<br/>&nbsp;</strong>
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <div id="apDivNovedades">
-                    <div id="apDivNombreNovedades">Novedades de la semana</div>
-                    <ul id="galeria">
-                        <style>
-                            #slider {width: 216px; height: 256px;left: -40px; padding:0; top: -16px; border-radius: 5px;}
-                            #slider img {width: 216px; height: 256px; padding: 0; margin:0; border:0; border-radius: 5px;}
-                            #slider .clicker a {width: 11px; height: 11px; background: #fff; margin-right: 2px; border-radius: 5px; -moz-border-radius: 5px;}
-                            #slider .clicker a.active {background: #ff0;}
-                        </style>
-                        <script src="jQuery/js/jquery.hslide.min.js"></script> 
-                        <script>var $s = jQuery.noConflict();</script>
-                        <script>
-                            $s(function(){
-                                $s('#slider').hslide();
-                            });
-                        </script>
-                        <div id="slider">
-                            <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
-                                <div>
-                                    <a onclick="ver_pelicula('${pelicula.idString}')" style="cursor:pointer">
-                                        <img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}"></img> </a>
-                                    <!-- TAMBIEN SE PUEDEN COLOCAR VIDEO DE YOUTUBE
+                <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and usuario.tipoRol ne 'Administrador'}">
+                    <div id="apDivNovedades">
+                        <div id="apDivNombreNovedades">Categorias Favoritas</div>
+                        
+                        <ul id="galeria">
+                            <style>
+                                #slider {width: 216px; height: 256px;left: -40px; padding:0; top: -16px; border-radius: 5px;}
+                                #slider img {width: 216px; height: 256px; padding: 0; margin:0; border:0; border-radius: 5px;}
+                                #slider .clicker a {width: 11px; height: 11px; background: #fff; margin-right: 2px; border-radius: 5px; -moz-border-radius: 5px;}
+                                #slider .clicker a.active {background: #ff0;}
+                            </style>
+                            <script src="jQuery/js/jquery.hslide.min.js"></script> 
+                            <script>var $s = jQuery.noConflict();</script>
+                            <script>
+                                $s(function(){
+                                    $s('#slider').hslide();
+                                });
+                            </script>
+                            <div id="slider">
+                                <c:forEach var="pelicula" items="${peliculas}" varStatus="status">
+                                    <div>
+                                        <a onclick="ver_pelicula('${pelicula.idString}')" style="cursor:pointer">
+                                            <img src='/serve?blob-key=${pelicula.imagen}' alt="#" title="${pelicula.titulo}"></img> </a>
+                                        <!-- TAMBIEN SE PUEDEN COLOCAR VIDEO DE YOUTUBE
                                     <div style="background-color: #000;">
                                     <iframe width="294" height="220" src="http://www.youtube.com/embed/rdNdmc83xe4" frameborder="0" allowfullscreen style="margin: 10px 25px;">
                                     </iframe></div>
-                                    -->
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </ul>
-                </div>
-
+                                        -->
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </ul>
+                    </div>
+                </c:if>
             </div>
         </div>
     </body>

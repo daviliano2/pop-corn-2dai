@@ -33,6 +33,9 @@ public class Comentario implements Serializable {
         
     @Basic
     private String autor;
+    
+    @Basic
+    private String nomPeli;
 
     public Comentario() {
     }
@@ -88,6 +91,14 @@ public class Comentario implements Serializable {
 
     public void setPelicula(Pelicula pelicula) {
         this.pelicula = pelicula;
+    }
+    
+    public String getNomPeli() {
+        return nomPeli;
+    }
+
+    public void setNomPeli(String nomPeli) {
+        this.nomPeli = nomPeli;
     }
     
      public String getIdString() {

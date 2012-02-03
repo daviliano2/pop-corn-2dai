@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -18,7 +17,8 @@
     <form action="<%=blobstoreService.createUploadUrl("/crear_noticia_nueva")%>" method="post" enctype="multipart/form-data">
         <p> Titulo noticia: <input name="titulo" type="text" placeholder="Titulo noticia"></input><br/> 
             Contenido: <br/><textarea name="contenido" rows="5" cols="70" placeholder="Introdude la noticia"></textarea><br/>
-            
+            Fuente noticia: <br/><input type="text" name="fuente" placeholder="Direccion de la fuente"></input><br/>
+            Trailer: <input type="text" name="trailer" placeholder="Enlace de Youtube"></input><br/>
             Imagen: <input type="file" name="imagen1" id="imagen1"></input>
         </p>
         <p align="center">

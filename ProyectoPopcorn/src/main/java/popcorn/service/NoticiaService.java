@@ -18,6 +18,8 @@ public interface NoticiaService {
     Noticia getNoticia(Key idNoticia);
     
     Collection<Noticia> getAllNoticias();
+    
+    Collection<Noticia> getOrderNoticias();
 
     int countAllNoticias();
     
