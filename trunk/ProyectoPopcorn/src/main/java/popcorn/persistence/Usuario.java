@@ -39,7 +39,11 @@ public class Usuario implements Serializable {
     private List<Key> categoria = new ArrayList<Key>();
     
     @ManyToOne(fetch = FetchType.LAZY)
-    private Rol rol;   
+    private Rol rol; 
+    
+    @Basic
+    private String tipoRol;
+
     
     
     public Usuario() {        
@@ -105,6 +109,13 @@ public class Usuario implements Serializable {
         this.rol = rol;
     }
 
+    public String getTipoRol() {
+        return tipoRol;
+    }
+
+    public void setTipoRol(String tipoRol) {
+        this.tipoRol = tipoRol;
+    }
     @Override
     public boolean equals(Object o) {
         Usuario usuario = (Usuario)o;

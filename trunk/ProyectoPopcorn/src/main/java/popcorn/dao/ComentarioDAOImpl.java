@@ -17,4 +17,12 @@ public class ComentarioDAOImpl extends GenericPopDAOImpl<Comentario, Key> implem
         Query query = em.createQuery(sql);
         return query.getResultList();
     }
+    
+    @Override
+    public List<Comentario> getComentariosPeli(String titulo) {
+        String sql = "SELECT c FROM Comentario c WHERE c.nomPeli='" + titulo + "' ORDER by fecha DESC";
+        Query query = em.createQuery(sql);
+        return query.getResultList();
+    }
+    
 }

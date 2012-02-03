@@ -108,13 +108,14 @@ public class UsuarioController {
     @RequestMapping(value = "/ir_comprobar_usuario", method = RequestMethod.GET)
     public @ResponseBody String comprobarUsuario(@RequestParam("user") String nombreUsuario, @RequestParam("pass") String password,
                                                  @RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
-                                                 @RequestParam("idRol") String idRol, @RequestParam("categ") String favoritas) {
+                                                 @RequestParam("idRol") String idRol, @RequestParam("categ") String favoritas, 
+                                                 @RequestParam("rol") String tipoRol) {
         String valido = "ok";
         if (usuarioDAO.findByString(nombreUsuario) != null) {
             valido = null;
         }
         if (valido != null) {
-            return crearUsuario(nombreUsuario, password, nombre, apellido, idRol, favoritas);
+            return crearUsuario(nombreUsuario, password, nombre, apellido, idRol, favoritas, tipoRol);
         } else {
             return valido;
         }
@@ -123,7 +124,8 @@ public class UsuarioController {
     @RequestMapping(value = "/crear_usuario", method = RequestMethod.GET)
     public String crearUsuario(@RequestParam("user") String nombreUsuario, @RequestParam("pass") String password,
                                @RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido,
-                               @RequestParam("idRol") String idRol, @RequestParam("categ") String favoritas) {
+                               @RequestParam("idRol") String idRol, @RequestParam("categ") String favoritas,
+                               @RequestParam("rol") String tipoRol) {
         final List<String> fav = new ArrayList<String>();
         StringTokenizer tokens = new StringTokenizer(favoritas,",");
 	while(tokens.hasMoreTokens()) {            
@@ -131,9 +133,8 @@ public class UsuarioController {
             cat.trim();
             fav.add(cat);
         }
-        System.out.println("AKI CREAR USER CATEGORIAS, nombre,user:"+fav+ nombre+nombreUsuario);
         
-        usuarioService.create(nombreUsuario, password, nombre, apellido, KeyFactory.stringToKey(idRol),fav);
+        usuarioService.create(nombreUsuario, password, nombre, apellido, KeyFactory.stringToKey(idRol),fav, tipoRol);
         return "redirect:/inicio";
     }
 

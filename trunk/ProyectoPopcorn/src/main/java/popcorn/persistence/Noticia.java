@@ -26,22 +26,24 @@ public class Noticia implements Serializable {
     @Basic
     private String imagen;
      
-    //@Temporal(javax.persistence.TemporalType.DATE)
-    //private Date fechEstreno;
     @Basic
-    private String fechEstreno;
+    private String fuenteNoticia;    
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     
+    @Basic
+    private String trailer;
+    
     public Noticia() {
     }
 
-    public Noticia(String titulo, String contenido, Date fecha) {
-
+    public Noticia(String titulo, String contenido, Date fecha, String trailer, String fuenteNoticia) {
+        this.trailer = trailer;
         this.titulo = titulo;
         this.contenido = contenido;
         this.fecha = fecha; 
+        this.fuenteNoticia = fuenteNoticia;
     }
 
     public Key getId() {
@@ -82,6 +84,22 @@ public class Noticia implements Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+    
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
+    }
+    
+    public String getFuenteNoticia() {
+        return fuenteNoticia;
+    }
+
+    public void setFuenteNoticia(String fuenteNoticia) {
+        this.fuenteNoticia = fuenteNoticia;
     }
 
     public String getIdString() {

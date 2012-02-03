@@ -15,7 +15,8 @@ public interface UsuarioService extends UserDetailsService {
     //void preload_usuarios();    
     void create(final Usuario Usuario);
     void create(String username, String password,
-                String nombre, String apellido, Key idRol, List<String> categorias);
+                String nombre, String apellido, Key idRol,
+                List<String> categorias, String tipoRol);
     Collection<Usuario> getAllUsuarios(Key idRol);    
     Usuario getUsuario(String idUsuario);    
     Usuario getCurrentUser();

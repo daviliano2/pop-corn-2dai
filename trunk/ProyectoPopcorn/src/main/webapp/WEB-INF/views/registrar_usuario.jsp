@@ -32,6 +32,7 @@
                         "nombre":$("#nombre").val(), //POR LO MENOS CREO QUE ERA ESO, PORQUE AHORA SI FUNCIONA.
                         "apellido":$("#apellido").val(),
                         "idRol":$("#idRol").val(),
+                        "rol":$("#rol").val(),
                         "categ":categorias
                     },
                     
@@ -97,6 +98,7 @@
                 
 
                 <input type="hidden" value="${roles.idString}" id="idRol"/>
+                <input type="hidden" value="${roles.descripcion}" id="rol"/>
                 <input type="button" value="Registro" id="botonRegistro"/> 
                 <input type="reset" value="Limpiar"/>
             </form> 

@@ -93,9 +93,9 @@ public class PeliculaController {
     public String doVerInicioPelicula(Model model) {
         List<Pelicula> pelis = peliculaDAO.getPeliculas();
         model.addAttribute("pelis", pelis);
-        final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
-        final Collection<Noticia> noticias = noticiaService.getAllNoticias();
-        model.addAttribute("peliculas",peliculas); 
+        //final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
+        final Collection<Noticia> noticias = noticiaService.getOrderNoticias();
+        //model.addAttribute("peliculas",peliculas); 
         model.addAttribute("noticias", noticias);
         return "/novedades_inicio";
     }
@@ -143,7 +143,7 @@ public class PeliculaController {
         @RequestParam("titulo") String titulo,@RequestParam("sinopsis")String sinopsis,
         @RequestParam("duracion") int duracion,@RequestParam("categoria") String categoria,@RequestParam("actores") String actores,
         @RequestParam("director") String director, @RequestParam("fecha") String fecha, @RequestParam("trailer") String trailer) {
-        System.out.println("AKI peliControler editarPeli 1");
+        //System.out.println("AKI peliControler editarPeli 1");
         final Pelicula pelicula = new Pelicula(titulo, sinopsis, duracion, categoria, director,fecha,trailer);
         final List<String> actor = new ArrayList<String>();
         StringTokenizer tokens = new StringTokenizer(actores,",");

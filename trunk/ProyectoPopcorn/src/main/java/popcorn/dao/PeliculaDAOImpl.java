@@ -11,8 +11,9 @@ public class PeliculaDAOImpl extends GenericPopDAOImpl<Pelicula, Key> implements
     
     @Override
     public List<Pelicula> getPeliculas() {
-        String sql = "SELECT p FROM Pelicula p ORDER by fechEstreno";
+        String sql = "SELECT p FROM Pelicula p ORDER by fechEstreno DESC";
         Query query = em.createQuery(sql);
         return query.getResultList();
     }
+    
 }

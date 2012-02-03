@@ -43,8 +43,9 @@ public class NoticiaController {
      
     @RequestMapping(value = "/ir_listar_noticias", method = RequestMethod.GET)
     public String doIrNoticias(Model model) {
-        final Collection<Noticia> noticias = noticiaService.getAllNoticias();
+        final Collection<Noticia> noticias = noticiaService.getOrderNoticias();
         model.addAttribute("noticias",noticias);
+        model.addAttribute("numNoticias",noticias.size());
         return "/listar_noticias";
     }
         
@@ -56,9 +57,10 @@ public class NoticiaController {
     }
         
     @RequestMapping(value = "/crear_noticia_nueva", method = RequestMethod.POST)
-    public String doCrearNoticia(@RequestParam("titulo") String titulo,@RequestParam("contenido")String contenido) {
+    public String doCrearNoticia(@RequestParam("titulo") String titulo,@RequestParam("contenido")String contenido, 
+                                @RequestParam("trailer") String trailer, @RequestParam("fuente") String fuenteNoticia) {
         final Date fecha = new Date();
-        final Noticia noticia = new Noticia(titulo, contenido, fecha);
+        final Noticia noticia = new Noticia(titulo, contenido, fecha, trailer, fuenteNoticia);
         Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
         BlobKey blobKeyOutside = blobs.get("imagen1");        
         if (blobKeyOutside != null) {
