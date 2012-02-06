@@ -10,7 +10,6 @@
 <!--<script type="text/javascript" src="jquery-1.4.4.min.js"></script>-->
 <script type="text/javascript" src="jQuery/js/simple.carousel.js"></script>
 <script>var $n = jQuery.noConflict();</script>
-
 <script >
     $n(function() {
         // example 1

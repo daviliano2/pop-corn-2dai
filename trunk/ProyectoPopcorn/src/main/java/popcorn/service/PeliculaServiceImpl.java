@@ -36,6 +36,11 @@ public class PeliculaServiceImpl implements PeliculaService {
     public Collection<Pelicula> getAllPeliculas() {
         return peliculaDAO.getAll(Pelicula.class);
     }
+    
+    @Override
+    public Collection<Pelicula> getPeliculasOrdenadas() {
+        return peliculaDAO.getOrdered(Pelicula.class, "fechEstreno");
+    }
 
     @Override
     public int countAllPeliculas() {

@@ -82,6 +82,16 @@ public class GenericPopDAOImpl<T, PK extends Serializable> implements GenericPop
 
         return (List<T>) query.getResultList();
     }
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<T> getOrdered(Class<T> typeClass, String order) {
+        String direccion = "DESC";
+        final StringBuilder sql = new StringBuilder("select c from ").append(typeClass.getSimpleName()).append(" c order by ").append(order).append(" ").append(direccion);
+        final Query query = em.createQuery(sql.toString());
+        
+        return (List<T>) query.getResultList();
+    }
 
     @Override
     public int removeAll(Class<T> typeClass) {
