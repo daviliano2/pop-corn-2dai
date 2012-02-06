@@ -24,6 +24,8 @@ public interface ComentarioService {
     Collection<Comentario> getAll() ;
 
     Collection<Comentario> getPaginaComentarios(int startPosition, int maxResult);
+    
+    Collection<Comentario> getComentariosPeli(String titulo);
 
     int countAllComentarios();
     

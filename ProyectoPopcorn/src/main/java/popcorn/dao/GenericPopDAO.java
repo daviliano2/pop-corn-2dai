@@ -26,4 +26,6 @@ public interface GenericPopDAO <T, PK extends Serializable> extends Serializable
 
     List<T> getOrderedPaginated(Class<T> typeClass, int startPosition, int maxResult, String order, int dir);
     
+    List<T> getOrdered(Class<T> typeClass, String order);
+    
 }

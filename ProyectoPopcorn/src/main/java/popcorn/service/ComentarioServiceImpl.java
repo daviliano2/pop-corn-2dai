@@ -62,6 +62,11 @@ public class ComentarioServiceImpl implements ComentarioService {
     public Collection<Comentario> getPaginaComentarios(int startPosition, int maxResult) {
         return comentarioDAO.getOrderedPaginated(Comentario.class, startPosition, maxResult, "fecha", 2);
     }
+    
+    @Override
+    public Collection<Comentario> getComentariosPeli(String titulo) {        
+        return comentarioDAO.getComentariosPeli(titulo);                
+    }    
 
     @Override
     public int countAllComentarios() {

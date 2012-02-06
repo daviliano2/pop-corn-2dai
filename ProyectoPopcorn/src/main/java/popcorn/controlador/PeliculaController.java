@@ -93,7 +93,7 @@ public class PeliculaController {
 
     @RequestMapping(value = "/ir_ver_inicio", method = RequestMethod.GET)
     public String doVerInicioPelicula(Model model) {
-        List<Pelicula> pelis = peliculaDAO.getPeliculas();
+        Collection<Pelicula> pelis = peliculaService.getPeliculasOrdenadas();
         model.addAttribute("pelis", pelis);
         //final Collection<Pelicula> peliculas = peliculaService.getAllPeliculas();
         final Collection<Noticia> noticias = noticiaService.getOrderNoticias();

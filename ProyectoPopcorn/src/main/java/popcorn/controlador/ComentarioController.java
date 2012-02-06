@@ -107,7 +107,7 @@ public class ComentarioController {
     @RequestMapping(value = "/ir_ver_comentario", method = RequestMethod.GET)
     public String doVerComentario(@RequestParam("idPelicula") String idPelicula, Model model) {
         Pelicula peli = peliculaService.getPelicula(KeyFactory.stringToKey(idPelicula));
-        final Collection<Comentario> comentarios = comentarioDAO.getComentariosPeli(peli.getTitulo());
+        final Collection<Comentario> comentarios = comentarioService.getAllComentarios(KeyFactory.stringToKey(idPelicula));
         model.addAttribute("numTotal", comentarios.size());
         model.addAttribute("comentarios", comentarios);
         return "/ver_comentarios";

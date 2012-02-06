@@ -18,6 +18,8 @@ public interface PeliculaService {
     Pelicula getPelicula(Key idPelicula);
     
     Collection<Pelicula> getAllPeliculas();
+    
+    Collection<Pelicula> getPeliculasOrdenadas();
 
     int countAllPeliculas();
     

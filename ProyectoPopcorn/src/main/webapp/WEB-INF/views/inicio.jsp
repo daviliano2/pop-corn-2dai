@@ -263,7 +263,7 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and usuario.tipoRol ne 'Administrador'}">
+                <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and usuario.tipoRol eq 'Usuario'}">
                     <div id="apDivNovedades">
                         <div id="apDivNombreNovedades">Categorias Favoritas</div>
                         

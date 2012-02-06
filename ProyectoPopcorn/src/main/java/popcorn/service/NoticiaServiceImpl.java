@@ -39,7 +39,7 @@ public class NoticiaServiceImpl implements NoticiaService {
     
     @Override
     public Collection<Noticia> getOrderNoticias() {
-        return noticiaDAO.getNoticias();
+        return noticiaDAO.getOrdered(Noticia.class, "fecha");
     }
 
     @Override
