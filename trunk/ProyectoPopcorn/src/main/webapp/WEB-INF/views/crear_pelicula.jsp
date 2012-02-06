@@ -12,6 +12,37 @@
 <%
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 %>
+
+<script type="text/javascript">
+    $(document).ready(
+    function() {
+        $("#botonCrearCat").click(
+        function() {                               
+            $.getJSON(
+            "/crear_categoria",
+            {
+                "categoriaNueva":$("#categoriaNueva").val()
+            },
+            function(str) {
+                if(str) {
+                    //alert(str);
+                    var categorias = $.parseJSON(str); //ESTO SERIA TOTALMENTE ASINCRONO PERO NO GUARDA EL ULTIMO VOTO
+                    $("#categoria").html(categorias.categoriasNuevas); //SI VAS A INICIO Y VUELVES, HABRIA QUE DARLE UN PAR DE VUELTAS..  
+                    //window.location = "/ir_ver_pelicula?idPelicula="+$("#idPelicula").val();                                
+                    //window.location = "/inicio";
+                    crearPelis(); //CON ESTO LLAMA A LA FUNCION QUE HAY EN INICIO JSP Y SE RECARGA SOLO                    
+                } else {
+                    alert("else");
+                }
+            }
+
+        );                                
+        }        
+    );
+    }      
+);
+    
+</script>
 <script type="text/javascript" src="jQuery/js/calendar.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/calendar.css" ></link>
 <div style="width:650px;height: auto;margin-left: 50px;">
@@ -21,7 +52,7 @@
             Duraci&oacute;n: <input type="text" name="duracion" placeholder="Duracion en minutos"></input><br/>
             Actores: <br/><textarea name="actores" rows="5" cols="70" placeholder="Actores separados por comas"></textarea><br/>
             Director: <input type="text" name="director" placeholder="Director"></input><br/>
-            Fecha de estreno: <input size="10" id="fc_1328006263" type="text" name="fecha" title="MM/DD/YYYY" onClick="displayCalendar(this);"></input><br/>
+            Fecha de estreno: <input size="10" id="fc_peli" type="text" name="fecha" title="MM/DD/YYYY" onClick="displayCalendar(this);"></input><br/>
             Categor&iacute;a: 
             <select name="categoria">
                 <option value="default" selected="selected">Elige una categoria</option>
@@ -39,11 +70,10 @@
     </form>
 </div>
 <div style="margin-left: 300px; margin-top: -132px;">
-    <form action="/crear_categoria" method="post">
-        <input type="text" placeholder="Nueva Categoria" name="categoria"/>
-        <input type="submit" value="Crear Categoria"/>
+    <form id="crearCatForm">
+        <input type="text" placeholder="Nueva Categoria" name="categoriaNueva" id="categoriaNueva"/>
+        <input type="button" value="Crear Categoria" id="botonCrearCat" style="cursor:pointer"/>
     </form>
 </div>
 <div style="margin-left: 50px;height: 80px;"></div>
 <br/>
-

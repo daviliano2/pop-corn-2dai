@@ -57,5 +57,6 @@ public class PeliculaServiceImpl implements PeliculaService {
         peli.setSinopsis(pelicula.getSinopsis());
         peli.setCategoria(pelicula.getCategoria());
         peli.setTrailer(pelicula.getTrailer());
+        peli.setFechEstreno(pelicula.getFechEstreno());
     } 
 }

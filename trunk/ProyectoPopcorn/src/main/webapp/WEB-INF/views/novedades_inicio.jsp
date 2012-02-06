@@ -15,10 +15,10 @@
     $n(function() {
         // example 1
         $n("ul.example1").simplecarousel({
-            width:300,
-            height:300,
-            visible: 1,
-            auto: 6000,
+            width:380,
+            height:220,
+            visible: 2,
+            auto: 10000,
             vertical: true/*,
             pagination: true,
             next: $('.next'),
@@ -29,7 +29,7 @@
             left:10,
             top:10,
             height:400,
-            auto: 4000,
+            auto: 6000,
             fade: 400/*,
                 pagination: true*/
         });      
@@ -78,7 +78,7 @@
         background:#ff0;
     } */ 
     .colocate {           
-        width: 400px;
+        width: 350px;
         margin-left: 230px;
         margin-top: -277px;
     }
@@ -93,7 +93,8 @@
         margin-left: 90px;
     }
 </style>
-
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
 Estrenos
 <ul class="example2">
     <c:forEach var="peli" items="${pelis}" varStatus="status" begin="0" end="9">
@@ -102,6 +103,7 @@ Estrenos
                 <img height="255" width="215" src='/serve?blob-key=${peli.imagen}' alt="#" title="${peli.titulo}"></img></a>
             <div class="colocate" >
                 <p>
+                    <b>T&iacute;tulo:</b> <c:out value="${peli.titulo}"/><br/>
                     <b>Duraci&oacute;n:</b> <c:out value="${peli.duracion}"/> min.<br/>
                     <b>Director:</b> <c:out value="${peli.director}"/><br/>
                     <b>Categoria:</b> <c:out value="${peli.categoria}"/><br/>
@@ -138,9 +140,6 @@ Estrenos
                     </c:if>
                 </div>
             </li>
-            <!--<li><span>1</span></li>-->
         </c:forEach>
     </ul>
 </div>
-<!--<span class="prev">prev</span>
-<span class="next">next</span>-->
