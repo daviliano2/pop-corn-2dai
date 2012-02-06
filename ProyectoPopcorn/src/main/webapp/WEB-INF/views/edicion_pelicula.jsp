@@ -18,10 +18,10 @@
             Duraci&oacute;n: <input type="text" name="duracion" value="${pelicula.duracion}"></input><br/>
             Actores: <br/><textarea name="actores" rows="5" cols="70" placeholder="Actores separados por comas"></textarea><br/>
             Director: <input type="text" name="director" value="${pelicula.director}"></input><br/>
-            Fecha de estreno: <input size="10" id="fc_1328006263" type="text" name="fecha" title="MM/DD/YYYY" onClick="displayCalendar(this);" value="${pelicula.fechEstreno}"></input><br/>
+            Fecha de estreno: <input size="10" id="fc_edicion" type="text" name="fechaEd" title="MM/DD/YYYY" onClick="displayCalendar(this);" value="${pelicula.fechEstreno}"></input><br/>
             Categor&iacute;a: 
             <select name="categoria">
-                <option value="default" selected="selected">Elige una categoria</option>
+                <option value="default" selected="selected">${pelicula.categoria}</option>
                 <c:forEach var="categoriab" items="${categorias}" varStatus="status">
                     <option value="${categoriab.nombre}"><c:out value="${categoriab.nombre}" /></option>
                 </c:forEach>

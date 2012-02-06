@@ -12,7 +12,7 @@
     <description>Proyecto 2011/2012</description>
     <url>http://popcorn2dai.appspot.com/</url>
     <organization>
-        <name>miguel.nunez.casado@gmail.com</name>
+        <name>daviliano2@gmail.com</name>
     </organization>
     <packaging>war</packaging>
 
@@ -48,7 +48,7 @@
 			Upload to http://0.latest.<appId>.appspot.com by default
 		-->
         <gae.application.appId>popcorn2dai</gae.application.appId>
-        <gae.application.version>6</gae.application.version>
+        <gae.application.version>7</gae.application.version>
     </properties>
 
 
