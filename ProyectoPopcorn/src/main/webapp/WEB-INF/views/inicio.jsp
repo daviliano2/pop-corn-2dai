@@ -167,7 +167,7 @@
             );  
         </script>
     </head>
-    <body style="background-image: url('Image/popcorn.jpg')">
+    <body style="background-color: #DDDDDD">
         <div id="apDivFondo">
             <div id="apDivMenu">
                 <div id="apDivLogo">
