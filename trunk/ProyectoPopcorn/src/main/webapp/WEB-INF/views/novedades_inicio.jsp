@@ -43,7 +43,7 @@
     }        
     li {
 
-        text-align:center;
+        text-align:left;
     }        
 
     .next,
@@ -51,7 +51,7 @@
         cursor:pointer;
     }        
     .example2 {
-        margin-top: 70px;
+        margin-top: 20px;
         list-style:none;
         width:700px;
         height:300px;
@@ -80,7 +80,17 @@
     .colocate {           
         width: 400px;
         margin-left: 230px;
-        margin-top: -270px;
+        margin-top: -277px;
+    }
+    .noticias {
+        width: auto;
+        margin-left: 700px;
+        margin-top: -473px;
+    }
+    .noticiasColocacion {
+        width: auto;
+        margin-top: -100px;
+        margin-left: 90px;
     }
 </style>
 
@@ -104,26 +114,33 @@ Estrenos
             <iframe width="294" height="220" src="http://www.youtube.com/embed/rdNdmc83xe4" frameborder="0" allowfullscreen style="margin: 10px 25px;">
             </iframe>
         </li>-->
-    </c:forEach>        
+    </c:forEach>      
 </ul>
 <br/>
-Noticias
-<ul class="example1">
-    <c:forEach var="noticia" items="${noticias}" varStatus="status" begin="0" end="9">
-        <li>
-            <img height="95" width="80" src='/serve?blob-key=${noticia.imagen}' alt="#"></img>
-            <c:out value="${noticia.titulo}"></c:out><br/>
-            <c:out value="${noticia.contenido}"></c:out><br/>
-            <c:if test="${!empty noticia.trailer}">
-                <a href="http://www.youtube.com/embed/${noticia.trailer}" target="_blank">Ver trailer</a><br/>
-            </c:if>
-            <c:if test="${!empty noticia.fuenteNoticia}">
-                <a href="${noticia.fuenteNoticia}" target="_blank">Ir a la fuente de la noticia</a><br/>
-            </c:if>
-        </li>
-        <!--<li><span>1</span></li>-->
-    </c:forEach>
-</ul>
-
+<br/>
+<br/>
+<div class="noticias">
+    Noticias<br/><br/>
+    <ul class="example1">
+        <c:forEach var="noticia" items="${noticias}" varStatus="status" begin="0" end="9">
+            <li>
+                <div class="noticiasImagen">
+                    <img height="95" width="80" src='/serve?blob-key=${noticia.imagen}' alt="#"></img>
+                </div>
+                <div class="noticiasColocacion">
+                    <b><c:out value="${noticia.titulo}"></c:out></b><br/>
+                    <c:out value="${noticia.contenido}"></c:out><br/>
+                    <c:if test="${!empty noticia.trailer}">
+                        <a href="http://www.youtube.com/embed/${noticia.trailer}" target="_blank">Ver trailer</a><br/>
+                    </c:if>
+                    <c:if test="${!empty noticia.fuenteNoticia}">
+                        <a href="${noticia.fuenteNoticia}" target="_blank">Ir a la fuente de la noticia</a><br/>
+                    </c:if>
+                </div>
+            </li>
+            <!--<li><span>1</span></li>-->
+        </c:forEach>
+    </ul>
+</div>
 <!--<span class="prev">prev</span>
 <span class="next">next</span>-->

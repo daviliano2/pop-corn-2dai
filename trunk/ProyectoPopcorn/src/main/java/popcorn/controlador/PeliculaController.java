@@ -162,4 +162,12 @@ public class PeliculaController {
         peliculaService.borrarPeli(KeyFactory.stringToKey(idPelicula));
         return "redirect:/inicio";
     }
+    
+    @RequestMapping(value = "/crear_categoria", method = RequestMethod.POST)
+    public String doCrearCategoria(@RequestParam("categoria") String categoria) {
+            Categoria cat = new Categoria();
+            cat.setNombre(categoria);
+            categoriaService.create(cat);
+        return "redirect:/inicio";
+    }
 }

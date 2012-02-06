@@ -52,7 +52,8 @@
         );
         </script>
 
-        <div>        
+        <div style="margin-left: 30px">
+            <br/>
             <form id="formRegistro">
                 <table style="border:5px">
                     <tr>
@@ -100,6 +101,6 @@
                 <input type="hidden" value="${roles.idString}" id="idRol"/>
                 <input type="hidden" value="${roles.descripcion}" id="rol"/>
                 <input type="button" value="Registro" id="botonRegistro"/> 
-                <input type="reset" value="Limpiar"/>
+                <input type="reset" value="Limpiar"/><br/><br/>
             </form> 
         </div>
