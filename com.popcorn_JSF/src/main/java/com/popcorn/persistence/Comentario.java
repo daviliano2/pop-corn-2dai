@@ -24,6 +24,17 @@ public class Comentario implements Serializable {
     @Basic
     private String content;
     
+    @Basic
+    private String titulo;
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     
@@ -34,6 +45,7 @@ public class Comentario implements Serializable {
     private Tema tema;
 
     public Comentario() {
+        titulo = null;
     }
 
     public Comentario(Usuario autor, String content, Date fecha) {        

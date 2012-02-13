@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import com.popcorn.dao.TemaDAO;
+import com.popcorn.persistence.Comentario;
 import com.popcorn.persistence.Tema;
+import java.util.Iterator;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -57,4 +59,7 @@ public class TemaServiceImpl implements TemaService {
     public int countAllTemas() {
         return temaDAO.countAll(Tema.class);
     }
+    
+
+    
 }

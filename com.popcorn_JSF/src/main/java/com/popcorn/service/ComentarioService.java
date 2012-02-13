@@ -25,5 +25,7 @@ public interface ComentarioService {
 
     Collection<Comentario> getPaginaComentarios(int startPosition, int maxResult);
 
+    public void delComentario(Comentario comen);    
+    
     int countAllComentarios();
 }
