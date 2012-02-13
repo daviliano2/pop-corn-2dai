@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+    
+</h:head>
+<h:body>
+
+<ui:composition>
+    <p:dialog id="dialog_terminar" header="#{msg.recordatorio}" widgetVar="dlg1" modal="true" closable="true">
+        #{msg.quedada}: #{quedada.root.nombre}<br/>
+        #{msg.clave_administrador_quedada}: #{quedada.claveAdmin}<br/>
+        #{msg.clave_invitado_quedada}: #{quedada.claveInvitado}
+        <center><h:form><p:commandButton value="#{msg.btn_terminar}" ajax="false" action="exit" /></h:form></center>
+    </p:dialog>
+
+
+    
+
+</ui:composition>
+
+</h:body>
+</html>

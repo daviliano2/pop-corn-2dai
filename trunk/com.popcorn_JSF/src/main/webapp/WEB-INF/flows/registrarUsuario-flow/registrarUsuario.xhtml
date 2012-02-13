@@ -21,7 +21,7 @@
                 <h:column>                    
                     <p:inputText id="username" value="#{usuarioController.usuario.username}"/>
                     <br/>                    
-                    <p:inputText id="password" type="password" value="#{usuarioController.usuario.password}"/>                                                              
+                    <p:password id="password" value="#{usuarioController.usuario.password}"/>                                                              
                 </h:column>
                 <p:commandButton iconPos="right" value="Registrar" ajax="false" action="irARegistrarUsuario"/>
                 <f:facet name="footer"></f:facet>

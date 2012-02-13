@@ -5,24 +5,25 @@
 package com.popcorn.service;
 
 import com.google.appengine.api.datastore.Key;
+
 import com.popcorn.dao.*;
 import com.popcorn.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
+import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
-/*import org.springframework.security.access.prepost.PreAuthorize;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;*/
-
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 @Service(value = "usuarioService")
@@ -78,7 +79,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         //NO FUNCIONA
     }
 
-   /* @Override
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {        
         Usuario usuario = new Usuario();
         usuario = usuarioDAO.findByString(username);        
@@ -114,11 +115,15 @@ public class UsuarioServiceImpl implements UsuarioService {
         //int i = 0;
         //for (Rol rol : getRol(usuario)) {
         result.add(new GrantedAuthorityImpl(usuario.getRol().getNombre()));
+        System.out.println("-- AKI  RESULT :"+result);
+        System.out.println("-- AKI USUARIO :"+usuario);
+        System.out.println("-- AKI USUARIO.GETROL()"+usuario.getRol());
+        System.out.println("-- AKI USUARIO.GETROL().GETNOMBRE()"+usuario.getRol().getNombre());
         //}
         return result;
     }
 
-    @Override
+   @Override
     @PreAuthorize("isAuthenticated()")
     public boolean isAdmin() {
         final String ROLE_ADMIN = "ROLE_ADMIN";
@@ -139,7 +144,9 @@ public class UsuarioServiceImpl implements UsuarioService {
             }
         }
         return isAdmin;
-    }*/
+    }
+
+  
     
     
 }

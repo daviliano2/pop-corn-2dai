@@ -7,10 +7,12 @@ package com.popcorn.service;
 import com.google.appengine.api.datastore.Key;
 import java.util.Collection;
 import com.popcorn.persistence.*;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 
 
-public interface UsuarioService /*extends UserDetailsService */{
+public interface UsuarioService extends UserDetailsService {
     //void preload_usuarios();    
     void create(final Usuario Usuario);
     void create(String username, String password,
@@ -21,8 +23,8 @@ public interface UsuarioService /*extends UserDetailsService */{
     void setRol(Usuario usuario, String rol);
     void addRol(Usuario usuario, Rol rol);*/
     Usuario getUsuario(String idUsuario);    
-    //Usuario getCurrentUser();
+    Usuario getCurrentUser();
     void setRol(Usuario usuario, String rol);
-    //boolean isAdmin();
-    
+    boolean isAdmin();
+    public UserDetails loadUserByUsername(String username); 
 }

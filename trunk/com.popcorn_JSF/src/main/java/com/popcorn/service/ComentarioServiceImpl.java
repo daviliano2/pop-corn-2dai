@@ -9,6 +9,7 @@ import com.popcorn.dao.ComentarioDAO;
 import com.popcorn.dao.TemaDAO;
 import com.popcorn.persistence.Comentario;
 import com.popcorn.persistence.Tema;
+import java.util.Iterator;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -65,5 +66,28 @@ public class ComentarioServiceImpl implements ComentarioService {
     @Override
     public int countAllComentarios() {
         return comentarioDAO.countAll(Comentario.class);
+    }
+    
+        @Override
+        public void delComentario(Comentario comen) {
+        System.out.println("delComentario");
+        Tema tema = comen.getTema();
+        boolean encontrado = false;
+        Comentario p = null;
+        Iterator<Comentario> it= tema.getComentarios().iterator();
+        while (it.hasNext() && !encontrado) {
+            p = it.next();
+            if (p.getId().equals(comen.getId())) {
+                encontrado = true;
+            }
+        }
+       /* if (encontrado) {
+            tema.getComentarios().remove(p);
+            
+        }
+        * 
+        */
+        comentarioDAO.remove(comen);
+        
     }
 }
