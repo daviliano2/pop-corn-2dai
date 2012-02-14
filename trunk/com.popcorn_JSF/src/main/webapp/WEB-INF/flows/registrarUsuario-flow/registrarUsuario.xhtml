@@ -14,16 +14,16 @@
         <h:form>
             <h:panelGrid columns="2" cellpadding="5" >
                 <h:column>
-                    <h:outputLabel for="username" value="Nombre Usuario:" />                     
+                    <h:outputLabel for="username" value="#{msg.usuario}:" />                     
                     <br/><br/> 
-                    <h:outputLabel for="password" value="Contraseña:" />  
+                    <h:outputLabel for="password" value="#{msg.password}:" />  
                 </h:column>
                 <h:column>                    
                     <p:inputText id="username" value="#{usuarioController.usuario.username}"/>
                     <br/>                    
                     <p:password id="password" value="#{usuarioController.usuario.password}"/>                                                              
                 </h:column>
-                <p:commandButton iconPos="right" value="Registrar" ajax="false" action="irARegistrarUsuario"/>
+                <p:commandButton iconPos="right" value="#{msg.registrar}" ajax="false" action="irARegistrarUsuario"/>
                 <f:facet name="footer"></f:facet>
             </h:panelGrid>
         </h:form>

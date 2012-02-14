@@ -14,12 +14,12 @@
         <h:form>
             <h:panelGrid columns="2" cellpadding="5" >
                 <h:column>
-                    <h:outputLabel for="titulo" value="Titulo:" />
+                    <h:outputLabel for="titulo" value="#{msg.titulo}:" />
                     <p:inputText id="titulo" value="#{temaController.tema.titulo}"/>
                     <br/>
-                    <h:outputLabel for="tema" value="Tema:" />                    
+                    <h:outputLabel for="tema" value="#{msg.tema}" />                    
                     <p:editor id="tema" value="#{temaController.tema.content}"/>                
-                    <p:commandButton iconPos="right" value="Crear Tema" ajax="false" action="irACrearTema"/>
+                    <p:commandButton iconPos="right" value="#{msg.crear_tema}" ajax="false" action="irACrearTema"/>
                 </h:column>
                 <f:facet name="footer"></f:facet>
             </h:panelGrid>

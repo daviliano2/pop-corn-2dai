@@ -23,7 +23,7 @@
                                 
                 <p:column style="width: 200px;">
                     <f:facet name="header">
-                        <h:outputText value="Perfil"/>
+                        <h:outputText value="#{msg.perfil}"/>
                     </f:facet>                                    
                     <h:outputLabel value="#{tema.fecha}" escape="false" style="height: 30px;width: 100px;font-size: 10px;"/>
                 </p:column>
@@ -38,7 +38,7 @@
             </p:dataTable>
             
             <p:dataTable id="posts" value="#{comentarioController.comentarios}"
-                         var="post" emptyMessage="#{msg.no_post}"  >
+                         var="post" emptyMessage="#{msg.no_post}">
               <p:column id="perfiles" style="width: 200px;">
                     <f:facet name="header">
                         
@@ -69,10 +69,10 @@
                        <f:setPropertyActionListener target="#{comentarioController.comentario}" value="#{comentario}" />                         
                     </p:commandButton>
                  
-                    <p:dialog id="Dialog" header="Editar Comentario" widgetVar="dlg2"  resizable="false" style="text-align: center">  
+                    <p:dialog id="Dialog" header="#{msg.edit_coment}" widgetVar="dlg2"  resizable="false" style="text-align: center">  
                     <h:form>  
                     <p:editor id="editcomentarioTema" value="#{comentarioController.comentario.content}" />                
-                    <p:commandButton iconPos="right" value="Editar Comentario" ajax="false" action="irACrearComentario" />
+                    <p:commandButton iconPos="right" value="#{msg.edit_coment}" ajax="false" action="irACrearComentario" />
                     </h:form>
                     </p:dialog> 
 
@@ -80,7 +80,7 @@
                 </p:column>
               
                 <f:facet name="footer">  
-                    <h:outputText value=" En total hay #{comentarioController.numComentarios} comentarios. " escape="false"  style="height: 30px;width: 100px;font-size: 14px;" />  
+                    <h:outputText value=" #{msg.total} #{comentarioController.numComentarios} #{msg.comentarios} " escape="false"  style="height: 30px;width: 100px;font-size: 14px;" />  
           
         </f:facet>  
                 
@@ -88,12 +88,12 @@
         
             <p:separator/>
             
-            <h:outputLabel for="tituloComentario" value="Titulo:" />                 
+            <h:outputLabel for="tituloComentario" value="#{msg.titulo}:" />                 
             <p:inputText id="tituloComentario" value="#{comentarioController.comentario.titulo}"/>
             <br></br>
             <h:outputLabel for="comentarioTema" /> 
             <p:editor id="comentarioTema" value="#{comentarioController.comentario.content}"/>                
-            <p:commandButton iconPos="right" value="Crear Comentario" ajax="false" action="irACrearComentario" />
+            <p:commandButton iconPos="right" value="#{msg.crear_comentario}" ajax="false" action="irACrearComentario" />
      
         </h:form>
        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
