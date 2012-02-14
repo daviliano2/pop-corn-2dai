@@ -12,14 +12,17 @@
         
         
         <center>
-        <p:layout style="min-width:200px;min-height:500px;max-width:1000px;">
+        <p:layout style="min-width:200px;min-height:550px;max-width:1000px;">
             <p:layoutUnit position="center">
              <p:toolbar>
                 <p:toolbarGroup>
-                    <h:panelGrid columns="3">
+                    
+                    <h:panelGrid columns="4">
                         <p:column>
-                          
-                        <h:outputText value="#{msg.registrar_msg}" />
+                        <p:graphicImage value="/images/logo.png" />  
+                        <br/>
+                        <h:outputText value="#{msg.registrar_msg}" /> 
+                        <br/>
                         <h:outputLink value="registrarUsuario-flow" />Registrar
                         </p:column>  
                    
@@ -28,21 +31,31 @@
               </p:column>
                         
                         <p:column>
-            <h:form style="height: 15px;">
-            <h:outputLabel for="usernames" value="#{msg.usuario}" style="font-size:12px;" />                     
+                            <h:form >
+                            <h:panelGrid columns="2">
+            
+                <p:column>
+            <h:outputLabel for="usernames" value="#{msg.usuario}" style="font-size:15px;" />                     
+            <br/>
+            <h:outputLabel for="passwords" value="#{msg.password}" style="font-size:  15px;" />                   
+            
+            </p:column>
+                <p:column>
             <p:inputText id="usernames" value="#{usuarioController.usuario.username}" size="12" style="height: 25px;font-size:  12px;" />
             <br/>
-            <h:outputLabel for="passwords" value="#{msg.password}" style="font-size:  12px;" />                   
             <p:inputText id="passwords" type="password" value="#{usuarioController.usuario.password}" size="12" style="height: 25px;font-size:12px;"/>           
-           
-            <p:commandButton  value="#{msg.conectar}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" style="height: 30px;width: 100px;font-size: 12px" action="irLoginUsuario"  />  
-            </h:form>
+         </p:column>
+            <p:commandButton  value="#{msg.conectar}"  icon="ui-icon-arrowreturnthick-1-e" ajax="false" style="height: 30px;width: 100px;font-size: 12px" action="irLoginUsuario"  />  
             
+            </h:panelGrid>
+                                </h:form>
                     </p:column>
+                        
+                        </h:panelGrid>
                   <br/>
                     <p:graphicImage value="/images/separator.png" />
                      <br/>
-                  
+                     <h:panelGrid columns="3">
             <h:outputLink  value="cambiarIdioma-flow">
                 <f:param name="idioma" value="es" />
                 <h:graphicImage library="images" name="spain_flag.png" title="#{msg.en_espanol}" />
@@ -53,8 +66,8 @@
                 <h:graphicImage library="images" name="england_flag.png" title="#{msg.en_ingles}" />
             </h:outputLink>
        
-            
             </h:panelGrid>
+            
             </p:toolbarGroup>
         </p:toolbar>
           </p:layoutUnit>

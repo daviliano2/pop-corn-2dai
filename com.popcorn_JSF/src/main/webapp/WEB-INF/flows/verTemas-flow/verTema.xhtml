@@ -22,7 +22,7 @@
             <p:inputText id="usernames" value="#{usuarioController.usuario.username}" size="12" style="height: 25px;font-size:  12px;" />
             <h:outputLabel for="passwords" value="#{msg.password}" style="font-size:  12px;" />                   
             <p:inputText id="passwords" type="password" value="#{usuarioController.usuario.password}" size="12" style="height: 25px;font-size:12px;"/>           
-            <p:commandButton  value="Conectar" icon="ui-icon-arrowreturnthick-1-e" ajax="false" style="height: 30px;width: 100px;font-size: 12px" action="irLoginUsuario"  />  
+            <p:commandButton  value="#{msg.conectar}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" style="height: 30px;width: 100px;font-size: 12px" action="irLoginUsuario"  />  
         </h:form>
 
     </p:toolbarGroup>  
