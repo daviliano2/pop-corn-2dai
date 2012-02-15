@@ -25,12 +25,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service(value = "usuarioService")
 public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioDAO usuarioDAO;
     private RolDAO rolDAO;
+    private RolService rolService;
 
     @Autowired
     @Required
@@ -44,15 +47,31 @@ public class UsuarioServiceImpl implements UsuarioService {
         this.rolDAO = rolDAO;
     }
 
+    @Autowired
+    @Required
+    public void setRolService(RolService rolService) {
+        this.rolService = rolService;
+    }
+
     @Override
     public void create(final Usuario usuario) {
-        usuarioDAO.insert(usuario);
-        usuarioDAO.update(usuario);
+        /*usuarioDAO.insert(usuario);
+        usuarioDAO.update(usuario);*/
+        final Collection<Rol> roles = rolService.getAllRoles();
+        //System.out.println("AQUI usuarioService create 1 roles: " + roles);
+        for (Rol rol : roles) {
+            if (rol.getNombre().compareTo("ROLE_USER") == 0) {
+                //System.out.println("AQUI usuarioService create 2 rol: " + rol.getNombre());
+                Rol rol1 = rolDAO.findByPK(Rol.class, rol.getId());
+                usuario.setTipoRol(rol.getDescripcion());
+                rol1.getUsuarios().add(usuario);
+            }
+        }
     }
-    
+
     @Override
     public void create(String username, String password,
-                        String nombre, String apellido, Key idRol) {
+            String nombre, String apellido, Key idRol) {
         Rol rol = rolDAO.findByPK(Rol.class, idRol);
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
@@ -61,12 +80,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setPassword(password);
         rol.getUsuarios().add(usuario);
     }
-    
+
     @Override
     public Usuario getUsuario(String idUsuario) {
         return usuarioDAO.findByString(idUsuario);
     }
-    
+
     @Override
     public Collection<Usuario> getAllUsuarios(Key idRol) {
         Rol rol = rolDAO.findByPK(Rol.class, idRol);
@@ -80,13 +99,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {        
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
         Usuario usuario = new Usuario();
-        usuario = usuarioDAO.findByString(username);        
-        if (usuario == null) {
-            throw new UsernameNotFoundException("User not found: " + usuario.getUsername());
+        usuario = usuarioDAO.findByString(username);
+        if (usuario == null) {              
+            throw new UsernameNotFoundException("User not found." + username);
         } else {
-           // System.out.println("AQUI UsuarioServiceImpl3 loadUserByUsername3 antes de makeUser usuario=" + usuario);
             return makeUser(usuario);
         }
     }
@@ -94,13 +112,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //System.out.println("AQUI getCurrentUser1 authentication: " + authentication);
         if (authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
-            //System.out.println("AQUI getCurrentUser2 authentication.getName(): " + authentication.getName()); 
-            
             return usuarioDAO.findByString(authentication.getName());
         } else {
-            //System.out.println("AQUI getCurrentUser3, si ves esto retorna null y da error");
             return null;
         }
     }
@@ -112,18 +126,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private Collection<GrantedAuthority> makeGrantedAuthorities(Usuario usuario) {
         Collection<GrantedAuthority> result = new ArrayList<GrantedAuthority>();
-        //int i = 0;
-        //for (Rol rol : getRol(usuario)) {
         result.add(new GrantedAuthorityImpl(usuario.getRol().getNombre()));
-        System.out.println("-- AKI  RESULT :"+result);
-        System.out.println("-- AKI USUARIO :"+usuario);
-        System.out.println("-- AKI USUARIO.GETROL()"+usuario.getRol());
-        System.out.println("-- AKI USUARIO.GETROL().GETNOMBRE()"+usuario.getRol().getNombre());
-        //}
         return result;
     }
 
-   @Override
+    @Override
     @PreAuthorize("isAuthenticated()")
     public boolean isAdmin() {
         final String ROLE_ADMIN = "ROLE_ADMIN";
@@ -145,8 +152,4 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return isAdmin;
     }
-
-  
-    
-    
 }

@@ -6,8 +6,7 @@
 
 	<var name="facesHelper" class="com.popcorn.view.FacesHelper" />
 
-	<end-state id="end" view="externalRedirect:servletRelative:/index" />
-          
+	<end-state id="end" view="externalRedirect:servletRelative:/index" />          
 
 	<global-transitions>
 		<transition on="exit" to="end" />

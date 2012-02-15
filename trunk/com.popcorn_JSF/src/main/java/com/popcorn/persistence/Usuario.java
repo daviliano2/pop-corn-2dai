@@ -33,7 +33,7 @@ public class Usuario implements Serializable {
     private String apellido;
     
     @Basic
-    private List<String> categoria;
+    private String tipoRol;
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Rol rol;   
@@ -87,19 +87,20 @@ public class Usuario implements Serializable {
         this.apellido = apellido;
     }
     
-    public List<String> getCategoria() {
-        return categoria;
-    }
-    
-    public void setCategoria(List<String> categoria) {
-        this.categoria = categoria;
-    }
     public Rol getRol() {
         return rol;
     }
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+    
+    public String getTipoRol() {
+        return tipoRol;
+    }
+
+    public void setTipoRol(String tipoRol) {
+        this.tipoRol = tipoRol;
     }
 
     @Override

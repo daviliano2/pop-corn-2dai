@@ -9,81 +9,70 @@
     <h:body>
 
         <p:growl showDetail="true" id="mensajes"/>
-        
-        
-        <center>
-        <p:layout style="min-width:200px;min-height:550px;max-width:1000px;">
-            <p:layoutUnit position="center">
-             <p:toolbar>
-                <p:toolbarGroup>
-                    
-                    <h:panelGrid columns="4">
-                        <p:column>
-                        <p:graphicImage value="/images/logo.png" />  
-                        <br/>
-                        <h:outputText value="#{msg.registrar_msg}" /> 
-                        <br/>
-                        <h:outputLink value="registrarUsuario-flow" />Registrar
-                        </p:column>  
-                   
-               <p:column>
-            <p:graphicImage value="/images/separatorv.png" />
-              </p:column>
-                        
-                        <p:column>
-                            <h:form >
-                            <h:panelGrid columns="2">
-            
-                <p:column>
-            <h:outputLabel for="usernames" value="#{msg.usuario}" style="font-size:15px;" />                     
-            <br/>
-            <h:outputLabel for="passwords" value="#{msg.password}" style="font-size:  15px;" />                   
-            
-            </p:column>
-                <p:column>
-            <p:inputText id="usernames" value="#{usuarioController.usuario.username}" size="12" style="height: 25px;font-size:  12px;" />
-            <br/>
-            <p:inputText id="passwords" type="password" value="#{usuarioController.usuario.password}" size="12" style="height: 25px;font-size:12px;"/>           
-         </p:column>
-            <p:commandButton  value="#{msg.conectar}"  icon="ui-icon-arrowreturnthick-1-e" ajax="false" style="height: 30px;width: 100px;font-size: 12px" action="irLoginUsuario"  />  
-            
-            </h:panelGrid>
-                                </h:form>
-                    </p:column>
-                        
-                        </h:panelGrid>
-                  <br/>
-                    <p:graphicImage value="/images/separator.png" />
-                     <br/>
-                     <h:panelGrid columns="3">
-            <h:outputLink  value="cambiarIdioma-flow">
-                <f:param name="idioma" value="es" />
-                <h:graphicImage library="images" name="spain_flag.png" title="#{msg.en_espanol}" />
-            </h:outputLink>
 
-            <h:outputLink  value="cambiarIdioma-flow">
-                <f:param name="idioma" value="en" />
-                <h:graphicImage library="images" name="england_flag.png" title="#{msg.en_ingles}" />
-            </h:outputLink>
-       
-            </h:panelGrid>
-            
-            </p:toolbarGroup>
-        </p:toolbar>
-          </p:layoutUnit>
-        </p:layout> 
-      
-        
-        
-        <h:outputLink value="crearComentario-flow">Nuevo comentario</h:outputLink>
-        <br/>
-        <h:outputLink value="verTemas-flow">Temas</h:outputLink>
-        <br/>
-        <h:outputLink value="registrarUsuario-flow">Registrar usuario</h:outputLink>
-        <br/><br/><br/>
-       
+        <center>
+            <p:layout style="min-width:200px;min-height:550px;max-width:1000px;">
+                <p:layoutUnit position="center">
+                    <p:toolbar>
+                        <p:toolbarGroup>
+
+                            <h:panelGrid columns="4">
+                                <p:column>
+                                    <p:graphicImage value="/images/logo.png" /> 
+
+                                    <br/>
+                                    <h:outputText value="#{msg.registrar_msg}" /> 
+                                    <br/>
+                                    <h:outputLink value="registrarUsuario-flow" />Registrar
+                                </p:column>  
+
+                                <p:column>
+                                    <p:graphicImage value="/images/separatorv.png" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:form >
+                                        <h:panelGrid columns="2">
+
+                                            <h:outputLink value="verTemas-flow">
+                                                <p:graphicImage value="/images/logo.png" /> 
+                                            </h:outputLink>
+                                            
+                                            <ui:remove>
+                                                <h:outputLink value="registrarUsuario-flow">
+                                                    <p:button value="Registrar Usuario">                                        
+                                                    </p:button>
+                                                </h:outputLink>
+                                            </ui:remove>
+
+                                        </h:panelGrid>
+                                    </h:form>
+                                </p:column>
+
+                            </h:panelGrid>
+                            <br/>
+                            <p:graphicImage value="/images/separator.png" />
+                            <br/>
+                            <h:panelGrid columns="3">
+                                <h:outputLink  value="cambiarIdioma-flow">
+                                    <f:param name="idioma" value="es" />
+                                    <h:graphicImage library="images" name="spain_flag.png" title="#{msg.en_espanol}" />
+                                </h:outputLink>
+                                <h:outputLink  value="cambiarIdioma-flow">
+                                    <f:param name="idioma" value="en" />
+                                    <h:graphicImage library="images" name="england_flag.png" title="#{msg.en_ingles}" />
+                                </h:outputLink>
+
+                            </h:panelGrid>
+                            <br/>
+
+                            <br/>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                </p:layoutUnit>
+            </p:layout> 
+
         </center>
-        
-        
+
     </h:body>
 </html>

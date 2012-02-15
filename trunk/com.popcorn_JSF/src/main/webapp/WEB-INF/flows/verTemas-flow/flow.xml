@@ -5,28 +5,31 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
          parent="parent-flow">
-             
-
 
     <view-state id="verTemas" view="verTema.xhtml">
+        
         <transition on="irATema" to="irTema">    
             <evaluate expression="temaController.getTema()" result="flowScope.tema"/>
         </transition>
-    <transition on="irLoginUsuario" >     
-     <evaluate expression="usuarioController.validarUsuario(flowRequestContext)"  />    
-    </transition>
-   </view-state>
+        
+        <transition on="irLoginUsuario" >     
+            <evaluate expression="usuarioController.validarUsuario(flowRequestContext)" />    
+        </transition>
+        
+                
+    </view-state>
     
     <view-state id="irTema" view="comentarTema.xhtml">
+        
         <on-render>
             <evaluate expression="comentarioController.fijarComentarios(tema)" />
+            <evaluate expression="temaController.fijarNumComentarios(tema)"/>
         </on-render>        
+        
         <transition on="irACrearComentario" >
             <evaluate expression="comentarioController.crearComenta(tema)" />
-        </transition> 
-        
-        
-       
+        </transition>       
+             
         <transition on="irABorrarComentario" to="borrarComentario">    
             <evaluate expression="comentarioController.getComentario()" result="flowScope.coment" />
         </transition>
@@ -36,13 +39,11 @@
             
         <transition on="irAEditarComentario"  >
             <evaluate expression="comentarioController.getComentario()" result="flowScope.coment"/>            
-         </transition>
+        </transition>
           
-          <transition on="editarComen" >
+        <transition on="editarComen" >
             <evaluate expression="comentarioController.editarComenta(coment,tema)" />
-        </transition> 
-     
-    
+        </transition>    
   
     </view-state>  
   

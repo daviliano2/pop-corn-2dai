@@ -4,15 +4,11 @@
 	xmlns:faces="http://www.springframework.org/schema/faces"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-	start-state="cambiarIdioma" parent="parent-flow">
+	parent="parent-flow" start-state="logout">
 
-    <on-start>
-        <set name="requestScope.idioma" value="requestParameters.idioma"/>
-    </on-start>
-
-    <action-state id="cambiarIdioma">
-        <evaluate expression="localeController.cambiarIdioma(idioma)" />
+    <action-state id="logout">
+        <evaluate expression="usuarioController.logout()" />  
         <transition to="end"/>
     </action-state>
-
+    
 </flow>
