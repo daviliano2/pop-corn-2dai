@@ -14,12 +14,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-
-
     
-    <global-method-security secured-annotations="enabled"   pre-post-annotations="enabled"/>
-
-    
+    <global-method-security secured-annotations="enabled"   pre-post-annotations="enabled"/>    
     
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="usuarioService" />
@@ -30,6 +26,5 @@
         <intercept-url pattern="/**/adminSecured/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**/userSecured/**" access="isAuthenticated()"/> 
     </http>
-
     
 </beans:beans>

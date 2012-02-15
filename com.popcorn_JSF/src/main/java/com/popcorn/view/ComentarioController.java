@@ -25,15 +25,11 @@ import org.springframework.webflow.execution.RequestContext;
 @Scope("request")
 public class ComentarioController implements Serializable {
 
-    Comentario comentario ;
+    Comentario comentario;
     private Collection<Comentario> comentarios;
     private ComentarioService comentarioService;
     private int numComentarios;
 
-    public int getNumComentarios() {
-        return numComentarios;
-    }
-    
     public Collection<Comentario> getComentarios() {
         return comentarios;
     }
@@ -42,10 +38,10 @@ public class ComentarioController implements Serializable {
     }
 
     @PostConstruct
-    private void iniciar(){
+    private void iniciar() {
         comentario = new Comentario();
     }
-    
+
     public Comentario getComentario() {
         return comentario;
     }
@@ -61,48 +57,38 @@ public class ComentarioController implements Serializable {
     }
 
     public void fijarComentarios(Tema tema) {
-        //System.out.println("Aki getComentarios1 tema...."+tema.getTitulo());
+        System.out.println("Aki comentarioController fijarComentarios tema...."+tema.getTitulo());
         comentarios = comentarioService.getAllComentarios(tema.getId());
         numComentarios = comentarios.size();
-        //System.out.println("Aki getComentarios 2...." + comentarios.toString());
+        System.out.println("Aki comentarioController fijarComentarios 2...." + comentarios.toString());
     }
 
     public String crearComenta(Tema tema) {
         System.out.println("Aki crearComenta");
         String comentaCorrecto = "no";
-        
-        
-        System.out.println("temaTitulo"+tema.getTitulo());
-        
+
+        System.out.println("temaTitulo" + tema.getTitulo());
+
         if (comentario != null) {
             comentaCorrecto = "si";
             comentario.setFecha(new Date());
-              System.out.println("comentarioTitulo"+comentario.getTitulo());
-            if(comentario.getTitulo() == null){
-                  comentario.setTitulo(tema.getTitulo());
+            System.out.println("comentarioTitulo" + comentario.getTitulo());
+            if (comentario.getTitulo() == null) {
+                comentario.setTitulo(tema.getTitulo());
             }
-                
-                comentarioService.create(comentario, tema.getId());
+            comentarioService.create(comentario, tema.getId());
             //System.out.println("Aki crearComenta2: " + comentario);
         }
         return comentaCorrecto;
     }
- 
-      
-           
-        
-        public void borrarComenta(){
-            System.out.println("Aki borrarComenta");
-           
-            
-           }
-    
-    
-        public void editarComenta(Comentario a) {
-        System.out.println("Aki editarComenta");
-        System.out.println("a id: "+a.getId());
-        System.out.println("comentario id: "+comentario.getId());
-        
-        }
 
+    public void borrarComenta() {
+        System.out.println("Aki borrarComenta");
+    }
+
+    public void editarComenta(Comentario a) {
+        System.out.println("Aki editarComenta");
+        System.out.println("a id: " + a.getId());
+        System.out.println("comentario id: " + comentario.getId());
+    }
 }

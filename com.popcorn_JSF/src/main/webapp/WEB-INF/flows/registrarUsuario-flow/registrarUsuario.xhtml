@@ -14,14 +14,22 @@
         <h:form>
             <h:panelGrid columns="2" cellpadding="5" >
                 <h:column>
-                    <h:outputLabel for="username" value="#{msg.usuario}:" />                     
-                    <br/><br/> 
+                    <h:outputLabel for="username" value="#{msg.usuario}:" /> 
+                    <br/><br/>
                     <h:outputLabel for="password" value="#{msg.password}:" />  
+                    <br/><br/>
+                    <h:outputLabel for="nombre" value="Nombre:" />  
+                    <br/><br/>
+                    <h:outputLabel for="apellido" value="Apellido:" />                
                 </h:column>
                 <h:column>                    
                     <p:inputText id="username" value="#{usuarioController.usuario.username}"/>
                     <br/>                    
-                    <p:password id="password" value="#{usuarioController.usuario.password}"/>                                                              
+                    <p:password id="password" value="#{usuarioController.usuario.password}"/> 
+                    <br/>
+                    <p:inputText id="nombre" value="#{usuarioController.usuario.nombre}"/>
+                    <br/>
+                    <p:inputText id="apellido" value="#{usuarioController.usuario.apellido}"/>
                 </h:column>
                 <p:commandButton iconPos="right" value="#{msg.registrar}" ajax="false" action="irARegistrarUsuario"/>
                 <f:facet name="footer"></f:facet>

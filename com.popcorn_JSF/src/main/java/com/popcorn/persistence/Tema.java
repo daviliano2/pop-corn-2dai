@@ -15,7 +15,7 @@ public class Tema implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key id;    
+    private Key id;
        
     @Basic
     private String content;
@@ -28,6 +28,8 @@ public class Tema implements Serializable {
     
     @Basic
     private String titulo;
+    
+    
     
     @OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comentario> comentarios;
@@ -92,7 +94,6 @@ public class Tema implements Serializable {
     }
     
      public List<Comentario> getComentarios() {
-         System.out.println("AKI TEMACLASS getComentarios=" + comentarios.size());
         if(comentarios == null) {
             comentarios = new ArrayList<Comentario>();
         }
@@ -101,5 +102,10 @@ public class Tema implements Serializable {
 
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
+    }
+    
+    @Override
+    public String toString() {
+        return comentarios.size() + "";
     }
 }

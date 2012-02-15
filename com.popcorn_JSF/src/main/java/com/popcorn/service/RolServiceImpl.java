@@ -43,14 +43,17 @@ public class RolServiceImpl implements RolService {
             admin.setUsername("daviliano");
             admin.setPassword("1daviliano23");
             admin.setNombre("David");
+            admin.setTipoRol(r1.getDescripcion());
             Usuario admin2 = new Usuario();
             admin2.setUsername("sevengear");
             admin2.setPassword("1sevengear23");
             admin2.setNombre("Miguel");
+            admin2.setTipoRol(r1.getDescripcion());
             Usuario admin3 = new Usuario();
             admin3.setUsername("lucasino");
             admin3.setPassword("1lucasino23");
             admin3.setNombre("Lucas");
+            admin3.setTipoRol(r1.getDescripcion());
             r1.getUsuarios().add(admin);
             r1.getUsuarios().add(admin2);
             r1.getUsuarios().add(admin3);

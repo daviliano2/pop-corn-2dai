@@ -2,77 +2,96 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
 
         <title>Temas</title>
 
     </h:head>
     <h:body>
-        <p:growl showDetail="true"/>
         
+        <p:growl />
+
         <center>
-        <p:layout style="min-width:400px;min-height:200px;max-width:1000px;" id="layout"> 
-            <p:layoutUnit position="center">
-            <p:toolbar> 
-                
-    <p:toolbarGroup align="right">        
-        <h:form style="height: 15px;">
-            <h:outputLabel for="usernames" value="#{msg.usuario}" style="font-size:12px;" />                     
-            <p:inputText id="usernames" value="#{usuarioController.usuario.username}" size="12" style="height: 25px;font-size:  12px;" />
-            <h:outputLabel for="passwords" value="#{msg.password}" style="font-size:  12px;" />                   
-            <p:inputText id="passwords" type="password" value="#{usuarioController.usuario.password}" size="12" style="height: 25px;font-size:12px;"/>           
-            <p:commandButton  value="#{msg.conectar}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" style="height: 30px;width: 100px;font-size: 12px" action="irLoginUsuario"  />  
-        </h:form>
+            <p:layout style="min-width:400px;min-height:200px;max-width:1000px;" id="layout"> 
+                <p:layoutUnit position="center">
+                    <p:toolbar> 
+                        <p:toolbarGroup align="right">   
+                            <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                                Estas conectado como: ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username} 
+                                <h:outputLink value="logout-flow">
+                                    #{msg.desconectar}
+                                </h:outputLink>
 
-    </p:toolbarGroup>  
-            </p:toolbar>
-            <h:form prependId="false" id="temasForm">
-            <p:dataTable id="temas" value="#{temaController.temas}"
-                         var="tema" emptyMessage="#{msg.no_temas}" paginator="true" rows="10"  
-                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                 rowsPerPageTemplate="5,10,15">   
-                
-                <p:column >
-                    <f:facet name="header">
-                        <h:outputText  value="#{msg.titulo}"/>
-                    </f:facet> 
-                    <p:commandLink value="#{tema.titulo}" action="irATema" ajax="false">
-                        <f:setPropertyActionListener target="#{temaController.tema}" value="#{tema}" />
-                    </p:commandLink>
-                    
-                </p:column>             
-                
-                       
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg.fecha}"/>
-                    </f:facet >                       
-                    <h:outputLabel value="#{tema.fecha}" escape="false" />
-                </p:column>
-                
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="IR A TEMA"/>
-                    </f:facet>
+                            </c:if>
 
-                    <ui:remove>
-                        Ver http://www.developer.am/j2eetutorial/jsf/?page=4-ways-to-pass-parameter-from-jsf-page-to-backing-bean
-                    </ui:remove>
-                    
-                    <p:commandLink value="Ir a tema" action="irATema" ajax="false" >
-                        <f:setPropertyActionListener target="#{temaController.tema}" value="#{tema}" />
-                    </p:commandLink>                    
-                </p:column>
-                
-            </p:dataTable>
-        </h:form>
-        
-                <p:button value="#{msg.nuevo_tema}" href="crearTema-flow"></p:button>
-        
-        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
-    </p:layoutUnit>
-    </p:layout>
-   </center>
+                            <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">   
+
+                                <h:form style="height: 15px;">
+                                    <h:outputLabel for="usernames" value="#{msg.usuario}" style="font-size:12px;" />                     
+                                    <p:inputText id="usernames" value="#{usuarioController.usuario.username}" size="12" 
+                                                 style="height: 25px;font-size:  12px;" />
+                                    <h:outputLabel for="passwords" value="#{msg.password}" style="font-size:  12px;" />                   
+                                    <p:inputText id="passwords" type="password" value="#{usuarioController.usuario.password}" 
+                                                 size="12" style="height: 25px;font-size:12px;"/>           
+                                    <p:commandButton  value="#{msg.conectar}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" 
+                                                      style="height: 30px;width: 100px;font-size: 12px" action="irLoginUsuario"  />  
+                                </h:form>
+                            </c:if>
+
+                        </p:toolbarGroup>  
+                    </p:toolbar>
+                    <h:form prependId="false" id="temasForm">
+
+                        <p:dataTable id="temas" value="#{temaController.temas}"
+                                     var="tema" emptyMessage="#{msg.no_temas}" paginator="true" rows="10"  
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15">   
+
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText  value="#{msg.titulo}"/>
+                                </f:facet> 
+
+                                <p:commandLink value="#{tema.titulo}" action="irATema" ajax="false">
+                                    <f:setPropertyActionListener target="#{temaController.tema}" value="#{tema}" />
+                                </p:commandLink>
+
+                            </p:column>             
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.fecha}"/>
+                                </f:facet >                       
+                                <h:outputLabel value="#{tema.fecha}" escape="false" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText  value="RESPUESTAS"/>
+                                </f:facet>                    
+                                <h:outputFormat value="#{tema}" escape="false"/>
+                            </p:column>
+
+                            <ui:remove>
+                                Ver http://www.developer.am/j2eetutorial/jsf/?page=4-ways-to-pass-parameter-from-jsf-page-to-backing-bean
+
+                                <p:column>
+                                    <p:commandLink value="Ir a tema" action="irATema" ajax="false" >
+                                        <f:setPropertyActionListener target="#{temaController.tema}" value="#{tema}" />
+                                    </p:commandLink>                    
+                                </p:column>
+                            </ui:remove>
+
+                        </p:dataTable>
+                    </h:form>
+
+                    <p:button value="#{msg.nuevo_tema}" href="crearTema-flow"></p:button>
+
+                    <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+                </p:layoutUnit>
+            </p:layout>
+        </center>
     </h:body>
 </html>

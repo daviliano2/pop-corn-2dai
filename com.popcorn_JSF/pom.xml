@@ -4,15 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
 	<!-- The Basics -->
-    <groupId>popcorn</groupId>
-    <artifactId>popcorn</artifactId>
+    <groupId>popcornJSF</groupId>
+    <artifactId>popcornJSF</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>PopCornJSF</name>
     <description>Proyecto 2011/2012</description>
     <url>http://popcorn2dai.appspot.com/</url>
     <organization>
-        <name>miguel.nunez.casado@gmail.com</name>
+        <name>daviliano2@gmail.com</name>
     </organization>
     <packaging>war</packaging>
 
@@ -43,7 +43,7 @@
 			Upload to http://0.latest.<appId>.appspot.com by default
 		-->
         <gae.application.appId>popcorn</gae.application.appId>
-        <gae.application.version>10</gae.application.version>
+        <gae.application.version>15</gae.application.version>
     </properties>
 
 
@@ -116,12 +116,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -266,7 +260,7 @@
             </exclusions>
         </dependency>
 
- <dependency>
+        <dependency>
             <groupId>javax.jdo</groupId>
             <artifactId>jdo2-api</artifactId>
             <version>2.3-ec</version>
@@ -391,9 +385,9 @@
         
         <!--Spring Security-->
         <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-web</artifactId>
-           <version>${spring.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
@@ -418,9 +412,19 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>${spring.version}</version>
         </dependency>
-                
+       <!--ESTO LO HE AÑADIDO EL 13/02/2012 (DAVID)-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-faces</artifactId>
+            <version>2.3.0.RELEASE</version>
+        </dependency>
+        <!--13/02/2012-->
 
 <!--Fin SPring Security-->
         
@@ -447,16 +451,16 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>
-										com.google.appengine
+					com.google.appengine
                                     </groupId>
                                     <artifactId>
-										appengine-java-sdk
+					appengine-java-sdk
                                     </artifactId>
                                     <version>${gae.version}</version>
                                     <type>zip</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>
-										${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}/
+					${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}/
                                     </outputDirectory>
                                 </artifactItem>
                             </artifactItems>
@@ -485,7 +489,7 @@
                             <version>2.3-eb</version>
                             <packaging>jar</packaging>
                             <file>
-								${gae.home}/lib/user/orm/jdo2-api-2.3-eb.jar
+					${gae.home}/lib/user/orm/jdo2-api-2.3-eb.jar
                             </file>
                         </configuration>
                     </execution>
@@ -498,12 +502,12 @@
                         <configuration>
                             <groupId>com.google.appengine.orm</groupId>
                             <artifactId>
-								datanucleus-appengine
+					datanucleus-appengine
                             </artifactId>
                             <version>1.0.4.1</version>
                             <packaging>jar</packaging>
                             <file>
-								${gae.home}/lib/user/orm/datanucleus-appengine-1.0.10.final.jar
+					${gae.home}/lib/user/orm/datanucleus-appengine-1.0.10.final.jar
                             </file>
                         </configuration>
                     </execution>
@@ -519,7 +523,7 @@
                             <version>1.1.5</version>
                             <packaging>jar</packaging>
                             <file>
-								${gae.home}/lib/user/orm/datanucleus-core-1.1.5.jar
+					${gae.home}/lib/user/orm/datanucleus-core-1.1.5.jar
                             </file>
                         </configuration>
                     </execution>
@@ -537,7 +541,7 @@
                             <version>1.1.1</version>
                             <packaging>jar</packaging>
                             <file>
-								${gae.home}/lib/user/orm/geronimo-jta_1.1_spec-1.1.1.jar
+					${gae.home}/lib/user/orm/geronimo-jta_1.1_spec-1.1.1.jar
                             </file>
                         </configuration>
                     </execution>
@@ -553,7 +557,7 @@
                             <version>1.0</version>
                             <packaging>jar</packaging>
                             <file>
-								${gae.home}/lib/appengine-tools-api.jar
+					${gae.home}/lib/appengine-tools-api.jar
                             </file>
                         </configuration>
                     </execution>
@@ -569,7 +573,7 @@
                             <version>1.1.1</version>
                             <packaging>jar</packaging>
                             <file>
-								${gae.home}/lib/user/orm/geronimo-jpa_3.0_spec-1.1.1.jar
+                                ${gae.home}/lib/user/orm/geronimo-jpa_3.0_spec-1.1.1.jar
                             </file>
                         </configuration>
                     </execution>
@@ -585,7 +589,7 @@
                             <version>1.1.5</version>
                             <packaging>jar</packaging>
                             <file>
-								${gae.home}/lib/user/orm/datanucleus-jpa-1.1.5.jar
+                                ${gae.home}/lib/user/orm/datanucleus-jpa-1.1.5.jar
                             </file>
                         </configuration>
                     </execution>
@@ -603,7 +607,7 @@
                             <version>${gae.version}</version>
                             <packaging>jar</packaging>
                             <file>
-								${gae.home}/lib/impl/appengine-api-labs.jar
+                                ${gae.home}/lib/impl/appengine-api-labs.jar
                             </file>
                         </configuration>
                     </execution>
@@ -619,7 +623,7 @@
                             <version>${gae.version}</version>
                             <packaging>jar</packaging>
                             <file>
-								${gae.home}/lib/impl/appengine-api-stubs.jar
+                                ${gae.home}/lib/impl/appengine-api-stubs.jar
                             </file>
                         </configuration>
                     </execution>
@@ -636,7 +640,7 @@
                             <version>${gae.version}</version>
                             <packaging>jar</packaging>
                             <file>
-								${gae.home}/lib/impl/appengine-local-runtime.jar
+                                ${gae.home}/lib/impl/appengine-local-runtime.jar
                             </file>
                         </configuration>
                     </execution>
