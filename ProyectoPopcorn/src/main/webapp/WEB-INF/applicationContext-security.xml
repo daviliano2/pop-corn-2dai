@@ -24,12 +24,13 @@
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="usuarioService" />
     </authentication-manager>
-
-    <http auto-config="true" use-expressions="true" >
+      
+    <http auto-config="true" use-expressions="true"  access-denied-page="/accesoDenegado">
+        <intercept-url pattern="/ir_crear_pelicula" filters="none" />
 
         <intercept-url pattern="/**/adminSecured/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**/userSecured/**" access="isAuthenticated()"/>
+        <form-login login-page="/ir_registrar_usuario" authentication-failure-url="/falloAutenticacion"/>
     </http>
-
-    
+        
 </beans:beans>

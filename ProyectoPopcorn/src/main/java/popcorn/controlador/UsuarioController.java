@@ -168,4 +168,14 @@ public class UsuarioController {
 
         return "redirect:index.html";
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/accesoDenegado")
+    public String IrAAccesodenegado() {
+        return "redirect:/accessDenied.html";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/falloAutenticacion")
+    public String IrAFalloAutenticacion() {
+        return "redirect:/falloaAtenticacion.html";
+    }
 }

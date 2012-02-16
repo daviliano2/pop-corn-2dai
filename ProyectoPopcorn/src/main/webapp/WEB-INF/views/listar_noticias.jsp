@@ -111,7 +111,7 @@
                 <tr>                 
                     <td>   
                         <img height="95" width="80" src='/serve?blob-key=${noticia.imagen}' alt="#"></img>
-                        <c:out value="${noticia.titulo}"></c:out><br/>
+                        <strong><c:out value="${noticia.titulo}"></c:out></strong><br/>
                         <c:out value="${noticia.contenido}"></c:out><br/>
                         <c:if test="${!empty noticia.trailer}">
                             <a href="http://www.youtube.com/embed/${noticia.trailer}" target="_blank">Ver trailer</a><br/>
