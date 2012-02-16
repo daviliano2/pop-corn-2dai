@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <nextCatalog catalog=".netbeans/7.0/var/cache/mavencachedirs/431217819/retriever/catalog.xml"/>
-    <nextCatalog catalog="../../../../.netbeans/7.0/var/cache/mavencachedirs/1599246582/retriever/catalog.xml"/>
     <nextCatalog catalog="../../.netbeans/7.0/var/cache/mavencachedirs/383354939/retriever/catalog.xml"/>
+    <nextCatalog catalog="../../../../.netbeans/7.0/var/cache/mavencachedirs/1599246582/retriever/catalog.xml"/>
 </catalog>
