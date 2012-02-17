@@ -7,14 +7,15 @@ package com.popcorn.view;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import com.popcorn.persistence.Tema;
 import com.popcorn.service.TemaService;
 
+import com.popcorn.service.UsuarioService;
+import com.popcorn.view.utils.MessageProvider;
 import org.springframework.context.annotation.Scope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.binding.message.MessageBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.webflow.execution.RequestContext;
 
@@ -25,13 +26,25 @@ public class TemaController implements Serializable {
     private Tema tema = new Tema();
     private Collection<Tema> temas;
     private TemaService temaService;
+    private UsuarioService usuarioService;
     private int numComentarios;
+
+    @Required
+    @Autowired
+    public void setTemaService(TemaService temaService) {
+        this.temaService = temaService;
+    }
+
+    @Required
+    @Autowired
+    public void setUsuarioService(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     public TemaController() {
     }
 
     public int getNumComentarios() {
-        //System.out.println("AKI temaController getNumComentarios 1 numComentarios= " + numComentarios);
         return numComentarios;
     }
 
@@ -48,19 +61,16 @@ public class TemaController implements Serializable {
     }
 
     public Collection<Tema> getTemas() {
-        //System.out.println("AKI temaController getTemas 1");
         temas = temaService.getAll();
         return temas;
     }
 
     public void setTemas(Collection<Tema> temas) {
         this.temas = temas;
-        
+
     }
 
     public void fijarNumComentarios(Tema tema) {
-        //System.out.println("AKI temaController fijarNumComentarios 1");
-        //System.out.println("AKI temaController fijarNumComentarios 2 tema: " + tema.getTitulo());
         if (tema == null) {
             System.out.println("AKI temaController fijarNumComentarios 3 tema: " + tema.getTitulo());
         } else {
@@ -68,21 +78,21 @@ public class TemaController implements Serializable {
         }
     }
 
-    @Required
-    @Autowired
-    public void setTemaService(TemaService temaService) {
-        this.temaService = temaService;
-    }
-
     public String crearTema() {
         String temaCorrecto = "no";
         if (tema != null) {
             temaCorrecto = "si";
             tema.setFecha(new Date());
+            tema.setAutor(usuarioService.getCurrentUser().getUsername());
             temaService.create(tema);
         }
         return temaCorrecto;
     }
-    
-    
+
+    public String borrarTema(Tema tema, RequestContext context) {
+        //System.out.println("AKI temaController borrarTema 1 tema: " + tema);
+        temaService.removeTema(tema);
+        context.getMessageContext().addMessage(new MessageBuilder().info().defaultText(MessageProvider.getValue("tema_borrado")).build());
+        return "si";
+    }
 }

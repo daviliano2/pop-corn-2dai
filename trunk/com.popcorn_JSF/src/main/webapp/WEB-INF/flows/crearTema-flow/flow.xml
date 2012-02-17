@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	parent="parent-flow">
 
-    <view-state id="crearTemas" view="crearTema.xhtml">
+   <view-state id="crearTemas" view="crearTema.xhtml">
         <transition on="irACrearTema" to="crearTema" />
     </view-state>
 
@@ -14,5 +14,4 @@
         <evaluate expression="temaController.crearTema()" />
         <transition on="si" to="end" />
     </action-state>
-    
 </flow>

@@ -13,38 +13,44 @@
         </transition>
         
         <transition on="irLoginUsuario" >     
-            <evaluate expression="usuarioController.validarUsuario(flowRequestContext)" />    
-        </transition>
+            <evaluate expression="usuarioController.validarUsuario(flowRequestContext)"/>    
+        </transition> 
         
+        <transition on="borrarTema" to="borraTema">
+            <evaluate expression="temaController.getTema()" result="flowScope.tema"/>           
+        </transition>
                 
-    </view-state>
+    </view-state>    
     
     <view-state id="irTema" view="comentarTema.xhtml">
         
         <on-render>
-            <evaluate expression="comentarioController.fijarComentarios(tema)" />
-            <evaluate expression="temaController.fijarNumComentarios(tema)"/>
+            <evaluate expression="comentarioController.fijarComentarios(tema)"/>
+            <evaluate expression="temaController.fijarNumComentarios(tema)"/>           
         </on-render>        
         
+        <transition on="borrarTema" to="borraTema">
+            <evaluate expression="temaController.getTema()" result="flowScope.tema"/>           
+        </transition>
+        
         <transition on="irACrearComentario" >
-            <evaluate expression="comentarioController.crearComenta(tema)" />
+            <evaluate expression="comentarioController.crearComenta(tema)"/>
         </transition>       
-             
-        <transition on="irABorrarComentario" to="borrarComentario">    
-            <evaluate expression="comentarioController.getComentario()" result="flowScope.coment" />
-        </transition>
-        <transition on="borrarComentario" >
-            <evaluate expression="votoController.borrarComenta()" />
-        </transition>
-            
-        <transition on="irAEditarComentario"  >
-            <evaluate expression="comentarioController.getComentario()" result="flowScope.coment"/>            
-        </transition>
-          
-        <transition on="editarComen" >
-            <evaluate expression="comentarioController.editarComenta(coment,tema)" />
-        </transition>    
-  
+              
+        <transition on="irABorrarComentario"  to="borraComentario">
+            <evaluate expression="comentarioController.getComentario()" result="flowScope.comentario"/>
+        </transition>      
+        
     </view-state>  
-  
+    
+    <action-state id="borraTema">
+        <evaluate expression="temaController.borrarTema(tema, flowRequestContext)"/>
+        <transition on="si" to="end" />
+    </action-state>
+    
+    <action-state id="borraComentario">
+        <evaluate expression="comentarioController.borrarComentario(comentario, flowRequestContext)"/>
+        <transition on="si" to="end" />
+    </action-state>
+    
 </flow>

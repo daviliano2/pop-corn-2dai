@@ -9,8 +9,10 @@ import com.popcorn.persistence.Usuario;
 import com.popcorn.service.UsuarioService;
 
 import com.popcorn.view.utils.MessageProvider;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
@@ -31,18 +33,8 @@ public class UsuarioController implements Serializable {
     private Usuario usuario = new Usuario();
     private UsuarioService usuarioService;
     private AuthenticationManager authenticationManager;
+    private UploadedFile file; 
     private String error;
-
-    public UsuarioController() {
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
     
     @Required
     @Autowired
@@ -56,6 +48,25 @@ public class UsuarioController implements Serializable {
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
+    
+    public UsuarioController() {
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    public UploadedFile getFile() {  
+        return file;  
+    }  
+    
+    public void setFile(UploadedFile file) {  
+        this.file = file;  
+    }  
 
     public String crearUsuario() {
         String registroCorrecto = "no";
@@ -66,6 +77,7 @@ public class UsuarioController implements Serializable {
         return registroCorrecto;
     }
 
+    
     public void validarUsuario(RequestContext context) {
         String rdo = null;
         try {
@@ -94,4 +106,9 @@ public class UsuarioController implements Serializable {
         HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
         httpSession.invalidate();
     }
+    
+    public void upload() {  
+        FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");  
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    } 
 }

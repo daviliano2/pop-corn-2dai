@@ -60,6 +60,9 @@ public class TemaServiceImpl implements TemaService {
         return temaDAO.countAll(Tema.class);
     }
     
-
+    @Override
+    public void removeTema(Tema tema) {
+        temaDAO.remove(Tema.class, tema.getId());
+    }
     
 }
