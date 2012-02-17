@@ -55,13 +55,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void create(final Usuario usuario) {
-        /*usuarioDAO.insert(usuario);
-        usuarioDAO.update(usuario);*/
         final Collection<Rol> roles = rolService.getAllRoles();
-        //System.out.println("AQUI usuarioService create 1 roles: " + roles);
         for (Rol rol : roles) {
             if (rol.getNombre().compareTo("ROLE_USER") == 0) {
-                //System.out.println("AQUI usuarioService create 2 rol: " + rol.getNombre());
                 Rol rol1 = rolDAO.findByPK(Rol.class, rol.getId());
                 usuario.setTipoRol(rol.getDescripcion());
                 rol1.getUsuarios().add(usuario);

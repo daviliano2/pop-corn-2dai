@@ -2,10 +2,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
     <h:head>
 
-        <title>Temas</title>
+        <title>Hilo</title>
 
     </h:head>
     <h:body>
@@ -18,80 +20,107 @@
             <p:layout style="min-width:400px;min-height:200px;max-width:1000;" id="layout"> 
                 <p:layoutUnit position="center">
 
-                    <h:form prependId="false" id="temasForm">
-                        <p:dataTable id="temas" value="#{temaController.tema}"
-                                     var="tema" emptyMessage="#{msg.no_temas}" >
 
-                            <p:column style="width: 200px;">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg.perfil}"/>
-                                </f:facet>                                    
-                                <h:outputLabel value="#{tema.fecha}" escape="false" style="height: 30px;width: 100px;font-size: 10px;"/>
-                            </p:column>
+                    <p:dataTable id="temas" value="#{temaController.tema}"
+                                 var="tema" emptyMessage="#{msg.no_temas}" >
+
+                        <p:column style="width: 200px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.perfil}"/>
+                            </f:facet> 
+                            <h:outputLabel value="#{tema.autor}" escape="false" style="height: 30px;width: 100px;font-size: 15px;font-weight: bold"/>
+                            <br/>
+                            <h:outputLabel value="#{tema.fecha}" escape="false" style="height: 30px;width: 100px;font-size: 10px;"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText  value="#{tema.titulo}"/>
+                            </f:facet> 
+                            <h:outputFormat  value="#{tema.content}" escape="false" style="height: 30px;width: 100px;font-size: 14px;"/>
+                        </p:column>
+                        <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and 
+                                      sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username eq tema.autor}">
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText  value="#{tema.titulo}"/>
-                                </f:facet> 
-                                <h:outputFormat  value="#{tema.content}" escape="false" style="height: 30px;width: 100px;font-size: 14px;"/>
+                                    <h:outputText  value="Borrar"/>
+                                </f:facet>
+
+                                <h:form>
+                                    <p:commandLink value="Borrar Tema" action="borrarTema" ajax="false">//TERMINAR ESTO EL FLUJO Y DEMAS...
+                                        <f:setPropertyActionListener value="#{tema}" target="#{temaController.tema}" />
+                                    </p:commandLink>          
+                                </h:form>
+
                             </p:column>
 
-                        </p:dataTable>
+                        </c:if>
 
-                        <p:dataTable id="posts" value="#{comentarioController.comentarios}"
-                                     var="post" emptyMessage="#{msg.no_post}">
-                            <p:column id="perfiles" style="width: 200px;">
-                                <f:facet name="header">
-                                </f:facet>                                    
-                                <h:outputLabel value="#{post.fecha}" escape="false" style="height: 30px;width: 100px;font-size: 10px;"/>
-                            </p:column>
-                            
-                            <p:column id="comentarioss">
-                                <f:facet name="header">
-                                    <h:outputText  value="Post"/>
-                                </f:facet> 
-                                <f:facet name="header">
-                                </f:facet> 
-                                <p:toolbar>
-                                    <p:toolbarGroup>
-                                        <h:outputFormat  value="#{post.titulo}" escape="false" />
-                                    </p:toolbarGroup>
-                                </p:toolbar>
-                                <h:outputText value="#{post.content}" escape="false"  style="height: 30px;width: 100px;font-size: 14px;" /> 
-                                <p:separator/>
-                                <p:commandButton onclick="dlg1.show()" icon="ui-icon-pencil"   style="height: 25px;width: 25px;font-size: 10px;"/>
-                                <p:commandButton onclick="dlg2.show()" icon="ui-icon-pencil"   style="height: 25px;width: 25px;font-size: 10px;"/>
+                    </p:dataTable>
 
-                                <p:commandButton action="irABorrarComentario" icon="ui-icon-trash"   style="height: 25px;width: 25px;font-size: 10px;">
-                                    <f:setPropertyActionListener target="#{comentarioController.comentario}" value="#{comentario}" />                         
-                                </p:commandButton>
+                    <p:dataTable id="posts" value="#{comentarioController.comentarios}"
+                                 var="post" emptyMessage="#{msg.no_post}">
+                        <p:column id="perfiles" style="width: 200px;">
+                            <f:facet name="header">
+                            </f:facet>                                    
+                            <h:outputLabel value="#{post.autor}" escape="false" style="height: 30px;width: 100px;font-size: 15px;font-weight: bold"/>
+                            <br/>
+                            <h:outputLabel value="#{post.fecha}" escape="false" style="height: 30px;width: 100px;font-size: 10px;"/>
+                        </p:column>
 
-                                <p:dialog id="Dialog" header="#{msg.edit_coment}" widgetVar="dlg2"  resizable="false" style="text-align: center">  
-                                    <h:form>  
-                                        <p:editor id="editcomentarioTema" value="#{comentarioController.comentario.content}" />                
-                                        <p:commandButton iconPos="right" value="#{msg.edit_coment}" ajax="false" action="irACrearComentario" />
-
-                                    </h:form>
-                                    <center>
-                                        <h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink>
-                                    </center>
-                                </p:dialog>                                 
-                            </p:column>
-                            <f:facet name="footer">  
-                                <h:outputText value=" #{msg.total} #{tema} #{msg.comentarios} " escape="false"  style="height: 30px;width: 100px;font-size: 14px;" />  
+                        <p:column id="comentarioss">
+                            <f:facet name="header">
+                                <h:outputText  value="Post"/>
                             </f:facet> 
+                            <f:facet name="header">
+                            </f:facet> 
+                            <p:toolbar>
+                                <p:toolbarGroup>
+                                    <h:outputFormat  value="#{post.titulo}" escape="false" />
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                            <h:outputText value="#{post.content}" escape="false"  style="height: 30px;width: 100px;font-size: 14px;" /> 
+                            <p:separator/>
+                            <h:form>
+                                <p:commandButton onclick="dlg1.show()" icon="ui-icon-pencil"   style="height: 25px;width: 25px;font-size: 10px;"/>
+                            </h:form>
+                            <h:form>
+                                <p:commandButton onclick="dlg2.show()" icon="ui-icon-pencil"   style="height: 25px;width: 25px;font-size: 10px;"/>
+                            </h:form>
+                            <h:form prependId="false" id="borraTema">
+                                <p:commandButton action="irABorrarComentario" icon="ui-icon-trash"   style="height: 25px;width: 25px;font-size: 10px;">
+                                    <f:setPropertyActionListener target="#{comentarioController.comentario}" value="#{post}" />                         
+                                </p:commandButton>
+                            </h:form>
 
-                        </p:dataTable>
+                            <p:dialog id="Dialog" header="#{msg.edit_coment}" widgetVar="dlg2"  resizable="false" style="text-align: center">  
+                                <h:form>  
+                                    <p:editor id="editcomentarioTema" value="#{comentarioController.comentario.content}" />                
+                                    <p:commandButton iconPos="right" value="#{msg.edit_coment}" ajax="false" action="irACrearComentario" />
 
-                        <p:separator/>
+                                </h:form>
+                                <center>
+                                    <h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink>
+                                </center>
+                            </p:dialog>  
 
-                        <h:outputLabel for="tituloComentario" value="#{msg.titulo}:" />                 
-                        <p:inputText id="tituloComentario" value="#{comentarioController.comentario.titulo}"/>
-                        <br></br>
-                        <h:outputLabel for="comentarioTema" /> 
-                        <p:editor id="comentarioTema" value="#{comentarioController.comentario.content}"/>                
-                        <p:commandButton iconPos="right" value="#{msg.crear_comentario}" ajax="false" action="irACrearComentario" />
+                        </p:column>
+                        <f:facet name="footer">  
+                            <h:outputText value=" #{msg.total} #{comentarioController.numComentarios} #{msg.comentarios} " escape="false"  style="height: 30px;width: 100px;font-size: 14px;" />  
+                        </f:facet> 
 
-                    </h:form>
+                    </p:dataTable>
+
+                    <p:separator/>
+                    <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                        <h:form prependId="false" id="temasForm">
+                            <h:outputLabel for="tituloComentario" value="#{msg.titulo}:" />                 
+                            <p:inputText id="tituloComentario" value="#{comentarioController.comentario.titulo}"/>
+                            <br/><br/>
+                            <h:outputLabel for="comentarioTema" /> 
+                            <p:editor id="comentarioTema" value="#{comentarioController.comentario.content}"/>                
+                            <p:commandButton iconPos="right" value="#{msg.crear_comentario}" ajax="false" action="irACrearComentario" />
+                        </h:form>
+                    </c:if>
                     <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
                 </p:layoutUnit>
             </p:layout>

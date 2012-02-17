@@ -8,11 +8,16 @@
             
     <view-state id="registrarUsuario" view="registrarUsuario.xhtml">
         <transition on="irARegistrarUsuario" to="registraUsuario"/>
+        <transition on="irARegistrarAvatar" to="registrarAvatar"/>
     </view-state>
             
     <action-state id="registraUsuario">
         <evaluate expression="usuarioController.crearUsuario()"/>
         <transition on="si" to="end"/>
     </action-state>    
+    
+    <action-state id="registrarAvatar">
+        <evaluate expression="fileUploadController.upload()"/>
+    </action-state>
         
 </flow>

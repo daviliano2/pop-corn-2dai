@@ -22,8 +22,7 @@ public class ComentarioServiceImpl implements ComentarioService {
 
     private ComentarioDAO comentarioDAO;
     private TemaDAO temaDAO;
-    
-    
+
     @Autowired
     @Required
     public void setComentarioDAO(final ComentarioDAO comentarioDao) {
@@ -34,7 +33,7 @@ public class ComentarioServiceImpl implements ComentarioService {
     @Required
     public void setPeliculaDAO(final TemaDAO temaDAO) {
         this.temaDAO = temaDAO;
-    }    
+    }
 
     @Override
     public void create(final Comentario comentario) {
@@ -50,9 +49,9 @@ public class ComentarioServiceImpl implements ComentarioService {
     @Override
     public Collection<Comentario> getAllComentarios(Key idTema) {
         Tema tema = temaDAO.findByPK(Tema.class, idTema);
-        return tema.getComentarios();                
+        return tema.getComentarios();
     }
-    
+
     @Override
     public Collection<Comentario> getAll() {
         return comentarioDAO.getAll(Comentario.class);
@@ -67,27 +66,27 @@ public class ComentarioServiceImpl implements ComentarioService {
     public int countAllComentarios() {
         return comentarioDAO.countAll(Comentario.class);
     }
-    
-        @Override
-        public void delComentario(Comentario comen) {
+
+    @Override
+    public void delComentario(Comentario comen) {
         System.out.println("delComentario");
         Tema tema = comen.getTema();
         boolean encontrado = false;
         Comentario p = null;
-        Iterator<Comentario> it= tema.getComentarios().iterator();
+        Iterator<Comentario> it = tema.getComentarios().iterator();
         while (it.hasNext() && !encontrado) {
             p = it.next();
             if (p.getId().equals(comen.getId())) {
                 encontrado = true;
             }
         }
-       /* if (encontrado) {
-            tema.getComentarios().remove(p);
-            
-        }
-        * 
-        */
-        comentarioDAO.remove(comen);
+        /* if (encontrado) {
+        tema.getComentarios().remove(p);
         
+        }
+         * 
+         */
+        comentarioDAO.remove(comen);
+        comentarioDAO.remove(Comentario.class,comen.getId());
     }
 }

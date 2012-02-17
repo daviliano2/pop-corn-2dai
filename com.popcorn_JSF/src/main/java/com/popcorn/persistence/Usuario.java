@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import org.primefaces.model.UploadedFile;
 
 @Entity
 public class Usuario implements Serializable {
@@ -31,6 +32,9 @@ public class Usuario implements Serializable {
     
     @Basic
     private String apellido;
+    
+    /*@Basic
+    private UploadedFile file;*/
     
     @Basic
     private String tipoRol;

@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+        <title>Temas</title>
+
+    </h:head>
+
+    <h:body>
+        
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="5" >
+                <h:column>
+                    <h:outputLabel for="titulo" value="#{msg.titulo}:" />
+                    <p:inputText id="titulo" value="#{temaController.tema.titulo}"/>
+                    <br/>
+                    <h:outputLabel for="tema" value="#{msg.tema}" />                    
+                    <p:editor id="tema" value="#{temaController.tema.content}"/>                
+                    <p:commandButton iconPos="right" value="#{msg.crear_tema}" ajax="false" action="irACrearTema"/>
+                </h:column>
+                <f:facet name="footer"></f:facet>
+            </h:panelGrid>
+        </h:form>
+        
+        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+
+    </h:body>
+</html>

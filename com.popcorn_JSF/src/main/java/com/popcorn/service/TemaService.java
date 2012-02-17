@@ -26,4 +26,6 @@ public interface TemaService {
     Collection<Tema> getPaginaTemas(int startPosition, int maxResult);
 
     int countAllTemas();
+    
+    void removeTema(Tema tema);
 }

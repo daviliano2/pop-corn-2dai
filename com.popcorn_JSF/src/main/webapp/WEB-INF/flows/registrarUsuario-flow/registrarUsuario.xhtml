@@ -10,8 +10,8 @@
     </h:head>
 
     <h:body>
-
-        <h:form>
+        <p:growl/>
+        <h:form >
             <h:panelGrid columns="2" cellpadding="5" >
                 <h:column>
                     <h:outputLabel for="username" value="#{msg.usuario}:" /> 
@@ -34,8 +34,17 @@
                 <p:commandButton iconPos="right" value="#{msg.registrar}" ajax="false" action="irARegistrarUsuario"/>
                 <f:facet name="footer"></f:facet>
             </h:panelGrid>
-        </h:form>
 
+        </h:form>
+        <ui:remove>
+            <h:form enctype="multipart/form-data">
+                <p:messages showDetail="true"/> 
+                <p:fileUpload value="#{fileUploadController.file}" mode="simple"/> 
+                <p:commandButton value="Submit" ajax="false"  
+                                 action="#{fileUploadController.upload}"/> 
+            </h:form>
+        </ui:remove>
+        
         <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
 
     </h:body>
