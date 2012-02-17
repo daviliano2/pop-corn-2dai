@@ -8,7 +8,7 @@
 
     <view-state id="verTemas" view="verTema.xhtml">
         
-        <transition on="irATema" to="irTema">    
+        <transition on="irATema" to="irVerTema">    
             <evaluate expression="temaController.getTema()" result="flowScope.tema"/>
         </transition>
         
@@ -21,36 +21,15 @@
         </transition>
                 
     </view-state>    
-    
-    <view-state id="irTema" view="comentarTema.xhtml">
-        
-        <on-render>
-            <evaluate expression="comentarioController.fijarComentarios(tema)"/>
-            <evaluate expression="temaController.fijarNumComentarios(tema)"/>           
-        </on-render>        
-        
-        <transition on="borrarTema" to="borraTema">
-            <evaluate expression="temaController.getTema()" result="flowScope.tema"/>           
-        </transition>
-        
-        <transition on="irACrearComentario" >
-            <evaluate expression="comentarioController.crearComenta(tema)"/>
-        </transition>       
-              
-        <transition on="irABorrarComentario"  to="borraComentario">
-            <evaluate expression="comentarioController.getComentario()" result="flowScope.comentario"/>
-        </transition>      
-        
-    </view-state>  
-    
+       
     <action-state id="borraTema">
         <evaluate expression="temaController.borrarTema(tema, flowRequestContext)"/>
         <transition on="si" to="end" />
     </action-state>
     
-    <action-state id="borraComentario">
-        <evaluate expression="comentarioController.borrarComentario(comentario, flowRequestContext)"/>
-        <transition on="si" to="end" />
-    </action-state>
+    <subflow-state id="irVerTema" subflow="irTema-flow" >
+        <input name="tema"/>
+        <transition on="end" to="end" />
+    </subflow-state>   
     
 </flow>
