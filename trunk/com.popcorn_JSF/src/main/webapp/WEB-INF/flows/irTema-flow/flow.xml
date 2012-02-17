@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow">
+
+    <input name="tema" />
+
+    <view-state id="irTema" view="comentarTema.xhtml">
+        
+        <on-render>
+            <evaluate expression="comentarioController.fijarComentarios(tema)"/>
+            <evaluate expression="temaController.fijarNumComentarios(tema)"/>           
+        </on-render>        
+        
+        <transition on="borrarTema2" to="borraTema2">
+            <evaluate expression="temaController.getTema()" result="flowScope.tema"/>           
+        </transition>
+        
+        <transition on="irACrearComentario" >
+            <evaluate expression="comentarioController.crearComenta(tema)"/>
+        </transition>       
+              
+        <transition on="irABorrarComentario"  to="borraComentario">
+            <evaluate expression="comentarioController.getComentario()" result="flowScope.comentario"/>
+        </transition>      
+        
+    </view-state>  
+
+    <action-state id="borraTema2">
+        <evaluate expression="temaController.borrarTema(tema, flowRequestContext)"/>
+        <transition on="si" to="end" />
+    </action-state>
+    
+    <action-state id="borraComentario">
+        <evaluate expression="comentarioController.borrarComentario(comentario, flowRequestContext)"/>
+        <transition on="si" to="end" />
+    </action-state>
+    
+</flow>
