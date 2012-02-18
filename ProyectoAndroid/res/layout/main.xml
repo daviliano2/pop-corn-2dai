@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    
+    <ImageView 
+        android:src="@drawable/ic_menu_android"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="200sp"
+        android:layout_height="200sp"/>
+    
+	<Button android:text="Ver Peliculas"
+        android:id="@+id/Button02"
+        android:layout_width="200px"
+        android:textSize="15px"
+        android:layout_height="55px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8sp">
+	</Button>
+	<Button android:text="Crear Pelicula"
+        android:id="@+id/Button03"
+        android:layout_width="200px"
+        android:textSize="15px"
+        android:layout_height="55px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="4sp">
+	</Button>
+</LinearLayout>

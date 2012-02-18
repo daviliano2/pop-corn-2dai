@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PopCorn</string>
+	<string name="lista_vacia">No hay elementos en la lista.</string>
+	<string name="crear">Nueva Pelicula</string>
+	<string name="title">Titulo</string>
+    <string name="sinopsis">Sinopsis</string>
+    <string name="director">Director</string>
+    <string name="actores">Actores</string>
+    <string name="confirm">Confirmar</string>
+    <string name="menu_insert">Añadir pelicula</string>
+    <string name="menu_delete">Borrar pelicula</string>
+    <string name="editar_pelicula">Editar pelicula</string>
+    
+</resources>
