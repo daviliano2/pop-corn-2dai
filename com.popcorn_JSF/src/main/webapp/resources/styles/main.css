@@ -1,0 +1,51 @@
+/* 
+    Document   : main
+    Created on : 16-feb-2012, 11:50:44
+    Author     : lucas
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+div.boton { 
+    background-image: url('images/logo.png');
+    
+}
+div.boton:hover { 
+    background-image: url('images/logo_on_mouseover.png');
+    
+}
+div.boton:active { 
+    background-image: url('images/logo_on_click.png');
+    
+}
+
+.ui-growl {
+	
+left:20px;
+}
+
+div.botonONOFF{
+     background-image: url('images/logout.png');
+   
+}
+div.botonONOFF:hover{
+     background-image: url('images/logoutmo.png');
+    
+}
+div.botonperfil{
+     background-image: url('images/botonA.png');
+   
+}
+div.botonperfil:hover{
+     background-image: url('images/botonAmousOver.png');
+    
+}
+
+div.botontema{
+     background-image: url('images/grandenormal.png');
+   
+}
+div.botontema:hover{
+     background-image: url('images/grandeover.png');
+    
+}
