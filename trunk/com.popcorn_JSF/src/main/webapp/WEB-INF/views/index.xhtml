@@ -4,47 +4,51 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Foro PopCorn 2 DAI</title>
+
+        <h:outputStylesheet library="styles" name="main.css">
+            
+            
+        </h:outputStylesheet>
+        
     </h:head>
     <h:body>
 
         <p:growl showDetail="true" id="mensajes"/>
 
         <center>
-            <p:layout style="min-width:200px;min-height:550px;max-width:1000px;">
+            <p:layout style="min-width:200px;min-height:375px;max-width:830px;">
                 <p:layoutUnit position="center">
                     <p:toolbar>
                         <p:toolbarGroup>
-
-                            <h:panelGrid columns="4">
+                            
+                                <h:panelGrid columns="1">
                                 <p:column>
-                                    <p:graphicImage value="/images/logo.png" /> 
+                                    <center>
+                                        <h:outputLink value="verTemas-flow">
+                                            
+                                            <div class="boton" style="alignment-adjust: auto">
+                                                <table class="boton" style="height: 148;width: 393;">
+                                                    <tr>
+                                                        <td>    
+                                                        </td>                                                        
+                                                    </tr>
+                                                    
+                                                </table>
+                                            </div>
+                                            </h:outputLink>
+                                    
 
                                     <br/>
-                                    <h:outputText value="#{msg.registrar_msg}" /> 
+                                    <h:outputText value="#{msg.bienvenido}"/>
                                     <br/>
-                                    <h:outputLink value="registrarUsuario-flow" />Registrar
+                                     </center>
                                 </p:column>  
 
-                                <p:column>
-                                    <p:graphicImage value="/images/separatorv.png" />
-                                </p:column>
 
-                                <p:column>
-                                    <h:form >
-                                        <h:panelGrid columns="2">
-
-                                            <h:outputLink value="verTemas-flow">
-                                                <p:graphicImage value="/images/logo.png" /> 
-                                            </h:outputLink>                                                                                      
-
-                                        </h:panelGrid>
-                                    </h:form>
-                                </p:column>
-
+                         
                             </h:panelGrid>
                             <br/>
-                            <p:graphicImage value="/images/separator.png" />
+                            <p:graphicImage value="/images/separator1_3.png" />
                             <br/>
                             <h:panelGrid columns="3">
                                 <h:outputLink  value="cambiarIdioma-flow">
@@ -60,6 +64,7 @@
                             <br/>
 
                             <br/>
+                           
                         </p:toolbarGroup>
                     </p:toolbar>
                 </p:layoutUnit>

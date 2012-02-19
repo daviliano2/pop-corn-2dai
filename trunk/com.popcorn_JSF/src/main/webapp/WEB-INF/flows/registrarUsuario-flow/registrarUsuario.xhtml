@@ -10,42 +10,41 @@
     </h:head>
 
     <h:body>
-        <p:growl/>
-        <h:form >
-            <h:panelGrid columns="2" cellpadding="5" >
+        <center>
+        <p:layout style="min-width:340px;min-height:310px;max-width:200;" id="layout"  >
+    <p:layoutUnit position="center">
+        <p:toolbar style=" background-image: url('../images/backreg.png')">
+            <p:toolbarGroup  >
+            <h:form>
+                <center>
+                    
+                <h:panelGrid columns="1" cellpadding="1" >
                 <h:column>
                     <h:outputLabel for="username" value="#{msg.usuario}:" /> 
+                    <p:inputText id="username" value="#{usuarioController.usuario.username}"/>
                     <br/><br/>
                     <h:outputLabel for="password" value="#{msg.password}:" />  
+                    <p:password id="password" value="#{usuarioController.usuario.password}"/> 
                     <br/><br/>
                     <h:outputLabel for="nombre" value="Nombre:" />  
-                    <br/><br/>
-                    <h:outputLabel for="apellido" value="Apellido:" />                
-                </h:column>
-                <h:column>                    
-                    <p:inputText id="username" value="#{usuarioController.usuario.username}"/>
-                    <br/>                    
-                    <p:password id="password" value="#{usuarioController.usuario.password}"/> 
-                    <br/>
                     <p:inputText id="nombre" value="#{usuarioController.usuario.nombre}"/>
-                    <br/>
+                    <br/><br/>
+                    <h:outputLabel for="apellido" value="Apellido:" />        
                     <p:inputText id="apellido" value="#{usuarioController.usuario.apellido}"/>
                 </h:column>
-                <p:commandButton iconPos="right" value="#{msg.registrar}" ajax="false" action="irARegistrarUsuario"/>
-                <f:facet name="footer"></f:facet>
+                
+                    <center> <p:commandButton iconPos="right" value="#{msg.registrar}" ajax="false" action="irARegistrarUsuario"/></center>
+               
             </h:panelGrid>
-
+                    </center>
         </h:form>
-        <ui:remove>
-            <h:form enctype="multipart/form-data">
-                <p:messages showDetail="true"/> 
-                <p:fileUpload value="#{fileUploadController.file}" mode="simple"/> 
-                <p:commandButton value="Submit" ajax="false"  
-                                 action="#{fileUploadController.upload}"/> 
-            </h:form>
-        </ui:remove>
-        
-        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
 
+        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+        </p:toolbarGroup>
+        </p:toolbar>     
+    </p:layoutUnit>
+            
+        </p:layout>
+            </center>
     </h:body>
 </html>

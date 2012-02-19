@@ -8,11 +8,25 @@
     <h:head>
 
         <title>Temas</title>
+        <h:outputStylesheet library="styles" name="main.css"/>
+        <style type="text/css">
+            
+            .ui-growl {
+	
+            left:20px;
+                }
+                .ui-growl-item-container {
+                    font-size: 12px;
+                    
+                }
+
+
+        </style>
 
     </h:head>
     <h:body>
 
-        <p:growl />
+        <p:growl  sticky="true" />
 
         <center>
             <p:layout style="min-width:400px;min-height:200px;max-width:1000px;" id="layout"> 
@@ -20,20 +34,69 @@
                     <p:toolbar>
                         <p:toolbarGroup align="left">
                             <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                                <h:outputLink value="registrarUsuario-flow">
-                                    #{msg.registrar}
+                                
+                                <h:outputLink value="registrarUsuario-flow"  >
+                                    #{msg.registrar_msg}
                                 </h:outputLink>
+                                
+                            </c:if>
+                            <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                                <h:panelGrid columns="2">
+                                    <p:column>
+                                    <h:outputLink value="crearTema-flow"   >
+                                    <div class="botontema">
+                                                <table class="botontema" style="height: 25;width: 114;">
+                                                    <tr>
+                                                        <td>    
+                                                        </td>                                                        
+                                                    </tr>
+                                                    
+                                                </table>
+                                            </div>
+                                    </h:outputLink>
+                                        </p:column>
+                                       <p:column>
+                                    <h:outputLink value="logout-flow"   >
+                                    <div class="botonperfil">
+                                                <table class="botonperfil" style="height: 25;width: 88;">
+                                                    <tr>
+                                                        <td>    
+                                                        </td>                                                        
+                                                    </tr>
+                                                    
+                                                </table>
+                                            </div>
+                                    </h:outputLink>
+                                        </p:column>
+                                </h:panelGrid>
+                                
+                                
                             </c:if>
                         </p:toolbarGroup>
                         <p:toolbarGroup align="right">   
+                            <h:panelGrid columns="2">
                             <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                                <p:column >
                                 Estas conectado como: ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username} 
-                                <h:outputLink value="logout-flow">
-                                    #{msg.desconectar}
+                                </p:column>
+                                <p:column>
+                                <h:outputLink value="logout-flow"   >
+                                    
+                                            
+                                            <div class="botonONOFF">
+                                                <table class="botonONOFF" style="height: 34;width: 34;">
+                                                    <tr>
+                                                        <td>    
+                                                        </td>                                                        
+                                                    </tr>
+                                                    
+                                                </table>
+                                            </div>
                                 </h:outputLink>
-
-                            </c:if>
-
+                                 </p:column>
+                             </c:if>
+                                </h:panelGrid>
+                                    
                             <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">   
 
                                 <h:form style="height: 15px;">
@@ -114,13 +177,8 @@
 
                     </p:dataTable>
 
-                    <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                        <p:button value="#{msg.nuevo_tema} flow independiente" href="crearTema-flow"></p:button>
-                        <h:form>
-                            <p:commandButton value="#{msg.nuevo_tema} mismo flow" action="irACrearTema"></p:commandButton>
-                        </h:form>
-                    </c:if>
                     <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+              
                 </p:layoutUnit>
             </p:layout>
         </center>
