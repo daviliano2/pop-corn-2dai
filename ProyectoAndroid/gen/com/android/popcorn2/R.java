@@ -26,12 +26,18 @@ public final class R {
         public static final int sinopsis=0x7f050003;
         public static final int title=0x7f050002;
         public static final int titulo=0x7f050008;
+        public static final int veractores=0x7f05000d;
+        public static final int verdirector=0x7f05000c;
+        public static final int versinopsis=0x7f05000b;
+        public static final int vertitle=0x7f05000a;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
-        public static final int pelicula_crear=0x7f030001;
-        public static final int pelicula_item=0x7f030002;
-        public static final int pelicula_lista=0x7f030003;
+        public static final int imagenes_ver=0x7f030000;
+        public static final int main=0x7f030001;
+        public static final int pelicula_crear=0x7f030002;
+        public static final int pelicula_item=0x7f030003;
+        public static final int pelicula_lista=0x7f030004;
+        public static final int pelicula_ver=0x7f030005;
     }
     public static final class string {
         public static final int actores=0x7f040006;
@@ -39,11 +45,13 @@ public final class R {
         public static final int confirm=0x7f040007;
         public static final int crear=0x7f040002;
         public static final int director=0x7f040005;
-        public static final int editar_pelicula=0x7f04000a;
+        public static final int editar_pelicula=0x7f04000b;
         public static final int lista_vacia=0x7f040001;
         public static final int menu_delete=0x7f040009;
         public static final int menu_insert=0x7f040008;
+        public static final int menu_update=0x7f04000a;
         public static final int sinopsis=0x7f040004;
         public static final int title=0x7f040003;
+        public static final int ver_pelicula=0x7f04000c;
     }
 }
