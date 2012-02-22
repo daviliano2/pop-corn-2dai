@@ -12,7 +12,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ControladorLista"></activity>
         <activity android:name=".ListarPeliculas"></activity>
         <activity android:name=".PeliculaEdit"></activity>
         <activity android:name=".PeliculaVer"></activity>    
