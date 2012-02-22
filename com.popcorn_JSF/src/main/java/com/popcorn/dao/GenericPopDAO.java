@@ -1,12 +1,15 @@
 
 package com.popcorn.dao;
 
+import com.google.appengine.api.datastore.Key;
 import java.io.Serializable;
 import java.util.List;
 
 public interface GenericPopDAO <T, PK extends Serializable> extends Serializable {
 
     List<T> getAll(Class<T> typeClass);
+    
+    List<T> getAllColum(Class<T> typeClass, String columna, String id) ;
     
     Integer countAll(Class<T> typeClass);
 

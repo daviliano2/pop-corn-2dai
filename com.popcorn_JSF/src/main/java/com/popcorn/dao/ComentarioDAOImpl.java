@@ -12,9 +12,11 @@ import com.popcorn.persistence.Comentario;
 public class ComentarioDAOImpl extends GenericPopDAOImpl<Comentario, Key> implements ComentarioDAO {
 
     @Override
-    public List<Comentario> getComentarios(String username) {
-        String sql = "SELECT c FROM Comentario c WHERE c.autor='" + username + "' ORDER by fecha";
+    public List<Key> getComentariosTema(String tema) {
+        //System.out.println("AQUI comentarioDAOImpl antes de la query tema: " + tema);
+        String sql = "SELECT c FROM Comentario c WHERE c.tema='" + tema + "' ORDER by fecha";
         Query query = em.createQuery(sql);
+       // System.out.println("AQUI comentarioDAOImpl despues de la query tema: " + tema);
         return query.getResultList();
     }
 }

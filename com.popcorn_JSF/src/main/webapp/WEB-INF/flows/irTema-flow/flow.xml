@@ -8,35 +8,21 @@
 
     <input name="tema" />
 
-    <view-state id="irTema" view="comentarTema.xhtml">
-        
-        <on-render>
-            <evaluate expression="comentarioController.fijarComentarios(tema)"/>
-            <evaluate expression="temaController.fijarNumComentarios(tema)"/>           
-        </on-render>        
+    <view-state id="irTema" view="comentarTema.xhtml">         
         
         <transition on="borrarTema2" to="borraTema2">
             <evaluate expression="temaController.getTema()" result="flowScope.tema"/>           
         </transition>
         
-        <transition on="irACrearComentario" >
-            <evaluate expression="comentarioController.crearComenta(tema)"/>
-        </transition>       
-              
-        <transition on="irABorrarComentario"  to="borraComentario">
-            <evaluate expression="comentarioController.getComentario()" result="flowScope.comentario"/>
-        </transition>      
+        <transition on="irAEditarTema">
+            <evaluate expression="temaController.editaTema(tema)"/>
+        </transition>                    
         
     </view-state>  
 
     <action-state id="borraTema2">
         <evaluate expression="temaController.borrarTema(tema, flowRequestContext)"/>
         <transition on="si" to="end" />
-    </action-state>
-    
-    <action-state id="borraComentario">
-        <evaluate expression="comentarioController.borrarComentario(comentario, flowRequestContext)"/>
-        <transition on="si" to="end" />
-    </action-state>
+    </action-state>   
     
 </flow>

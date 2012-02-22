@@ -32,18 +32,14 @@ public class TemaServiceImpl implements TemaService {
     public void create(final Tema tema) {
         temaDAO.insert(tema);
     }
-
-    /*@Override
-    public void create(final Tema tema, Key idPelicula) {
-        Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-        pelicula.getTemas().add(Tema);
-    }
-
+    
     @Override
-    public Collection<Tema> getAllTemas(Key idPelicula) {
-        Pelicula pelicula = peliculaDAO.findByPK(Pelicula.class, idPelicula);
-        return pelicula.getTemas();                
-    }*/
+    public void editar(Key idTema, final Tema tema) {
+        Tema tema2 = temaDAO.findByPK(Tema.class, idTema); 
+        tema2.setAutor(tema.getAutor());
+        tema2.setContent(tema.getContent());
+        tema2.setTitulo(tema.getTitulo());
+    }
     
     @Override
     public Collection<Tema> getAll() {

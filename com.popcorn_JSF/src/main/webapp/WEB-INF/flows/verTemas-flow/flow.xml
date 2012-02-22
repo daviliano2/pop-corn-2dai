@@ -10,16 +10,21 @@
         
         <transition on="irATema" to="irVerTema">    
             <evaluate expression="temaController.getTema()" result="flowScope.tema"/>
-        </transition>
-        
-        <transition on="irLoginUsuario" >     
-            <evaluate expression="usuarioController.validarUsuario(flowRequestContext)"/>    
         </transition> 
+        
+        <transition on="irAComentarios" to="irVerComentarios">    
+            <evaluate expression="temaController.getTema()" result="flowScope.tema"/>
+            <evaluate expression="comentarioController.fijarComentarios(tema)" result="flowScope.comentarios"/>
+        </transition> 
+                     
+        <transition on="irLoginUsuario" >
+            <evaluate expression="usuarioController.validarUsuario(flowRequestContext)"/>    
+        </transition>
         
         <transition on="borrarTema" to="borraTema">
             <evaluate expression="temaController.getTema()" result="flowScope.tema"/>           
         </transition>
-                
+        
     </view-state>    
        
     <action-state id="borraTema">
@@ -30,6 +35,12 @@
     <subflow-state id="irVerTema" subflow="irTema-flow" >
         <input name="tema"/>
         <transition on="end" to="end" />
-    </subflow-state>   
+    </subflow-state>
     
+    <subflow-state id="irVerComentarios" subflow="verComentarios-flow" >
+        <input name="tema"/>
+        <input name="comentarios"/>
+        <transition on="end" to="end" />
+    </subflow-state>
+        
 </flow>

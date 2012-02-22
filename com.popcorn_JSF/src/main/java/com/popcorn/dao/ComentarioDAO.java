@@ -7,6 +7,6 @@ import com.popcorn.persistence.Comentario;
 
 public interface ComentarioDAO extends GenericPopDAO<Comentario, Key> {
 	
-    List<Comentario> getComentarios(String username);
+    List<Key> getComentariosTema(String tema);
             
 }
