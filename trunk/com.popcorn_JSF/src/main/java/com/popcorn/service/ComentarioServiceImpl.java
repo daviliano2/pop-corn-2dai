@@ -9,15 +9,13 @@ import com.popcorn.dao.ComentarioDAO;
 import com.popcorn.dao.TemaDAO;
 import com.popcorn.persistence.Comentario;
 import com.popcorn.persistence.Tema;
-import java.util.Iterator;
 import org.springframework.transaction.annotation.Transactional;
-
 /**
  *
  * @author miguel
  */
 @Transactional
-@Service
+@Service("comentarioService")
 public class ComentarioServiceImpl implements ComentarioService {
 
     private ComentarioDAO comentarioDAO;
@@ -42,14 +40,41 @@ public class ComentarioServiceImpl implements ComentarioService {
 
     @Override
     public void create(final Comentario comentario, Key idTema) {
+        comentarioDAO.insert(comentario);        
         Tema tema = temaDAO.findByPK(Tema.class, idTema);
-        tema.getComentarios().add(comentario);
+        addComentario(comentario, tema);
+        create(comentario);       
+    }
+    
+    @Transactional
+    @Override
+    public void addComentario(Comentario comentario, Tema tema) {
+        Tema tema2 = temaDAO.findByPK(Tema.class, tema.getId());
+        tema2.getComentarios().add(comentario.getId());        
+    }
+    
+    @Override
+    public Comentario getComentario(Key idComentario) {
+        return comentarioDAO.findByPK(Comentario.class, idComentario);
     }
 
     @Override
-    public Collection<Comentario> getAllComentarios(Key idTema) {
+    public Collection<Key> getAllComentarios(Key idTema) {
+        //System.out.println("AQUI comentarioServiceImpl getAllComentarios idTema: " + idTema);
         Tema tema = temaDAO.findByPK(Tema.class, idTema);
+        //System.out.println("AQUI comentarioServiceImpl getAllComentarios 2 Tema: " + tema.getTitulo());
         return tema.getComentarios();
+    }
+    
+    @Override
+    public Collection<Comentario> getAllColum(Tema tema) {        
+        return comentarioDAO.getAllColum(Comentario.class, "tema", tema.getTitulo());
+    }
+    
+    @Override
+    public Collection<Key> getTemaComentarios(Tema tema) {
+        System.out.println("AQUI comentarioServiceImpl tema: " + tema);
+        return comentarioDAO.getComentariosTema(tema.getTitulo());
     }
 
     @Override
@@ -68,25 +93,11 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
 
     @Override
-    public void delComentario(Comentario comen) {
-        System.out.println("delComentario");
-        Tema tema = comen.getTema();
-        boolean encontrado = false;
-        Comentario p = null;
-        Iterator<Comentario> it = tema.getComentarios().iterator();
-        while (it.hasNext() && !encontrado) {
-            p = it.next();
-            if (p.getId().equals(comen.getId())) {
-                encontrado = true;
-            }
-        }
-        /* if (encontrado) {
-        tema.getComentarios().remove(p);
-        
-        }
-         * 
-         */
-        comentarioDAO.remove(comen);
-        comentarioDAO.remove(Comentario.class,comen.getId());
+    public void removeComentario(Comentario comen) {
+        System.out.println("AQUI comentarioService removeComentario");        
+        comentarioDAO.remove(Comentario.class,comen.getId());  
+        Tema tema = temaDAO.findByPK(Tema.class, comen.getIdTema());
+        tema.getComentarios().remove(comen.getId());
     }
+   
 }

@@ -17,9 +17,7 @@ public interface TemaService {
     
     void create(final Tema tema);
     
-    /*void create(final Tema tema, Key idPelicula);
-
-    Collection<Tema> getAllTemas(Key idPelicula);*/
+    void editar(Key idTema, Tema tema);
     
     Collection<Tema> getAll() ;
 

@@ -4,14 +4,18 @@
  */
 package com.popcorn.view;
 
+import com.google.appengine.api.datastore.Key;
+import com.popcorn.persistence.Comentario;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import com.popcorn.persistence.Tema;
+import com.popcorn.service.ComentarioService;
 import com.popcorn.service.TemaService;
 
 import com.popcorn.service.UsuarioService;
 import com.popcorn.view.utils.MessageProvider;
+import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -27,7 +31,16 @@ public class TemaController implements Serializable {
     private Collection<Tema> temas;
     private TemaService temaService;
     private UsuarioService usuarioService;
+    private Collection<Key> comentarios;
+    private ComentarioService comentarioService;
+    private Comentario comentario;
     private int numComentarios;
+
+    @Required
+    @Autowired
+    public void setComentarioService(ComentarioService comentarioService) {
+        this.comentarioService = comentarioService;
+    }
 
     @Required
     @Autowired
@@ -50,6 +63,27 @@ public class TemaController implements Serializable {
 
     public void setNumComentarios(int numComentarios) {
         this.numComentarios = numComentarios;
+    }
+
+    public void setComentarios(Collection<Key> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public Collection<Key> sacarComentarios(Tema tema) {
+        comentarios = comentarioService.getAllComentarios(tema.getId());
+        return comentarios;
+    }
+
+    public Collection<Key> getComentarios() {
+        return comentarios;
+    }
+
+    public Comentario getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(Comentario comentario) {
+        this.comentario = comentario;
     }
 
     public Tema getTema() {
@@ -85,14 +119,18 @@ public class TemaController implements Serializable {
             tema.setFecha(new Date());
             tema.setAutor(usuarioService.getCurrentUser().getUsername());
             temaService.create(tema);
-        }
+        }        
         return temaCorrecto;
     }
 
     public String borrarTema(Tema tema, RequestContext context) {
-        //System.out.println("AKI temaController borrarTema 1 tema: " + tema);
         temaService.removeTema(tema);
         context.getMessageContext().addMessage(new MessageBuilder().info().defaultText(MessageProvider.getValue("tema_borrado")).build());
         return "si";
+    }
+
+    public void editaTema(Tema tema2) {
+        tema.setAutor(usuarioService.getCurrentUser().getUsername());
+        temaService.editar(tema2.getId(), tema);        
     }
 }

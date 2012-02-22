@@ -29,11 +29,12 @@ public class Tema implements Serializable {
     @Basic
     private String titulo;
     
-    
-    
-    @OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Comentario> comentarios;
+    /*@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Comentario> comentarios = new ArrayList<Comentario>();*/
 
+    @Basic
+    List<Key> comentarios = new ArrayList<Key>();
+    
     public Tema() {
     }
 
@@ -44,13 +45,13 @@ public class Tema implements Serializable {
         this.content = content;
         this.fecha = fecha;
         this.titulo = titulo;
-        this.comentarios = new ArrayList<Comentario>();  
+        this.comentarios = new ArrayList<Key>();  
     }
     
     public Tema(String content, Date fecha) {
         this.content = content;
         this.fecha = fecha;
-        this.comentarios = new ArrayList<Comentario>();  
+        this.comentarios = new ArrayList<Key>();  
     }
 
     public String getAutor() {
@@ -93,14 +94,14 @@ public class Tema implements Serializable {
         this.fecha = fecha;
     }
     
-     public List<Comentario> getComentarios() {
+     public List<Key> getComentarios() {
         if(comentarios == null) {
-            comentarios = new ArrayList<Comentario>();
+            comentarios = new ArrayList<Key>();
         }
         return comentarios;
     }
 
-    public void setComentarios(List<Comentario> comentarios) {
+    public void setComentarios(List<Key> comentarios) {
         this.comentarios = comentarios;
     }
     

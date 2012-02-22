@@ -5,11 +5,9 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
 
-        <h:outputStylesheet library="styles" name="main.css">
-            
-            
+        <h:outputStylesheet library="styles" name="main.css"> 
         </h:outputStylesheet>
-        
+
     </h:head>
     <h:body>
 
@@ -20,32 +18,23 @@
                 <p:layoutUnit position="center">
                     <p:toolbar>
                         <p:toolbarGroup>
-                            
-                                <h:panelGrid columns="1">
+
+                            <h:panelGrid columns="1">
                                 <p:column>
                                     <center>
                                         <h:outputLink value="verTemas-flow">
-                                            
                                             <div class="boton" style="alignment-adjust: auto">
-                                                <table class="boton" style="height: 148;width: 393;">
-                                                    <tr>
-                                                        <td>    
-                                                        </td>                                                        
-                                                    </tr>
-                                                    
+                                                <table class="boton" style="height: 148px;width: 393px;">
+                                                    <tr><td></td></tr>
                                                 </table>
                                             </div>
-                                            </h:outputLink>
-                                    
-
-                                    <br/>
-                                    <h:outputText value="#{msg.bienvenido}"/>
-                                    <br/>
-                                     </center>
+                                        </h:outputLink>              
+                                        <br/>
+                                        <h:outputText value="#{msg.bienvenido}"/>
+                                        <br/>
+                                    </center>
                                 </p:column>  
-
-
-                         
+                                
                             </h:panelGrid>
                             <br/>
                             <p:graphicImage value="/images/separator1_3.png" />
@@ -61,16 +50,11 @@
                                 </h:outputLink>
 
                             </h:panelGrid>
-                            <br/>
-
-                            <br/>
-                           
+                            <br/><br/>
                         </p:toolbarGroup>
                     </p:toolbar>
                 </p:layoutUnit>
             </p:layout> 
-
         </center>
-
     </h:body>
 </html>

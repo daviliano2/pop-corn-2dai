@@ -1,5 +1,6 @@
 package com.popcorn.dao;
 
+import com.google.appengine.api.datastore.Key;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -26,10 +27,15 @@ public class GenericPopDAOImpl<T, PK extends Serializable> implements GenericPop
     @SuppressWarnings("unchecked")
     @Override
     public List<T> getAll(Class<T> typeClass) {
-        final StringBuilder sql = new StringBuilder("select c from ").append(
-                typeClass.getSimpleName()).append(" c");
+        final StringBuilder sql = new StringBuilder("select c from ").append(typeClass.getSimpleName()).append(" c");
         return (List<T>) em.createQuery(sql.toString()).getResultList();
-
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<T> getAllColum(Class<T> typeClass, String columna, String id) {
+        final StringBuilder sql = new StringBuilder("select c from ").append(typeClass.getSimpleName()).append(" c").append(" where ").append("c.").append(columna).append(" = ").append(id);
+        return (List<T>) em.createQuery(sql.toString()).getResultList();
     }
 
     @Override

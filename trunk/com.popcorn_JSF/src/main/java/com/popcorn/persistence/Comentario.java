@@ -41,8 +41,14 @@ public class Comentario implements Serializable {
     @Basic
     private String autor;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Tema tema;
+    @Basic
+    private String temaTitulo;
+    
+    @Basic 
+    private Key idTema;
+    
+    /*@ManyToOne(fetch = FetchType.LAZY)
+    private Tema tema;    */
 
     public Comentario() {
         titulo = null;
@@ -93,11 +99,27 @@ public class Comentario implements Serializable {
         this.fecha = fecha;
     }
 
-    public Tema getTema() {
+    public String getTemaTitulo() {
+        return temaTitulo;
+    }
+
+    public void setTemaTitulo(String temaTitulo) {
+        this.temaTitulo = temaTitulo;
+    }    
+    
+    public Key getIdTema() {
+        return idTema;
+    }
+
+    public void setIdTema(Key idTema) {
+        this.idTema = idTema;
+    }
+    
+    /*public Tema getTema() {
         return tema;
     }
 
     public void setTema(Tema tema) {
         this.tema = tema;
-    }
+    }*/
 }
