@@ -10,25 +10,24 @@ public class Pelicula extends Activity {
 	
 	private static final int ACTIVITY_CREATE=0;
 	
+	
 	    /** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.main);
 	    
-	    //Creamos un boton que nos va a llevar al hacer click a la actividad de CrearPelicula
+	    //Creamos un boton que nos va a llevar a la actividad de ListarPeliculas
 	    Button next = (Button) findViewById(R.id.Button02);
         next.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View view) {
-
-                // Indicamos que vamos a iniciar la actividad pasandole 
-        		//la clase crear pelicula 
-                Intent myIntent = new Intent(view.getContext(), CrearPelicula.class);
+        		Intent myIntent = new Intent(view.getContext(), ListarPeliculas.class);
                 startActivityForResult(myIntent, 0);
             }
         });
         
-        //Creamos otro boton que nos lleva directamente a crear una pelicula
+        //Creamos otro boton que nos lleva a crear una pelicula, 
+        //es la misma clase que editar pelicula
         Button siguiente = (Button) findViewById(R.id.Button03);
         siguiente.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view2) {
