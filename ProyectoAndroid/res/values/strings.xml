@@ -11,6 +11,8 @@
     <string name="confirm">Confirmar</string>
     <string name="menu_insert">Añadir pelicula</string>
     <string name="menu_delete">Borrar pelicula</string>
+    <string name="menu_update">Modificar pelicula</string>
     <string name="editar_pelicula">Editar pelicula</string>
+    <string name="ver_pelicula">Ver pelicula</string>
     
 </resources>

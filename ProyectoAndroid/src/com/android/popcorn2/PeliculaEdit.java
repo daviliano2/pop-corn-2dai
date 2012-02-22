@@ -1,9 +1,15 @@
 package com.android.popcorn2;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -14,6 +20,7 @@ public class PeliculaEdit extends Activity {
     private EditText mDirectorText;
     private EditText mActoresText;
     private Long mRowId;
+    private static final int NOTIF_ALERTA_ID = 1;
     private PeliculaDbAdapter mDbHelper;
     
     @Override
@@ -42,14 +49,51 @@ public class PeliculaEdit extends Activity {
         
         populateFields();
         	
-        confirmButton.setOnClickListener(new View.OnClickListener() {
+        confirmButton.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				//Obtenemos una referencia al servicio de notificaciones
+				String ns = Context.NOTIFICATION_SERVICE;
+				NotificationManager notManager = 
+					(NotificationManager) getSystemService(ns);
+				
+				//Configuramos la notificaci�n
+				int icono = android.R.drawable.stat_sys_warning;
+				CharSequence textoEstado = "Alerta!";
+				long hora = System.currentTimeMillis();
 
-            public void onClick(View view) {
-                setResult(RESULT_OK);
+				Notification notif = 
+					new Notification(icono, textoEstado, hora);
+				
+				//Configuramos el Intent
+				Context contexto = getApplicationContext();
+				CharSequence titulo = "Notificacion";
+				CharSequence descripcion = "Notificacion enviada correctamente";
+				
+				Intent notIntent = new Intent(contexto, 
+						PeliculaEdit.class);
+				
+				PendingIntent contIntent = PendingIntent.getActivity(
+						contexto, 0, notIntent, 0);
+
+				notif.setLatestEventInfo(
+						contexto, titulo, descripcion, contIntent);
+				
+				//AutoCancel: cuando se pulsa la notificai�n �sta desaparece
+				notif.flags |= Notification.FLAG_AUTO_CANCEL;
+				
+				//A�adir sonido, vibraci�n y luces
+				//notif.defaults |= Notification.DEFAULT_SOUND;
+				//notif.defaults |= Notification.DEFAULT_VIBRATE;
+				//notif.defaults |= Notification.DEFAULT_LIGHTS;
+				
+				//Enviar notificaci�n
+				notManager.notify(NOTIF_ALERTA_ID, notif);
+				
+				setResult(RESULT_OK);
                 finish();
-            }
-
-        });
+			}
+		});
     }
     
     private void populateFields() {
@@ -98,7 +142,8 @@ public class PeliculaEdit extends Activity {
                 mRowId = id;
             }
         } else {
-            mDbHelper.updatePelicula(mRowId, title, sinopsis, director, actores);
+        	mDbHelper.updatePelicula(mRowId, title, sinopsis, director, actores);
         }
     }
+   
 }

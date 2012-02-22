@@ -13,7 +13,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ControladorLista"></activity>
-        <activity android:name=".CrearPelicula"></activity>
+        <activity android:name=".ListarPeliculas"></activity>
         <activity android:name=".PeliculaEdit"></activity>
+        <activity android:name=".PeliculaVer"></activity>    
+    </application>
+    <application 
+        android:name=".Global">
     </application>
 </manifest>
