@@ -29,27 +29,22 @@
                                 <h:outputText  value="#{tema.titulo}"/>
                             </f:facet> 
                             <h:outputFormat  value="#{tema.content}" escape="false" style="height: 30px;width: 100px;font-size: 14px;"/>
-
                         </p:column>
+                        
                         <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and 
                                       sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username eq tema.autor}">
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText  value="Borrar"/>
                                 </f:facet>
-
                                 <h:form>
                                     <p:commandLink value="Borrar Tema" action="borrarTema2" ajax="false">
                                         <f:setPropertyActionListener value="#{tema}" target="#{temaController.tema}" />
                                     </p:commandLink>          
                                 </h:form>
-
                             </p:column>
                         </c:if>
-                        <p:column>
-
-                        </p:column>
-
+                        
                     </p:dataTable> 
                     <p:separator/>
                     <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and 

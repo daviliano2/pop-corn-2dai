@@ -57,7 +57,7 @@
                                 </h:panelGrid>
                             </c:if>
                         </p:toolbarGroup>
-                        
+
                         <p:toolbarGroup align="right">   
                             <h:panelGrid columns="2">
                                 <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
@@ -101,18 +101,32 @@
                         <p:column >
                             <f:facet name="header">
                                 <h:outputText  value="#{msg.titulo}"/>
-                            </f:facet> 
+                            </f:facet>                             
+                            <ui:remove>
+                                
+                            </ui:remove>
+                            
+                            <ui:remove>
+                                <h:form>                                
+                                    <p:commandButton action="borrarTema" icon="ui-icon-trash"   style="height: 25px;width: 25px;font-size: 10px;">
+                                        <f:setPropertyActionListener target="#{temaController.tema}" value="#{tema}" />                         
+                                    </p:commandButton>                                    
+                                </h:form>
+                            </ui:remove>                             
+
                             <h:form>
-                                <p:commandLink value="#{tema.titulo}" action="irATema" ajax="false">
-                                    <f:setPropertyActionListener target="#{temaController.tema}" value="#{tema}" />
-                                </p:commandLink>
-                            </h:form>     
-                            <h:form>
-                                <p:commandLink value="ver comentarios" action="irAComentarios" ajax="false">
+                                <p:commandLink value="#{tema.titulo}" action="irAComentarios" ajax="false">
                                     <f:setPropertyActionListener target="#{temaController.tema}" value="#{tema}" />
                                 </p:commandLink>
                             </h:form> 
-                        </p:column>             
+                            
+                            
+                        </p:column>  <ui:remove>
+                        <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and 
+                                      sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username eq tema.autor}">
+                        </c:if>
+                        </ui:remove>
+                                                    
 
                         <p:column>
                             <f:facet name="header">
@@ -141,22 +155,13 @@
                                 </f:facet>
 
                                 <h:form>
-                                    <p:commandLink value="Borrar Tema" action="borrarTema" ajax="false">//TERMINAR ESTO EL FLUJO Y DEMAS...
+                                    <p:commandLink value="Borrar Tema" action="borrarTema" ajax="false" >
                                         <f:setPropertyActionListener value="#{tema}" target="#{temaController.tema}" />
                                     </p:commandLink>          
                                 </h:form>
 
                             </p:column>
-                        </sec:authorize>
-                        <ui:remove>
-                            Ver http://www.developer.am/j2eetutorial/jsf/?page=4-ways-to-pass-parameter-from-jsf-page-to-backing-bean
-
-                            <p:column>
-                                <p:commandLink value="Ir a tema" action="irATema" ajax="false" >
-                                    <f:setPropertyActionListener target="#{temaController.tema}" value="#{tema}" />
-                                </p:commandLink>                    
-                            </p:column>
-                        </ui:remove>
+                        </sec:authorize>                        
 
                     </p:dataTable>
 

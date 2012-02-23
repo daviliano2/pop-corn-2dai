@@ -28,19 +28,20 @@ import org.springframework.webflow.execution.RequestContext;
 public class TemaController implements Serializable {
 
     private Tema tema = new Tema();
+    private Tema tema2 = new Tema();
     private Collection<Tema> temas;
     private TemaService temaService;
     private UsuarioService usuarioService;
-    private Collection<Key> comentarios;
+    /*private Collection<Key> comentarios;
     private ComentarioService comentarioService;
-    private Comentario comentario;
+    private Comentario comentario;*/
     private int numComentarios;
 
-    @Required
+    /*@Required
     @Autowired
     public void setComentarioService(ComentarioService comentarioService) {
         this.comentarioService = comentarioService;
-    }
+    }*/
 
     @Required
     @Autowired
@@ -64,7 +65,7 @@ public class TemaController implements Serializable {
     public void setNumComentarios(int numComentarios) {
         this.numComentarios = numComentarios;
     }
-
+/*
     public void setComentarios(Collection<Key> comentarios) {
         this.comentarios = comentarios;
     }
@@ -84,7 +85,7 @@ public class TemaController implements Serializable {
 
     public void setComentario(Comentario comentario) {
         this.comentario = comentario;
-    }
+    }*/
 
     public Tema getTema() {
         return tema;
@@ -92,6 +93,15 @@ public class TemaController implements Serializable {
 
     public void setTema(Tema tema) {
         this.tema = tema;
+    }
+    
+    
+    public Tema getTema2() {
+        return tema2;
+    }
+
+    public void setTema2(Tema tema2) {
+        this.tema2 = tema2;
     }
 
     public Collection<Tema> getTemas() {
@@ -129,8 +139,13 @@ public class TemaController implements Serializable {
         return "si";
     }
 
-    public void editaTema(Tema tema2) {
-        tema.setAutor(usuarioService.getCurrentUser().getUsername());
-        temaService.editar(tema2.getId(), tema);        
+    public String editaTema() {
+        System.out.println("AQUI temaController editaTema 1 tema2id: " + tema2.getId());
+        System.out.println("AQUI temaController editaTema 2 tema2contenido: " + tema2.getContent());    
+        System.out.println("AQUI temaController editaTema 3 temaid: " + tema.getId());
+        System.out.println("AQUI temaController editaTema 4 temacontenido: " + tema.getContent());
+        tema2.setAutor(usuarioService.getCurrentUser().getUsername());
+        temaService.editar(tema.getId(), tema2);  
+        return "si";
     }
 }

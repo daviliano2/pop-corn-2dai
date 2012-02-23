@@ -12,14 +12,10 @@ import com.popcorn.persistence.Comentario;
 import com.popcorn.persistence.Tema;
 import com.popcorn.service.ComentarioService;
 
-import javax.faces.context.FacesContext;
 import com.popcorn.service.TemaService;
 import com.popcorn.service.UsuarioService;
 import java.util.ArrayList;
-import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.faces.component.UIData;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Scope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -113,7 +109,7 @@ public class ComentarioController implements Serializable {
         return comentarios;
     }
 
-    public void crearComenta(Tema tema) {
+    public String crearComenta(Tema tema) {
         if (comentario != null) {
             comentario.setFecha(new Date());
             comentario.setAutor(usuarioService.getCurrentUser().getUsername());
@@ -125,10 +121,11 @@ public class ComentarioController implements Serializable {
             comentarioService.create(comentario);
             comentarioService.addComentario(comentario, tema);
         }
+        return "si";
     }
     
     public Comentario buscaComentario() {        
-        return comentarioService.getComentario(idComentario);
+        return comentarioService.getComentario(comentario.getId());
     }
 
     public String borrarComentario(Comentario comentario, RequestContext context) {
@@ -141,5 +138,16 @@ public class ComentarioController implements Serializable {
         System.out.println("Aki editarComenta");
         System.out.println("a id: " + a.getId());
         System.out.println("comentario id: " + comentario.getId());
+    }
+    
+    public Collection<Comentario> convertir(Collection<Key> comentarios) {
+        Collection<Comentario> coments = new ArrayList<Comentario>();
+        for(Key com : comentarios) {
+            coments.add(comentarioService.getComentario(com));
+        }
+        for(Comentario co1 : coments) {
+        System.out.println("AQUI comentarioController convertir coments: " + co1.getContent());
+        }
+        return coments;
     }
 }

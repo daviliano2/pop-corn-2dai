@@ -10,23 +10,49 @@
     <input name="comentarios"/>
     
     <view-state id="verComentarios" view="verComentario.xhtml">       
-                                    
+                     
+        <on-render>
+            <evaluate expression="comentarioController.convertir(comentarios)" result="flowScope.coments"/>
+        </on-render>
+        
         <transition on="irLoginUsuario" >
             <evaluate expression="usuarioController.validarUsuario(flowRequestContext)"/>    
         </transition>
         
-        <transition on="irACrearComentario" >
-            <evaluate expression="comentarioController.crearComenta(tema)"/>
+        <transition on="irACrearComentario" to="creaComentario">            
         </transition>  
+        
+        <transition on="irAEditarTema" to="editaTema">
+            <!--<evaluate expression="temaController.getTema()" result="flowScope.tema"/>-->
+        </transition>
         
         <transition on="borrarComentario" to="borraComentario">
             <evaluate expression="comentarioController.buscaComentario()" result="flowScope.comentario"/>           
         </transition>
         
+        <transition on="borrarTema" to="borraTema">
+            <evaluate expression="temaController.getTema()" result="flowScope.tema"/>           
+        </transition>
+        
     </view-state>    
+       
+    <action-state id="borraTema">
+        <evaluate expression="temaController.borrarTema(tema, flowRequestContext)"/>
+        <transition on="si" to="end" />
+    </action-state>
+    
+    <action-state id="editaTema">
+        <evaluate expression="temaController.editaTema()"/>
+        <transition on="si" to="end" />
+    </action-state>
        
     <action-state id="borraComentario">
         <evaluate expression="comentarioController.borrarComentario(comentario, flowRequestContext)"/>
+        <transition on="si" to="end" />
+    </action-state>
+    
+    <action-state id="creaComentario">
+        <evaluate expression="comentarioController.crearComenta(tema)"/>
         <transition on="si" to="end" />
     </action-state>
             
