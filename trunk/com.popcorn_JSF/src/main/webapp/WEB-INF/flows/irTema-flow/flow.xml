@@ -8,20 +8,24 @@
 
     <input name="tema" />
 
-    <view-state id="irTema" view="comentarTema.xhtml">         
+    <view-state id="irTema" view="editarTema.xhtml">         
         
         <transition on="borrarTema2" to="borraTema2">
             <evaluate expression="temaController.getTema()" result="flowScope.tema"/>           
         </transition>
         
-        <transition on="irAEditarTema">
-            <evaluate expression="temaController.editaTema(tema)"/>
+        <transition on="irAEditarTema" to="editaTema">              
         </transition>                    
         
     </view-state>  
 
     <action-state id="borraTema2">
         <evaluate expression="temaController.borrarTema(tema, flowRequestContext)"/>
+        <transition on="si" to="end" />
+    </action-state>   
+    
+    <action-state id="editaTema">
+        <evaluate expression="temaController.editaTema(tema)"/>
         <transition on="si" to="end" />
     </action-state>   
     

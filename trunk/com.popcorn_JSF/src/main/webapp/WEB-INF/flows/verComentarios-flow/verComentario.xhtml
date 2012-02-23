@@ -102,16 +102,37 @@
                         </p:column>
                     </p:dataTable>
 
-                    <p:dataTable id="comentarios" value="#{comentarios}"
+                    <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and 
+                                  sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username eq tema.autor}">
+                        <h:form>
+                            <p:commandButton onclick="dlg2.show()" icon="ui-icon-pencil" type="button" />
+                        </h:form>                   
+
+                        <p:dialog id="Dialog" header="#{msg.edit_coment}" widgetVar="dlg2"  resizable="false" style="text-align: center">  
+                            <h:form>
+                                <h:outputLabel for="titleTema" value="#{msg.titulo}:" />                 
+                                <p:inputText id="titleTema" value="#{temaController.tema2.titulo}"/>
+                                <p:editor id="editcomentaTema" value="#{temaController.tema2.content}" />                
+                                <p:commandLink  value="#{msg.edit_coment}" ajax="false" action="irAEditarTema" > <!--HAY QUE INTERNACIONALIZAR ESTOS BOTONES-->
+                                    <f:setPropertyActionListener value="#{tema}" target="#{temaController.tema}" />
+                                </p:commandLink>
+                            </h:form>
+                        </p:dialog> 
+
+                        <h:form>
+                            <p:commandLink value="Borrar Tema User" action="borrarTema" ajax="false" >
+                                <f:setPropertyActionListener value="#{tema}" target="#{temaController.tema}" />
+                            </p:commandLink>          
+                        </h:form>
+
+                      
+                    </c:if>
+
+                    <p:dataTable id="comentarios" value="#{coments}"
                                  var="coment" emptyMessage="#{msg.no_temas}" paginator="true" rows="10"  
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                  rowsPerPageTemplate="5,10,15">
                         <ui:remove>
-                            <p:column>
-                                <h:outputText value="#{coment}" converter="com.popcorn.view.ComentarioConverter"  />
-                            </p:column>
-                        </ui:remove>
-
                         <p:column>
                             <f:facet name="header">
 
@@ -119,8 +140,8 @@
                             <h:outputLabel value="#{coment}" escape="false" style="font-weight: bold"/>
                             <br/>
                         </p:column>
-
-                        <ui:remove>
+                            </ui:remove>
+                        
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.autor}"/>
@@ -143,8 +164,8 @@
                                 </f:facet>                    
                                 <h:outputFormat value="#{coment.content}" escape="false"/>
                             </p:column>
-                        </ui:remove>
                         
+
                         <sec:authorize access="hasRole('ROLE_ADMIN')">
                             <p:column>
                                 <f:facet name="header">
@@ -153,16 +174,13 @@
 
                                 <h:form>
                                     <p:commandLink value="Borrar Comentario" action="borrarComentario" ajax="false">
-                                        <f:setPropertyActionListener value="#{coment}" target="#{comentarioController.idComentario}" />
+                                        <f:setPropertyActionListener value="#{coment}" target="#{comentarioController.comentario}" />
                                     </p:commandLink>          
                                 </h:form>
                             </p:column>
                         </sec:authorize>
-                        <ui:remove>
-                            <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and 
-                                          sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username eq coment.autor}">
-                            </c:if>
-                        </ui:remove>
+
+                       
                     </p:dataTable>
 
                     <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
