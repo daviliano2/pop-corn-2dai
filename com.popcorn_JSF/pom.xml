@@ -10,7 +10,7 @@
 
     <name>PopCornJSF</name>
     <description>Proyecto 2011/2012</description>
-    <url>http://popcorn2dai.appspot.com/</url>
+    <url>http://foropopcorn2dai.appspot.com/</url>
     <organization>
         <name>daviliano2@gmail.com</name>
     </organization>
@@ -42,8 +42,8 @@
 		<!--
 			Upload to http://0.latest.<appId>.appspot.com by default
 		-->
-        <gae.application.appId>popcorn</gae.application.appId>
-        <gae.application.version>15</gae.application.version>
+        <gae.application.appId>foropopcorn2dai</gae.application.appId>
+        <gae.application.version>1</gae.application.version>
     </properties>
 
 
