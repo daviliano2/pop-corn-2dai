@@ -87,7 +87,7 @@ public class ComentarioController implements Serializable {
         this.comentario = comentario;
     }
     
-    public int getNumComentarios() {
+    public int getNumComentarios() {        
         return numComentarios;
     }
     
