@@ -85,7 +85,7 @@
                         </p:toolbarGroup>  
                     </p:toolbar>
 
-                    <p:dataTable id="temas" value="#{temaController.tema}" var="tema" emptyMessage="#{msg.no_temas}">   
+                    <p:dataTable id="temas" value="#{tema}" var="tema" emptyMessage="#{msg.no_temas}">   
                         <p:column style="width: 200px;">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.perfil}"/>
@@ -132,8 +132,6 @@
                                  var="coment" emptyMessage="#{msg.no_temas}" paginator="true" rows="10"  
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                  rowsPerPageTemplate="5,10,15">
-
-
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{msg.autor}"/>
