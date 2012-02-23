@@ -187,7 +187,8 @@
                                     </sec:authorize>
                                     <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
                                         <li><a title="Registro de usuarios" onclick="registrarUsuario()" style="cursor:pointer">Registrar Usuario</a></li>
-                                    </c:if>                            
+                                    </c:if> 
+                                    <li><a href="http://foropopcorn2dai.appspot.com/spring/index" style="cursor:pointer">Foro</a></li>
                                 </ul>       
                             </div>
                         </tr>
@@ -214,7 +215,7 @@
                 </div>
                 <div id="cse-search-form" style="width: 400px;">Cargando</div>
 
-               <script src="jQuery/js/jsapi.js" type="text/javascript"></script>
+                <script src="jQuery/js/jsapi.js" type="text/javascript"></script>
                 <script type="text/javascript"> 
                     google.load('search', '1', {language : 'es', style : "stylesheets/minimalist.css"  });
                     google.setOnLoadCallback(function() {
@@ -266,7 +267,7 @@
                 <c:if test="${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and usuario.tipoRol eq 'Usuario'}">
                     <div id="apDivNovedades">
                         <div id="apDivNombreNovedades">Categorias Favoritas</div>
-                        
+
                         <ul id="galeria">
                             <style>
                                 #slider {width: 216px; height: 256px;left: -40px; padding:0; top: -16px; border-radius: 5px;}
