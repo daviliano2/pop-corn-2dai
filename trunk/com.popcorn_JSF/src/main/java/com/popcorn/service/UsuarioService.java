@@ -29,4 +29,6 @@ public interface UsuarioService extends UserDetailsService {
     void setRol(Usuario usuario, String rol);
     boolean isAdmin();
     public UserDetails loadUserByUsername(String username); 
+    public void update(Key idRol,final Usuario usuario);
+    
 }

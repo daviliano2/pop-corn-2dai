@@ -60,6 +60,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             if (rol.getNombre().compareTo("ROLE_USER") == 0) {
                 Rol rol1 = rolDAO.findByPK(Rol.class, rol.getId());
                 usuario.setTipoRol(rol.getDescripcion());
+                usuario.setAvatar("/resources/images/anon.png");
                 rol1.getUsuarios().add(usuario);
             }
         }
@@ -95,11 +96,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         Rol rol = rolDAO.findByPK(Rol.class, idRol);
         return rol.getUsuarios();
     }
-    
+
     @Override
     public Collection<Usuario> getAll() {
-        return usuarioDAO.getAll(Usuario.class);
+            return usuarioDAO.getAll(Usuario.class);
     }
+    
+      
+
 
     @Override
     public void setRol(Usuario usuario, String rol) {
@@ -161,4 +165,17 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return isAdmin;
     }
+    
+    @Override
+    public void update(Key idRol,final Usuario usuario){
+       
+        Usuario usr = usuarioDAO.findByPK(Usuario.class, idRol);       
+        usr.setApellido(usuario.getApellido());
+        usr.setNombre(usuario.getNombre());
+        usr.setUsername(usuario.getUsername());
+        usr.setPassword(usuario.getPassword());
+        usr.setAvatar(usuario.getAvatar());
+        
+    }
+    
 }

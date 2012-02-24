@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:faces="http://www.springframework.org/schema/faces"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow">
+            
+         
+    <view-state id="editarPerfil" view="editarPerfil.xhtml">
+        <on-render>
+            <evaluate expression="usuarioController.actualUser()" result="flowScope.usuario" />
+
+        </on-render>
+            
+            
+        <transition on="irEditarPerfil" to="logOut">    
+            <evaluate expression="usuarioController.update(usuario)" />
+        </transition>
+    </view-state>
+              
+    <subflow-state id="logOut" subflow="logout-flow" >
+        <transition on="end" to="end" />
+    </subflow-state> 
+            
+            
+</flow>

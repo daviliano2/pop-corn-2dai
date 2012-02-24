@@ -32,20 +32,37 @@ div.botonONOFF:hover{
      background-image: url('images/logoutmo.png');
     
 }
-div.botonperfil{
-     background-image: url('images/botonA.png');
+div.botonperfiles{
+     background-image: url('images/perfil_es.png');
    
 }
-div.botonperfil:hover{
-     background-image: url('images/botonAmousOver.png');
+div.botonperfiles:hover{
+     background-image: url('images/perfil_over_es.png');
+    
+}
+div.botonperfilen{
+     
+    background-image: url('images/perfil_en.png');
+}
+div.botonperfilen:hover{
+    
+    background-image: url('images/perfil_over_en.png');
+}
+
+div.botontemaes{
+     background-image: url('images/tema_es.png');
+   
+}
+div.botontemaes:hover{
+     background-image: url('images/tema_over_es.png');
+    
+}
+div.botontemaen{
+    background-image: url('images/tema_en.png');
+   
+}
+div.botontemaen:hover{
+      background-image: url('images/tema_over_en.png');
     
 }
 
-div.botontema{
-     background-image: url('images/grandenormal.png');
-   
-}
-div.botontema:hover{
-     background-image: url('images/grandeover.png');
-    
-}

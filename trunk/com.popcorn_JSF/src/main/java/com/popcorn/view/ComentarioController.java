@@ -121,7 +121,7 @@ public class ComentarioController implements Serializable {
             comentario.setTemaTitulo(tema.getTitulo());
             comentario.setIdTema(tema.getId());
             if (comentario.getTitulo() == null) {
-                comentario.setTitulo(tema.getTitulo());
+                comentario.setTitulo("RE"+tema.getTitulo());
             }
             comentarioService.create(comentario);
             comentarioService.addComentario(comentario, tema);
