@@ -42,13 +42,16 @@ public class Usuario implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Rol rol;   
     
-    
+    @Basic
+    private int contadorCom;
+       
     public Usuario() {        
     }
     
     public Usuario(String username, String password) {
         this.username = username;
-        this.password = password;
+        this.password = password; 
+        this.contadorCom = 0;        
     }
     
     public Key getId() {
@@ -105,6 +108,14 @@ public class Usuario implements Serializable {
 
     public void setTipoRol(String tipoRol) {
         this.tipoRol = tipoRol;
+    }
+    
+     public int getContadorCom() {
+        return contadorCom;
+    }
+
+    public void setContadorCom(int contadorCom) {
+        this.contadorCom = contadorCom;
     }
 
     @Override

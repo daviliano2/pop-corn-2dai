@@ -13,6 +13,7 @@
                      
         <on-render>
             <evaluate expression="comentarioController.convertir(comentarios)" result="flowScope.coments"/>
+            <!--<evaluate expression="usuarioController.getAll()" result="flowScope.usuario"/>-->
         </on-render>
         
         <transition on="irLoginUsuario" >

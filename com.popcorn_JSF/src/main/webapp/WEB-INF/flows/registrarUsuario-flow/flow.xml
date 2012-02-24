@@ -12,8 +12,9 @@
     </view-state>
             
     <action-state id="registraUsuario">
-        <evaluate expression="usuarioController.crearUsuario()"/>
+        <evaluate expression="usuarioController.crearUsuario(flowRequestContext)"/>
         <transition on="si" to="end"/>
+        <transition on="no" to="registrarUsuario"/>
     </action-state>    
     
     <action-state id="registrarAvatar">

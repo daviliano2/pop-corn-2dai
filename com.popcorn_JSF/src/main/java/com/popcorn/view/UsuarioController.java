@@ -9,6 +9,7 @@ import com.popcorn.persistence.Usuario;
 import com.popcorn.service.UsuarioService;
 
 import com.popcorn.view.utils.MessageProvider;
+import java.util.Collection;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -33,9 +34,9 @@ public class UsuarioController implements Serializable {
     private Usuario usuario = new Usuario();
     private UsuarioService usuarioService;
     private AuthenticationManager authenticationManager;
-    private UploadedFile file; 
+    private UploadedFile file;
     private String error;
-    
+
     @Required
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService) {
@@ -48,7 +49,7 @@ public class UsuarioController implements Serializable {
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
-    
+
     public UsuarioController() {
     }
 
@@ -59,25 +60,42 @@ public class UsuarioController implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    public UploadedFile getFile() {  
-        return file;  
-    }  
-    
-    public void setFile(UploadedFile file) {  
-        this.file = file;  
-    }  
 
-    public String crearUsuario() {
-        String registroCorrecto = "no";
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public Usuario getCurrent() {
+        return usuarioService.getCurrentUser();
+    }
+
+    public Collection<Usuario> getUsuarios() {
+        return usuarioService.getAll();
+    }
+
+    public String crearUsuario(RequestContext context) {
+        String registroCorrecto = "si";
+        Collection<Usuario> usuarios = usuarioService.getAll();
+        System.out.println("AQUI usuarioController crearUsuario usuarios: " + usuarios);
         if (usuario != null) {
-            registroCorrecto = "si";
+            for (Usuario usr : usuarios) {
+                if (usr.getUsername().equals(usuario.getUsername())) {
+                    registroCorrecto = "no";
+                }
+            }
+        }
+        if (registroCorrecto.compareTo("no") == 0) {
+            context.getMessageContext().addMessage(new MessageBuilder().info().defaultText(MessageProvider.getValue("registro_invalido")).build());
+        } else {
             usuarioService.create(usuario);
         }
         return registroCorrecto;
     }
 
-    
     public void validarUsuario(RequestContext context) {
         String rdo = null;
         try {
@@ -93,9 +111,9 @@ public class UsuarioController implements Serializable {
                 rdo = "Error al conectar. Comprueba usuario y contraseña";
             }
         } catch (BadCredentialsException ex) {
-            context.getMessageContext().addMessage(new MessageBuilder().info().defaultText(MessageProvider.getValue("usuario_invalido")).build());               
+            context.getMessageContext().addMessage(new MessageBuilder().info().defaultText(MessageProvider.getValue("usuario_invalido")).build());
         } catch (Exception unfe) {
-            rdo = " ERROR excepcion unfe: " + unfe.getMessage();            
+            rdo = " ERROR excepcion unfe: " + unfe.getMessage();
             unfe.printStackTrace();
         }
         this.error = rdo;
@@ -106,9 +124,9 @@ public class UsuarioController implements Serializable {
         HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
         httpSession.invalidate();
     }
-    
-    public void upload() {  
-        FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    } 
+
+    public void upload() {
+        FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 }

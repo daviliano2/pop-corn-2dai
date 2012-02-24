@@ -19,4 +19,5 @@ public class ComentarioDAOImpl extends GenericPopDAOImpl<Comentario, Key> implem
        // System.out.println("AQUI comentarioDAOImpl despues de la query tema: " + tema);
         return query.getResultList();
     }
+    
 }

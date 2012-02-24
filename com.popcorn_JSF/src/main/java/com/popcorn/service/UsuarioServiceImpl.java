@@ -81,11 +81,24 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario getUsuario(String idUsuario) {
         return usuarioDAO.findByString(idUsuario);
     }
+    
+    @Override
+    public void contaComent(Key idUser, final Usuario user, int contador) {
+        //System.out.println("AQUI temaService editar 1 tema: " + user);
+        Usuario usuario = usuarioDAO.findByPK(Usuario.class, idUser); 
+        usuario.setContadorCom(contador);
+       // System.out.println("AQUI temaService editar 1 tema2: " + usuario);
+    }
 
     @Override
     public Collection<Usuario> getAllUsuarios(Key idRol) {
         Rol rol = rolDAO.findByPK(Rol.class, idRol);
         return rol.getUsuarios();
+    }
+    
+    @Override
+    public Collection<Usuario> getAll() {
+        return usuarioDAO.getAll(Usuario.class);
     }
 
     @Override
