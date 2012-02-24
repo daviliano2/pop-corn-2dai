@@ -109,16 +109,16 @@ public class ComentarioController implements Serializable {
 
     public String crearComenta(Tema tema) {
         int contador;
-        Usuario user;
+        Usuario user = usuarioService.getCurrentUser();
         if (comentario != null) {
             comentario.setFecha(new Date());
-            comentario.setAutor(usuarioService.getCurrentUser().getUsername());
-            user = usuarioService.getCurrentUser();
+            comentario.setAutor(user.getUsername());
             contador = user.getContadorCom();
             contador++;
             usuarioService.contaComent(user.getId(), user, contador);
             comentario.setAutorComents(contador);
             comentario.setTemaTitulo(tema.getTitulo());
+            comentario.setAvatar(user.getAvatar());
             comentario.setIdTema(tema.getId());
             if (comentario.getTitulo() == null) {
                 comentario.setTitulo("RE"+tema.getTitulo());
@@ -161,6 +161,7 @@ public class ComentarioController implements Serializable {
         for (Comentario com2 : coments) {
             contador = usuarioService.getUsuario(com2.getAutor()).getContadorCom();
             com2.setAutorComents(contador);
+            com2.setAvatar(usuarioService.getUsuario(com2.getAutor()).getAvatar());
             coments2.add(com2);
         }
         return coments2;

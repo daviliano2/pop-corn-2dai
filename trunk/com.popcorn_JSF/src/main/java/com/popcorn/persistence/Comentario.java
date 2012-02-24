@@ -51,6 +51,9 @@ public class Comentario implements Serializable {
     @Basic
     private int autorComents;
     
+    @Basic
+    private String avatar;
+    
     public Comentario() {
         titulo = null;
     }
@@ -124,11 +127,12 @@ public class Comentario implements Serializable {
     public void setAutorComents(int autorComents) {
         this.autorComents = autorComents;
     }
-    /*public Tema getTema() {
-        return tema;
+    
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setTema(Tema tema) {
-        this.tema = tema;
-    }*/
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 }
