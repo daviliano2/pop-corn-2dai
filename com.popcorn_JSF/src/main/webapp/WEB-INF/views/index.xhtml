@@ -9,13 +9,16 @@
         </h:outputStylesheet>
 
     </h:head>
-    <h:body>
+
+    <h:body style="background-image: url('/images/IMG_6308.jpg'); ">
+
         
         <p:growl showDetail="true" id="mensajes"/>
 
         <center>
+            <br/><br/><br/>
             <p:layout style="min-width:200px;min-height:375px;max-width:830px;">
-                <p:layoutUnit position="center">
+                <p:layoutUnit position="center" >
                     <p:toolbar>
                         <p:toolbarGroup>
 
@@ -48,10 +51,13 @@
                                     <f:param name="idioma" value="en" />
                                     <h:graphicImage library="images" name="england_flag.png" title="#{msg.en_ingles}" />
                                 </h:outputLink>
-                                <p:button href="http://popcorn2dai.appspot.com"/>
+                                <p:button href="http://popcorn2dai.appspot.com" value="Volver a PopCorn"/>
 
                             </h:panelGrid>
+
+
                             <br/><br/>
+
                         </p:toolbarGroup>
                     </p:toolbar>
                 </p:layoutUnit>

@@ -9,12 +9,36 @@
     <h:body>
 
         <ui:composition>
-            <p:dialog id="dialog_terminar" header="#{msg.recordatorio}" widgetVar="dlg1" modal="true" closable="true">
-                #{msg.quedada}: #{quedada.root.nombre}<br/>
-                #{msg.clave_administrador_quedada}: #{quedada.claveAdmin}<br/>
-                #{msg.clave_invitado_quedada}: #{quedada.claveInvitado}
-                <center><h:form><p:commandButton value="#{msg.btn_terminar}" ajax="false" action="exit" /></h:form></center>
-            </p:dialog>    
+                            <p:dialog id="dialogTema" header="#{msg.crear_tema}" widgetVar="dlgtema2"  resizable="false" style="text-align: center;min-width:600px;min-height:300px;max-width:200;">  
+         
+       <p:layout style="min-width:600px;min-height:575px;max-width:200;" id="layout"  >
+    <p:layoutUnit position="center">
+        <p:toolbar style=" background-image: url('../images/fondoc.png')">
+            <p:toolbarGroup  >
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="5" width="580" >
+                <h:column>
+                    <br/>
+                    <center><h:outputLabel for="titulo" value="#{msg.titulo}:" />
+                    <p:inputText id="titulo" value="#{temaController.tema.titulo}"/>
+                    <br/><br/>
+                    <h:outputLabel for="tema" value="#{msg.tema}" />                    
+                    <p:editor id="tema" value="#{temaController.tema.content}"/>                
+                    <p:commandButton iconPos="right" value="#{msg.crear_tema}" ajax="false" action="irACrearTema"/>
+                </center>
+                </h:column>
+                <f:facet name="footer"></f:facet>
+            </h:panelGrid>
+        </h:form>
+                <br/><br/><br/><br/><br/>
+        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+                   </p:toolbarGroup>
+        </p:toolbar>     
+    </p:layoutUnit>
+            
+        </p:layout>
+            
+                            </p:dialog>     
 
         </ui:composition>
 

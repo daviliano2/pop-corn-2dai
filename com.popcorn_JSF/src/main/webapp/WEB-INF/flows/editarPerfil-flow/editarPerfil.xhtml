@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <h:head>
+
+        <title>Temas</title>
+<style type="text/css">
+
+            .ui-growl {
+                top: 40px;
+                left:1px;
+            }
+            .ui-growl-item-container {
+                color: beige;
+                font-size: 12px;
+                background-color: captiontext; 
+
+            }
+
+
+        </style>
+    </h:head>
+
+    <h:body style="background-color: 2c3e54;">
+        
+        <p:growl transient="true" />
+
+         <center> 
+        <p:layout style="min-width:600px;min-height:820px;max-width:200;max" id="layout"  >
+    <p:layoutUnit position="center">
+        <p:toolbar style=" background-image: url('../images/fondoc.png')">
+            <p:toolbarGroup  >
+                <h:panelGrid style="height:50px;width:400px;background-color: black" >
+                    
+                </h:panelGrid>
+        <h:form>
+            <p:growl id="growl"  sticky="true" />
+             <p:messages showDetail="true"/>
+            <h:panelGrid columns="2" cellpadding="5" width="580" >
+                <h:column>
+                    <br/>
+                    <center><h:outputLabel for="user" value="#{msg.usuario}:" />
+                        <p:inputText id="usr" value="#{usuarioController.usuario.username}" readonly="true" />
+                    <p:watermark for="usr" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}" />  
+                    <br/><br/>
+                    <h:outputLabel for="pass" value="#{msg.password}(*):" />
+                    <p:password  value="#{usuarioController.usuario.password}" required="true"/>
+                    <br/><br/>
+                    <h:outputLabel for="autor" value="#{msg.autor}:" />
+                    <p:inputText id="ath" value="#{usuarioController.usuario.nombre}"/>
+                    <p:watermark for="ath" value="#{usuarioController.usuario.nombre}" />  
+                    <br/><br/>
+                    <h:outputLabel for="surn" value="#{msg.apellido}"  />
+                    <p:inputText id="apellido" value="#{usuarioController.usuario.apellido}" />
+                    <p:watermark for="apellido" value="#{usuarioController.usuario.apellido}" />  
+                    <br/><br/>
+                       
+                
+                    <h:panelGrid columns="2" style="background-color: cornsilk;width: 450px;border: teal">
+                        <p:column>
+                            <h:panelGrid style="background-color: activecaption">
+                                
+                                <p:graphicImage height="125" width="125"  url="#{usuarioController.usuario.avatar}"/>
+                                
+                          </h:panelGrid> 
+                    </p:column>
+                        <p:column>
+                            <h:outputLabel  value="El avatar es una URL que tiene que medir 125x125."  />
+                            <br/>
+                            <p:inputText id="ava" value="#{usuarioController.usuario.avatar}" />
+                            
+                        </p:column>
+                    </h:panelGrid>     
+                           <br/><br/>
+                          <p:commandButton iconPos="right" value="#{msg.crear_comentario}" ajax="false" action="irEditarPerfil" />  
+                    </center>
+                </h:column>
+                <f:facet name="footer"></f:facet>
+                
+            </h:panelGrid>
+        </h:form>
+                <br/><br/>
+        <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+                   </p:toolbarGroup>
+        </p:toolbar>     
+    </p:layoutUnit>
+            
+        </p:layout>
+            </center> 
+    </h:body>
+</html>

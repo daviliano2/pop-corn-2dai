@@ -39,6 +39,9 @@ public class Usuario implements Serializable {
     @Basic
     private String tipoRol;
     
+    @Basic
+    private String avatar;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     private Rol rol;   
     
@@ -118,6 +121,16 @@ public class Usuario implements Serializable {
         this.contadorCom = contadorCom;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    
+    
     @Override
     public boolean equals(Object o) {
         Usuario usuario = (Usuario)o;

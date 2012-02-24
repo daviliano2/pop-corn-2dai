@@ -20,69 +20,94 @@
         </style>
     </h:head>
 
-    <h:body>
+    <h:body style="background-color: 2c3e54;">
         <p:growl sticky="true"/>
         <center>
             <p:layout style="min-width:400px;min-height:200px;max-width:1000px;" id="layout"> 
                 <p:layoutUnit position="center">
                     <p:toolbar>
                         <p:toolbarGroup align="left">
+                            <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                                <h:outputLink value="registrarUsuario-flow" >
+                                    <h:panelGrid columns="1">
+                                        <table><tr> <td>
+                                            <h:outputText value="#{msg.registrar_msg}" style="color: whitesmoke " />
+                                            </td></tr></table>
+                                    </h:panelGrid>
+                                </h:outputLink>
+                            </c:if>
+
                             <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
                                 <h:panelGrid columns="2">
                                     <p:column>
-                                        <h:outputLink value="crearTema-flow">
-                                            <div class="botontema">
-                                                <table class="botontema" style="height: 25px;width: 114px;">
-                                                    <tr><td></td></tr>
-                                                </table>
-                                            </div>
+                                        <h:outputLink value="crearTema-flow"   >
+                                            <c:if test="${ msg.btn_perfil == 'ES' }" >
+
+                                                <div class="botontemaes">
+                                                    <table class="botontemaes" style="height: 25;width: 110;"><tr> <td></td></tr></table>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${ msg.btn_perfil == 'EN' }" >
+                                                <div class="botontemaen">
+                                                    <table class="botontemaen" style="height: 25;width: 110;"><tr> <td></td></tr></table>
+                                                </div>
+                                            </c:if>
                                         </h:outputLink>
                                     </p:column>
                                     <p:column>
-                                        <h:outputLink value="logout-flow">
-                                            <div class="botonperfil">
-                                                <table class="botonperfil" style="height: 25px;width: 88px;">
-                                                    <tr><td></td></tr>
+                                        <h:outputLink value="editarPerfil-flow"   >
+                                            <c:if test="${ msg.btn_perfil == 'ES' }" >
+
+                                                <div class="botonperfiles">
+                                                    <table class="botonperfiles" style="height: 25;width: 88;"><tr> <td></td></tr></table>
+                                                </div>
+                                            </c:if>
+
+                                            <c:if test="${ msg.btn_perfil == 'EN' }" >
+                                                <div class="botonperfilen">
+                                                    <table class="botonperfilen" style="height: 25;width: 88;"><tr> <td></td></tr></table>
+                                                </div>
+                                            </c:if>
+                                        </h:outputLink>     
+                                    </p:column>                              
+                                </h:panelGrid>
+                            </c:if>
+                        </p:toolbarGroup>
+
+                        <p:toolbarGroup align="right">   
+                            <h:panelGrid columns="2">
+                                <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                                    <p:column  >
+                                        <h:outputText value="#{msg.estas_conectado}" style="font-size:16px; color: whitesmoke" />  
+                                        <h:outputText value=" ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username} " style="font-size:18px;   color: chartreuse; font-weight: bold;" /> 
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputLink value="logout-flow">                   
+                                            <div class="botonONOFF">
+                                                <table class="botonONOFF" style="height: 24;width: 24;">
+                                                    <tr>
+                                                        <td>    
+                                                        </td>                                                        
+                                                    </tr>
                                                 </table>
                                             </div>
                                         </h:outputLink>
                                     </p:column>
-                                </h:panelGrid>
-                            </c:if>
-
-                        </p:toolbarGroup>
-                        <p:toolbarGroup align="right">   
-                            <p:toolbarGroup align="right">   
-                                <h:panelGrid columns="2">
-                                    <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
-                                        <p:column >
-                                            Estas conectado como: ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username} 
-                                        </p:column>
-                                        <p:column>
-                                            <h:outputLink value="logout-flow">                   
-                                                <div class="botonONOFF">
-                                                    <table class="botonONOFF" style="height: 34px;width: 34px;">
-                                                        <tr><td></td></tr>
-                                                    </table>
-                                                </div>
-                                            </h:outputLink>
-                                        </p:column>
-                                    </c:if>
-                                </h:panelGrid>                       
-                                <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">  
-                                    <h:form style="height: 15px;">
-                                        <h:outputLabel for="usernames" value="#{msg.usuario}" style="font-size:12px;" />                     
-                                        <p:inputText id="usernames" value="#{usuarioController.usuario.username}" size="12" 
-                                                     style="height: 25px;font-size:  12px;" />
-                                        <h:outputLabel for="passwords" value="#{msg.password}" style="font-size:  12px;" />                   
-                                        <p:inputText id="passwords" type="password" value="#{usuarioController.usuario.password}" 
-                                                     size="12" style="height: 25px;font-size:12px;"/>           
-                                        <p:commandButton  value="#{msg.conectar}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" 
-                                                          style="height: 30px;width: 100px;font-size: 12px" action="irLoginUsuario"  />  
-                                    </h:form>
                                 </c:if>
-                            </p:toolbarGroup> 
-                        </p:toolbarGroup>  
+                            </h:panelGrid>                    
+                            <c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">  
+                                <h:form style="height: 15px;">
+                                    <h:outputLabel for="usernames" value="#{msg.usuario}" style="font-size:12px;" />                     
+                                    <p:inputText id="usernames" value="#{usuarioController.usuario.username}" size="12" 
+                                                 style="height: 25px;font-size:  12px;" />
+                                    <h:outputLabel for="passwords" value="#{msg.password}" style="font-size:  12px;" />                   
+                                    <p:inputText id="passwords" type="password" value="#{usuarioController.usuario.password}" 
+                                                 size="12" style="height: 25px;font-size:12px;"/>           
+                                    <p:commandButton  value="#{msg.conectar}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" 
+                                                      style="height: 30px;width: 100px;font-size: 12px" action="irLoginUsuario"  />  
+                                </h:form>
+                            </c:if>
+                        </p:toolbarGroup> 
                     </p:toolbar>
 
                     <p:dataTable id="temas" value="#{tema}" var="tema" emptyMessage="#{msg.no_temas}">   
@@ -90,54 +115,74 @@
                             <f:facet name="header">
                                 <h:outputText value="#{msg.perfil}"/>
                             </f:facet> 
-                            <h:outputLabel value="#{tema.autor}" escape="false" style="height: 30px;width: 100px;font-size: 15px;font-weight: bold"/>
-                            <br/>
+                            <p:dataTable id="usuariossss" value="#{usuarioController.usuarios}" var="usuarios" >
+                                <p:column style="border-color: f2f1f1;" >
+                                    <f:facet name="header">
+                                        <h:outputLabel value="#{tema.autor}" escape="false" style="height: 30px;width: 100px;font-size: 15px;font-weight: bold"/>
+                                    </f:facet> 
+                                    <h:form rendered="${usuarios.username == tema.autor}">
+                                        <h:panelGrid style="background-color: activecaption;width: 125">
+                                            <p:graphicImage height="125" width="125"  url="#{usuarios.avatar}"/>
+                                        </h:panelGrid> 
+                                    </h:form>
+                                </p:column>       
+                            </p:dataTable>
                             <h:outputLabel value="#{tema.fecha}" escape="false" style="height: 30px;width: 100px;font-size: 10px;"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="alignment-adjust: baseline">
                             <f:facet name="header">
-                                <h:outputText  value="#{tema.titulo}"/>
+                                <h:outputText  value="#{tema.titulo}" />
                             </f:facet> 
-                            <h:outputFormat  value="#{tema.content}" escape="false" style="height: 30px;width: 100px;font-size: 14px;"/>
+                            <h:outputFormat  value="#{tema.content}" escape="false" style="height: 30px;width: 100px;font-size: 14px;alignment-adjust: baseline" />
+                            <p:separator/>
+                            <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and 
+                                          sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username eq tema.autor}">
+                                <h:form>
+                                    <p:commandButton onclick="dlg2.show()" icon="ui-icon-pencil" type="button" style="width: 24;height: 24;"  title="Editar Tema"/>
+                                </h:form>                   
+                                <p:dialog id="Dialog" header="#{msg.edit_coment}" widgetVar="dlg2"  resizable="false" style="text-align: center">  
+                                    <h:form>
+                                        <h:outputLabel for="titleTema" value="#{msg.titulo}:" />                 
+                                        <p:inputText id="titleTema" value="#{temaController.tema2.titulo}"/>
+                                        <p:editor id="editcomentaTema" value="#{temaController.tema2.content}" />                
+                                        <p:commandLink  value="#{msg.edit_coment}" ajax="false" action="irAEditarTema" > <!--HAY QUE INTERNACIONALIZAR ESTOS BOTONES-->
+                                            <f:setPropertyActionListener value="#{tema}" target="#{temaController.tema}" />
+                                        </p:commandLink>
+                                    </h:form>
+                                </p:dialog> 
+                                <h:form>
+                                    <p:commandLink value="Borrar Tema User" action="borrarTema" ajax="false" >
+                                        <f:setPropertyActionListener value="#{tema}" target="#{temaController.tema}" />
+                                    </p:commandLink>          
+                                </h:form>
+                            </c:if>
                         </p:column>
                     </p:dataTable>
-
-                    <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal and 
-                                  sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username eq tema.autor}">
-                        <h:form>
-                            <p:commandButton onclick="dlg2.show()" icon="ui-icon-pencil" type="button" />
-                        </h:form>                   
-
-                        <p:dialog id="Dialog" header="#{msg.edit_coment}" widgetVar="dlg2"  resizable="false" style="text-align: center">  
-                            <h:form>
-                                <h:outputLabel for="titleTema" value="#{msg.titulo}:" />                 
-                                <p:inputText id="titleTema" value="#{temaController.tema2.titulo}"/>
-                                <p:editor id="editcomentaTema" value="#{temaController.tema2.content}" />                
-                                <p:commandLink  value="#{msg.edit_coment}" ajax="false" action="irAEditarTema" > <!--HAY QUE INTERNACIONALIZAR ESTOS BOTONES-->
-                                    <f:setPropertyActionListener value="#{tema}" target="#{temaController.tema}" />
-                                </p:commandLink>
-                            </h:form>
-                        </p:dialog> 
-
-                        <h:form>
-                            <p:commandLink value="Borrar Tema User" action="borrarTema" ajax="false" >
-                                <f:setPropertyActionListener value="#{tema}" target="#{temaController.tema}" />
-                            </p:commandLink>          
-                        </h:form>
-
-
-                    </c:if>
 
                     <p:dataTable id="comentarios" value="#{coments}"
                                  var="coment" emptyMessage="#{msg.no_temas}" paginator="true" rows="10"  
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                  rowsPerPageTemplate="5,10,15">
-                        <p:column>
+                        <p:column style="width: 175px">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.autor}"/>
                             </f:facet > 
+                            <p:dataTable id="usuarios" value="#{usuarioController.usuarios}" var="usuarios" >
 
-                            <h:outputLabel value="#{coment.autor}" escape="false" style="font-weight: bold"/>
+                                <p:column style="border-color: f2f1f1;" >
+                                    <f:facet name="header">
+                                        <h:outputLabel value="#{coment.autor}" escape="false" style="font-weight: bold"/>
+                                    </f:facet> 
+                                    <h:form rendered="${usuarios.username eq coment.autor}">
+                                        <h:panelGrid style="background-color: activecaption;width: 125px">
+
+                                            <p:graphicImage height="125" width="125"  url="#{usuarios.avatar}"/>
+
+                                        </h:panelGrid> 
+                                    </h:form>
+                                </p:column>       
+                            </p:dataTable>
+
                             <br/>
                             Comentarios: 
                             <h:outputLabel value="#{coment.autorComents}" escape="false" style="font-weight: bold"></h:outputLabel>
@@ -145,32 +190,61 @@
                             <h:outputLabel value="#{coment.fecha}" escape="false" />
                         </p:column>
 
-                        <p:column >
-                            <f:facet name="header">
-                                <h:outputText  value="#{msg.titulo}"/>
-                            </f:facet> 
-                            <h:outputLabel value="#{coment.titulo}" escape="false" />                      
-                        </p:column>  
-
                         <p:column>
                             <f:facet name="header">
+
                                 <h:outputText  value="POST"/>
                             </f:facet>                           
 
-                            <h:outputFormat value="#{coment.content}" escape="false"/>
+                            <p:toolbar >
+                                <p:toolbarGroup align="center" >
 
+                                    <h:outputLabel value="#{coment.titulo}" escape="false" /> 
+
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                            <br/>
+                            <h:outputFormat value="#{coment.content}" escape="false"/>
+                            <br/><br/>
                             <h:form rendered="#{sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal != null and
                                                 sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username == coment.autor}">
                                 <p:separator/>
                                 <p:commandLink value="Borrar Comentario" action="borrarComentario" ajax="false">                                    
                                     <f:setPropertyActionListener value="#{coment}" target="#{comentarioController.comentario}" />
                                 </p:commandLink>                               
-                               
+
                             </h:form>
                         </p:column>               
 
-
                     </p:dataTable>
+
+                    <p:toolbar>
+                        <p:toolbarGroup align="left">
+
+
+                            <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                                <h:panelGrid columns="1">
+                                    <p:column >
+
+                                        <h:outputLink value="crearTema-flow"   >
+                                            <c:if test="${ msg.btn_perfil == 'ES' }" >
+                                                <div class="botontemaes">
+                                                    <table class="botontemaes" style="height: 25px;width: 110px;"><tr> <td></td></tr></table>
+                                                </div>
+                                            </c:if>
+
+                                            <c:if test="${ msg.btn_perfil == 'EN' }" >
+                                                <div class="botontemaen">
+                                                    <table class="botontemaen" style="height: 25px;width: 110px;"><tr> <td></td></tr></table>
+                                                </div>
+                                            </c:if>
+                                        </h:outputLink>
+                                    </p:column>
+                                </h:panelGrid>
+                            </c:if>
+                        </p:toolbarGroup>
+
+                    </p:toolbar>
                     <p:separator/>
                     <c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}">
                         <h:form prependId="false" id="temasForm">
@@ -182,6 +256,7 @@
                             <p:commandButton iconPos="right" value="#{msg.crear_comentario}" ajax="false" action="irACrearComentario" />
                         </h:form>
                     </c:if>
+
                     <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
 
                 </p:layoutUnit>
