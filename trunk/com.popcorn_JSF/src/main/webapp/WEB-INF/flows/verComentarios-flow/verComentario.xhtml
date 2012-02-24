@@ -139,6 +139,9 @@
 
                             <h:outputLabel value="#{coment.autor}" escape="false" style="font-weight: bold"/>
                             <br/>
+                            Comentarios: 
+                            <h:outputLabel value="#{coment.autorComents}" escape="false" style="font-weight: bold"></h:outputLabel>
+                            <br/>
                             <h:outputLabel value="#{coment.fecha}" escape="false" />
                         </p:column>
 
@@ -157,7 +160,7 @@
                             <h:outputFormat value="#{coment.content}" escape="false"/>
 
                             <h:form rendered="#{sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal != null and
-                                                sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username == tema.autor}">
+                                                sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username == coment.autor}">
                                 <p:separator/>
                                 <p:commandLink value="Borrar Comentario" action="borrarComentario" ajax="false">                                    
                                     <f:setPropertyActionListener value="#{coment}" target="#{comentarioController.comentario}" />

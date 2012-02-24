@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import com.google.appengine.api.datastore.Key;
 import javax.persistence.Temporal;
@@ -50,6 +48,9 @@ public class Comentario implements Serializable {
     /*@ManyToOne(fetch = FetchType.LAZY)
     private Tema tema;    */
 
+    @Basic
+    private int autorComents;
+    
     public Comentario() {
         titulo = null;
     }
@@ -115,6 +116,14 @@ public class Comentario implements Serializable {
         this.idTema = idTema;
     }
     
+    
+    public int getAutorComents() {
+        return autorComents;
+    }
+
+    public void setAutorComents(int autorComents) {
+        this.autorComents = autorComents;
+    }
     /*public Tema getTema() {
         return tema;
     }

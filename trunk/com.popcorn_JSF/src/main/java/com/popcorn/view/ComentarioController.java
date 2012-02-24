@@ -5,11 +5,13 @@
 package com.popcorn.view;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.users.UserService;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import com.popcorn.persistence.Comentario;
 import com.popcorn.persistence.Tema;
+import com.popcorn.persistence.Usuario;
 import com.popcorn.service.ComentarioService;
 
 import com.popcorn.service.TemaService;
@@ -34,43 +36,43 @@ public class ComentarioController implements Serializable {
     private TemaService temaService;
     private UsuarioService usuarioService;
     private int numComentarios;
-    
+
     @Required
     @Autowired
     public void setComentarioService(ComentarioService comentarioService) {
         this.comentarioService = comentarioService;
     }
-    
+
     @Required
     @Autowired
     public void setTemaService(TemaService temaService) {
         this.temaService = temaService;
     }
-    
+
     @Required
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-    
+
     public Collection<Key> getComentarios() {
         System.out.println("AQUI comentarioController getComentarios comentarios: " + comentarios);
         return comentarios;
     }
-    
+
     public void setComentarios(Collection<Key> comentarios) {
         this.comentarios = comentarios;
-    }   
-    
-    public Collection<Comentario> getComentarios2() {        
-        comentarios2 = comentarioService.getAll();        
+    }
+
+    public Collection<Comentario> getComentarios2() {
+        comentarios2 = comentarioService.getAll();
         return comentarios2;
     }
 
     public void setComentarios2(Collection<Comentario> comentarios2) {
         this.comentarios2 = comentarios2;
     }
-    
+
     public ComentarioController() {
     }
 
@@ -79,40 +81,43 @@ public class ComentarioController implements Serializable {
         comentario = new Comentario();
     }
 
-    public Comentario getComentario() { 
+    public Comentario getComentario() {
         return comentario;
     }
 
     public void setComentario(Comentario comentario) {
         this.comentario = comentario;
     }
-    
-    public int getNumComentarios() {        
-        return numComentarios;
-    }
-    
+
     public void setNumComentarios(int numComentarios) {
         this.numComentarios = numComentarios;
-    }  
-    
+    }
+
     public Key getIdComentario() {
         return comentario.getId();
     }
 
     public void setIdComentario(Key idComentario) {
         this.idComentario = idComentario;
-    }   
-    
+    }
+
     public Collection<Key> fijarComentarios(Tema tema) {
-        comentarios = comentarioService.getAllComentarios(tema.getId());        
-        System.out.println("AQUI comentarioController fijarComentarios 2 comentarios: " + comentarios);        
+        comentarios = comentarioService.getAllComentarios(tema.getId());
+        //System.out.println("AQUI comentarioController fijarComentarios 2 comentarios: " + comentarios);        
         return comentarios;
     }
 
     public String crearComenta(Tema tema) {
+        int contador;
+        Usuario user;
         if (comentario != null) {
             comentario.setFecha(new Date());
             comentario.setAutor(usuarioService.getCurrentUser().getUsername());
+            user = usuarioService.getCurrentUser();
+            contador = user.getContadorCom();
+            contador++;
+            usuarioService.contaComent(user.getId(), user, contador);
+            comentario.setAutorComents(contador);
             comentario.setTemaTitulo(tema.getTitulo());
             comentario.setIdTema(tema.getId());
             if (comentario.getTitulo() == null) {
@@ -123,31 +128,41 @@ public class ComentarioController implements Serializable {
         }
         return "si";
     }
-    
-    public Comentario buscaComentario() {        
+
+    public Comentario buscaComentario() {
         return comentarioService.getComentario(comentario.getId());
     }
 
     public String borrarComentario(Comentario comentario, RequestContext context) {
-        System.out.println("AQUI comentarioController borrarComentario comentario: " + comentario.getContent());
+        int contador;
+        Usuario user;
+        //System.out.println("AQUI comentarioController borrarComentario comentario: " + comentario.getContent());
+        user = usuarioService.getCurrentUser();
+        contador = user.getContadorCom();
+        contador--;
+        usuarioService.contaComent(user.getId(), user, contador);
         comentarioService.removeComentario(comentario);
         return "si";
     }
-    
+
     public void editarComenta(Comentario a) {
         System.out.println("Aki editarComenta");
         System.out.println("a id: " + a.getId());
         System.out.println("comentario id: " + comentario.getId());
     }
-    
+
     public Collection<Comentario> convertir(Collection<Key> comentarios) {
         Collection<Comentario> coments = new ArrayList<Comentario>();
-        for(Key com : comentarios) {
+        int contador;
+        for (Key com : comentarios) {
             coments.add(comentarioService.getComentario(com));
         }
-        for(Comentario co1 : coments) {
-        System.out.println("AQUI comentarioController convertir coments: " + co1.getContent());
+        Collection<Comentario> coments2 = new ArrayList<Comentario>();
+        for (Comentario com2 : coments) {
+            contador = usuarioService.getUsuario(com2.getAutor()).getContadorCom();
+            com2.setAutorComents(contador);
+            coments2.add(com2);
         }
-        return coments;
+        return coments2;
     }
 }
