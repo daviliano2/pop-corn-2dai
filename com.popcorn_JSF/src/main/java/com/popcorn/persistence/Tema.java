@@ -35,6 +35,9 @@ public class Tema implements Serializable {
     @Basic
     List<Key> comentarios = new ArrayList<Key>();
     
+    @Basic
+    private String avatar;    
+    
     public Tema() {
     }
 
@@ -103,6 +106,14 @@ public class Tema implements Serializable {
 
     public void setComentarios(List<Key> comentarios) {
         this.comentarios = comentarios;
+    }
+    
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
     
     @Override

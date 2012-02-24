@@ -32,7 +32,7 @@
         </transition>
         
         <transition on="borrarTema" to="borraTema">
-            <evaluate expression="temaController.getTema()" result="flowScope.tema"/>           
+                     
         </transition>
         
     </view-state>    

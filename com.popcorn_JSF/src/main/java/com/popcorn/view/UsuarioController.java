@@ -41,7 +41,6 @@ public class UsuarioController implements Serializable {
     private UploadedFile file;
     private Collection<Usuario> usuarios;
 
-
     @Required
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService) {
@@ -65,22 +64,18 @@ public class UsuarioController implements Serializable {
     public Usuario actualUser() {
         usuario = usuarioService.getCurrentUser();
 
-        
-
-        System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() APELLIDO : " + usuario.getApellido());
+        /*System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() APELLIDO : " + usuario.getApellido());
         System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() NOMBRE : " + usuario.getNombre());
         System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() PASS : " + usuario.getPassword());
         System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() USER : " + usuario.getUsername());
         System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() ID : " + usuario.getId());
-        System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() AVATAR : " + usuario.getAvatar());
+        System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() AVATAR : " + usuario.getAvatar());*/
         return usuario;
     }
-
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
 
     public UploadedFile getFile() {
         return file;
@@ -93,9 +88,6 @@ public class UsuarioController implements Serializable {
     public Usuario getCurrent() {
         return usuarioService.getCurrentUser();
     }
-
-
-
 
     public String crearUsuario(RequestContext context) {
         String registroCorrecto = "si";
@@ -115,44 +107,37 @@ public class UsuarioController implements Serializable {
         }
         return registroCorrecto;
     }
-    
-    public Collection<Usuario> getUsuarios(){
+
+    public Collection<Usuario> getUsuarios() {
         usuarios = usuarioService.getAll();
         System.out.println(usuarios);
-        
         return usuarios;
-        
     }
 
-
     public void update(Usuario usr) {
-
-        System.out.println("AQUI CONTROLADOR USUARIO UPDATE() APELLIDO : " + usuario.getApellido());
+        /*System.out.println("AQUI CONTROLADOR USUARIO UPDATE() APELLIDO : " + usuario.getApellido());
         System.out.println("AQUI CONTROLADOR USUARIO UPDATE() NOMBRE : " + usuario.getNombre());
         System.out.println("AQUI CONTROLADOR USUARIO UPDATE() PASS : " + usuario.getPassword());
         System.out.println("AQUI CONTROLADOR USUARIO UPDATE() USER : " + usuario.getUsername());
         System.out.println("AQUI CONTROLADOR USUARIO UPDATE() ID : " + usr.getId());
-        System.out.println("AQUI CONTROLADOR USUARIO UPDATE() AVATAR : " + usuario.getAvatar());
+        System.out.println("AQUI CONTROLADOR USUARIO UPDATE() AVATAR : " + usuario.getAvatar());*/
 
-            if (usuario.getApellido() == null) {
-                usuario.setApellido(usr.getApellido());
-            }
-            if (usuario.getNombre() == null) {
-                usuario.setNombre(usr.getNombre());
-            }
-            if (usuario.getPassword() == null) {
-                usuario.setPassword(usuario.getPassword());
-            }
-            if (usuario.getUsername() == null) {
-                usuario.setUsername(usr.getUsername());
-            }
-             if (usuario.getAvatar() == null) {
-                usuario.setAvatar(usr.getAvatar());
-            }
-            usuarioService.update(usr.getId(), usuario);
-            
-        
-        
+        if (usuario.getApellido() == null) {
+            usuario.setApellido(usr.getApellido());
+        }
+        if (usuario.getNombre() == null) {
+            usuario.setNombre(usr.getNombre());
+        }
+        if (usuario.getPassword() == null) {
+            usuario.setPassword(usuario.getPassword());
+        }
+        if (usuario.getUsername() == null) {
+            usuario.setUsername(usr.getUsername());
+        }
+        if (usuario.getAvatar() == null) {
+            usuario.setAvatar(usr.getAvatar());
+        }
+        usuarioService.update(usr.getId(), usuario);
     }
 
     public void validarUsuario(RequestContext context) {
@@ -170,14 +155,11 @@ public class UsuarioController implements Serializable {
                 rdo = "Error al conectar. Comprueba usuario y contraseña";
             }
         } catch (BadCredentialsException ex) {
-
             context.getMessageContext().addMessage(new MessageBuilder().fatal().defaultText(MessageProvider.getValue("usuario_invalido")).build());
-
         } catch (Exception unfe) {
             rdo = " ERROR excepcion unfe: " + unfe.getMessage();
             unfe.printStackTrace();
         }
-
     }
 
     public void logout() throws java.io.IOException {

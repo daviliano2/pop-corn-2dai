@@ -115,18 +115,12 @@
                             <f:facet name="header">
                                 <h:outputText value="#{msg.perfil}"/>
                             </f:facet> 
-                            <p:dataTable id="usuariossss" value="#{usuarioController.usuarios}" var="usuarios" >
-                                <p:column style="border-color: f2f1f1;" >
-                                    <f:facet name="header">
-                                        <h:outputLabel value="#{tema.autor}" escape="false" style="height: 30px;width: 100px;font-size: 15px;font-weight: bold"/>
-                                    </f:facet> 
-                                    <h:form rendered="${usuarios.username == tema.autor}">
-                                        <h:panelGrid style="background-color: activecaption;width: 125">
-                                            <p:graphicImage height="125" width="125"  url="#{usuarios.avatar}"/>
-                                        </h:panelGrid> 
-                                    </h:form>
-                                </p:column>       
-                            </p:dataTable>
+                            <h:panelGrid style="background-color: activecaption; width: 125px; height: 125px">
+                                <p:graphicImage height="125" width="125"  url="#{tema.avatar}"/>
+                            </h:panelGrid>
+                            <br/>
+                            <h:outputLabel value="#{tema.autor}" escape="false" style="height: 30px;width: 100px;font-size: 15px;font-weight: bold"/>
+                            <br/>
                             <h:outputLabel value="#{tema.fecha}" escape="false" style="height: 30px;width: 100px;font-size: 10px;"/>
                         </p:column>
                         <p:column style="alignment-adjust: baseline">
@@ -167,22 +161,11 @@
                             <f:facet name="header">
                                 <h:outputText value="#{msg.autor}"/>
                             </f:facet > 
-                            <p:dataTable id="usuarios" value="#{usuarioController.usuarios}" var="usuarios" >
-
-                                <p:column style="border-color: f2f1f1;" >
-                                    <f:facet name="header">
-                                        <h:outputLabel value="#{coment.autor}" escape="false" style="font-weight: bold"/>
-                                    </f:facet> 
-                                    <h:form rendered="${usuarios.username eq coment.autor}">
-                                        <h:panelGrid style="background-color: activecaption;width: 125px">
-
-                                            <p:graphicImage height="125" width="125"  url="#{usuarios.avatar}"/>
-
-                                        </h:panelGrid> 
-                                    </h:form>
-                                </p:column>       
-                            </p:dataTable>
-
+                            <h:panelGrid style="background-color: activecaption;width: 125px; height: 125px">
+                                <p:graphicImage height="125" width="125"  url="#{coment.avatar}"/>
+                            </h:panelGrid> 
+                            <br/>
+                            <h:outputLabel value="#{coment.autor}" escape="false" style="font-weight: bold"/>
                             <br/>
                             Comentarios: 
                             <h:outputLabel value="#{coment.autorComents}" escape="false" style="font-weight: bold"></h:outputLabel>
