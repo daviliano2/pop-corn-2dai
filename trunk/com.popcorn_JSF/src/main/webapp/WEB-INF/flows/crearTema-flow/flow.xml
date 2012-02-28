@@ -12,6 +12,10 @@
 
     <action-state id="crearTema">
         <evaluate expression="temaController.crearTema()" />
-        <transition on="si" to="end" />
+        <transition on="si" to="irVerTemas" />
     </action-state>
+    
+    <subflow-state id="irVerTemas" subflow="verTemas-flow" >        
+        <transition on="end" to="end" />
+    </subflow-state>
 </flow>

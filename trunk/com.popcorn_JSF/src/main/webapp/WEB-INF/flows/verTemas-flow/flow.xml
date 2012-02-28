@@ -7,16 +7,7 @@
          parent="parent-flow">
 
     <view-state id="verTemas" view="verTema.xhtml">
-        
-        <!--<transition on="irATema" to="irVerTema">    
-            <evaluate expression="temaController.getTema()" result="flowScope.tema"/>
-        </transition> 
-        
-        <transition on="irAEditarTema" to="editaTema">
-            <evaluate expression="temaController.getTema()" result="flowScope.tema"/>
-        </transition>
-         -->
-        
+                       
         <transition on="irAComentarios" to="irVerComentarios">    
             <evaluate expression="temaController.getTema()" result="flowScope.tema"/>
             <evaluate expression="comentarioController.fijarComentarios(tema)" result="flowScope.comentarios"/>
@@ -25,45 +16,28 @@
         <transition on="irLoginUsuario" >
             <evaluate expression="usuarioController.validarUsuario(flowRequestContext)"/>    
         </transition>
-        
-        
+                
         <transition on="borrarTema" to="borraTema">
             <evaluate expression="temaController.getTema()" result="flowScope.tema"/>           
         </transition>
 
-           <transition on="irACrearTema" to="crearTema" />     
-
-        
-
+        <transition on="irACrearTema" to="crearTema" />   
+      
     </view-state>    
        
     <action-state id="borraTema">
         <evaluate expression="temaController.borrarTema(tema, flowRequestContext)"/>
-        <transition on="si" to="end" />
-    </action-state>
-    
-    <!--<action-state id="editaTema">
-        <evaluate expression="temaController.editaTema(tema)"/>
-        <transition on="si" to="end" />
-    </action-state>
-    
-  <subflow-state id="irVerTema" subflow="irTema-flow" >
-        <input name="tema"/>
-        <transition on="end" to="end" />
-    </subflow-state>-->
-    
-
-    <action-state id="crearTema">
-        <evaluate expression="temaController.crearTema()" />
-        <transition on="si" to="end" />
-    </action-state>
-    
+        <transition on="si" to="irVerTemas" />
+    </action-state>       
 
     <subflow-state id="irVerComentarios" subflow="verComentarios-flow" >
         <input name="tema"/>
         <input name="comentarios"/>
         <transition on="end" to="end" />
     </subflow-state>
+    
+     <subflow-state id="irVerTemas" subflow="verTemas-flow" >        
+        <transition on="end" to="end" />
+     </subflow-state>
         
-
 </flow>

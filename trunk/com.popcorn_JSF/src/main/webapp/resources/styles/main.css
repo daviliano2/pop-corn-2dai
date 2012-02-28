@@ -1,0 +1,63 @@
+/* 
+    Document   : main
+    Created on : 16-feb-2012, 11:50:44
+    Author     : lucas
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+div.boton { 
+    background-image: url('images/logo.png');
+    
+}
+div.boton:hover { 
+    background-image: url('images/logo_on_mouseover.png');
+    
+}
+div.boton:active { 
+    background-image: url('images/logo_on_click.png');
+    
+}
+
+div.botonONOFF{
+     background-image: url('images/logout.png');
+   
+}
+div.botonONOFF:hover{
+     background-image: url('images/logout_over.png');
+    
+}
+div.botonperfiles{
+     background-image: url('images/perfil_es.png');
+   
+}
+div.botonperfiles:hover{
+     background-image: url('images/perfil_over_es.png');
+    
+}
+div.botonperfilen{
+     
+    background-image: url('images/perfil_en.png');
+}
+div.botonperfilen:hover{
+    
+    background-image: url('images/perfil_over_en.png');
+}
+
+div.botontemaes{
+     background-image: url('images/tema_es.png');
+   
+}
+div.botontemaes:hover{
+     background-image: url('images/tema_over_es.png');
+    
+}
+div.botontemaen{
+    background-image: url('images/tema_en.png');
+   
+}
+div.botontemaen:hover{
+      background-image: url('images/tema_over_en.png');
+    
+}
+

@@ -4,7 +4,6 @@
  */
 package com.popcorn.view;
 
-import com.google.appengine.api.datastore.KeyFactory;
 import java.io.Serializable;
 import com.popcorn.persistence.Usuario;
 import com.popcorn.service.UsuarioService;
@@ -63,13 +62,6 @@ public class UsuarioController implements Serializable {
 
     public Usuario actualUser() {
         usuario = usuarioService.getCurrentUser();
-
-        /*System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() APELLIDO : " + usuario.getApellido());
-        System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() NOMBRE : " + usuario.getNombre());
-        System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() PASS : " + usuario.getPassword());
-        System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() USER : " + usuario.getUsername());
-        System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() ID : " + usuario.getId());
-        System.out.println("AQUI CONTROLADOR USUARIO ACTUALUSER() AVATAR : " + usuario.getAvatar());*/
         return usuario;
     }
 
@@ -110,17 +102,11 @@ public class UsuarioController implements Serializable {
 
     public Collection<Usuario> getUsuarios() {
         usuarios = usuarioService.getAll();
-        System.out.println(usuarios);
+        //System.out.println(usuarios);
         return usuarios;
     }
 
     public void update(Usuario usr) {
-        /*System.out.println("AQUI CONTROLADOR USUARIO UPDATE() APELLIDO : " + usuario.getApellido());
-        System.out.println("AQUI CONTROLADOR USUARIO UPDATE() NOMBRE : " + usuario.getNombre());
-        System.out.println("AQUI CONTROLADOR USUARIO UPDATE() PASS : " + usuario.getPassword());
-        System.out.println("AQUI CONTROLADOR USUARIO UPDATE() USER : " + usuario.getUsername());
-        System.out.println("AQUI CONTROLADOR USUARIO UPDATE() ID : " + usr.getId());
-        System.out.println("AQUI CONTROLADOR USUARIO UPDATE() AVATAR : " + usuario.getAvatar());*/
 
         if (usuario.getApellido() == null) {
             usuario.setApellido(usr.getApellido());

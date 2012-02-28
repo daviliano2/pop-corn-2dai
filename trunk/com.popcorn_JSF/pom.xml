@@ -8,7 +8,7 @@
     <artifactId>popcornJSF</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>PopCornJSF</name>
+    <name>PopCornJSFLast</name>
     <description>Proyecto 2011/2012</description>
     <url>http://foropopcorn2dai.appspot.com/</url>
     <organization>
@@ -29,7 +29,7 @@
 			version pointed to by ${gae.home} property (Typically, one used by
 			your Eclipse plug-in)
 		-->
-        <gae.version>1.6.1</gae.version>
+        <gae.version>1.6.2</gae.version>
 
 		<!--
 			GAE home points to directory where GAE SDK is unpacked in local
@@ -43,7 +43,7 @@
 			Upload to http://0.latest.<appId>.appspot.com by default
 		-->
         <gae.application.appId>foropopcorn2dai</gae.application.appId>
-        <gae.application.version>1</gae.application.version>
+        <gae.application.version>3</gae.application.version>
     </properties>
 
 
@@ -96,7 +96,6 @@
             <artifactId>spring-faces</artifactId>
             <version>2.3.0.RELEASE</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -178,10 +177,6 @@
             <artifactId>jsf-impl</artifactId>
             <version>2.0.2-FCS</version>
         </dependency>
-
-        
-
-        
 
         <dependency>
             <groupId>javax.el</groupId>
