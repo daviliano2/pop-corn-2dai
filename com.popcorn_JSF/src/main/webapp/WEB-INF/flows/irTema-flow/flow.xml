@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	parent="parent-flow">
 
-    <input name="tema" />
+    <input name="tema"/>
 
     <view-state id="irTema" view="editarTema.xhtml">         
         

@@ -152,11 +152,10 @@
                             </c:if>
                         </p:column>
                     </p:dataTable>
-
+                    
                     <p:dataTable id="comentarios" value="#{coments}"
-                                 var="coment" emptyMessage="#{msg.no_temas}" paginator="true" rows="10"  
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                 rowsPerPageTemplate="5,10,15">
+                                 var="coment" emptyMessage="#{msg.no_temas}">
+                        
                         <p:column style="width: 175px">
                             <f:facet name="header">
                                 <h:outputText value="#{msg.autor}"/>
@@ -190,6 +189,14 @@
                                                 sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username == coment.autor}">
                                 <p:separator/>
                                 <p:commandLink value="#{msg.borrar_comentario}" action="borrarComentario" ajax="false">                                    
+                                    <f:setPropertyActionListener value="#{coment}" target="#{comentarioController.comentario}" />
+                                </p:commandLink>                               
+
+                            </h:form>
+                            <h:form rendered="#{sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal != null and
+                                                sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username == coment.autor}">
+                                <p:separator/>
+                                <p:commandLink value="#{msg.edit_coment}" action="editarComentario" ajax="false">                                    
                                     <f:setPropertyActionListener value="#{coment}" target="#{comentarioController.comentario}" />
                                 </p:commandLink>                               
 

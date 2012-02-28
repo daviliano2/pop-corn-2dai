@@ -30,8 +30,11 @@
             <evaluate expression="comentarioController.buscaComentario()" result="flowScope.comentario"/>           
         </transition>
         
-        <transition on="borrarTema" to="borraTema">
-                     
+        <transition on="borrarTema" to="borraTema">                     
+        </transition>
+        
+        <transition on="editarComentario" to="editaComent">
+            <evaluate expression="comentarioController.getComentario()" result="flowScope.comentario"/>           
         </transition>
         
     </view-state>    
@@ -57,6 +60,11 @@
     </action-state>
     
     <subflow-state id="irVerTemas" subflow="verTemas-flow" >        
+        <transition on="end" to="end" />
+    </subflow-state>
+    
+    <subflow-state id="editaComent" subflow="editarComentario-flow" >  
+        <input name="comentario"/>
         <transition on="end" to="end" />
     </subflow-state>
             

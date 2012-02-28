@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+        <title>Ediar Comentario</title>
+
+    </h:head>
+
+    <h:body style="background-color: 2c3e54;">
+        <center> 
+            <p:layout style="min-width:600px;min-height:700px;max-width:200px;" id="layout"  >
+                <p:layoutUnit position="center">
+                    <p:dataTable value="#{comentario}" var="coment">
+                        <p:column style="width: 175px">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.autor}"/>
+                            </f:facet > 
+                            <h:panelGrid style="background-color: activecaption;width: 125px; height: 125px">
+                                <p:graphicImage height="125" width="125"  url="#{coment.avatar}"/>
+                            </h:panelGrid> 
+                            <br/>
+                            <h:outputLabel value="#{coment.autor}" escape="false" style="font-weight: bold"/>
+                        </p:column>
+
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText  value="POST"/>
+                            </f:facet>                           
+
+                            <p:toolbar>
+                                <p:toolbarGroup align="center">
+                                    <h:outputLabel value="#{coment.titulo}" escape="false" /> 
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                            <br/>
+                            <h:outputFormat value="#{coment.content}" escape="false"/>
+                            <br/><br/>
+                        </p:column>                        
+                    </p:dataTable>
+                    
+                    <p:toolbar style=" background-image: url('../images/fondoc.png')">
+                        <p:toolbarGroup  >
+                            
+                            <h:form>
+                                <h:panelGrid columns="2" cellpadding="5" width="580" >
+                                    <h:column>
+                                        <br/>
+                                        <center><h:outputLabel for="titulo" value="#{msg.titulo}:" />
+                                            <p:inputText id="titulo" value="#{comentarioController.comentario2.titulo}"/>
+                                            <br/><br/>
+                                            <h:outputLabel for="comenta" value="#{msg.tema}" />                    
+                                            <p:editor id="coment" value="#{comentarioController.comentario2.content}"/>                
+                                            <p:commandButton iconPos="right" value="#{msg.edit_coment}" ajax="false" action="irAEditarComentario"/>
+                                        </center>
+                                    </h:column>
+                                    <f:facet name="footer"></f:facet>
+                                </h:panelGrid>
+                            </h:form>
+                                
+                            <br/><br/><br/><br/><br/>
+                            <center><h:outputLink value="/index.html">#{msg.ir_a_inicio}</h:outputLink></center>
+                        </p:toolbarGroup>
+                    </p:toolbar>     
+                </p:layoutUnit>
+
+            </p:layout>
+        </center> 
+    </h:body>
+</html>

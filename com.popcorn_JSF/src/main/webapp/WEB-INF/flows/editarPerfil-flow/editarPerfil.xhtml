@@ -43,20 +43,20 @@
             <h:panelGrid columns="2" cellpadding="5" width="580" >
                 <h:column>
                     <br/>
-                    <center><h:outputLabel for="user" value="#{msg.usuario}:" />
+                    <center><h:outputLabel for="usr" value="#{msg.usuario}:" />
                         <p:inputText id="usr" value="#{usuarioController.usuario.username}" readonly="true" />
                     <p:watermark for="usr" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}" />  
                     <br/><br/>
-                    <h:outputLabel for="pass" value="#{msg.password}(*):" />
+                    <h:outputLabel  value="#{msg.password}(*):" />
                     <p:password  value="#{usuarioController.usuario.password}" required="true"/>
                     <br/><br/>
-                    <h:outputLabel for="autor" value="#{msg.autor}:" />
-                    <p:inputText id="ath" value="#{usuarioController.usuario.nombre}"/>
-                    <p:watermark for="ath" value="#{usuarioController.usuario.nombre}" />  
+                    <h:outputLabel for="auth" value="#{msg.autor}:" />
+                    <p:inputText id="auth" value="#{usuarioController.usuario.nombre}"/>
+                    <p:watermark for="auth" value="#{usuarioController.usuario.nombre}" />  
                     <br/><br/>
                     <h:outputLabel for="surn" value="#{msg.apellido}"  />
-                    <p:inputText id="apellido" value="#{usuarioController.usuario.apellido}" />
-                    <p:watermark for="apellido" value="#{usuarioController.usuario.apellido}" />  
+                    <p:inputText id="surn" value="#{usuarioController.usuario.apellido}" />
+                    <p:watermark for="surn" value="#{usuarioController.usuario.apellido}" />  
                     <br/><br/>
                        
                 
@@ -69,7 +69,7 @@
                           </h:panelGrid> 
                     </p:column>
                         <p:column>
-                            <h:outputLabel  value="El avatar es una URL que tiene que medir 125x125."  />
+                            <h:outputLabel  value="#{msg.avatar_perfil}"  />
                             <br/>
                             <p:inputText id="ava" value="#{usuarioController.usuario.avatar}" />
                             

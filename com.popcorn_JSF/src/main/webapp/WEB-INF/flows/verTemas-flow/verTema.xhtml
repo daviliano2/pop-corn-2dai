@@ -118,9 +118,13 @@
                     </p:toolbar>
 
                     <p:dataTable id="temas" value="#{temaController.temas}"
-                                 var="tema" emptyMessage="#{msg.no_temas}" paginator="true" rows="10"  
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                 rowsPerPageTemplate="5,10,15">
+                                 var="tema" emptyMessage="#{msg.no_temas}">
+
+                        <!-- ESTO PERTENECE AL DATATABLE PARA PAGINAR, PERO CON APPENGINE NO FUNCIONA 
+                                paginator="true" rows="10"  
+                                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                rowsPerPageTemplate="5,10,15" 
+                        -->
 
                         <p:column >
                             <f:facet name="header">
@@ -168,7 +172,7 @@
                         </sec:authorize>                        
 
                     </p:dataTable>
-                   
+
 
                     <p:toolbar>
                         <p:toolbarGroup align="left">

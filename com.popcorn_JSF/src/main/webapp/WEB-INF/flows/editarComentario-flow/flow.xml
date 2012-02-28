@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow">
+
+<input name="comentario" />
+
+    <view-state id="editarComentarios" view="editarComentario.xhtml">
+        <transition on="irAEditarComentario" to="editarComent" />
+    </view-state>
+
+    <action-state id="editarComent">
+        <evaluate expression="comentarioController.editar(comentario)" />
+        <transition on="si" to="irVerTemas" />
+    </action-state>
+    
+    <subflow-state id="irVerTemas" subflow="verTemas-flow" >        
+        <transition on="end" to="end" />
+    </subflow-state>
+</flow>

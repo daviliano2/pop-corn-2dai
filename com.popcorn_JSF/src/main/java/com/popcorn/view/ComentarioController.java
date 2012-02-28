@@ -28,13 +28,14 @@ import org.springframework.webflow.execution.RequestContext;
 public class ComentarioController implements Serializable {
 
     private Comentario comentario;
-    private Key idComentario;
+    private Comentario comentario2 = new Comentario();
+    //private Key idComentario;
     private Collection<Key> comentarios;
     private Collection<Comentario> comentarios2 = new ArrayList<Comentario>();
     private ComentarioService comentarioService;
-    private TemaService temaService;
+    //private TemaService temaService;
     private UsuarioService usuarioService;
-    private int numComentarios;
+    //private int numComentarios;
 
     @Required
     @Autowired
@@ -42,11 +43,11 @@ public class ComentarioController implements Serializable {
         this.comentarioService = comentarioService;
     }
 
-    @Required
+    /*@Required
     @Autowired
     public void setTemaService(TemaService temaService) {
         this.temaService = temaService;
-    }
+    }*/
 
     @Required
     @Autowired
@@ -61,7 +62,15 @@ public class ComentarioController implements Serializable {
     public void setComentarios(Collection<Key> comentarios) {
         this.comentarios = comentarios;
     }
+  
+    public Comentario getComentario2() {
+        return comentario2;
+    }
 
+    public void setComentario2(Comentario comentario2) {
+        this.comentario2 = comentario2;
+    }
+    
     public Collection<Comentario> getComentarios2() {
         comentarios2 = comentarioService.getAll();
         return comentarios2;
@@ -87,17 +96,17 @@ public class ComentarioController implements Serializable {
         this.comentario = comentario;
     }
 
-    public void setNumComentarios(int numComentarios) {
+    /*public void setNumComentarios(int numComentarios) {
         this.numComentarios = numComentarios;
-    }
+    }*/
 
     public Key getIdComentario() {
         return comentario.getId();
     }
 
-    public void setIdComentario(Key idComentario) {
+    /*public void setIdComentario(Key idComentario) {
         this.idComentario = idComentario;
-    }
+    }*/
 
     public Collection<Key> fijarComentarios(Tema tema) {
         comentarios = comentarioService.getAllComentarios(tema.getId());       
@@ -117,8 +126,8 @@ public class ComentarioController implements Serializable {
             comentario.setTemaTitulo(tema.getTitulo());
             comentario.setAvatar(user.getAvatar());
             comentario.setIdTema(tema.getId());
-            if (comentario.getTitulo() == null) {
-                comentario.setTitulo("RE"+tema.getTitulo());
+            if (comentario.getTitulo().isEmpty()) {
+                comentario.setTitulo("RE: "+tema.getTitulo());
             }
             comentarioService.create(comentario);
             comentarioService.addComentario(comentario, tema);
@@ -141,12 +150,19 @@ public class ComentarioController implements Serializable {
         return "si";
     }
 
-    public void editarComenta(Comentario a) {
-        System.out.println("Aki editarComenta");
-        System.out.println("a id: " + a.getId());
-        System.out.println("comentario id: " + comentario.getId());
+    public String editar(Comentario com) {        
+        /*System.out.println("AQUI comentarioController editar comentario: " + com.getTitulo());
+        System.out.println("AQUI comentarioController editar comentario2: " + comentario2.getTitulo());
+        System.out.println("AQUI comentarioController editar comentario.Id: " + com.getId());
+        System.out.println("AQUI comentarioController editar comentario2.Id: " + comentario2.getId());*/
+        comentario2.setAutor(usuarioService.getCurrentUser().getUsername());
+        if(comentario2.getTitulo().isEmpty()) {
+            comentario2.setTitulo("Editado: "+com.getTitulo());
+        }
+        comentarioService.editar(com.getId(), comentario2);
+        return "si";
     }
-
+    
     public Collection<Comentario> convertir(Collection<Key> comentarios) {
         Collection<Comentario> coments = new ArrayList<Comentario>();
         int contador;
