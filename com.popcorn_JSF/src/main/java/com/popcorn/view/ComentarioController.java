@@ -5,7 +5,6 @@
 package com.popcorn.view;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.users.UserService;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -56,7 +55,6 @@ public class ComentarioController implements Serializable {
     }
 
     public Collection<Key> getComentarios() {
-        System.out.println("AQUI comentarioController getComentarios comentarios: " + comentarios);
         return comentarios;
     }
 
@@ -102,8 +100,7 @@ public class ComentarioController implements Serializable {
     }
 
     public Collection<Key> fijarComentarios(Tema tema) {
-        comentarios = comentarioService.getAllComentarios(tema.getId());
-        //System.out.println("AQUI comentarioController fijarComentarios 2 comentarios: " + comentarios);        
+        comentarios = comentarioService.getAllComentarios(tema.getId());       
         return comentarios;
     }
 
@@ -136,7 +133,6 @@ public class ComentarioController implements Serializable {
     public String borrarComentario(Comentario comentario, RequestContext context) {
         int contador;
         Usuario user;
-        //System.out.println("AQUI comentarioController borrarComentario comentario: " + comentario.getContent());
         user = usuarioService.getCurrentUser();
         contador = user.getContadorCom();
         contador--;
