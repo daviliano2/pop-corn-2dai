@@ -20,6 +20,8 @@ public interface ComentarioService {
     void create(final Comentario comentario, Key idTema);
     
     void addComentario(Comentario comentario, Tema tema);
+    
+    void editar(Key idComentario, final Comentario comentario);
 
     Comentario getComentario(Key idComentario);
     

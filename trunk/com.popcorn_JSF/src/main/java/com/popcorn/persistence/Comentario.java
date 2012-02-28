@@ -17,21 +17,13 @@ public class Comentario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key id;    
-       
+    private Key id;
+    
     @Basic
     private String content;
     
     @Basic
     private String titulo;
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
@@ -42,30 +34,29 @@ public class Comentario implements Serializable {
     @Basic
     private String temaTitulo;
     
-    @Basic 
+    @Basic
     private Key idTema;
     
     /*@ManyToOne(fetch = FetchType.LAZY)
     private Tema tema;    */
-
+    
     @Basic
     private int autorComents;
     
     @Basic
     private String avatar;
-    
+
     public Comentario() {
-        titulo = null;
     }
 
-    public Comentario(Usuario autor, String content, Date fecha) {        
+    public Comentario(Usuario autor, String content, Date fecha) {
         if (autor != null) {
             this.autor = autor.getUsername();
         }
         this.content = content;
         this.fecha = fecha;
     }
-    
+
     public Comentario(String content, Date fecha) {
         this.content = content;
         this.fecha = fecha;
@@ -78,10 +69,10 @@ public class Comentario implements Serializable {
     public void setAutor(String autor) {
         this.autor = autor;
     }
-    
+
     public Key getId() {
         return id;
-    }  
+    }
 
     public String getContent() {
         return content;
@@ -109,8 +100,8 @@ public class Comentario implements Serializable {
 
     public void setTemaTitulo(String temaTitulo) {
         this.temaTitulo = temaTitulo;
-    }    
-    
+    }
+
     public Key getIdTema() {
         return idTema;
     }
@@ -118,8 +109,7 @@ public class Comentario implements Serializable {
     public void setIdTema(Key idTema) {
         this.idTema = idTema;
     }
-    
-    
+
     public int getAutorComents() {
         return autorComents;
     }
@@ -127,12 +117,20 @@ public class Comentario implements Serializable {
     public void setAutorComents(int autorComents) {
         this.autorComents = autorComents;
     }
-    
+
     public String getAvatar() {
         return avatar;
     }
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getTitulo() {
+        return titulo;
     }
 }

@@ -55,6 +55,16 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
     
     @Override
+    public void editar(Key idComentario, final Comentario comentario) {
+        System.out.println("AQUI temaService editar 1 tema: " + comentario);
+        Comentario comentario2 = comentarioDAO.findByPK(Comentario.class, idComentario); 
+        comentario2.setAutor(comentario.getAutor());
+        comentario2.setContent(comentario.getContent());
+        comentario2.setTitulo(comentario.getTitulo());
+        System.out.println("AQUI temaService editar 1 tema2: " + comentario2);
+    }
+    
+    @Override
     public Comentario getComentario(Key idComentario) {
         return comentarioDAO.findByPK(Comentario.class, idComentario);
     }
