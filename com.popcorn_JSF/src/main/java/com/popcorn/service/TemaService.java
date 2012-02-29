@@ -19,6 +19,8 @@ public interface TemaService {
     
     void editar(Key idTema, Tema tema);
     
+    Tema editarAvatar(Key idTema,Tema tema);
+    
     Collection<Tema> getAll() ;
 
     Collection<Tema> getPaginaTemas(int startPosition, int maxResult);

@@ -35,12 +35,24 @@ public class TemaServiceImpl implements TemaService {
     
     @Override
     public void editar(Key idTema, final Tema tema) {
-        System.out.println("AQUI temaService editar 1 tema: " + tema);
+        //System.out.println("AQUI temaService editar 1 tema: " + tema);
         Tema tema2 = temaDAO.findByPK(Tema.class, idTema); 
         tema2.setAutor(tema.getAutor());
         tema2.setContent(tema.getContent());
         tema2.setTitulo(tema.getTitulo());
-        System.out.println("AQUI temaService editar 1 tema2: " + tema2);
+        //System.out.println("AQUI temaService editar 1 tema2: " + tema2);
+    }
+    
+    @Override 
+    public Tema editarAvatar(Key idTema,Tema tema) {
+        //System.out.println("AQUI temaService editarAvatar tema: " + tema);
+        Tema tema2 = temaDAO.findByPK(Tema.class, idTema);
+        tema2.setAvatar(tema.getAvatar());
+        tema2.setAutor(tema.getAutor());
+        tema2.setContent(tema.getContent());
+        tema2.setTitulo(tema.getTitulo());
+        //System.out.println("AQUI temaService editarAvatar 2 tema2: " + tema2);
+        return tema2;
     }
     
     @Override

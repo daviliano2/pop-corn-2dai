@@ -13,7 +13,7 @@
                      
         <on-render>
             <evaluate expression="comentarioController.convertir(comentarios)" result="flowScope.coments"/>
-
+            <evaluate expression="temaController.editaAvatar(tema)" result="flowScope.tema"/>
         </on-render>
         
         <transition on="irLoginUsuario" >

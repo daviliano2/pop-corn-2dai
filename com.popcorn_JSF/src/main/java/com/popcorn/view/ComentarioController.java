@@ -33,7 +33,7 @@ public class ComentarioController implements Serializable {
     private Collection<Key> comentarios;
     private Collection<Comentario> comentarios2 = new ArrayList<Comentario>();
     private ComentarioService comentarioService;
-    //private TemaService temaService;
+    private TemaService temaService;
     private UsuarioService usuarioService;
     //private int numComentarios;
 
@@ -43,11 +43,11 @@ public class ComentarioController implements Serializable {
         this.comentarioService = comentarioService;
     }
 
-    /*@Required
+    @Required
     @Autowired
     public void setTemaService(TemaService temaService) {
         this.temaService = temaService;
-    }*/
+    }
 
     @Required
     @Autowired
@@ -62,7 +62,7 @@ public class ComentarioController implements Serializable {
     public void setComentarios(Collection<Key> comentarios) {
         this.comentarios = comentarios;
     }
-  
+
     public Comentario getComentario2() {
         return comentario2;
     }
@@ -70,7 +70,7 @@ public class ComentarioController implements Serializable {
     public void setComentario2(Comentario comentario2) {
         this.comentario2 = comentario2;
     }
-    
+
     public Collection<Comentario> getComentarios2() {
         comentarios2 = comentarioService.getAll();
         return comentarios2;
@@ -97,19 +97,17 @@ public class ComentarioController implements Serializable {
     }
 
     /*public void setNumComentarios(int numComentarios) {
-        this.numComentarios = numComentarios;
+    this.numComentarios = numComentarios;
     }*/
-
     public Key getIdComentario() {
         return comentario.getId();
     }
 
     /*public void setIdComentario(Key idComentario) {
-        this.idComentario = idComentario;
+    this.idComentario = idComentario;
     }*/
-
     public Collection<Key> fijarComentarios(Tema tema) {
-        comentarios = comentarioService.getAllComentarios(tema.getId());       
+        comentarios = comentarioService.getAllComentarios(tema.getId());
         return comentarios;
     }
 
@@ -127,7 +125,7 @@ public class ComentarioController implements Serializable {
             comentario.setAvatar(user.getAvatar());
             comentario.setIdTema(tema.getId());
             if (comentario.getTitulo().isEmpty()) {
-                comentario.setTitulo("RE: "+tema.getTitulo());
+                comentario.setTitulo("RE: " + tema.getTitulo());
             }
             comentarioService.create(comentario);
             comentarioService.addComentario(comentario, tema);
@@ -150,22 +148,19 @@ public class ComentarioController implements Serializable {
         return "si";
     }
 
-    public String editar(Comentario com) {        
-        /*System.out.println("AQUI comentarioController editar comentario: " + com.getTitulo());
-        System.out.println("AQUI comentarioController editar comentario2: " + comentario2.getTitulo());
-        System.out.println("AQUI comentarioController editar comentario.Id: " + com.getId());
-        System.out.println("AQUI comentarioController editar comentario2.Id: " + comentario2.getId());*/
+    public String editar(Comentario com) {
         comentario2.setAutor(usuarioService.getCurrentUser().getUsername());
-        if(comentario2.getTitulo().isEmpty()) {
-            comentario2.setTitulo("Editado: "+com.getTitulo());
+        if (comentario2.getTitulo().isEmpty()) {
+            comentario2.setTitulo("Ed: " + com.getTitulo());
         }
         comentarioService.editar(com.getId(), comentario2);
         return "si";
     }
-    
+
     public Collection<Comentario> convertir(Collection<Key> comentarios) {
         Collection<Comentario> coments = new ArrayList<Comentario>();
         int contador;
+        String avatar;
         for (Key com : comentarios) {
             coments.add(comentarioService.getComentario(com));
         }
@@ -173,7 +168,10 @@ public class ComentarioController implements Serializable {
         for (Comentario com2 : coments) {
             contador = usuarioService.getUsuario(com2.getAutor()).getContadorCom();
             com2.setAutorComents(contador);
-            com2.setAvatar(usuarioService.getUsuario(com2.getAutor()).getAvatar());
+            avatar = usuarioService.getUsuario(com2.getAutor()).getAvatar();
+            if (!com2.getAvatar().equals(avatar)) {
+                com2.setAvatar(avatar);                
+            }
             coments2.add(com2);
         }
         return coments2;
