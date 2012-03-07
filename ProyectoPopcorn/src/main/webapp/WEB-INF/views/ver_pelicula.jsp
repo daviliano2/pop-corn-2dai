@@ -101,8 +101,10 @@
             <b>Fecha estreno: </b><c:out value="${pelicula.fechEstreno}"/><br/>
             <b>Sinopsis:</b><br/> <c:out value="- ${pelicula.sinopsis}"/><br/>
         </p>
-        <a href="http://www.youtube.com/embed/${pelicula.trailer}" target="_blank">Ver trailer</a><br/>
-        <!--<iframe width="560" height="315" src="http://www.youtube.com/embed/${pelicula.trailer}" frameborder="0" allowfullscreen></iframe>-->
+        <c:if test="${not empty pelicula.trailer}">
+            <a href="http://www.youtube.com/embed/${pelicula.trailer}" target="_blank">Ver trailer</a><br/>
+            <!--<iframe width="560" height="315" src="http://www.youtube.com/embed/${pelicula.trailer}" frameborder="0" allowfullscreen></iframe>-->
+        </c:if>
     </div>
     <div id="apDivValoracion">                   
         <strong>Tu valoracion:</strong>                    
